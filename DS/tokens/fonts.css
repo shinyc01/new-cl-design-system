@@ -1,0 +1,9 @@
+/* ============================================================
+   IFS Copperleaf — Webfonts
+   Inter is the product's single UI typeface (text + display).
+   Roboto Mono covers monospace/code & tabular contexts.
+   Loaded from Google Fonts (both are the genuine families, free
+   to embed). The logo wordmark uses Parabole (commercial) and is
+   supplied as an image asset, not a webfont — see assets/.
+   ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap');

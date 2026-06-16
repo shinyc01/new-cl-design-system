@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cooper Chat — IFS Copperleaf Design System</title>
+<link rel="stylesheet" href="../../DS/styles.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.34.0/dist/tabler-icons.min.css">
+<link rel="stylesheet" href="../site.css">
+<script src="../site.js"></script>
+<script src="../../DS/icons/icons.js"></script>
+<style>
+
+/* ── Shared Cooper gradient ──────────────────────────────── */
+/* Background layering used in both pill and floating panel  */
+.cooper-bg {
+  background-image:
+    url("data:image/svg+xml;utf8,<svg viewBox='0 0 320 360' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none'><rect x='0' y='0' width='100%' height='100%' fill='url(%23cg)' opacity='0.20'/><defs><radialGradient id='cg' gradientUnits='userSpaceOnUse' cx='49' cy='360' r='180'><stop stop-color='rgba(200,121,65,1)' offset='0'/><stop stop-color='rgba(100,61,33,1)' offset='0.5'/><stop stop-color='rgba(0,0,0,1)' offset='1'/></radialGradient></defs></svg>"),
+    linear-gradient(0deg, rgba(0,0,0,0.10) 0%, rgba(0,0,0,0.10) 100%);
+  background-size: 100% 100%, 100% 100%;
+}
+
+/* ── Inline quick input pill ─────────────────────────────── */
+.chat-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gap-100);
+  height: 48px;
+  width: 320px;
+  padding: var(--gap-200);
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border-base);
+  backdrop-filter: blur(var(--blur-strong));
+  -webkit-backdrop-filter: blur(var(--blur-strong));
+  box-shadow: 0 12px 16px rgba(0,0,0,0.35);
+  position: relative;
+  background-image:
+    url("data:image/svg+xml;utf8,<svg viewBox='0 0 320 48' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none'><rect x='0' y='0' width='100%' height='100%' fill='url(%23cg)' opacity='0.20'/><defs><radialGradient id='cg' gradientUnits='userSpaceOnUse' cx='49' cy='48' r='66'><stop stop-color='rgba(200,121,65,1)' offset='0'/><stop stop-color='rgba(100,61,33,1)' offset='0.5'/><stop stop-color='rgba(0,0,0,1)' offset='1'/></radialGradient></defs></svg>"),
+    linear-gradient(0deg, rgba(0,0,0,0.10) 0%, rgba(0,0,0,0.10) 100%);
+  background-size: 100% 100%, 100% 100%;
+}
+.chat-pill--active,
+.chat-pill:focus-within {
+  border-color: var(--border-medium);
+}
+.chat-pill--multiline {
+  height: auto;
+  min-height: 48px;
+  border-radius: var(--radius-300);
+  flex-direction: column;
+  align-items: stretch;
+  padding: 0;
+  background-image:
+    url("data:image/svg+xml;utf8,<svg viewBox='0 0 320 134' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none'><rect x='0' y='0' width='100%' height='100%' fill='url(%23cg)' opacity='0.20'/><defs><radialGradient id='cg' gradientUnits='userSpaceOnUse' cx='49' cy='134' r='150'><stop stop-color='rgba(200,121,65,1)' offset='0'/><stop stop-color='rgba(100,61,33,1)' offset='0.5'/><stop stop-color='rgba(0,0,0,1)' offset='1'/></radialGradient></defs></svg>"),
+    linear-gradient(0deg, rgba(0,0,0,0.10) 0%, rgba(0,0,0,0.10) 100%);
+}
+.chat-pill--multiline .chat-pill__text-area {
+  padding: 12px 14px 4px;
+  flex: 1;
+  font-size: var(--body-l-size);
+  font-weight: var(--weight-medium);
+  line-height: var(--body-l-line);
+  letter-spacing: var(--body-l-medium-tracking);
+  color: var(--text-primary);
+}
+.chat-pill--multiline .chat-pill__actions-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--gap-200);
+  flex-shrink: 0;
+}
+
+.chat-pill__icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-100);
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--text-primary);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.chat-pill__icon-btn:hover {
+  background: var(--button-ghost-fill-hover);
+}
+.chat-pill__icon-btn--send {
+  border-radius: var(--radius-full);
+  background: var(--button-primary-fill-default);
+  color: var(--surface-primary);
+  border-color: rgba(255,255,255,0.1);
+}
+.chat-pill__icon-btn--send:hover {
+  background: rgba(255,255,255,0.85);
+}
+
+.chat-pill__input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: var(--body-l-family, 'Inter', sans-serif);
+  font-size: var(--body-l-size);
+  font-weight: var(--weight-medium);
+  line-height: var(--body-l-line);
+  letter-spacing: var(--body-l-medium-tracking);
+  color: var(--text-primary);
+  caret-color: var(--text-accent-cooper);
+  padding: 0 var(--gap-100);
+  min-width: 0;
+}
+.chat-pill__input::placeholder {
+  color: var(--text-tertiary);
+  font-weight: var(--weight-medium);
+}
+
+/* FTA button — 48px Cooper orb for inline trigger */
+.fta-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--white-100);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  cursor: pointer;
+  background-image:
+    url("data:image/svg+xml;utf8,<svg viewBox='0 0 48 48' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none'><rect x='0' y='0' width='100%' height='100%' fill='url(%23cg)' opacity='0.20'/><defs><radialGradient id='cg' gradientUnits='userSpaceOnUse' cx='7' cy='48' r='52'><stop stop-color='rgba(200,121,65,1)' offset='0'/><stop stop-color='rgba(100,61,33,1)' offset='0.5'/><stop stop-color='rgba(0,0,0,1)' offset='1'/></radialGradient></defs></svg>"),
+    linear-gradient(0deg, rgba(0,0,0,0.10) 0%, rgba(0,0,0,0.10) 100%);
+  background-size: 100% 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+}
+.fta-btn:hover {
+  border-color: var(--border-medium);
+}
+
+/* ── Floating chat window ────────────────────────────────── */
+.chat-window {
+  width: 320px;
+  border-radius: var(--radius-200);
+  border: 1px solid var(--border-medium);
+  box-shadow: 0 16px 64px rgba(0,0,0,0.60), 0 4px 16px rgba(0,0,0,0.30);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  flex-shrink: 0;
+}
+.chat-window__bg-base {
+  position: absolute; inset: 0;
+  background: rgba(0,0,0,0.10);
+  z-index: 0;
+}
+.chat-window__bg-gradient {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 55% 85% at 15% 105%, rgba(200,121,65,0.20) 0%, transparent 65%);
+  z-index: 0;
+}
+.chat-window__bg-blur {
+  position: absolute; inset: 0;
+  backdrop-filter: blur(var(--blur-strong)) saturate(1.2);
+  -webkit-backdrop-filter: blur(var(--blur-strong)) saturate(1.2);
+  z-index: 0;
+}
+
+/* Header */
+.chat-window__header {
+  position: relative; z-index: 1;
+  display: flex; align-items: center; gap: 10px;
+  padding: 0 var(--gap-300);
+  height: 48px;
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--border-base);
+}
+.chat-orb {
+  width: 26px; height: 26px; border-radius: 50%;
+  background: #252525;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; overflow: hidden;
+}
+.chat-orb svg { display: block; width: 18px; height: 18px; }
+.chat-title {
+  font-size: var(--label-m-size);
+  font-weight: var(--weight-regular);
+  color: var(--text-secondary);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.chat-header-actions {
+  margin-left: auto;
+  display: flex; align-items: center; gap: 2px;
+}
+.chat-icon-btn {
+  width: 28px; height: 28px; border-radius: var(--radius-100);
+  background: transparent; border: none;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background var(--motion-fast), color var(--motion-fast);
+  flex-shrink: 0;
+}
+.chat-icon-btn:hover {
+  background: var(--white-100);
+  color: var(--text-secondary);
+}
+
+/* Messages */
+.chat-window__messages {
+  position: relative; z-index: 1;
+  flex: 1;
+  overflow-y: auto;
+  padding: 14px var(--gap-300) 10px;
+  display: flex; flex-direction: column; gap: 10px;
+  min-height: 200px;
+  max-height: 260px;
+}
+.chat-window__messages::-webkit-scrollbar { width: 4px; }
+.chat-window__messages::-webkit-scrollbar-track { background: transparent; }
+.chat-window__messages::-webkit-scrollbar-thumb { background: var(--white-100); border-radius: 2px; }
+
+.chat-window__empty {
+  flex: 1; display: flex; align-items: center; justify-content: center;
+  padding: 24px 20px; text-align: center;
+}
+.chat-window__empty-text {
+  font-size: var(--body-l-size);
+  line-height: var(--body-l-line);
+  color: var(--text-tertiary);
+}
+
+/* Message bubbles */
+.msg-user {
+  align-self: flex-end;
+  max-width: 88%;
+  background: var(--white-100);
+  border-radius: var(--radius-full);
+  padding: 6px var(--gap-300);
+  font-size: var(--body-l-size);
+  font-weight: var(--weight-regular);
+  line-height: var(--body-l-line);
+  letter-spacing: var(--body-l-tracking);
+  color: var(--text-primary);
+}
+.msg-user--multiline {
+  border-radius: var(--radius-300);
+  align-self: flex-end;
+  width: 100%;
+}
+.msg-user:hover {
+  background: var(--white-200);
+}
+
+.msg-ai {
+  font-size: var(--body-l-size);
+  line-height: var(--body-l-line);
+  letter-spacing: var(--body-l-tracking);
+  color: var(--text-secondary);
+  background: rgba(115,115,115,0.20);
+  border: 1px solid rgba(200,121,65,0.10);
+  border-radius: var(--radius-200);
+  padding: 10px var(--gap-300);
+}
+
+/* Follow-up chips */
+.followup-list {
+  display: flex; flex-direction: column; gap: var(--gap-100);
+  margin-top: 4px;
+}
+.followup-chip {
+  display: flex; align-items: center; gap: var(--gap-200);
+  padding: 6px 10px;
+  border-radius: var(--radius-100);
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-size: var(--body-l-size);
+  font-weight: var(--weight-regular);
+  line-height: var(--body-l-line);
+  text-align: left;
+  cursor: pointer;
+  width: 100%;
+  transition: background var(--motion-fast), color var(--motion-fast);
+}
+.followup-chip:hover {
+  background: var(--white-100);
+  color: var(--text-primary);
+}
+.followup-chip i {
+  font-size: 14px;
+  color: var(--text-tertiary);
+  flex-shrink: 0;
+}
+
+/* Input row */
+.chat-window__input-row {
+  position: relative; z-index: 1;
+  padding: var(--gap-300);
+  flex-shrink: 0;
+}
+
+/* Prompt chips (bottom right overlay) */
+.prompt-chips {
+  display: flex; gap: var(--gap-200);
+  flex-wrap: wrap;
+}
+.prompt-chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  height: 36px; padding: 0 14px;
+  border-radius: var(--radius-full);
+  background: var(--white-100);
+  border: 1px solid var(--border-medium);
+  color: var(--text-secondary);
+  font-size: var(--label-m-size);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--label-m-tracking);
+  cursor: pointer;
+  backdrop-filter: blur(var(--blur-medium));
+  -webkit-backdrop-filter: blur(var(--blur-medium));
+  transition: background var(--motion-fast), border-color var(--motion-fast), color var(--motion-fast);
+  white-space: nowrap;
+}
+.prompt-chip:hover {
+  background: var(--white-200);
+  border-color: var(--white-200);
+  color: var(--text-primary);
+}
+
+/* State comparison grid */
+.bubble-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-300);
+}
+.bubble-row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gap-600);
+}
+.bubble-col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-200);
+  flex: 1;
+}
+.bubble-col-label {
+  font-size: var(--label-m-size);
+  color: var(--text-tertiary);
+  letter-spacing: 0.15px;
+}
+
+/* Side panel version */
+.chat-panel {
+  width: 450px;
+  height: 480px;
+  border-radius: var(--radius-200);
+  border: 1px solid var(--border-medium);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.chat-panel__header {
+  position: relative; z-index: 1;
+  display: flex; align-items: center; gap: 10px;
+  padding: 0 var(--gap-300);
+  height: 48px;
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--border-base);
+}
+.chat-panel__messages {
+  position: relative; z-index: 1;
+  flex: 1; overflow-y: auto;
+  padding: 14px var(--gap-300) 10px;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.chat-panel__messages::-webkit-scrollbar { width: 4px; }
+.chat-panel__messages::-webkit-scrollbar-track { background: transparent; }
+.chat-panel__messages::-webkit-scrollbar-thumb { background: var(--white-100); border-radius: 2px; }
+.chat-panel__input {
+  position: relative; z-index: 1;
+  padding: var(--gap-300);
+  flex-shrink: 0;
+  border-top: 1px solid var(--border-base);
+}
+
+/* Resize handle (left edge, full panel only) */
+.chat-resize-handle {
+  position: absolute; top: 0; left: 0;
+  width: 8px; height: 100%;
+  cursor: ew-resize; z-index: 10;
+  background: linear-gradient(to right, rgba(255,255,255,0.04), transparent);
+  border-left: 1px solid var(--border-base);
+}
+.chat-resize-handle::after {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 3px; height: 32px;
+  border-radius: 2px;
+  background: var(--border-medium);
+}
+
+/* Demo layout override to show chat window without shell bg */
+.demo--dark {
+  background: var(--surface-1);
+  border-radius: var(--radius-200);
+  padding: var(--gap-600) !important;
+  min-height: unset;
+}
+.demo--window-row {
+  display: flex;
+  gap: var(--gap-600);
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+/* ── Interactive demo stage ──────────────────────────────── */
+.demo-stage {
+  position: relative;
+  background: var(--surface-1);
+  border-radius: var(--radius-200);
+  height: 540px;
+  overflow: hidden;
+  flex-direction: column;
+}
+.demo-stage__hint {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: var(--body-l-size);
+  color: var(--text-tertiary);
+  white-space: nowrap;
+  pointer-events: none;
+  transition: opacity 0.3s;
+  text-align: center;
+  line-height: var(--body-l-line);
+}
+.demo-stage__hint.is-gone { opacity: 0; }
+.demo-stage__hint-sub {
+  display: block;
+  font-size: var(--label-m-size);
+  color: var(--text-tertiary);
+  margin-top: 4px;
+  opacity: 0.6;
+}
+.demo-fab-wrap {
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+  display: flex;
+  align-items: center;
+  gap: var(--gap-200);
+  z-index: 10;
+}
+.demo-prompt-chips {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--gap-200);
+  transition: opacity 0.25s, transform 0.25s;
+}
+.demo-prompt-chips.is-gone {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(8px);
+}
+.demo-fab {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-full);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s;
+}
+.demo-fab:hover { transform: scale(1.06); }
+.demo-fab:active { transform: scale(0.95); }
+/* Floating chat window positioned in demo stage */
+.demo-chat-float {
+  position: absolute;
+  bottom: 84px;
+  right: 24px;
+  width: 320px;
+  z-index: 20;
+  transform-origin: bottom right;
+  transition: opacity 0.2s, transform 0.2s;
+}
+.demo-chat-float.is-gone {
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.96) translateY(6px);
+}
+/* Side panel in demo stage */
+.demo-chat-panel {
+  position: absolute;
+  top: 0; right: 0; bottom: 0;
+  width: 420px;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid var(--border-medium);
+  overflow: hidden;
+  transition: opacity 0.2s, transform 0.2s;
+}
+.demo-chat-panel.is-gone {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(16px);
+}
+.demo-chat-panel .chat-panel__messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 14px var(--gap-300) 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.demo-chat-panel .chat-panel__messages::-webkit-scrollbar { width: 4px; }
+.demo-chat-panel .chat-panel__messages::-webkit-scrollbar-track { background: transparent; }
+.demo-chat-panel .chat-panel__messages::-webkit-scrollbar-thumb { background: var(--white-100); border-radius: 2px; }
+/* Typing indicator dot animation */
+@keyframes cooper-typing {
+  0%, 80%, 100% { opacity: 0.3; transform: translateY(0); }
+  40% { opacity: 1; transform: translateY(-3px); }
+}
+.typing-dot {
+  display: inline-block;
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--text-tertiary);
+  margin: 0 2px;
+  animation: cooper-typing 1.2s infinite;
+}
+.typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+.typing-indicator {
+  display: flex; align-items: center;
+  padding: 10px var(--gap-300);
+  background: rgba(115,115,115,0.20);
+  border: 1px solid rgba(200,121,65,0.10);
+  border-radius: var(--radius-200);
+  align-self: flex-start;
+}
+</style>
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="main">
+    <div class="page">
+      <div class="page-eyebrow">Patterns</div>
+      <h1>Cooper Chat</h1>
+      <p class="page-lede">Cooper is the AI assistant embedded across Copperleaf. It surfaces as a FAB in the bottom-right corner, expands to a floating window or full side panel, and can be triggered inline with a pill input directly in the page. Two input modes: voice (transcribed) and text.</p>
+
+      <h2>Interactive demo</h2>
+      <p class="section-note">Click the Cooper FAB or a prompt chip to open the chat. Type a message and press Enter or click Send. Use the expand button in the header to try the side panel view.</p>
+      <div class="demo-stage" id="demo-stage">
+
+        <!-- Hint -->
+        <div class="demo-stage__hint" id="demo-hint">
+          Click the FAB or a prompt chip to start
+          <span class="demo-stage__hint-sub">Bottom-right corner ↘</span>
+        </div>
+
+        <!-- Shared SVG defs for demo orb (one definition, referenced across demo SVGs) -->
+        <svg width="0" height="0" style="position:absolute;overflow:hidden" aria-hidden="true">
+          <defs>
+            <filter id="dorb_f1" x="4.45" y="4.45" width="39.1" height="39.1" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/><feOffset/><feGaussianBlur stdDeviation="1.775"/><feComposite in2="hardAlpha" operator="out"/><feColorMatrix type="matrix" values="0 0 0 0 0.75 0 0 0 0 0.67 0 0 0 0 0.93 0 0 0 1 0"/><feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/><feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/></filter>
+            <filter id="dorb_f3" x="15.93" y="12.01" width="23.32" height="22.66" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/><feGaussianBlur stdDeviation="1.58" result="effect1_foregroundBlur"/></filter>
+            <filter id="dorb_f4" x="8.79" y="12.15" width="30.41" height="19.21" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/><feGaussianBlur stdDeviation="0.96" result="effect1_foregroundBlur"/></filter>
+            <radialGradient id="dorb_p1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(24 24) rotate(90) scale(16)"><stop stop-color="white"/><stop offset="1" stop-color="#F3C79B"/></radialGradient>
+            <linearGradient id="dorb_p4" x1="37.30" y1="19.66" x2="25.92" y2="16.34" gradientUnits="userSpaceOnUse"><stop stop-color="#233288"/><stop offset="1" stop-color="#CD9579"/></linearGradient>
+            <radialGradient id="dorb_p10" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(27.60 17.75) rotate(115.50) scale(22.87 25.26)"><stop stop-color="white" stop-opacity="0"/><stop offset="0.61" stop-color="white" stop-opacity="0"/><stop offset="1" stop-color="white"/></radialGradient>
+            <radialGradient id="dorb_p11" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(19.17 10.08) rotate(-18.75) scale(16.20 17.89)"><stop stop-color="white"/><stop offset="0.61" stop-color="white" stop-opacity="0"/></radialGradient>
+          </defs>
+        </svg>
+
+        <!-- Floating chat window -->
+        <div class="demo-chat-float is-gone" id="demo-win">
+          <div class="chat-window">
+            <div class="chat-window__bg-base"></div>
+            <div class="chat-window__bg-gradient"></div>
+            <div class="chat-window__bg-blur"></div>
+            <div class="chat-window__header">
+              <div class="chat-orb" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <g filter="url(#dorb_f1)">
+                    <circle cx="24" cy="24" r="16" fill="url(#dorb_p1)"/>
+                    <g filter="url(#dorb_f3)"><ellipse cx="27.59" cy="23.35" rx="8.49" ry="8.16" fill="#ED8C53"/></g>
+                    <g filter="url(#dorb_f4)"><path d="M19.1548 20.3935C16.6613 23.7021 12.5445 25.877 10.7041 25.1821C12.4506 32.168 16.9539 28.5858 19.6055 28.0555C22.9858 27.3795 24.3379 20.1118 30.4224 20.1118C36.5069 20.1118 34.9295 31.2104 36.5633 28.0555C37.8703 25.5315 37.1079 21.7081 36.5633 20.1118C35.9623 18.4968 35.3013 14.309 30.7041 14.0836C24.9576 13.8019 22.0844 16.5063 19.1548 20.3935Z" fill="url(#dorb_p4)"/></g>
+                    <circle cx="24" cy="24" r="16" fill="url(#dorb_p10)"/>
+                    <circle cx="24" cy="24" r="16" fill="url(#dorb_p11)"/>
+                  </g>
+                  <ellipse cx="17.33" cy="17.83" rx="1.33" ry="1.33" fill="white"/>
+                  <ellipse cx="21.33" cy="21.83" rx="1.33" ry="1.33" fill="white"/>
+                  <ellipse cx="26.67" cy="21.83" rx="1.33" ry="1.33" fill="white"/>
+                  <ellipse cx="30.67" cy="17.83" rx="1.33" ry="1.33" fill="white"/>
+                  <ellipse cx="17.33" cy="31.17" rx="1.33" ry="1.33" fill="white"/>
+                  <ellipse cx="30.67" cy="31.17" rx="1.33" ry="1.33" fill="white"/>
+                </svg>
+              </div>
+              <span class="chat-title">Cooper</span>
+              <div class="chat-header-actions">
+                <button class="chat-icon-btn" title="History"><i class="ti ti-history" style="font-size:16px;line-height:1"></i></button>
+                <button class="chat-icon-btn" id="d-expand" title="Expand to side panel"><i class="ti ti-arrows-maximize" style="font-size:16px;line-height:1"></i></button>
+                <button class="chat-icon-btn" id="d-close" title="Close"><i class="ti ti-minus" style="font-size:16px;line-height:1"></i></button>
+              </div>
+            </div>
+            <div class="chat-window__messages" id="d-msgs">
+              <div class="chat-window__empty" id="d-empty">
+                <p class="chat-window__empty-text">Ask me anything about your portfolio, filings, or regulatory signals</p>
+              </div>
+            </div>
+            <div class="chat-window__input-row">
+              <div class="chat-pill" style="width:100%">
+                <button class="chat-pill__icon-btn" aria-label="Attach"><i class="ti ti-plus" style="font-size:16px;line-height:1"></i></button>
+                <input class="chat-pill__input" id="d-input" placeholder="Ask Cooper…" autocomplete="off">
+                <button class="chat-pill__icon-btn" aria-label="Voice"><i class="ti ti-microphone" style="font-size:16px;line-height:1"></i></button>
+                <button class="chat-pill__icon-btn chat-pill__icon-btn--send" id="d-send" aria-label="Send"><i class="ti ti-arrow-up" style="font-size:14px;line-height:1"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Side panel (expanded) -->
+        <div class="demo-chat-panel is-gone" id="demo-panel">
+          <div class="chat-window__bg-base"></div>
+          <div class="chat-window__bg-gradient"></div>
+          <div class="chat-window__bg-blur"></div>
+          <div class="chat-panel__header">
+            <div class="chat-orb" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g filter="url(#dorb_f1)">
+                  <circle cx="24" cy="24" r="16" fill="url(#dorb_p1)"/>
+                  <g filter="url(#dorb_f3)"><ellipse cx="27.59" cy="23.35" rx="8.49" ry="8.16" fill="#ED8C53"/></g>
+                  <g filter="url(#dorb_f4)"><path d="M19.1548 20.3935C16.6613 23.7021 12.5445 25.877 10.7041 25.1821C12.4506 32.168 16.9539 28.5858 19.6055 28.0555C22.9858 27.3795 24.3379 20.1118 30.4224 20.1118C36.5069 20.1118 34.9295 31.2104 36.5633 28.0555C37.8703 25.5315 37.1079 21.7081 36.5633 20.1118C35.9623 18.4968 35.3013 14.309 30.7041 14.0836C24.9576 13.8019 22.0844 16.5063 19.1548 20.3935Z" fill="url(#dorb_p4)"/></g>
+                  <circle cx="24" cy="24" r="16" fill="url(#dorb_p10)"/>
+                  <circle cx="24" cy="24" r="16" fill="url(#dorb_p11)"/>
+                </g>
+                <ellipse cx="17.33" cy="17.83" rx="1.33" ry="1.33" fill="white"/>
+                <ellipse cx="21.33" cy="21.83" rx="1.33" ry="1.33" fill="white"/>
+                <ellipse cx="26.67" cy="21.83" rx="1.33" ry="1.33" fill="white"/>
+                <ellipse cx="30.67" cy="17.83" rx="1.33" ry="1.33" fill="white"/>
+                <ellipse cx="17.33" cy="31.17" rx="1.33" ry="1.33" fill="white"/>
+                <ellipse cx="30.67" cy="31.17" rx="1.33" ry="1.33" fill="white"/>
+              </svg>
+            </div>
+            <span class="chat-title">Cooper</span>
+            <div class="chat-header-actions">
+              <button class="chat-icon-btn" title="History"><i class="ti ti-history" style="font-size:16px;line-height:1"></i></button>
+              <button class="chat-icon-btn" id="d-collapse" title="Collapse to window"><i class="ti ti-arrows-minimize" style="font-size:16px;line-height:1"></i></button>
+              <button class="chat-icon-btn" id="d-panel-close" title="Close"><i class="ti ti-x" style="font-size:16px;line-height:1"></i></button>
+            </div>
+          </div>
+          <div class="chat-panel__messages" id="d-panel-msgs"></div>
+          <div class="chat-panel__input">
+            <div class="chat-pill" style="width:100%">
+              <button class="chat-pill__icon-btn" aria-label="Attach"><i class="ti ti-plus" style="font-size:16px;line-height:1"></i></button>
+              <input class="chat-pill__input" id="d-panel-input" placeholder="Ask Cooper…" autocomplete="off">
+              <button class="chat-pill__icon-btn" aria-label="Voice"><i class="ti ti-microphone" style="font-size:16px;line-height:1"></i></button>
+              <button class="chat-pill__icon-btn chat-pill__icon-btn--send" id="d-panel-send" aria-label="Send"><i class="ti ti-arrow-up" style="font-size:14px;line-height:1"></i></button>
+            </div>
+          </div>
+        </div>
+
+        <!-- FAB + prompt chips -->
+        <div class="demo-fab-wrap">
+          <div class="demo-prompt-chips" id="d-chips">
+            <button class="prompt-chip" id="d-chip-indiana"><i class="ti ti-list" style="font-size:12px;line-height:1"></i> Summarise Indiana signals</button>
+            <button class="prompt-chip" id="d-chip-risk"><i class="ti ti-clock" style="font-size:12px;line-height:1"></i> What's at risk today?</button>
+          </div>
+          <button class="demo-fab" id="d-fab" aria-label="Open Cooper chat">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="48" height="48" rx="24" fill="black" fill-opacity="0.1"/>
+              <rect width="48" height="48" rx="24" fill="url(#dfab_p0)" fill-opacity="0.2"/>
+              <rect x="0.5" y="0.5" width="47" height="47" rx="23.5" stroke="white" stroke-opacity="0.2"/>
+              <g filter="url(#dfab_f1)">
+                <circle cx="24" cy="24" r="16" fill="url(#dfab_p1)"/>
+                <g filter="url(#dfab_f2)"><circle cx="15.89" cy="24.11" r="5.30" fill="url(#dfab_p2)"/></g>
+                <g filter="url(#dfab_f3)">
+                  <ellipse cx="27.59" cy="23.35" rx="8.49" ry="8.16" fill="#ED8C53"/>
+                  <ellipse cx="27.59" cy="23.35" rx="8.49" ry="8.16" fill="url(#dfab_p3)" fill-opacity="0.2"/>
+                </g>
+                <g filter="url(#dfab_f4)">
+                  <path d="M19.1548 20.3935C16.6613 23.7021 12.5445 25.877 10.7041 25.1821C12.4506 32.168 16.9539 28.5858 19.6055 28.0555C22.9858 27.3795 24.3379 20.1118 30.4224 20.1118C36.5069 20.1118 34.9295 31.2104 36.5633 28.0555C37.8703 25.5315 37.1079 21.7081 36.5633 20.1118C35.9623 18.4968 35.3013 14.309 30.7041 14.0836C24.9576 13.8019 22.0844 16.5063 19.1548 20.3935Z" fill="url(#dfab_p4)"/>
+                  <path d="M19.1548 20.3935C16.6613 23.7021 12.5445 25.877 10.7041 25.1821C12.4506 32.168 16.9539 28.5858 19.6055 28.0555C22.9858 27.3795 24.3379 20.1118 30.4224 20.1118C36.5069 20.1118 34.9295 31.2104 36.5633 28.0555C37.8703 25.5315 37.1079 21.7081 36.5633 20.1118C35.9623 18.4968 35.3013 14.309 30.7041 14.0836C24.9576 13.8019 22.0844 16.5063 19.1548 20.3935Z" fill="url(#dfab_p5)"/>
+                  <path d="M19.1548 20.3935C16.6613 23.7021 12.5445 25.877 10.7041 25.1821C12.4506 32.168 16.9539 28.5858 19.6055 28.0555C22.9858 27.3795 24.3379 20.1118 30.4224 20.1118C36.5069 20.1118 34.9295 31.2104 36.5633 28.0555C37.8703 25.5315 37.1079 21.7081 36.5633 20.1118C35.9623 18.4968 35.3013 14.309 30.7041 14.0836C24.9576 13.8019 22.0844 16.5063 19.1548 20.3935Z" fill="url(#dfab_p6)"/>
+                </g>
+                <circle cx="24" cy="24" r="16" fill="url(#dfab_p7)"/>
+                <circle cx="24" cy="24" r="16" fill="url(#dfab_p8)"/>
+                <circle cx="24" cy="24" r="16" fill="url(#dfab_p9)"/>
+                <circle cx="24" cy="24" r="16" fill="url(#dfab_p10)"/>
+                <circle cx="24" cy="24" r="16" fill="url(#dfab_p11)"/>
+              </g>
+              <ellipse cx="17.33" cy="17.83" rx="1.33" ry="1.33" fill="white"/>
+              <ellipse cx="21.33" cy="21.83" rx="1.33" ry="1.33" fill="white"/>
+              <ellipse cx="21.33" cy="27.17" rx="1.33" ry="1.33" fill="white"/>
+              <ellipse cx="30.67" cy="22.50" rx="0.67" ry="0.67" fill="white" fill-opacity="0.5"/>
+              <ellipse cx="17.33" cy="31.17" rx="1.33" ry="1.33" fill="white"/>
+              <ellipse cx="17.33" cy="26.50" rx="0.67" ry="0.67" fill="white" fill-opacity="0.5"/>
+              <ellipse cx="30.67" cy="17.83" rx="1.33" ry="1.33" fill="white"/>
+              <ellipse cx="26.67" cy="21.83" rx="1.33" ry="1.33" fill="white"/>
+              <ellipse cx="26.67" cy="27.17" rx="1.33" ry="1.33" fill="white"/>
+              <ellipse cx="30.67" cy="31.17" rx="1.33" ry="1.33" fill="white"/>
+              <defs>
+                <filter id="dfab_f1" x="4.45" y="4.45" width="39.1" height="39.1" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/><feOffset/><feGaussianBlur stdDeviation="1.775"/><feComposite in2="hardAlpha" operator="out"/><feColorMatrix type="matrix" values="0 0 0 0 0.75 0 0 0 0 0.67 0 0 0 0 0.93 0 0 0 1 0"/><feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/><feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/></filter>
+                <filter id="dfab_f2" x="9.54" y="17.76" width="12.7" height="12.7" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/><feGaussianBlur stdDeviation="0.14" result="effect1_foregroundBlur"/></filter>
+                <filter id="dfab_f3" x="15.93" y="12.01" width="23.32" height="22.66" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/><feGaussianBlur stdDeviation="1.58" result="effect1_foregroundBlur"/></filter>
+                <filter id="dfab_f4" x="8.79" y="12.15" width="30.41" height="19.21" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/><feGaussianBlur stdDeviation="0.96" result="effect1_foregroundBlur"/></filter>
+                <radialGradient id="dfab_p0" cx="0" cy="0" r="1" gradientTransform="matrix(25.43 -33.43 0.72 70.25 7.37 48)" gradientUnits="userSpaceOnUse"><stop stop-color="#C87941"/><stop offset="1"/></radialGradient>
+                <radialGradient id="dfab_p1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(24 24) rotate(90) scale(16)"><stop stop-color="white"/><stop offset="1" stop-color="#F3C79B"/></radialGradient>
+                <linearGradient id="dfab_p2" x1="14.48" y1="19.38" x2="15.89" y2="29.41" gradientUnits="userSpaceOnUse"><stop stop-color="#FBC4E6"/><stop offset="0.89" stop-color="#FFD49B"/></linearGradient>
+                <linearGradient id="dfab_p3" x1="27.11" y1="23.74" x2="27.76" y2="31.5" gradientUnits="userSpaceOnUse"><stop stop-color="#5A12BF"/><stop offset="1" stop-color="white"/></linearGradient>
+                <linearGradient id="dfab_p4" x1="37.30" y1="19.66" x2="25.92" y2="16.34" gradientUnits="userSpaceOnUse"><stop stop-color="#233288"/><stop offset="1" stop-color="#CD9579"/></linearGradient>
+                <linearGradient id="dfab_p5" x1="18.65" y1="22.99" x2="22.76" y2="27.83" gradientUnits="userSpaceOnUse"><stop stop-color="#FFB0B0"/><stop offset="1" stop-color="#EC603E" stop-opacity="0.4"/></linearGradient>
+                <linearGradient id="dfab_p6" x1="20.88" y1="19.36" x2="21.92" y2="20.40" gradientUnits="userSpaceOnUse"><stop stop-color="white" stop-opacity="0.4"/><stop offset="1" stop-color="white" stop-opacity="0"/></linearGradient>
+                <linearGradient id="dfab_p7" x1="24" y1="24" x2="24" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="#D9D9D9" stop-opacity="0"/><stop offset="1" stop-color="#9F7260"/></linearGradient>
+                <linearGradient id="dfab_p8" x1="25" y1="15" x2="28" y2="33" gradientUnits="userSpaceOnUse"><stop stop-color="#EBC7C5" stop-opacity="0"/><stop offset="1" stop-color="#6F3632"/></linearGradient>
+                <linearGradient id="dfab_p9" x1="31" y1="16" x2="13.18" y2="15.38" gradientUnits="userSpaceOnUse"><stop stop-color="#D9D9D9" stop-opacity="0"/><stop offset="1" stop-color="#3D16B2" stop-opacity="0.3"/></linearGradient>
+                <radialGradient id="dfab_p10" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(27.60 17.75) rotate(115.50) scale(22.87 25.26)"><stop stop-color="white" stop-opacity="0"/><stop offset="0.61" stop-color="white" stop-opacity="0"/><stop offset="1" stop-color="white"/></radialGradient>
+                <radialGradient id="dfab_p11" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(19.17 10.08) rotate(-18.75) scale(16.20 17.89)"><stop stop-color="white"/><stop offset="0.61" stop-color="white" stop-opacity="0"/></radialGradient>
+              </defs>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <h2>Floating window</h2>
+      <p class="section-note">320px wide, 360px tall. Frosted glass over page content: <code>backdrop-filter: blur(var(--blur-strong))</code> on top of a Cooper amber radial gradient (bottom-left ellipse, 20% opacity) over black/10%. Border: <code>--border-medium</code>. The window is draggable and can expand to a full side panel from the right edge.</p>
+      <div class="demo demo--dark">
+        <div class="demo--window-row">
+          <!-- Default (empty) -->
+          <div style="display:flex;flex-direction:column;gap:var(--gap-200)">
+            <span class="section-note" style="margin:0">Default</span>
+            <div class="chat-window">
+              <div class="chat-window__bg-base"></div>
+              <div class="chat-window__bg-gradient"></div>
+              <div class="chat-window__bg-blur"></div>
+              <div class="chat-window__header">
+                <div class="chat-orb" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g filter="url(#orb_f1a)">
+                      <circle cx="24" cy="24" r="16" fill="url(#orb_p1a)"/>
+                      <g filter="url(#orb_f3a)"><ellipse cx="27.59" cy="23.35" rx="8.49" ry="8.16" fill="#ED8C53"/></g>
+                      <g filter="url(#orb_f4a)"><path d="M19.1548 20.3935C16.6613 23.7021 12.5445 25.877 10.7041 25.1821C12.4506 32.168 16.9539 28.5858 19.6055 28.0555C22.9858 27.3795 24.3379 20.1118 30.4224 20.1118C36.5069 20.1118 34.9295 31.2104 36.5633 28.0555C37.8703 25.5315 37.1079 21.7081 36.5633 20.1118C35.9623 18.4968 35.3013 14.309 30.7041 14.0836C24.9576 13.8019 22.0844 16.5063 19.1548 20.3935Z" fill="url(#orb_p4a)"/></g>
+                      <circle cx="24" cy="24" r="16" fill="url(#orb_p10a)"/>
+                      <circle cx="24" cy="24" r="16" fill="url(#orb_p11a)"/>
+                    </g>
+                    <ellipse cx="17.33" cy="17.83" rx="1.33" ry="1.33" fill="white"/>
+                    <ellipse cx="21.33" cy="21.83" rx="1.33" ry="1.33" fill="white"/>
+                    <ellipse cx="26.67" cy="21.83" rx="1.33" ry="1.33" fill="white"/>
+                    <ellipse cx="30.67" cy="17.83" rx="1.33" ry="1.33" fill="white"/>
+                    <ellipse cx="17.33" cy="31.17" rx="1.33" ry="1.33" fill="white"/>
+                    <ellipse cx="30.67" cy="31.17" rx="1.33" ry="1.33" fill="white"/>
+                    <defs>
+                      <filter id="orb_f1a" x="4.45" y="4.45" width="39.1" height="39.1" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/><feOffset/><feGaussianBlur stdDeviation="1.775"/><feComposite in2="hardAlpha" operator="out"/><feColorMatrix type="matrix" values="0 0 0 0 0.75 0 0 0 0 0.67 0 0 0 0 0.93 0 0 0 1 0"/><feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/><feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/></filter>
+                      <filter id="orb_f3a" x="15.93" y="12.01" width="23.32" height="22.66" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/><feGaussianBlur stdDeviation="1.58" result="effect1_foregroundBlur"/></filter>
+                      <filter id="orb_f4a" x="8.79" y="12.15" width="30.41" height="19.21" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/><feGaussianBlur stdDeviation="0.96" result="effect1_foregroundBlur"/></filter>
+                      <radialGradient id="orb_p1a" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(24 24) rotate(90) scale(16)"><stop stop-color="white"/><stop offset="1" stop-color="#F3C79B"/></radialGradient>
+                      <linearGradient id="orb_p4a" x1="37.30" y1="19.66" x2="25.92" y2="16.34" gradientUnits="userSpaceOnUse"><stop stop-color="#233288"/><stop offset="1" stop-color="#CD9579"/></linearGradient>
+                      <radialGradient id="orb_p10a" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(27.60 17.75) rotate(115.50) scale(22.87 25.26)"><stop stop-color="white" stop-opacity="0"/><stop offset="0.61" stop-color="white" stop-opacity="0"/><stop offset="1" stop-color="white"/></radialGradient>
+                      <radialGradient id="orb_p11a" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(19.17 10.08) rotate(-18.75) scale(16.20 17.89)"><stop stop-color="white"/><stop offset="0.61" stop-color="white" stop-opacity="0"/></radialGradient>
+                    </defs>
+                  </svg>
+                </div>
+                <span class="chat-title">Cooper</span>
+                <div class="chat-header-actions">
+                  <button class="chat-icon-btn" title="History"><i class="ti ti-history" style="font-size:16px;line-height:1"></i></button>
+                  <button class="chat-icon-btn" title="Expand"><i class="ti ti-arrows-maximize" style="font-size:16px;line-height:1"></i></button>
+                  <button class="chat-icon-btn" title="Close"><i class="ti ti-minus" style="font-size:16px;line-height:1"></i></button>
+                </div>
+              </div>
+              <div class="chat-window__messages">
+                <div class="chat-window__empty">
+                  <p class="chat-window__empty-text">Ask me anything about your portfolio, filings, or regulatory signals</p>
+                </div>
+              </div>
+              <div class="chat-window__input-row">
+                <div class="chat-pill" style="width:100%">
+                  <button class="chat-pill__icon-btn" aria-label="Attach"><i class="ti ti-plus" style="font-size:16px;line-height:1"></i></button>
+                  <input class="chat-pill__input" placeholder="Ask Cooper…" style="width:100%" readonly>
+                  <button class="chat-pill__icon-btn" aria-label="Voice"><i class="ti ti-microphone" style="font-size:16px;line-height:1"></i></button>
+                  <button class="chat-pill__icon-btn chat-pill__icon-btn--send" aria-label="Send"><i class="ti ti-arrow-up" style="font-size:14px;line-height:1"></i></button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Answered state -->
+          <div style="display:flex;flex-direction:column;gap:var(--gap-200)">
+            <span class="section-note" style="margin:0">Answered</span>
+            <div class="chat-window">
+              <div class="chat-window__bg-base"></div>
+              <div class="chat-window__bg-gradient"></div>
+              <div class="chat-window__bg-blur"></div>
+              <div class="chat-window__header">
+                <div class="chat-orb" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <use href="#cooper-orb-defs"/>
+                    <g filter="url(#orb_f1a)"><circle cx="24" cy="24" r="16" fill="url(#orb_p1a)"/><g filter="url(#orb_f3a)"><ellipse cx="27.59" cy="23.35" rx="8.49" ry="8.16" fill="#ED8C53"/></g><g filter="url(#orb_f4a)"><path d="M19.1548 20.3935C16.6613 23.7021 12.5445 25.877 10.7041 25.1821C12.4506 32.168 16.9539 28.5858 19.6055 28.0555C22.9858 27.3795 24.3379 20.1118 30.4224 20.1118C36.5069 20.1118 34.9295 31.2104 36.5633 28.0555C37.8703 25.5315 37.1079 21.7081 36.5633 20.1118C35.9623 18.4968 35.3013 14.309 30.7041 14.0836C24.9576 13.8019 22.0844 16.5063 19.1548 20.3935Z" fill="url(#orb_p4a)"/></g><circle cx="24" cy="24" r="16" fill="url(#orb_p10a)"/><circle cx="24" cy="24" r="16" fill="url(#orb_p11a)"/></g>
+                    <ellipse cx="17.33" cy="17.83" rx="1.33" ry="1.33" fill="white"/><ellipse cx="21.33" cy="21.83" rx="1.33" ry="1.33" fill="white"/><ellipse cx="26.67" cy="21.83" rx="1.33" ry="1.33" fill="white"/><ellipse cx="30.67" cy="17.83" rx="1.33" ry="1.33" fill="white"/><ellipse cx="17.33" cy="31.17" rx="1.33" ry="1.33" fill="white"/><ellipse cx="30.67" cy="31.17" rx="1.33" ry="1.33" fill="white"/>
+                  </svg>
+                </div>
+                <span class="chat-title">Cooper</span>
+                <div class="chat-header-actions">
+                  <button class="chat-icon-btn" title="History"><i class="ti ti-history" style="font-size:16px;line-height:1"></i></button>
+                  <button class="chat-icon-btn" title="Expand"><i class="ti ti-arrows-maximize" style="font-size:16px;line-height:1"></i></button>
+                  <button class="chat-icon-btn" title="Close"><i class="ti ti-minus" style="font-size:16px;line-height:1"></i></button>
+                </div>
+              </div>
+              <div class="chat-window__messages">
+                <div class="msg-user">What's at risk today?</div>
+                <div class="msg-ai">Indiana TDSIC 3.0 carries the highest immediate risk: $214M at-risk capital, 71% approval likelihood — down from 89% six weeks ago. Three converging signals point to increased affordability scrutiny at the July hearing.</div>
+                <div class="followup-list">
+                  <button class="followup-chip"><i class="ti ti-arrow-right"></i>Show me the Indiana signals</button>
+                  <button class="followup-chip"><i class="ti ti-arrow-right"></i>What actions before April 15?</button>
+                </div>
+              </div>
+              <div class="chat-window__input-row">
+                <div class="chat-pill" style="width:100%">
+                  <button class="chat-pill__icon-btn" aria-label="Attach"><i class="ti ti-plus" style="font-size:16px;line-height:1"></i></button>
+                  <input class="chat-pill__input" placeholder="Ask Cooper…" style="width:100%" readonly>
+                  <button class="chat-pill__icon-btn" aria-label="Voice"><i class="ti ti-microphone" style="font-size:16px;line-height:1"></i></button>
+                  <button class="chat-pill__icon-btn chat-pill__icon-btn--send" aria-label="Send"><i class="ti ti-arrow-up" style="font-size:14px;line-height:1"></i></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h2>Inline quick input</h2>
+      <p class="section-note">Floats in the page at a contextual insertion point — not in the shell. Width 320px, height 48px. Backdrop blur strong (80px). Cooper amber radial gradient from the bottom-left bleeds through at 20% opacity. Border steps from <code>--border-base</code> (10%) at rest to <code>--border-medium</code> (20%) on hover and active. Expands to 134px multiline when the user types past one line.</p>
+      <div class="demo" style="gap:var(--gap-600);flex-wrap:wrap;align-items:flex-start">
+        <div style="display:flex;flex-direction:column;gap:var(--gap-200);align-items:flex-start">
+          <span class="section-note" style="margin:0">Default (voice)</span>
+          <div style="display:flex;align-items:center;gap:var(--gap-200)">
+            <div class="fta-btn" title="Ask Cooper" style="background-image:url('data:image/svg+xml;utf8,<svg viewBox=\'0 0 48 48\' xmlns=\'http://www.w3.org/2000/svg\' preserveAspectRatio=\'none\'><rect x=\'0\' y=\'0\' width=\'100%25\' height=\'100%25\' fill=\'url(%23cg)\' opacity=\'0.20\'/><defs><radialGradient id=\'cg\' gradientUnits=\'userSpaceOnUse\' cx=\'7\' cy=\'48\' r=\'52\'><stop stop-color=\'rgba(200,121,65,1)\' offset=\'0\'/><stop stop-color=\'rgba(100,61,33,1)\' offset=\'0.5\'/><stop stop-color=\'rgba(0,0,0,1)\' offset=\'1\'/></radialGradient></defs></svg>'),linear-gradient(0deg,rgba(0,0,0,.1),rgba(0,0,0,.1))'">
+              <svg width="20" height="20" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g filter="url(#orb_f1a)"><circle cx="24" cy="24" r="16" fill="url(#orb_p1a)"/><g filter="url(#orb_f3a)"><ellipse cx="27.59" cy="23.35" rx="8.49" ry="8.16" fill="#ED8C53"/></g><g filter="url(#orb_f4a)"><path d="M19.1548 20.3935C16.6613 23.7021 12.5445 25.877 10.7041 25.1821C12.4506 32.168 16.9539 28.5858 19.6055 28.0555C22.9858 27.3795 24.3379 20.1118 30.4224 20.1118C36.5069 20.1118 34.9295 31.2104 36.5633 28.0555C37.8703 25.5315 37.1079 21.7081 36.5633 20.1118C35.9623 18.4968 35.3013 14.309 30.7041 14.0836C24.9576 13.8019 22.0844 16.5063 19.1548 20.3935Z" fill="url(#orb_p4a)"/></g><circle cx="24" cy="24" r="16" fill="url(#orb_p10a)"/><circle cx="24" cy="24" r="16" fill="url(#orb_p11a)"/></g>
+                <ellipse cx="17.33" cy="17.83" rx="1.33" ry="1.33" fill="white"/><ellipse cx="21.33" cy="21.83" rx="1.33" ry="1.33" fill="white"/><ellipse cx="26.67" cy="21.83" rx="1.33" ry="1.33" fill="white"/><ellipse cx="30.67" cy="17.83" rx="1.33" ry="1.33" fill="white"/><ellipse cx="17.33" cy="31.17" rx="1.33" ry="1.33" fill="white"/><ellipse cx="30.67" cy="31.17" rx="1.33" ry="1.33" fill="white"/>
+              </svg>
+            </div>
+            <div class="chat-pill">
+              <input class="chat-pill__input" placeholder="Say anything, I'm listening" readonly>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:var(--gap-200);align-items:flex-start">
+          <span class="section-note" style="margin:0">Active (text, single line)</span>
+          <div class="chat-pill chat-pill--active">
+            <button class="chat-pill__icon-btn" aria-label="Attach"><i class="ti ti-plus" style="font-size:16px;line-height:1"></i></button>
+            <span style="font-size:var(--body-l-size);font-weight:var(--weight-medium);color:var(--text-primary);letter-spacing:var(--body-l-medium-tracking);white-space:nowrap">Show me</span>
+            <span style="font-size:var(--body-l-size);font-weight:var(--weight-medium);color:var(--text-accent-cooper);letter-spacing:var(--body-l-medium-tracking)">|</span>
+            <span style="font-size:var(--body-l-size);color:var(--text-tertiary);white-space:nowrap;flex:1;overflow:hidden;text-overflow:ellipsis"> transformer</span>
+            <button class="chat-pill__icon-btn" aria-label="Voice toggle"><i class="ti ti-microphone" style="font-size:16px;line-height:1"></i></button>
+            <button class="chat-pill__icon-btn chat-pill__icon-btn--send" aria-label="Send"><i class="ti ti-arrow-up" style="font-size:14px;line-height:1"></i></button>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:var(--gap-200);align-items:flex-start">
+          <span class="section-note" style="margin:0">Active (multi-line)</span>
+          <div class="chat-pill chat-pill--active chat-pill--multiline" style="width:320px">
+            <div class="chat-pill__text-area">
+              <span style="color:var(--text-primary)">Show me transformer T-902 on the map, the one near the Riverside substation that had the oil leak</span><span style="color:var(--text-accent-cooper)">|</span>
+            </div>
+            <div class="chat-pill__actions-row">
+              <button class="chat-pill__icon-btn" aria-label="Attach"><i class="ti ti-plus" style="font-size:16px;line-height:1"></i></button>
+              <div style="display:flex;align-items:center;gap:4px">
+                <button class="chat-pill__icon-btn" aria-label="Voice toggle"><i class="ti ti-microphone" style="font-size:16px;line-height:1"></i></button>
+                <button class="chat-pill__icon-btn chat-pill__icon-btn--send" aria-label="Send"><i class="ti ti-arrow-up" style="font-size:14px;line-height:1"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="t-pill-tokens"></div>
+
+      <h2>Message bubbles</h2>
+      <p class="section-note">User bubbles sit right-aligned. Inline messages use <code>radius-full</code>; multi-line messages use <code>radius-300</code> (12px). Hover deepens the fill to <code>--white-200</code>. Editing state swaps to the text-area fill with a Cancel/Save action row. AI responses use a semi-transparent warm neutral with a faint Cooper amber border.</p>
+      <div class="demo">
+        <div class="bubble-grid" style="max-width:560px">
+          <div class="bubble-row">
+            <div class="bubble-col">
+              <span class="bubble-col-label">User — inline default</span>
+              <div style="display:flex;justify-content:flex-end">
+                <span class="msg-user">What's at risk today?</span>
+              </div>
+            </div>
+            <div class="bubble-col">
+              <span class="bubble-col-label">User — inline hover</span>
+              <div style="display:flex;justify-content:flex-end">
+                <span class="msg-user" style="background:var(--white-200)">What's at risk today?</span>
+              </div>
+            </div>
+          </div>
+          <div class="bubble-row">
+            <div class="bubble-col" style="flex:unset;width:100%">
+              <span class="bubble-col-label">User — multi-line default</span>
+              <div style="display:flex;justify-content:flex-end">
+                <span class="msg-user msg-user--multiline">There are people within organizations that have a say in the results of scenarios but are not Copperleaf users.</span>
+              </div>
+            </div>
+          </div>
+          <div class="bubble-row">
+            <div class="bubble-col" style="flex:unset;width:100%">
+              <span class="bubble-col-label">AI response</span>
+              <div class="msg-ai">Indiana TDSIC 3.0 carries the highest immediate risk: $214M at-risk capital, 71% approval likelihood — down from 89% six weeks ago. Three converging signals point to increased affordability scrutiny.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h2>Prompt chips</h2>
+      <p class="section-note">Pill-shaped suggestions that appear in the bottom-right zone (beside the FAB) when Cooper has contextual prompts to offer. Also used as follow-up links inside the message thread. Border <code>--border-medium</code>, fill <code>--white-100</code>, radius-full.</p>
+      <div class="demo">
+        <div class="prompt-chips">
+          <button class="prompt-chip"><i class="ti ti-clock" style="font-size:12px;line-height:1"></i> What's at risk today?</button>
+          <button class="prompt-chip"><i class="ti ti-list" style="font-size:12px;line-height:1"></i> Summarise Indiana signals</button>
+          <button class="prompt-chip" style="background:var(--white-200);border-color:var(--white-200);color:var(--text-primary)"><i class="ti ti-list" style="font-size:12px;line-height:1"></i> Hover state</button>
+        </div>
+      </div>
+
+      <h2>Side panel</h2>
+      <p class="section-note">The expanded view: 450px default width, resizable from the left edge. Full-height, flush to the right side of the viewport with no border-right or border-top. Same background treatment as the floating window. The resize handle is a 1px border with a 3×32px grip pill.</p>
+      <div class="demo demo--dark">
+        <div class="chat-panel">
+          <div class="chat-resize-handle"></div>
+          <div class="chat-window__bg-base"></div>
+          <div class="chat-window__bg-gradient"></div>
+          <div class="chat-window__bg-blur"></div>
+          <div class="chat-panel__header">
+            <div class="chat-orb" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g filter="url(#orb_f1a)"><circle cx="24" cy="24" r="16" fill="url(#orb_p1a)"/><g filter="url(#orb_f3a)"><ellipse cx="27.59" cy="23.35" rx="8.49" ry="8.16" fill="#ED8C53"/></g><g filter="url(#orb_f4a)"><path d="M19.1548 20.3935C16.6613 23.7021 12.5445 25.877 10.7041 25.1821C12.4506 32.168 16.9539 28.5858 19.6055 28.0555C22.9858 27.3795 24.3379 20.1118 30.4224 20.1118C36.5069 20.1118 34.9295 31.2104 36.5633 28.0555C37.8703 25.5315 37.1079 21.7081 36.5633 20.1118C35.9623 18.4968 35.3013 14.309 30.7041 14.0836C24.9576 13.8019 22.0844 16.5063 19.1548 20.3935Z" fill="url(#orb_p4a)"/></g><circle cx="24" cy="24" r="16" fill="url(#orb_p10a)"/><circle cx="24" cy="24" r="16" fill="url(#orb_p11a)"/></g>
+                <ellipse cx="17.33" cy="17.83" rx="1.33" ry="1.33" fill="white"/><ellipse cx="21.33" cy="21.83" rx="1.33" ry="1.33" fill="white"/><ellipse cx="26.67" cy="21.83" rx="1.33" ry="1.33" fill="white"/><ellipse cx="30.67" cy="17.83" rx="1.33" ry="1.33" fill="white"/><ellipse cx="17.33" cy="31.17" rx="1.33" ry="1.33" fill="white"/><ellipse cx="30.67" cy="31.17" rx="1.33" ry="1.33" fill="white"/>
+              </svg>
+            </div>
+            <span class="chat-title">Cooper</span>
+            <div class="chat-header-actions">
+              <button class="chat-icon-btn" title="New chat"><i class="ti ti-edit" style="font-size:16px;line-height:1"></i></button>
+              <button class="chat-icon-btn" title="History"><i class="ti ti-history" style="font-size:16px;line-height:1"></i></button>
+              <button class="chat-icon-btn" title="More"><i class="ti ti-dots" style="font-size:16px;line-height:1"></i></button>
+              <button class="chat-icon-btn" title="Collapse"><i class="ti ti-arrows-minimize" style="font-size:16px;line-height:1"></i></button>
+              <button class="chat-icon-btn" title="Close"><i class="ti ti-x" style="font-size:16px;line-height:1"></i></button>
+            </div>
+          </div>
+          <div class="chat-panel__messages">
+            <div class="msg-user">Summarise Indiana signals</div>
+            <div class="msg-ai">Indiana has 3 active signals. The most critical: Commissioner Holloway (appointed Apr 6) has a documented record opposing uncapped capital recovery programs — this directly challenges your $1.84B recovery target. Missouri IREP 2026's 38-day window is your nearest secondary repositioning opportunity.</div>
+            <div class="followup-list">
+              <button class="followup-chip"><i class="ti ti-arrow-right"></i>What's the commissioner's track record?</button>
+              <button class="followup-chip"><i class="ti ti-arrow-right"></i>Show me Missouri IREP details</button>
+              <button class="followup-chip"><i class="ti ti-arrow-right"></i>What actions before April 15?</button>
+            </div>
+          </div>
+          <div class="chat-panel__input">
+            <div class="chat-pill" style="width:100%">
+              <button class="chat-pill__icon-btn" aria-label="Attach"><i class="ti ti-plus" style="font-size:16px;line-height:1"></i></button>
+              <input class="chat-pill__input" placeholder="Ask Cooper…" style="width:100%" readonly>
+              <button class="chat-pill__icon-btn" aria-label="Voice"><i class="ti ti-microphone" style="font-size:16px;line-height:1"></i></button>
+              <button class="chat-pill__icon-btn chat-pill__icon-btn--send" aria-label="Send"><i class="ti ti-arrow-up" style="font-size:14px;line-height:1"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h2>Usage</h2>
+      <p>Cooper Chat exists in three surfaces that share the same visual DNA: the floating window (320px, anchored bottom-right), the full side panel (default 450px, resizable), and the inline pill input (320px, contextual).</p>
+      <p>All three use the same background treatment: <code>backdrop-filter: blur(var(--blur-strong))</code> over <code>rgba(0,0,0,0.10)</code> with a Cooper amber radial gradient (bottom-left corner, 20% opacity). The border is always <code>--border-medium</code> (20% white). The pill input inherits the same gradient but scales the radial to fit its 48px height.</p>
+      <p>The FAB is documented separately on the Buttons page. When the chat is open, the FAB toggles to close the panel. Prompt chips appear to the left of the FAB when Cooper has contextual suggestions from the current page.</p>
+      <div class="callout">Figma source: <strong>IFS Design System</strong> → Chat (node <code>1399-11624</code>). Inline quick input: <code>83-34109</code>. User message bubble: <code>83-46587</code>. Floating window: <code>83-74896</code>. Side panel: <code>83-60542</code>.</div>
+    </div>
+  </main>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  document.body.insertAdjacentHTML("afterbegin", window.IFSIconSprite);
+
+  // ── Interactive Cooper Chat demo ──────────────────────────
+  (function () {
+    const RESPONSES = [
+      "Indiana TDSIC 3.0 carries the highest immediate risk: $214M at-risk capital, 71% approval likelihood — down from 89% six weeks ago. Three converging signals point to increased affordability scrutiny at the July hearing.",
+      "Commissioner Holloway (appointed Apr 6) has a documented record opposing uncapped capital recovery programs — this directly challenges your $1.84B recovery target.",
+      "The highest-leverage action before April 15 is reframing your BCR-sensitive projects around grid reliability outcomes, not cost recovery. Holloway's prior rulings show deference to reliability-framed projects.",
+      "Missouri IREP 2026's 38-day window is your nearest secondary repositioning opportunity after Indiana.",
+      "I found 3 portfolio changes overnight: $42M rebalanced in Growth, capex burn up 8% YoY, and 2 projects moved to At Risk status."
+    ];
+    const FOLLOWUPS = [
+      ["Show me Indiana signals", "What actions before April 15?", "Compare to Missouri"],
+      ["What's Holloway's record?", "Show Missouri IREP", "Summarise all at-risk items"],
+      ["Rebalance $42M into Growth", "Show capex burn chart", "Export this analysis"],
+    ];
+    let respIdx = 0, fuIdx = 0, expanded = false;
+    // thread = [{type:'user'|'ai'|'chips', text?, items?}]
+    let thread = [];
+
+    const fab     = document.getElementById("d-fab");
+    const win     = document.getElementById("demo-win");
+    const panel   = document.getElementById("demo-panel");
+    const chips   = document.getElementById("d-chips");
+    const hint    = document.getElementById("demo-hint");
+    const msgs    = document.getElementById("d-msgs");
+    const empty   = document.getElementById("d-empty");
+    const inp     = document.getElementById("d-input");
+    const snd     = document.getElementById("d-send");
+    const expand  = document.getElementById("d-expand");
+    const close   = document.getElementById("d-close");
+    const pMsgs   = document.getElementById("d-panel-msgs");
+    const pInp    = document.getElementById("d-panel-input");
+    const pSnd    = document.getElementById("d-panel-send");
+    const collapse= document.getElementById("d-collapse");
+    const pClose  = document.getElementById("d-panel-close");
+    const chipInd = document.getElementById("d-chip-indiana");
+    const chipRisk= document.getElementById("d-chip-risk");
+
+    function activeContainer() { return expanded ? pMsgs : msgs; }
+    function activeInput()     { return expanded ? pInp  : inp; }
+
+    function renderThread() {
+      const c = activeContainer();
+      // remove everything except the empty state placeholder
+      Array.from(c.children).forEach(ch => { if (ch !== empty) ch.remove(); });
+      if (thread.length === 0) {
+        if (empty && !empty.parentNode) c.appendChild(empty);
+        return;
+      }
+      if (empty && empty.parentNode) empty.remove();
+      thread.forEach((m, i) => {
+        if (m.type === 'user') {
+          const el = document.createElement('div');
+          el.className = 'msg-user';
+          el.textContent = m.text;
+          c.appendChild(el);
+        } else if (m.type === 'ai') {
+          const el = document.createElement('div');
+          el.className = 'msg-ai';
+          el.textContent = m.text;
+          c.appendChild(el);
+        } else if (m.type === 'chips' && i === thread.length - 1) {
+          const list = document.createElement('div');
+          list.className = 'followup-list';
+          m.items.forEach(label => {
+            const btn = document.createElement('button');
+            btn.className = 'followup-chip';
+            btn.innerHTML = `<i class="ti ti-arrow-right"></i>${label}`;
+            btn.addEventListener('click', () => {
+              thread = thread.filter(x => x.type !== 'chips');
+              sendMsg(label);
+            });
+            list.appendChild(btn);
+          });
+          c.appendChild(list);
+        }
+      });
+      c.scrollTop = c.scrollHeight;
+    }
+
+    function sendMsg(text) {
+      thread.push({ type: 'user', text });
+      renderThread();
+      // typing indicator
+      const typing = document.createElement('div');
+      typing.className = 'typing-indicator';
+      typing.innerHTML = '<span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span>';
+      activeContainer().appendChild(typing);
+      activeContainer().scrollTop = activeContainer().scrollHeight;
+      setTimeout(() => {
+        typing.remove();
+        const resp = RESPONSES[respIdx++ % RESPONSES.length];
+        thread.push({ type: 'ai', text: resp });
+        thread.push({ type: 'chips', items: FOLLOWUPS[fuIdx++ % FOLLOWUPS.length] });
+        renderThread();
+      }, 900);
+    }
+
+    function openChat(initialMsg) {
+      hint.classList.add('is-gone');
+      chips.classList.add('is-gone');
+      if (!expanded) {
+        win.classList.remove('is-gone');
+        setTimeout(() => inp.focus(), 80);
+      }
+      if (initialMsg) setTimeout(() => sendMsg(initialMsg), 120);
+    }
+
+    function closeChat() {
+      win.classList.add('is-gone');
+      panel.classList.add('is-gone');
+      chips.classList.remove('is-gone');
+      hint.classList.remove('is-gone');
+      expanded = false;
+    }
+
+    function expandPanel() {
+      expanded = true;
+      win.classList.add('is-gone');
+      panel.classList.remove('is-gone');
+      // sync messages into panel
+      renderThread();
+      setTimeout(() => pInp.focus(), 80);
+    }
+
+    function collapsePanel() {
+      expanded = false;
+      panel.classList.add('is-gone');
+      win.classList.remove('is-gone');
+      renderThread();
+      setTimeout(() => inp.focus(), 80);
+    }
+
+    fab.addEventListener('click', () => {
+      const closed = win.classList.contains('is-gone') && panel.classList.contains('is-gone');
+      closed ? openChat() : closeChat();
+    });
+
+    chipInd.addEventListener('click', () => openChat('Summarise Indiana signals'));
+    chipRisk.addEventListener('click', () => openChat("What's at risk today?"));
+
+    snd.addEventListener('click', () => { const t = inp.value.trim(); if (t) { inp.value=''; sendMsg(t); } });
+    inp.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); const t = inp.value.trim(); if (t) { inp.value=''; sendMsg(t); } } });
+
+    pSnd.addEventListener('click', () => { const t = pInp.value.trim(); if (t) { pInp.value=''; sendMsg(t); } });
+    pInp.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); const t = pInp.value.trim(); if (t) { pInp.value=''; sendMsg(t); } } });
+
+    expand.addEventListener('click', expandPanel);
+    collapse.addEventListener('click', collapsePanel);
+    close.addEventListener('click', closeChat);
+    pClose.addEventListener('click', closeChat);
+  })();
+
+  tokenTable("t-pill-tokens", [
+    ["--border-base",         "Pill border at rest (10%)"],
+    ["--border-medium",       "Pill border active / panel border (20%)"],
+    ["--blur-strong",         "Backdrop blur on pill and panels"],
+    ["--text-accent-cooper",  "Caret colour in text input"],
+    ["--text-tertiary",       "Placeholder text"],
+    ["--white-100",           "User bubble fill (10%)"],
+    ["--white-200",           "User bubble hover fill (20%)"],
+  ], {notes: true});
+});
+</script>
+</body>
+</html>

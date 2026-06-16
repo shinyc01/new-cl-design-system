@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Color — IFS Copperleaf Design System</title>
+<link rel="stylesheet" href="../DS/styles.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.34.0/dist/tabler-icons.min.css">
+<link rel="stylesheet" href="site.css">
+<script src="site.js"></script>
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="main">
+    <div class="page">
+      <div class="page-eyebrow">Foundations</div>
+      <h1>Color</h1>
+      <p class="page-lede">Neutral-led on a dark canvas. Cooper is the brand accent; purple is the brand identity. Status hues use the 500 base for text, icons and borders — info is the exception (blue-300).</p>
+
+      <h2>Primitive ramps</h2>
+      <p class="section-note">13 steps per hue, 50 → 500 (base) → 950. Use semantic tokens in product work; reach for primitives only in data-viz or bespoke surfaces.</p>
+      <div id="ramps"></div>
+
+      <h2>Surfaces</h2>
+      <div id="t-surfaces"></div>
+
+      <h2>Text</h2>
+      <div id="t-text"></div>
+
+      <h2>Icons</h2>
+      <p class="section-note">Icon tokens mirror text exactly.</p>
+      <div id="t-icon"></div>
+
+      <h2>Borders</h2>
+      <div id="t-border"></div>
+
+      <h2>Backgrounds</h2>
+      <h3>Alpha tints (base 10% · strong 25%)</h3>
+      <div id="t-bg-alpha"></div>
+      <h3>Solid fills</h3>
+      <div id="t-bg-solid"></div>
+      <h3>System status</h3>
+      <div id="t-bg-system"></div>
+
+      <h2>Overlays & focus</h2>
+      <div id="t-overlay"></div>
+
+      <h2>Data visualization</h2>
+      <h3>Chart sequence</h3>
+      <p class="section-note">The official categorical sequence (<code>chart/data-1..7</code>) — use in order for stacked bars, treemaps and grouped columns.</p>
+      <div id="t-chart"></div>
+      <h3>Data-viz primary (deep solids)</h3>
+      <p class="section-note">Separate collection of dark solids for map and product solid surfaces.</p>
+      <div id="t-dataviz"></div>
+
+      <h2>Gradients</h2>
+      <p class="section-note">Multi-layer styles from the Figma gradients sheet (<code>tokens/gradients.css</code>) — Cooper AI, Asset Health, Failure Probability, risk charts and cards, map highlights. Stops and colors are exact; positions approximate Figma's transforms.</p>
+      <div class="grid cols-3" id="gradient-demos"></div>
+
+      <h2>Product palettes</h2>
+      <h3>Asset Health</h3>
+      <div id="t-health"></div>
+      <h3>Failure Probability</h3>
+      <div id="t-failure"></div>
+      <h3>Collaboration</h3>
+      <p class="section-note">16 user colors for cursors, presence and avatars.</p>
+      <div id="t-collab"></div>
+    </div>
+  </main>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const steps = ["50","100","150","200","300","400","500","600","700","800","850","900","950"];
+  const hues = [
+    ["brand/purple", "--purple-"], ["brand/cooper", "--cooper-"],
+    ["system/success", "--green-"], ["system/danger", "--red-"],
+    ["system/warning", "--amber-"], ["system/info", "--blue-"],
+  ];
+  for (const [label, prefix] of hues) {
+    ramp("ramps", label, steps.map(s => prefix + s), 6);
+  }
+
+  tokenTable("t-surfaces", [
+    ["--surface-primary", "Page canvas"],
+    ["--surface-1", "Secondary background"],
+    ["--surface-2", "Cards / tertiary"],
+    ["--surface-3", "Raised / quaternary"],
+    ["--surface-primary-alpha", "Canvas at 85%"],
+    ["--surface-primary-inverse", "Inverse surface"],
+  ], {notes: true});
+
+  tokenTable("t-text", [
+    ["--text-primary", "Primary copy"],
+    ["--text-secondary", "Supporting copy (75%)"],
+    ["--text-tertiary", "Muted / metadata (55%)"],
+    ["--text-disabled", "Disabled (30%)"],
+    ["--text-accent-cooper", "Brand accent text"],
+    ["--text-accent-purple", "Purple accent text"],
+    ["--text-info", "Info — blue-300"],
+    ["--text-success", "Success — 500 base"],
+    ["--text-danger", "Danger — 500 base"],
+    ["--text-warning", "Warning — 500 base"],
+    ["--text-primary-inverse", "On light surfaces"],
+    ["--text-secondary-inverse", "On light, 60%"],
+  ], {notes: true});
+
+  tokenTable("t-icon", [
+    ["--icon-primary"], ["--icon-secondary"], ["--icon-tertiary"], ["--icon-disabled"],
+    ["--icon-accent-cooper"], ["--icon-accent-purple"], ["--icon-info"],
+    ["--icon-success"], ["--icon-danger"], ["--icon-warning"],
+  ]);
+
+  tokenTable("t-border", [
+    ["--border-base", "Default hairline (10%)"],
+    ["--border-medium", "Emphasis (20%)"],
+    ["--border-strong", "Strong (40%)"],
+    ["--border-accent-cooper", "Selected / active"],
+    ["--border-accent-purple", "Purple accent"],
+    ["--border-info", "Info — blue-300"],
+    ["--border-success", "Success"],
+    ["--border-danger", "Danger / error inputs"],
+    ["--border-warning", "Warning"],
+  ], {notes: true});
+
+  tokenTable("t-bg-alpha", [
+    ["--background-color-alpha-white-base"], ["--background-color-alpha-white-strong"],
+    ["--background-color-alpha-cooper-base"], ["--background-color-alpha-cooper-strong"],
+    ["--background-color-alpha-purple-base"], ["--background-color-alpha-purple-strong"],
+    ["--background-color-alpha-blue-base"], ["--background-color-alpha-blue-strong"],
+    ["--background-color-alpha-black-base"], ["--background-color-alpha-black-strong"],
+  ]);
+
+  tokenTable("t-bg-solid", [
+    ["--background-solid-black"], ["--background-solid-white"],
+    ["--background-solid-accent-cooper"], ["--background-solid-accent-purple"],
+    ["--background-solid-blue"], ["--background-solid-dark-orange"], ["--background-solid-dark-pink"],
+  ]);
+
+  tokenTable("t-bg-system", [
+    ["--background-system-info"], ["--background-system-success"],
+    ["--background-system-danger"], ["--background-system-warning"],
+  ]);
+
+  tokenTable("t-overlay", [
+    ["--overlay-element-light", "Light element scrim"],
+    ["--overlay-screen-medium", "Screen scrim, 30%"],
+    ["--overlay-screen-strong", "Screen scrim, 60%"],
+    ["--focus-outer", "Focus ring (2px)"],
+    ["--focus-inner", "Inner focus ring"],
+  ], {notes: true});
+
+  tokenTable("t-chart", [
+    ["--chart-data-1", "Green"], ["--chart-data-2", "Blue"], ["--chart-data-3", "Red"],
+    ["--chart-data-4", "Cooper"], ["--chart-data-5", "Purple"], ["--chart-data-6", "Amber"],
+    ["--chart-data-7", "Cyan"],
+  ], {notes: true});
+
+  tokenTable("t-dataviz", [
+    ["--data-viz-primary-1", "Dark red"], ["--data-viz-primary-2", "Dark amber"], ["--data-viz-primary-3", "Dark green"],
+    ["--data-viz-primary-4", "Dark purple"], ["--data-viz-primary-5", "Dark blue"],
+    ["--data-viz-primary-6", "Pending verification"], ["--data-viz-primary-7", "Dark orange"], ["--data-viz-primary-8", "Dark pink"],
+    ["--data-viz-bright-green", "Bright accent"], ["--data-viz-bright-cyan", "Bright accent"], ["--data-viz-bright-pink", "Bright accent"],
+  ], {notes: true});
+
+  const GRADS = [
+    ["--gradient-cooper-insight-fill", "Cooper insight fill"],
+    ["--gradient-asset-health-critical", "Asset Health · Critical"],
+    ["--gradient-asset-health-high", "Asset Health · High"],
+    ["--gradient-asset-health-medium", "Asset Health · Medium"],
+    ["--gradient-asset-health-healthy", "Asset Health · Healthy"],
+    ["--gradient-asset-health-blue", "Asset Health · Blue"],
+    ["--gradient-failure-probability-very-high", "Failure Prob. · Very high"],
+    ["--gradient-failure-probability-high", "Failure Prob. · High"],
+    ["--gradient-failure-probability-medium", "Failure Prob. · Medium"],
+    ["--gradient-failure-probability-low", "Failure Prob. · Low"],
+    ["--gradient-risk-chart-critical", "Risk chart · Critical"],
+    ["--gradient-risk-chart-moderate", "Risk chart · Moderate"],
+    ["--gradient-risk-chart-resolved", "Risk chart · Resolved"],
+    ["--gradient-risk-card-critical-fill", "Risk card · Critical"],
+    ["--gradient-risk-card-moderate-fill", "Risk card · Moderate"],
+    ["--gradient-risk-card-resolved-fill", "Risk card · Resolved"],
+    ["--gradient-map-highlight-critical", "Map highlight · Critical"],
+    ["--gradient-map-highlight-cooper", "Map highlight · Cooper"],
+  ];
+  document.getElementById("gradient-demos").innerHTML = GRADS.map(([t, label]) =>
+    `<div><div style="height:72px;border-radius:var(--radius-200);border:1px solid var(--border-base);background:var(${t})"></div>
+     <div style="font-family:var(--font-mono);font-size:10px;color:var(--text-tertiary);margin-top:6px">${t.replace("--gradient-","")}</div>
+     <div style="font-size:var(--body-m-size);color:var(--text-secondary)">${label}</div></div>`).join("");
+
+  tokenTable("t-health", [
+    ["--asset-health-critical"], ["--asset-health-high"], ["--asset-health-medium"],
+    ["--asset-health-healthy"], ["--asset-health-grey"], ["--asset-health-blue"],
+  ]);
+
+  tokenTable("t-failure", [
+    ["--failure-probability-very-high"], ["--failure-probability-high"],
+    ["--failure-probability-medium"], ["--failure-probability-low"],
+  ]);
+
+  tokenTable("t-collab", Array.from({length: 16}, (_, i) => ["--collaboration-user-" + (i + 1)]));
+});
+</script>
+</body>
+</html>

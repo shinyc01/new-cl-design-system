@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="1127.33 4008.69 23.00 23.00" fill="none"><filter xmlns="http://www.w3.org/2000/svg" id="filter8_d_1399_9135" x="1125.88" y="4005.96" width="20.946" height="23.7463" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix" />
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+<feOffset dy="1" />
+<feGaussianBlur stdDeviation="1.5" />
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.35 0" />
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_1399_9135" />
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_1399_9135" result="shape" />
+</filter>
+<g xmlns="http://www.w3.org/2000/svg" id="cursor-lasso">
+<g id="pointer_2" filter="url(#filter8_d_1399_9135)">
+<path d="M1132.78 4022.94L1130.28 4009.94L1141.28 4016.44L1135.78 4017.94L1132.78 4022.94Z" fill="currentColor" />
+<path d="M1130.53 4009.51L1141.53 4016.01L1142.55 4016.62L1141.41 4016.93L1136.1 4018.37L1133.21 4023.2L1132.53 4024.32L1132.29 4023.04L1129.79 4010.04L1129.58 4008.95L1130.53 4009.51Z" stroke="white" stroke-linecap="square" />
+</g>
+<g id="map icons">
+<path id="Vector_30" d="M1144.13 4029.1C1142.05 4029.66 1139.43 4029.15 1139.43 4027.42C1139.43 4025.7 1142.3 4025.7 1142.3 4028C1142.3 4029.11 1141.73 4030.87 1139.43 4031.44M1146.02 4022.73C1148.2 4023.49 1148.74 4025.52 1147.23 4027.27C1145.71 4029.02 1142.72 4029.81 1140.54 4029.05C1138.36 4028.29 1137.82 4026.26 1139.33 4024.52C1140.84 4022.77 1143.83 4021.97 1146.02 4022.73Z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
+</g>
+</g>
+</svg>

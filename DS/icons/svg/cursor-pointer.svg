@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="114.23 4011.14 16.00 16.00" fill="none"><filter xmlns="http://www.w3.org/2000/svg" id="filter0_d_1399_9135" x="112.044" y="4008.46" width="20.946" height="23.7463" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix" />
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+<feOffset dy="1" />
+<feGaussianBlur stdDeviation="1.5" />
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.35 0" />
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_1399_9135" />
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_1399_9135" result="shape" />
+</filter>
+<g xmlns="http://www.w3.org/2000/svg" id="cursor-pointer">
+<g id="pointer" filter="url(#filter0_d_1399_9135)">
+<path d="M118.944 4025.44L116.444 4012.44L127.444 4018.94L121.944 4020.44L118.944 4025.44Z" fill="currentColor" />
+<path d="M116.698 4012.01L127.698 4018.51L128.717 4019.12L127.576 4019.43L122.269 4020.87L119.373 4025.7L118.7 4026.82L118.453 4025.54L115.953 4012.54L115.744 4011.45L116.698 4012.01Z" stroke="white" stroke-linecap="square" />
+</g>
+</g>
+</svg>

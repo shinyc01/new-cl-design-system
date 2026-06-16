@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Components — IFS Copperleaf Design System</title>
+<link rel="stylesheet" href="../DS/styles.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.34.0/dist/tabler-icons.min.css">
+<link rel="stylesheet" href="site.css">
+<script src="site.js"></script>
+<script src="../DS/icons/icons.js"></script>
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="main">
+    <div class="page">
+      <div class="page-eyebrow">Components</div>
+      <h1>Components</h1>
+      <p class="page-lede">Live examples built directly on the element tokens (<code>tokens/elements.css</code>). Color states are verified 1:1 against Figma; full component specs follow as each Figma component page is reviewed. Buttons have their own page — see <a href="buttons.html">Buttons</a>.</p>
+
+      <h2>Inputs</h2>
+      <div class="demo">
+        <input class="input" placeholder="Framework name">
+        <input class="input danger" value="–$12M" aria-invalid="true">
+        <input class="input" disabled placeholder="Disabled">
+      </div>
+      <div id="t-inputs"></div>
+
+      <h2>Search</h2>
+      <div class="demo">
+        <span class="search"><svg class="ds-icon" style="width:16px;height:16px;flex:none"><use href="#system-search"/></svg><input placeholder="Search investments"></span>
+      </div>
+      <div id="t-search"></div>
+
+      <h2>Header items</h2>
+      <div class="demo" style="gap:var(--gap-100)">
+        <span class="btn btn-ghost" style="background:var(--header-item-fill-active);color:var(--text-primary)">Overview</span>
+        <span class="btn btn-ghost">Capital flow</span>
+        <span class="btn btn-ghost">Map</span>
+      </div>
+
+      <div class="callout">React primitives (Button, Badge, Card, Avatar, Input, Select, Checkbox, Switch, Tabs, SegmentedControl, Stepper) live in <code>DS/components/</code> and mount from the compiled bundle — see the DS readme. Their specs get verified against the Figma component pages in the next phases.</div>
+    </div>
+  </main>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  document.body.insertAdjacentHTML("afterbegin", window.IFSIconSprite);
+  tokenTable("t-inputs", [
+    ["--text-area-fill-default", "10%"],
+    ["--text-area-border-default", "10%"],
+    ["--text-area-border-hover", "20%"],
+    ["--text-area-border-typing", "55% while typing"],
+    ["--text-area-border-danger", "Error state"],
+  ], {notes: true});
+
+  tokenTable("t-search", [
+    ["--search-fill-default", "5% — quieter than inputs"],
+    ["--search-border-default", "10%"],
+    ["--search-border-typing", "40% while typing"],
+  ], {notes: true});
+});
+</script>
+</body>
+</html>

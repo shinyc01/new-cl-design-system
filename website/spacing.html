@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spacing & layout — IFS Copperleaf Design System</title>
+<link rel="stylesheet" href="../DS/styles.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.34.0/dist/tabler-icons.min.css">
+<link rel="stylesheet" href="site.css">
+<script src="site.js"></script>
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="main">
+    <div class="page">
+      <div class="page-eyebrow">Foundations</div>
+      <h1>Spacing & layout</h1>
+      <p class="page-lede">A 4px grid with half-steps (2, 6, 10) for dense surfaces. Figma models spacing as three roles — paddings inside components, gaps between siblings, margins/gutters for the page grid. Token numbers map to Figma: padding-200 = 8px.</p>
+
+      <h2>Paddings</h2>
+      <p class="section-note">Inner space of components and containers.</p>
+      <div id="paddings"></div>
+
+      <h2>Gaps</h2>
+      <p class="section-note">Space between sibling elements (flex/grid gap).</p>
+      <div id="gaps"></div>
+
+      <h2>Layout margins & gutters</h2>
+      <p class="section-note">Page-level grid: margins at the edges, gutters between columns. Both scale by breakpoint.</p>
+      <div id="t-layout"></div>
+
+      <h2>Usage</h2>
+      <pre><code>.toolbar {
+  display: flex;
+  gap: var(--gap-200);
+  padding: var(--padding-300) var(--padding-400);
+}</code></pre>
+      <div class="callout">Layouts are dense and information-rich: fixed left rail + sticky header, scrolling content, generous use of CSS grid/flex with <code>gap</code>.</div>
+    </div>
+  </main>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  spaceBars("paddings", ["--padding-50","--padding-100","--padding-150","--padding-200","--padding-250","--padding-300","--padding-400","--padding-500"]);
+  spaceBars("gaps", ["--gap-50","--gap-100","--gap-150","--gap-200","--gap-250","--gap-300","--gap-400","--gap-500","--gap-600","--gap-700","--gap-800","--gap-900"]);
+  valueTable("t-layout", [
+    ["--layout-margin-xs", "Edge margin, smallest viewport"],
+    ["--layout-margin-sm", ""],
+    ["--layout-margin-md", ""],
+    ["--layout-margin-lg", ""],
+    ["--layout-margin-xl", "Edge margin, largest viewport"],
+    ["--gutter-xs", "Column gutter, smallest viewport"],
+    ["--gutter-sm", ""],
+    ["--gutter-md", ""],
+    ["--gutter-lg", ""],
+    ["--gutter-xl", "Column gutter, largest viewport"],
+  ]);
+});
+</script>
+</body>
+</html>

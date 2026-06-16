@@ -1,0 +1,136 @@
+/* ============================================================
+   IFS Copperleaf — Element tokens (from Figma element/* variables)
+   Component-level state colors: buttons, text-area, search,
+   header items. Names map 1:1 to Figma.
+   All values reference foundation tokens (colors.css) — no raw hex.
+   ============================================================ */
+
+:root {
+  /* ---- element/button/primary (white-on-dark; the neutral primary) ---- */
+  --button-primary-fill-default:    var(--white-1000);
+  --button-primary-fill-hover:      var(--white-850);
+  --button-primary-fill-pressed:    var(--white-600);
+  --button-primary-fill-disabled:   var(--white-100);
+  --button-primary-border-default:  var(--black-200);
+  /* black/200 per the spec PDF (a subtle dark edge on the white fill);
+     the live Figma variable resolves to white/100 — PDF chosen as it
+     matches the rendered component sheet. */
+  --button-primary-border-hover:    var(--white-100);
+  --button-primary-border-pressed:  var(--white-100);
+  --button-primary-border-disabled: var(--white-0);
+
+  /* ---- element/button/secondary ---- */
+  --button-secondary-fill-default:    var(--white-100);
+  --button-secondary-fill-hover:      var(--white-150);
+  --button-secondary-fill-pressed:    var(--white-50);
+  --button-secondary-fill-disabled:   var(--white-100);
+  --button-secondary-border-default:  var(--white-100);
+  --button-secondary-border-hover:    var(--white-400);
+  --button-secondary-border-pressed:  var(--white-100);
+  --button-secondary-border-disabled: var(--white-50);
+
+  /* ---- element/button/tertiary (outlined) ---- */
+  --button-tertiary-fill-default:    var(--black-100);
+  --button-tertiary-fill-hover:      var(--black-100);
+  --button-tertiary-fill-pressed:    var(--black-100);
+  --button-tertiary-fill-disabled:   var(--black-100);
+  --button-tertiary-border-default:  var(--white-200);
+  --button-tertiary-border-hover:    var(--white-400);
+  --button-tertiary-border-pressed:  var(--white-100);
+  --button-tertiary-border-disabled: var(--white-200);
+
+  /* ---- element/button/negative ----
+     These variables exist in Figma, but there is NO destructive button
+     component in the design system — do not build red delete buttons. */
+  --button-negative-fill-default:    var(--red-500);
+  --button-negative-fill-hover:      var(--red-400);
+  --button-negative-fill-pressed:    var(--red-600);
+  --button-negative-fill-disabled:   var(--red-800);
+  --button-negative-border-default:  var(--white-0);
+  --button-negative-border-hover:    var(--white-0);
+  --button-negative-border-pressed:  var(--white-0);
+  --button-negative-border-disabled: var(--white-0);
+
+  /* ---- element/button/ghost ---- */
+  --button-ghost-fill-default:    var(--black-0);
+  --button-ghost-fill-hover:      var(--white-150);
+  --button-ghost-fill-pressed:    var(--white-150);
+  --button-ghost-fill-disabled:   var(--black-0);
+  --button-ghost-border-default:  var(--white-0);
+  --button-ghost-border-hover:    var(--white-0);
+  --button-ghost-border-pressed:  var(--white-0);
+  --button-ghost-border-disabled: var(--white-0);
+
+  /* ---- element/button/accent-cooper (the Cooper AI button) ----
+     Dark glass fill + cooper gradient glow + backdrop blur. The
+     gradient styles (cooper/button/default|hover|pressed) are Figma
+     styles whose exact stops aren't exported — the --gradient-cooper-
+     button-* values are close visual approximations. */
+  --button-accent-cooper-fill-default:    var(--black-600);
+  --button-accent-cooper-fill-hover:      var(--black-600);
+  --button-accent-cooper-fill-pressed:    var(--black-600);
+  --button-accent-cooper-fill-disabled:   var(--white-50);
+  --button-accent-cooper-border-default:  var(--white-50);
+  --button-accent-cooper-border-hover:    var(--white-50);
+  --button-accent-cooper-border-pressed:  var(--white-50);
+  --button-accent-cooper-border-disabled: var(--white-50);
+  /* Exact gradients, lifted from Figma's own generated layers:
+     layer 1 (top) — lavender "sheen" radial from top center @ 25% opacity;
+     layer 2 — cooper glow radial anchored bottom-right (hover doubles its
+     reach; pressed switches to cooper-700 tones);
+     layer 3 — black 60% base.
+     Consumers must set background-size: 100% 100%. */
+  --gradient-cooper-button-default:
+    url("data:image/svg+xml;utf8,<svg viewBox='0 0 106 40' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none'><rect x='0' y='0' height='100%25' width='100%25' fill='url(%23g)' opacity='0.25'/><defs><radialGradient id='g' gradientUnits='userSpaceOnUse' cx='0' cy='0' r='10' gradientTransform='matrix(-4.936e-7 3.904 -9.1054 -0.0000016787 53 0.96014)'><stop stop-color='rgba(0,0,0,0)' offset='0'/><stop stop-color='rgba(55,52,63,0.25)' offset='0.25'/><stop stop-color='rgba(109,105,127,0.5)' offset='0.5'/><stop stop-color='rgba(164,157,190,0.75)' offset='0.75'/><stop stop-color='rgba(218,209,253,1)' offset='1'/></radialGradient></defs></svg>"),
+    url("data:image/svg+xml;utf8,<svg viewBox='0 0 106 40' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none'><rect x='0' y='0' height='100%25' width='100%25' fill='url(%23g)' opacity='1'/><defs><radialGradient id='g' gradientUnits='userSpaceOnUse' cx='0' cy='0' r='10' gradientTransform='matrix(-6.781 -3.5 6.4252 -3.2985 104.84 35)'><stop stop-color='rgba(200,121,65,1)' offset='0'/><stop stop-color='rgba(150,91,49,0.75)' offset='0.25'/><stop stop-color='rgba(100,61,33,0.5)' offset='0.5'/><stop stop-color='rgba(50,30,16,0.25)' offset='0.75'/><stop stop-color='rgba(0,0,0,0)' offset='1'/></radialGradient></defs></svg>"),
+    linear-gradient(90deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.6) 100%);
+  --gradient-cooper-button-hover:
+    url("data:image/svg+xml;utf8,<svg viewBox='0 0 106 40' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none'><rect x='0' y='0' height='100%25' width='100%25' fill='url(%23g)' opacity='0.25'/><defs><radialGradient id='g' gradientUnits='userSpaceOnUse' cx='0' cy='0' r='10' gradientTransform='matrix(-4.936e-7 3.904 -9.1054 -0.0000016787 53 0.96014)'><stop stop-color='rgba(0,0,0,0)' offset='0'/><stop stop-color='rgba(55,52,63,0.25)' offset='0.25'/><stop stop-color='rgba(109,105,127,0.5)' offset='0.5'/><stop stop-color='rgba(164,157,190,0.75)' offset='0.75'/><stop stop-color='rgba(218,209,253,1)' offset='1'/></radialGradient></defs></svg>"),
+    url("data:image/svg+xml;utf8,<svg viewBox='0 0 106 40' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none'><rect x='0' y='0' height='100%25' width='100%25' fill='url(%23g)' opacity='1'/><defs><radialGradient id='g' gradientUnits='userSpaceOnUse' cx='0' cy='0' r='10' gradientTransform='matrix(-13.756 -5.9757 12.398 -7.4287 104.84 35)'><stop stop-color='rgba(200,121,65,1)' offset='0'/><stop stop-color='rgba(150,91,49,0.75)' offset='0.25'/><stop stop-color='rgba(100,61,33,0.5)' offset='0.5'/><stop stop-color='rgba(50,30,16,0.25)' offset='0.75'/><stop stop-color='rgba(0,0,0,0)' offset='1'/></radialGradient></defs></svg>"),
+    linear-gradient(90deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.6) 100%);
+  --gradient-cooper-button-pressed:
+    url("data:image/svg+xml;utf8,<svg viewBox='0 0 106 40' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none'><rect x='0' y='0' height='100%25' width='100%25' fill='url(%23g)' opacity='0.25'/><defs><radialGradient id='g' gradientUnits='userSpaceOnUse' cx='0' cy='0' r='10' gradientTransform='matrix(-4.936e-7 3.904 -9.1054 -0.0000016787 53 0.96014)'><stop stop-color='rgba(0,0,0,0)' offset='0'/><stop stop-color='rgba(55,52,63,0.25)' offset='0.25'/><stop stop-color='rgba(109,105,127,0.5)' offset='0.5'/><stop stop-color='rgba(164,157,190,0.75)' offset='0.75'/><stop stop-color='rgba(218,209,253,1)' offset='1'/></radialGradient></defs></svg>"),
+    url("data:image/svg+xml;utf8,<svg viewBox='0 0 106 40' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none'><rect x='0' y='0' height='100%25' width='100%25' fill='url(%23g)' opacity='1'/><defs><radialGradient id='g' gradientUnits='userSpaceOnUse' cx='0' cy='0' r='10' gradientTransform='matrix(-13.756 -5.9757 12.398 -7.4287 104.84 35)'><stop stop-color='rgba(120,73,39,1)' offset='0'/><stop stop-color='rgba(90,54,29,0.75)' offset='0.25'/><stop stop-color='rgba(60,36,20,0.5)' offset='0.5'/><stop stop-color='rgba(0,0,0,0)' offset='1'/></radialGradient></defs></svg>"),
+    linear-gradient(90deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.6) 100%);
+
+  /* ---- Button geometry (from the Buttons component sheet) ----
+     L (40): pad 12/10, radius 8, Label/L 14/20
+     M (32): pad 10/8,  radius 4, Label/M 12/16
+     S (24): pad 6/4,   radius 4, Label/M 12/16
+     Icon↔label spacing: 4px (label carries 4px side padding). */
+  --button-l-height: 40px;  --button-l-padding-x: 12px;  --button-l-padding-y: 10px;  --button-l-radius: 8px;
+  --button-m-height: 32px;  --button-m-padding-x: 10px;  --button-m-padding-y: 8px;   --button-m-radius: 4px;
+  --button-s-height: 24px;  --button-s-padding-x: 6px;   --button-s-padding-y: 4px;   --button-s-radius: 4px;
+  --button-icon-gap: 4px;
+
+  /* ---- element/text-area (inputs & textareas) ---- */
+  --text-area-fill-default:    var(--white-100);
+  --text-area-fill-hover:      var(--white-100);
+  --text-area-fill-typing:     var(--white-100);
+  --text-area-fill-disabled:   var(--white-50);
+  --text-area-fill-danger:     var(--white-100);
+  --text-area-border-default:  var(--white-100);
+  --text-area-border-hover:    var(--white-200);
+  --text-area-border-typing:   var(--white-400);
+  --text-area-border-disabled: var(--white-50);
+  --text-area-border-danger:   var(--red-500);
+
+  /* ---- element/search ---- */
+  --search-fill-default:    var(--white-50);
+  --search-fill-hover:      var(--white-100);
+  --search-fill-typing:     var(--white-100);
+  --search-fill-disabled:   var(--white-50);
+  --search-border-default:  var(--white-100);
+  --search-border-hover:    var(--white-200);
+  --search-border-typing:   var(--white-400);
+  --search-border-disabled: var(--white-50);
+
+  /* ---- element/header-item (top-nav items) ---- */
+  --header-item-fill-default: var(--black-0);
+  --header-item-fill-active:  var(--white-100);
+
+  /* ---- element/cooper/insight (Cooper AI insight chips) ---- */
+  --cooper-insight-fill-strong:  var(--black-850);
+  --cooper-insight-fill-base:    var(--black-100);
+  --cooper-insight-fill-inverse: var(--white-50);
+}

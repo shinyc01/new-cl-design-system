@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Iconography — IFS Copperleaf Design System</title>
+<link rel="stylesheet" href="../DS/styles.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.34.0/dist/tabler-icons.min.css">
+<link rel="stylesheet" href="site.css">
+<script src="site.js"></script>
+<script src="../DS/icons/icons.js"></script>
+<style>
+  .icon-toolbar { display:flex; gap:var(--gap-300); align-items:center; margin:var(--gap-300) 0; flex-wrap:wrap; }
+  .icon-cell svg { width:16px; height:16px; color:var(--icon-primary); }
+  .icon-cell.lg svg { width:32px; height:32px; }
+  .icon-cell { cursor:pointer; }
+  .icon-cell:hover { border-color:var(--border-medium); background:var(--surface-3); }
+  .cat-count { color:var(--text-tertiary); font-weight:var(--weight-regular); }
+</style>
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="main">
+    <div class="page">
+      <div class="page-eyebrow">Foundations</div>
+      <h1>Iconography</h1>
+      <p class="page-lede">The real product icon set — 177 glyphs extracted from the Figma Icon Components library. Custom outline style, 1.5px stroke converted to fill, designed for exactly two sizes: 16px (primary) and 12px (compact). Filled variants are used exclusively for status indicators. Icons are monochrome and inherit color via <code>currentColor</code>. Never emoji, never arbitrary sizes, never below 12px.</p>
+
+      <h2>Usage</h2>
+      <p>The set ships in <code>DS/icons/</code>: individual SVGs (<code>svg/&lt;name&gt;.svg</code>), a symbol sprite (<code>sprite.svg</code>), a registry (<code>icons.json</code>), and <code>icons.js</code> which exposes both for file:// contexts. Inject the sprite once, then reference symbols:</p>
+      <pre><code>&lt;script src="DS/icons/icons.js"&gt;&lt;/script&gt;
+&lt;script&gt;document.body.insertAdjacentHTML("afterbegin", window.IFSIconSprite);&lt;/script&gt;
+
+&lt;svg width="16" height="16" style="color: var(--icon-accent-cooper)"&gt;
+  &lt;use href="#system-search"/&gt;
+&lt;/svg&gt;</code></pre>
+
+      <h2>Library</h2>
+      <div class="icon-toolbar">
+        <span class="search" style="min-width:280px"><i class="ti ti-search"></i><input id="icon-search" placeholder="Search 177 icons"></span>
+        <label style="display:flex;align-items:center;gap:6px;font-size:var(--body-m-size);color:var(--text-secondary)"><input type="checkbox" id="icon-zoom"> 32px preview</label>
+        <span id="copy-hint" style="font-size:var(--body-m-size);color:var(--text-tertiary)">Click an icon to copy its name</span>
+      </div>
+      <div id="gallery"></div>
+
+      <h2>Color</h2>
+      <div class="demo" id="color-demo"></div>
+      <p class="section-note">primary · secondary · tertiary · disabled · accent-cooper · success · warning · danger · info</p>
+
+      <h2>Rules</h2>
+      <p>Only 12px and 16px — no arbitrary sizes, never below 12px. Monochrome via <code>currentColor</code> or the <code>--icon-*</code> tokens. Filled icons (the <code>filled</code> category) only for status and high-priority accents, primarily on the map. Names are kebab-case, no prefixes beyond their family.</p>
+
+      <h2>Logo</h2>
+      <p>Primary usage is the plain white lockup on dark. The wordmark is set in Parabole (commercial) and ships as artwork — never recreate it in a webfont.</p>
+      <div class="demo" style="background:var(--surface-primary)">
+        <img src="../DS/assets/logo-white.png" alt="IFS Copperleaf" style="height:28px">
+      </div>
+    </div>
+  </main>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  document.body.insertAdjacentHTML("afterbegin", window.IFSIconSprite);
+  const icons = window.IFSIcons.icons;
+  const CATS = ["arrow","chat","map","system","cursors","filled","cooper"];
+  const gallery = document.getElementById("gallery");
+
+  function render(filter) {
+    const f = (filter || "").toLowerCase();
+    const zoom = document.getElementById("icon-zoom").checked ? " lg" : "";
+    let html = "";
+    for (const cat of CATS) {
+      const items = icons.filter(i => i.category === cat && (!f || i.name.includes(f)));
+      if (!items.length) continue;
+      html += `<h3 style="text-transform:capitalize">${cat} <span class="cat-count">· ${items.length}</span></h3><div class="icon-grid">`;
+      for (const i of items) {
+        html += `<div class="icon-cell${zoom}" data-name="${i.name}" title="${i.name}">
+          <svg><use href="#${i.name}"/></svg><span>${i.name}</span></div>`;
+      }
+      html += "</div>";
+    }
+    gallery.innerHTML = html || '<p class="section-note">No icons match.</p>';
+  }
+  render();
+
+  document.getElementById("icon-search").addEventListener("input", e => render(e.target.value));
+  document.getElementById("icon-zoom").addEventListener("change", () => render(document.getElementById("icon-search").value));
+  gallery.addEventListener("click", e => {
+    const cell = e.target.closest(".icon-cell");
+    if (!cell) return;
+    navigator.clipboard && navigator.clipboard.writeText(cell.dataset.name);
+    document.getElementById("copy-hint").textContent = `Copied "${cell.dataset.name}"`;
+  });
+
+  const tokens = ["--icon-primary","--icon-secondary","--icon-tertiary","--icon-disabled","--icon-accent-cooper","--icon-success","--icon-warning","--icon-danger","--icon-info"];
+  document.getElementById("color-demo").innerHTML = tokens.map(t =>
+    `<svg width="20" height="20" style="color:var(${t})" title="${t}"><use href="#chart"/></svg>`).join("");
+});
+</script>
+</body>
+</html>

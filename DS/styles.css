@@ -1,0 +1,12 @@
+/* ============================================================
+   IFS Copperleaf Design System — global entry point.
+   Consumers link THIS file. It only @imports token layers.
+   ============================================================ */
+@import './tokens/fonts.css';
+@import './tokens/colors.css';
+@import './tokens/palettes.css';
+@import './tokens/semantic.css';
+@import './tokens/gradients.css';
+@import './tokens/elements.css';
+@import './tokens/typography.css';
+@import './tokens/spacing.css';

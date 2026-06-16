@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IFS Copperleaf Design System</title>
+<link rel="stylesheet" href="../DS/styles.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.34.0/dist/tabler-icons.min.css">
+<link rel="stylesheet" href="site.css">
+<script src="site.js"></script>
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="main">
+    <div class="page">
+      <div class="page-eyebrow">IFS Copperleaf</div>
+      <h1>Design system</h1>
+      <p class="page-lede">Tokens, type, color and components for IFS Copperleaf — the decision-analytics suite for asset investment planning. Dark-first, neutral-led, built for dense data surfaces. Everything on this site renders live from the token files, so it always matches the source of truth.</p>
+
+      <h2>Principles</h2>
+      <div class="grid cols-3">
+        <div class="card">
+          <h3 style="margin-top:0">Neutral-led</h3>
+          <p style="font-size:var(--body-m-size);line-height:var(--body-m-line);margin:0">Primary actions are white-on-dark; controls are white-alpha. Cooper <span class="pill cooper">#C87941</span> is the brand accent for selected, active and value moments. Purple is the logo and a data-viz hue — never a UI primary.</p>
+        </div>
+        <div class="card">
+          <h3 style="margin-top:0">Dark-first</h3>
+          <p style="font-size:var(--body-m-size);line-height:var(--body-m-line);margin:0">Black canvas with a four-step surface ladder (#000 → #0F0F0F → #1B1B1B → #373636). Structure comes from hairline borders and tint, not heavy shadows.</p>
+        </div>
+        <div class="card">
+          <h3 style="margin-top:0">Compact &amp; quantified</h3>
+          <p style="font-size:var(--body-m-size);line-height:var(--body-m-line);margin:0">Inter at 10–24px. Sentence case everywhere, no emoji, outcomes quantified — $478M, +12% vs. baseline, framework coverage 86%.</p>
+        </div>
+      </div>
+
+      <h2>Getting started</h2>
+      <p>Link the single root stylesheet — it imports every token layer (primitives, palettes, semantic, elements, typography, spacing):</p>
+      <pre><code>&lt;link rel="stylesheet" href="DS/styles.css"&gt;</code></pre>
+      <p>Then build with the custom properties. Never hard-code hex values:</p>
+      <pre><code>.card {
+  background: var(--surface-2);
+  border: 1px solid var(--border-base);
+  border-radius: var(--radius-200);
+  padding: var(--padding-400);
+}</code></pre>
+
+      <h2>Token architecture</h2>
+      <table class="token-table">
+        <thead><tr><th>Layer</th><th>File</th><th>What it holds</th></tr></thead>
+        <tbody>
+          <tr><td>Primitives</td><td class="tok">tokens/colors.css</td><td>13-step ramps (purple, cooper, success, danger, warning, info), neutrals, white/black alpha scales.</td></tr>
+          <tr><td>Palettes</td><td class="tok">tokens/palettes.css</td><td>Data-viz sequence, Asset Health, Failure Probability, collaboration users, map tokens.</td></tr>
+          <tr><td>Semantic</td><td class="tok">tokens/semantic.css</td><td>surface/*, text/*, icon/*, border/*, background/*, overlay/*, focus/* — 1:1 Figma names.</td></tr>
+          <tr><td>Elements</td><td class="tok">tokens/elements.css</td><td>Button variants × states, text-area, search, header-item.</td></tr>
+          <tr><td>Typography</td><td class="tok">tokens/typography.css</td><td>Inter ramp: Display, H1–H4 (+UPPER), Body, Label (+UPPER), Caption.</td></tr>
+          <tr><td>Layout</td><td class="tok">tokens/spacing.css</td><td>Paddings, gaps, margins, gutters, radii, border widths, elevation, blur, motion.</td></tr>
+        </tbody>
+      </table>
+
+      <div class="callout">Token names map 1:1 to the Figma variables in <b>IFS Design System</b> (e.g. <code>element/button/secondary/fill/hover</code> → <code>--button-secondary-fill-hover</code>). Legacy DS names are aliased and deprecated.</div>
+
+      <h2>Voice</h2>
+      <p>Confident, precise, analytical. Sentence case for labels, titles and buttons; UPPERCASE only for tiny caption metadata. Money in compact units ($478M, $1.24B); deltas signed and qualified (+$51M, +12% vs. baseline). Status language: Active · Draft · In review · At risk · Over budget · Optimized.</p>
+    </div>
+  </main>
+</div>
+</body>
+</html>

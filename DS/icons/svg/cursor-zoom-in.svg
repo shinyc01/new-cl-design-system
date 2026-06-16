@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="790.50 4010.70 19.00 19.00" fill="none"><filter xmlns="http://www.w3.org/2000/svg" id="filter4_d_1399_9135" x="788.3" y="4010.06" width="17.4" height="16.8" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix" />
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+<feOffset dx="-0.36" dy="0.84" />
+<feGaussianBlur stdDeviation="0.9" />
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.3 0" />
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_1399_9135" />
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_1399_9135" result="shape" />
+</filter>
+<filter xmlns="http://www.w3.org/2000/svg" id="filter5_d_1399_9135" x="798.92" y="4020.32" width="11.64" height="11.2802" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix" />
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+<feOffset dx="-0.36" dy="0.84" />
+<feGaussianBlur stdDeviation="0.9" />
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.3 0" />
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_1399_9135" />
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_1399_9135" result="shape" />
+</filter>
+<g xmlns="http://www.w3.org/2000/svg" id="cursor-zoom-in">
+<path id="Vector_19" fill-rule="evenodd" clip-rule="evenodd" d="M803.84 4017.62C803.84 4021.04 800.939 4023.8 797.36 4023.8C793.781 4023.8 790.88 4021.04 790.88 4017.62C790.88 4014.21 793.781 4011.44 797.36 4011.44C800.939 4011.44 803.84 4014.21 803.84 4017.62Z" fill="white" />
+<g id="Group_5" filter="url(#filter4_d_1399_9135)">
+<path id="Vector_20" fill-rule="evenodd" clip-rule="evenodd" d="M803.84 4017.62C803.84 4021.04 800.939 4023.8 797.36 4023.8C793.781 4023.8 790.88 4021.04 790.88 4017.62C790.88 4014.21 793.781 4011.44 797.36 4011.44C800.939 4011.44 803.84 4014.21 803.84 4017.62Z" fill="white" />
+<path id="Vector_21" fill-rule="evenodd" clip-rule="evenodd" d="M803.84 4017.62C803.84 4021.04 800.939 4023.8 797.36 4023.8C793.781 4023.8 790.88 4021.04 790.88 4017.62C790.88 4014.21 793.781 4011.44 797.36 4011.44C800.939 4011.44 803.84 4014.21 803.84 4017.62Z" stroke="currentColor" stroke-width="0.84" />
+</g>
+<path id="Vector_22" d="M798.5 4016.48V4016.54H798.56H800.9V4018.68H798.56H798.5V4018.74V4020.98H796.22V4018.74V4018.68H796.16H793.82V4016.54H796.16H796.22V4016.48V4014.26H798.5V4016.48Z" fill="currentColor" stroke="currentColor" stroke-width="0.12" />
+<g id="Group_6" filter="url(#filter5_d_1399_9135)">
+<path id="Vector_23" fill-rule="evenodd" clip-rule="evenodd" d="M807.464 4028.96L809.12 4027.38L802.736 4021.28L801.08 4022.87L807.464 4028.96Z" fill="currentColor" />
+<path id="Vector_24" d="M802.736 4021.37L809.033 4027.38L807.464 4028.88L801.167 4022.87L802.736 4021.37Z" stroke="currentColor" stroke-width="0.12" />
+</g>
+</g>
+</svg>

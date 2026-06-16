@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Buttons — IFS Copperleaf Design System</title>
+<link rel="stylesheet" href="../DS/styles.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.34.0/dist/tabler-icons.min.css">
+<link rel="stylesheet" href="site.css">
+<script src="site.js"></script>
+<script src="../DS/icons/icons.js"></script>
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="main">
+    <div class="page">
+      <div class="page-eyebrow">Components</div>
+      <h1>Buttons</h1>
+      <p class="page-lede">Verified against the Figma Buttons, Icon Buttons, Prompt button and FAB sheets. Five variants — primary, secondary, tertiary, ghost, accent-cooper (the Cooper AI button, exact gradient layers). Pressed states drop alpha and never shift position.</p>
+
+      <h2>Variants & sizes</h2>
+      <p class="section-note">Three sizes: L 40 (pad 12/10, radius 8, Label L) · M 32 (pad 10/8, radius 4, Label M) · S 24 (pad 6/4, radius 4, Label M). Icon↔label spacing 4px; icons 16px (12px on S).</p>
+      <div class="demo">
+        <button class="btn btn-l btn-primary">Run optimization</button>
+        <button class="btn btn-l btn-secondary"><svg class="ds-icon"><use href="#system-star-favourite"/></svg>Save draft</button>
+        <button class="btn btn-l btn-tertiary">Compare scenarios</button>
+        <button class="btn btn-l btn-ghost">Cancel</button>
+        <button class="btn btn-l btn-cooper"><svg class="ds-icon"><use href="#ai-search"/></svg>Ask Cooper</button>
+      </div>
+      <div class="demo">
+        <button class="btn btn-primary">Run optimization</button>
+        <button class="btn btn-secondary">Save draft</button>
+        <button class="btn btn-tertiary">Compare scenarios</button>
+        <button class="btn btn-ghost">Cancel</button>
+        <button class="btn btn-cooper">Ask Cooper</button>
+      </div>
+      <div class="demo">
+        <button class="btn btn-s btn-primary">Run</button>
+        <button class="btn btn-s btn-secondary">Save</button>
+        <button class="btn btn-s btn-tertiary">Compare</button>
+        <button class="btn btn-s btn-ghost">Cancel</button>
+        <button class="btn btn-s btn-cooper">Ask Cooper</button>
+      </div>
+      <div class="demo">
+        <button class="btn btn-l btn-primary" disabled>Run optimization</button>
+        <button class="btn btn-l btn-secondary" disabled>Save draft</button>
+        <button class="btn btn-l btn-tertiary" disabled>Compare scenarios</button>
+        <button class="btn btn-l btn-ghost" disabled>Cancel</button>
+        <button class="btn btn-l btn-cooper" disabled>Ask Cooper</button>
+      </div>
+      <p class="section-note">Pressed: fills drop alpha, tertiary border drops to 10%, ghost label dims to secondary. No position shift. There is no destructive/negative button component (the element tokens exist in Figma's variables but no component uses them).</p>
+      <div id="t-buttons"></div>
+
+      <h2>Icon buttons</h2>
+      <p class="section-note">The full Figma matrix: 2 shapes (square, circle) × 4 variants (primary, secondary, tertiary, ghost) × 3 sizes (L 40 pad 12 · M 32 pad 8 · S 24 pad 4) × 5 states = 120 variants. Icons stay <b>16px at every size</b> (unlike text buttons). Square radius 8 (L) / 4 (M, S); circles full. One faithful Figma quirk: the ghost square L uses 6px radius. There is no cooper icon button — Cooper is only the FAB.</p>
+      <div id="icon-button-matrix"></div>
+      <h3>Disabled</h3>
+      <div class="demo">
+        <button class="btn btn-icon btn-l btn-primary" disabled><svg class="ds-icon"><use href="#system-star-favourite"/></svg></button>
+        <button class="btn btn-icon btn-secondary" disabled><svg class="ds-icon"><use href="#system-star-favourite"/></svg></button>
+        <button class="btn btn-icon btn-s btn-tertiary" disabled><svg class="ds-icon"><use href="#system-star-favourite"/></svg></button>
+        <button class="btn btn-icon btn-l btn-circle btn-ghost" disabled><svg class="ds-icon"><use href="#system-star-favourite"/></svg></button>
+      </div>
+      <h3>Notification</h3>
+      <p class="section-note">Ghost icon button with a danger dot pinned to the bell's top right; the dot carries a surface-colored ring so it reads on any fill.</p>
+      <div class="demo">
+        <button class="btn btn-icon btn-ghost" style="position:relative"><svg class="ds-icon"><use href="#system-notification"/></svg><span style="position:absolute;top:7px;right:8px;width:6px;height:6px;border-radius:50%;background:var(--background-system-danger);box-shadow:0 0 0 1.5px var(--surface-1)"></span></button>
+        <button class="btn btn-icon btn-ghost"><svg class="ds-icon"><use href="#system-notification"/></svg></button>
+      </div>
+
+      <h2>Prompt chips</h2>
+      <p class="section-note">Pill-shaped prompt buttons (Cooper AI suggestions). Secondary fill behavior, radius full, sizes L 40 / M 32.</p>
+      <div class="demo">
+        <button class="btn btn-l btn-pill btn-secondary">Rebalance $42M into Growth</button>
+        <button class="btn btn-pill btn-secondary">Show capex burn</button>
+        <button class="btn btn-pill btn-secondary" disabled>Optimize again</button>
+      </div>
+
+      <h2>FAB — Cooper button</h2>
+      <p class="section-note">Inline SVG — no external assets. Resting state has a soft purple/amber glow. Hover triggers <code>scale(1.04)</code> and an aurora keyframe that cycles the glow through purple → pink → amber → indigo over 3.6s. Press scales to <code>0.97</code>. Disabled drops to <code>opacity: 0.4</code>. Focus uses a drop-shadow ring.</p>
+
+      <h3>Interactive</h3>
+      <p class="section-note">Hover, press, tab to it, or toggle disabled.</p>
+      <div class="demo" style="padding-top:56px">
+        <button class="cooper-fab" id="fab-live" aria-label="Ask Cooper">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="48" height="48" rx="24" fill="black" fill-opacity="0.1"/>
+            <rect width="48" height="48" rx="24" fill="url(#fab_p0)" fill-opacity="0.2"/>
+            <rect x="0.5" y="0.5" width="47" height="47" rx="23.5" stroke="white" stroke-opacity="0.2"/>
+            <g filter="url(#fab_f1)">
+              <circle cx="24" cy="24" r="16" fill="url(#fab_p1)"/>
+              <g filter="url(#fab_f2)"><circle cx="15.8876" cy="24.1122" r="5.29577" fill="url(#fab_p2)"/></g>
+              <g filter="url(#fab_f3)">
+                <ellipse cx="27.5918" cy="23.3469" rx="8.48979" ry="8.16327" fill="#ED8C53"/>
+                <ellipse cx="27.5918" cy="23.3469" rx="8.48979" ry="8.16327" fill="url(#fab_p3)" fill-opacity="0.2"/>
+              </g>
+              <g filter="url(#fab_f4)">
+                <path d="M19.1548 20.3935C16.6613 23.7021 12.5445 25.877 10.7041 25.1821C12.4506 32.168 16.9539 28.5858 19.6055 28.0555C22.9858 27.3795 24.3379 20.1118 30.4224 20.1118C36.5069 20.1118 34.9295 31.2104 36.5633 28.0555C37.8703 25.5315 37.1079 21.7081 36.5633 20.1118C35.9623 18.4968 35.3013 14.309 30.7041 14.0836C24.9576 13.8019 22.0844 16.5063 19.1548 20.3935Z" fill="url(#fab_p4)"/>
+                <path d="M19.1548 20.3935C16.6613 23.7021 12.5445 25.877 10.7041 25.1821C12.4506 32.168 16.9539 28.5858 19.6055 28.0555C22.9858 27.3795 24.3379 20.1118 30.4224 20.1118C36.5069 20.1118 34.9295 31.2104 36.5633 28.0555C37.8703 25.5315 37.1079 21.7081 36.5633 20.1118C35.9623 18.4968 35.3013 14.309 30.7041 14.0836C24.9576 13.8019 22.0844 16.5063 19.1548 20.3935Z" fill="url(#fab_p5)"/>
+                <path d="M19.1548 20.3935C16.6613 23.7021 12.5445 25.877 10.7041 25.1821C12.4506 32.168 16.9539 28.5858 19.6055 28.0555C22.9858 27.3795 24.3379 20.1118 30.4224 20.1118C36.5069 20.1118 34.9295 31.2104 36.5633 28.0555C37.8703 25.5315 37.1079 21.7081 36.5633 20.1118C35.9623 18.4968 35.3013 14.309 30.7041 14.0836C24.9576 13.8019 22.0844 16.5063 19.1548 20.3935Z" fill="url(#fab_p6)"/>
+              </g>
+              <circle cx="24" cy="24" r="16" fill="url(#fab_p7)"/>
+              <circle cx="24" cy="24" r="16" fill="url(#fab_p8)"/>
+              <circle cx="24" cy="24" r="16" fill="url(#fab_p9)"/>
+              <circle cx="24" cy="24" r="16" fill="url(#fab_p10)"/>
+              <circle cx="24" cy="24" r="16" fill="url(#fab_p11)"/>
+            </g>
+            <ellipse cx="17.3333" cy="17.8333" rx="1.33334" ry="1.33329" fill="white"/>
+            <ellipse cx="21.3333" cy="21.8343" rx="1.33334" ry="1.33329" fill="white"/>
+            <ellipse cx="21.3333" cy="27.1673" rx="1.33334" ry="1.33329" fill="white"/>
+            <ellipse cx="30.6667" cy="22.4997" rx="0.666669" ry="0.666647" fill="white" fill-opacity="0.5"/>
+            <ellipse cx="17.3333" cy="31.1663" rx="1.33334" ry="1.33329" fill="white"/>
+            <ellipse cx="17.3332" cy="26.5006" rx="0.666669" ry="0.666647" fill="white" fill-opacity="0.5"/>
+            <ellipse cx="30.6668" cy="17.8333" rx="1.33334" ry="1.33329" fill="white"/>
+            <ellipse cx="26.6668" cy="21.8343" rx="1.33334" ry="1.33329" fill="white"/>
+            <ellipse cx="26.6668" cy="27.1673" rx="1.33334" ry="1.33329" fill="white"/>
+            <ellipse cx="30.6668" cy="31.1663" rx="1.33334" ry="1.33329" fill="white"/>
+            <defs>
+              <filter id="fab_f1" x="4.45" y="4.45" width="39.1" height="39.1" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/><feOffset/><feGaussianBlur stdDeviation="1.775"/><feComposite in2="hardAlpha" operator="out"/><feColorMatrix type="matrix" values="0 0 0 0 0.75 0 0 0 0 0.67 0 0 0 0 0.93 0 0 0 1 0"/><feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/><feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/><feGaussianBlur stdDeviation="0.03" result="effect2_foregroundBlur"/></filter>
+              <filter id="fab_f2" x="9.54" y="17.76" width="12.7" height="12.7" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/><feGaussianBlur stdDeviation="0.14" result="effect1_foregroundBlur"/></filter>
+              <filter id="fab_f3" x="15.93" y="12.01" width="23.32" height="22.66" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/><feGaussianBlur stdDeviation="1.58" result="effect1_foregroundBlur"/></filter>
+              <filter id="fab_f4" x="8.79" y="12.15" width="30.41" height="19.21" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/><feGaussianBlur stdDeviation="0.96" result="effect1_foregroundBlur"/></filter>
+              <radialGradient id="fab_p0" cx="0" cy="0" r="1" gradientTransform="matrix(25.43 -33.43 0.72 70.25 7.37 48)" gradientUnits="userSpaceOnUse"><stop stop-color="#C87941"/><stop offset="1"/></radialGradient>
+              <radialGradient id="fab_p1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(24 24) rotate(90) scale(16)"><stop stop-color="white"/><stop offset="1" stop-color="#F3C79B"/></radialGradient>
+              <linearGradient id="fab_p2" x1="14.48" y1="19.38" x2="15.89" y2="29.41" gradientUnits="userSpaceOnUse"><stop stop-color="#FBC4E6"/><stop offset="0.89" stop-color="#FFD49B"/></linearGradient>
+              <linearGradient id="fab_p3" x1="27.11" y1="23.74" x2="27.76" y2="31.5" gradientUnits="userSpaceOnUse"><stop stop-color="#5A12BF"/><stop offset="1" stop-color="white"/></linearGradient>
+              <linearGradient id="fab_p4" x1="37.30" y1="19.66" x2="25.92" y2="16.34" gradientUnits="userSpaceOnUse"><stop stop-color="#233288"/><stop offset="1" stop-color="#CD9579"/></linearGradient>
+              <linearGradient id="fab_p5" x1="18.65" y1="22.99" x2="22.76" y2="27.83" gradientUnits="userSpaceOnUse"><stop stop-color="#FFB0B0"/><stop offset="1" stop-color="#EC603E" stop-opacity="0.4"/></linearGradient>
+              <linearGradient id="fab_p6" x1="20.88" y1="19.36" x2="21.92" y2="20.40" gradientUnits="userSpaceOnUse"><stop stop-color="white" stop-opacity="0.4"/><stop offset="1" stop-color="white" stop-opacity="0"/></linearGradient>
+              <linearGradient id="fab_p7" x1="24" y1="24" x2="24" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="#D9D9D9" stop-opacity="0"/><stop offset="1" stop-color="#9F7260"/></linearGradient>
+              <linearGradient id="fab_p8" x1="25" y1="15" x2="28" y2="33" gradientUnits="userSpaceOnUse"><stop stop-color="#EBC7C5" stop-opacity="0"/><stop offset="1" stop-color="#6F3632"/></linearGradient>
+              <linearGradient id="fab_p9" x1="31" y1="16" x2="13.18" y2="15.38" gradientUnits="userSpaceOnUse"><stop stop-color="#D9D9D9" stop-opacity="0"/><stop offset="1" stop-color="#3D16B2" stop-opacity="0.3"/></linearGradient>
+              <radialGradient id="fab_p10" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(27.60 17.75) rotate(115.50) scale(22.87 25.26)"><stop stop-color="white" stop-opacity="0"/><stop offset="0.61" stop-color="white" stop-opacity="0"/><stop offset="1" stop-color="white"/></radialGradient>
+              <radialGradient id="fab_p11" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(19.17 10.08) rotate(-18.75) scale(16.20 17.89)"><stop stop-color="white"/><stop offset="0.61" stop-color="white" stop-opacity="0"/></radialGradient>
+            </defs>
+          </svg>
+          <span class="fab-tip"><span class="tip-body">Ask Cooper <span class="hotkey">/</span></span><span class="tip-arrow"></span></span>
+        </button>
+        <label style="display:flex;align-items:center;gap:6px;font-size:var(--body-m-size);color:var(--text-secondary)"><input type="checkbox" onchange="document.getElementById('fab-live').disabled=this.checked"> Disabled</label>
+      </div>
+
+      <div class="callout">The React <code>Button</code> primitive in <code>DS/components/core/Button.jsx</code> implements this spec and mounts from the compiled bundle — see <code>Button.prompt.md</code> for the API.</div>
+    </div>
+  </main>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  document.body.insertAdjacentHTML("afterbegin", window.IFSIconSprite);
+
+  // Full icon-button matrix: shape × variant × size
+  const VARIANTS = ["primary","secondary","tertiary","ghost"];
+  const SIZES = [["btn-l","L 40"],["","M 32"],["btn-s","S 24"]];
+  let m = "";
+  for (const shape of [["","Square"],["btn-circle","Circle"]]) {
+    m += `<h3>${shape[1]}</h3><div class="demo" style="gap:var(--gap-400)">`;
+    for (const v of VARIANTS) {
+      m += `<span style="display:inline-flex;align-items:center;gap:var(--gap-200)">`;
+      for (const [sc] of SIZES) {
+        m += `<button class="btn btn-icon ${sc} ${shape[0]} btn-${v}" title="${v} ${shape[1]}"><svg class="ds-icon"><use href="#system-star-favourite"/></svg></button>`;
+      }
+      m += `</span>`;
+    }
+    m += `</div>`;
+  }
+  document.getElementById("icon-button-matrix").innerHTML = m;
+
+  tokenTable("t-buttons", [
+    ["--button-primary-fill-default", "Primary fill"],
+    ["--button-primary-fill-hover", "85%"],
+    ["--button-primary-fill-pressed", "60%"],
+    ["--button-secondary-fill-default", "10%"],
+    ["--button-secondary-fill-hover", "15%"],
+    ["--button-secondary-border-hover", "40%"],
+    ["--button-tertiary-border-default", "Outlined, 20%"],
+    ["--button-ghost-fill-hover", "15%"],
+    ["--button-ghost-fill-pressed", "15% — label dims to secondary"],
+    ["--button-accent-cooper-fill-default", "Cooper: black/60 + gradient + blur"],
+  ], {notes: true});
+});
+</script>
+</body>
+</html>

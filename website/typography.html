@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Typography — IFS Copperleaf Design System</title>
+<link rel="stylesheet" href="../DS/styles.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.34.0/dist/tabler-icons.min.css">
+<link rel="stylesheet" href="site.css">
+<script src="site.js"></script>
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="main">
+    <div class="page">
+      <div class="page-eyebrow">Foundations</div>
+      <h1>Typography</h1>
+      <p class="page-lede">One family — Inter — at a compact enterprise scale, 10–24px. All headings are medium (500) with negative tracking; UPPERCASE variants flip to positive tracking. Roboto Mono covers code and tabular contexts. The logo wordmark (Parabole) ships as artwork only.</p>
+
+      <h2>Scale</h2>
+      <div id="specimens"></div>
+
+      <h2>Rules</h2>
+      <p>Sentence case for all UI labels, titles and buttons. UPPERCASE is reserved for captions, overlines and Label UPPER variants. Body and Label carry their own letter-spacing — don't drop it. Paragraph spacing for body text is 8px. Never set type below 10px.</p>
+
+      <div class="callout">Large figures ($478M, 86%) are set in <code>Display</code> — 24/32 medium with −0.6 tracking — not in a heading style.</div>
+    </div>
+  </main>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const SPECS = [
+    ["Display", "display", "Hero figures & large numerics", "$478M portfolio value", {size:"--display-size", line:"--display-line", weight:"--display-weight", track:"--display-tracking"}],
+    ["Heading H1", "h1", "Page titles", "Q1 2026 Strategy Framework", {size:"--h1-size", line:"--h1-line", weight:"--h1-weight", track:"--h1-tracking"}],
+    ["Heading H2", "h2", "Section titles", "Capital allocation by objective", {size:"--h2-size", line:"--h2-line", weight:"--h2-weight", track:"--h2-tracking"}],
+    ["Heading H3", "h3", "Card titles", "Strategic objectives by execution", {size:"--h3-size", line:"--h3-line", weight:"--h3-weight", track:"--h3-tracking"}],
+    ["Heading H3 UPPER", "h3u", "Section overlines", "FRAMEWORK COVERAGE", {size:"--h3-size", line:"--h3-line", weight:"--h3-upper-weight", track:"--h3-upper-tracking", upper:true}],
+    ["Heading H4", "h4", "Dense panel titles", "Optimization summary", {size:"--h4-size", line:"--h4-line", weight:"--h4-weight", track:"--h4-tracking"}],
+    ["Heading H4 UPPER", "h4u", "Tiny overlines", "RISK-ADJUSTED VALUE", {size:"--h4-size", line:"--h4-line", weight:"--h4-upper-weight", track:"--h4-upper-tracking", upper:true}],
+    ["Body L regular", "bl", "Default reading text", "The optimizer projects a 3.1% increase in risk-adjusted portfolio value.", {size:"--body-l-size", line:"--body-l-line", weight:"--body-l-weight", track:"--body-l-tracking"}],
+    ["Body L medium", "blm", "Emphasis within body", "Rebalance $42M from Reliability into Growth.", {size:"--body-l-size", line:"--body-l-line", weight:"--body-l-medium-weight", track:"--body-l-medium-tracking"}],
+    ["Body M regular", "bm", "Dense table & panel copy", "Send to approvers for review before June 2, 2026.", {size:"--body-m-size", line:"--body-m-line", weight:"--body-m-weight", track:"--body-m-tracking"}],
+    ["Body M medium", "bmm", "Emphasis in dense copy", "Framework coverage 86%, +12% vs. baseline.", {size:"--body-m-size", line:"--body-m-line", weight:"--body-m-medium-weight", track:"--body-m-medium-tracking"}],
+    ["Label L", "ll", "Buttons, controls", "Run optimization", {size:"--label-l-size", line:"--label-l-line", weight:"--label-l-weight", track:"--label-l-tracking"}],
+    ["Label L UPPER", "llu", "Strong control labels", "1 RECOMMENDATION", {size:"--label-l-size", line:"--label-l-line", weight:"--label-l-upper-weight", track:"--label-l-upper-tracking", upper:true}],
+    ["Label M", "lm", "Compact controls", "Add objective", {size:"--label-m-size", line:"--label-m-line", weight:"--label-m-weight", track:"--label-m-tracking"}],
+    ["Label M UPPER", "lmu", "Compact strong labels", "AT RISK", {size:"--label-m-size", line:"--label-m-line", weight:"--label-m-upper-weight", track:"--label-m-upper-tracking", upper:true}],
+    ["Caption semibold UPPER", "cs", "Metadata, axis labels", "CAPEX BURN · FY26", {size:"--caption-size", line:"--caption-line", weight:"--caption-weight", track:"--caption-tracking", upper:true}],
+    ["Caption regular UPPER", "cr", "Quiet metadata", "UPDATED 02.03.2026", {size:"--caption-size", line:"--caption-line", weight:"--caption-regular-weight", track:"--caption-regular-tracking", upper:true}],
+  ];
+  const mount = document.getElementById("specimens");
+  const css = getComputedStyle(document.documentElement);
+  const v = t => css.getPropertyValue(t).trim();
+  let html = "";
+  for (const [name, id, use, sample, s] of SPECS) {
+    html += `<div class="specimen-row">
+      <div class="specimen-meta"><b>${name}</b>${v(s.size)} / ${v(s.line)} · ${v(s.weight)}<br>tracking ${v(s.track) || "0"}<br>${use}</div>
+      <div style="font-size:${v(s.size)};line-height:${v(s.line)};font-weight:${v(s.weight)};letter-spacing:${v(s.track)};${s.upper ? "text-transform:uppercase;" : ""}color:var(--text-primary)">${sample}</div>
+    </div>`;
+  }
+  mount.innerHTML = html;
+});
+</script>
+</body>
+</html>

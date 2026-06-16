@@ -1,0 +1,121 @@
+/* ============================================================
+   IFS Copperleaf — Gradient styles (from the Figma "Colors:
+   Gradients" spec sheet). Figma gradient transforms don't map
+   1:1 to CSS, so positions are close approximations; stops and
+   colors are exact. Multi-layer styles are composed top-down in
+   a single background-image list (use with `background:`).
+   ============================================================ */
+
+:root {
+  /* ---- Cooper (AI) ----
+     Background for the Cooper chat panel and Cooper FAB. */
+  --gradient-cooper-insight-fill:
+    radial-gradient(146% 88% at 15% 88%, rgba(200,121,65,0.20) 0%, rgba(0,0,0,0.20) 100%);
+  /* Text fill for Cooper insight text (use with background-clip: text) */
+  --gradient-cooper-insight-text:
+    linear-gradient(271deg, #C87941 0%, #FFFFFF 100%);
+  /* Highlight backgrounds (purple) — layered over cooper/insight/fill-inverse */
+  --gradient-purple-highlight-base:
+    radial-gradient(119% 90% at -2% 179%, rgba(79,61,149,0.60) 0%, rgba(0,0,0,0.60) 100%);
+  --gradient-purple-highlight-strong:
+    radial-gradient(86% 58% at 81% 132%, rgba(79,61,149,0.24) 0%, rgba(0,0,0,0.60) 100%);
+
+  /* ---- Asset Health backgrounds ----
+     Pattern: two 50%-opacity linear gradients (350° + 167°,
+     stops 5% → 32% hue → 61% deep hue → 100%) over a 10% fill. */
+  --gradient-asset-health-critical:
+    linear-gradient(350deg, rgba(238,60,59,0) 5%, rgba(238,60,59,0.5) 32%, rgba(129,0,6,0.5) 61%, rgba(129,0,6,0) 100%),
+    linear-gradient(167deg, rgba(238,60,59,0) 5%, rgba(238,60,59,0.5) 32%, rgba(129,0,6,0.5) 61%, rgba(129,0,6,0) 100%),
+    rgba(238,60,59,0.10);
+  --gradient-asset-health-high:
+    linear-gradient(350deg, rgba(239,85,51,0) 5%, rgba(239,85,51,0.5) 32%, rgba(129,30,0,0.5) 61%, rgba(129,30,0,0) 100%),
+    linear-gradient(167deg, rgba(239,85,51,0) 5%, rgba(239,85,51,0.5) 32%, rgba(129,30,0,0.5) 61%, rgba(129,30,0,0) 100%),
+    rgba(239,85,51,0.10);
+  --gradient-asset-health-medium:
+    linear-gradient(350deg, rgba(255,175,46,0) 5%, rgba(255,175,46,0.5) 32%, rgba(129,88,0,0.5) 61%, rgba(129,88,0,0) 100%),
+    linear-gradient(167deg, rgba(255,175,46,0) 5%, rgba(255,175,46,0.5) 32%, rgba(129,88,0,0.5) 61%, rgba(129,88,0,0) 100%),
+    rgba(255,175,46,0.10);
+  --gradient-asset-health-healthy:
+    linear-gradient(350deg, rgba(46,188,93,0) 5%, rgba(46,188,93,0.5) 32%, rgba(26,129,0,0.5) 61%, rgba(26,129,0,0) 100%),
+    linear-gradient(167deg, rgba(46,188,93,0) 5%, rgba(46,188,93,0.5) 32%, rgba(26,129,0,0.5) 61%, rgba(26,129,0,0) 100%),
+    rgba(46,188,93,0.10);
+  --gradient-asset-health-grey:
+    linear-gradient(350deg, rgba(255,255,255,0) 5%, rgba(255,255,255,0.5) 32%, rgba(84,84,84,0.5) 61%, rgba(84,84,84,0) 100%),
+    linear-gradient(167deg, rgba(255,255,255,0) 5%, rgba(255,255,255,0.5) 32%, rgba(84,84,84,0.5) 61%, rgba(84,84,84,0) 100%),
+    rgba(255,255,255,0.10);
+  --gradient-asset-health-blue:
+    linear-gradient(350deg, rgba(85,153,255,0) 5%, rgba(85,153,255,0.5) 32%, rgba(0,41,129,0.5) 61%, rgba(0,41,129,0) 100%),
+    linear-gradient(167deg, rgba(85,153,255,0) 5%, rgba(85,153,255,0.5) 32%, rgba(0,41,129,0.5) 61%, rgba(0,41,129,0) 100%),
+    rgba(85,153,255,0.10);
+
+  /* ---- Failure Probability backgrounds (same pattern) ---- */
+  --gradient-failure-probability-very-high:
+    linear-gradient(350deg, rgba(156,24,251,0) 5%, rgba(156,24,251,0.5) 32%, rgba(71,0,129,0.5) 61%, rgba(71,0,129,0) 100%),
+    linear-gradient(167deg, rgba(156,24,251,0) 5%, rgba(156,24,251,0.5) 32%, rgba(71,0,129,0.5) 61%, rgba(71,0,129,0) 100%),
+    rgba(156,24,251,0.10);
+  --gradient-failure-probability-high:
+    linear-gradient(350deg, rgba(48,86,238,0) 5%, rgba(48,86,238,0.5) 32%, rgba(4,0,129,0.5) 61%, rgba(4,0,129,0) 100%),
+    linear-gradient(167deg, rgba(48,86,238,0) 5%, rgba(48,86,238,0.5) 32%, rgba(4,0,129,0.5) 61%, rgba(4,0,129,0) 100%),
+    rgba(48,86,238,0.10);
+  --gradient-failure-probability-medium:
+    linear-gradient(350deg, rgba(0,181,206,0) 5%, rgba(0,181,206,0.5) 32%, rgba(0,88,129,0.5) 61%, rgba(0,88,129,0) 100%),
+    linear-gradient(167deg, rgba(0,181,206,0) 5%, rgba(0,181,206,0.5) 32%, rgba(0,88,129,0.5) 61%, rgba(0,88,129,0) 100%),
+    rgba(0,181,206,0.10);
+  --gradient-failure-probability-low:
+    linear-gradient(350deg, rgba(255,135,237,0) 5%, rgba(255,135,237,0.5) 32%, rgba(116,0,129,0.5) 61%, rgba(116,0,129,0) 100%),
+    linear-gradient(167deg, rgba(255,135,237,0) 5%, rgba(255,135,237,0.5) 32%, rgba(116,0,129,0.5) 61%, rgba(116,0,129,0) 100%),
+    rgba(255,135,237,0.10);
+
+  /* ---- Circular button (hover) ---- */
+  --gradient-circular-button-hover-fill:
+    conic-gradient(from 163deg at 48% 43%, rgba(255,255,255,0) 27%, rgba(131,102,247,0.60) 57%, rgba(255,255,255,0.06) 78%);
+  --gradient-circular-button-hover-stroke:
+    radial-gradient(37% 248% at 50% 50%, #FFFFFF 55%, rgba(131,102,247,0) 100%);
+
+  /* ---- Risk chart (Cooper overnight log) ---- */
+  --gradient-risk-chart-critical:
+    linear-gradient(92deg, #EE3C3B 0%, rgba(0,0,0,0) 86%);
+  --gradient-risk-chart-moderate:
+    linear-gradient(92deg, #FFAF2E 0%, rgba(0,0,0,0) 86%);
+  --gradient-risk-chart-resolved:
+    linear-gradient(92deg, #2EBC5D 0%, rgba(0,0,0,0) 86%);
+
+  /* ---- Map highlight overlay fills (radial; pair with the
+       --map-highlight-* inner shadows in palettes.css) ---- */
+  --gradient-map-highlight-critical:
+    radial-gradient(50% 50% at 50% 50%, #EE3C3B 0%, rgba(0,0,0,0) 100%);
+  --gradient-map-highlight-moderate:
+    radial-gradient(50% 50% at 50% 50%, #FFAF2E 0%, rgba(0,0,0,0) 100%);
+  --gradient-map-highlight-resolved:
+    radial-gradient(50% 50% at 50% 50%, #2EBC5D 0%, rgba(0,0,0,0) 100%);
+  --gradient-map-highlight-cooper:
+    radial-gradient(50% 50% at 50% 50%, #C87941 0%, rgba(0,0,0,0) 100%);
+  --gradient-map-highlight-evaluated:
+    radial-gradient(50% 50% at 50% 50%, #8366F7 0%, rgba(0,0,0,0) 100%);
+  --gradient-map-highlight-grey:
+    radial-gradient(50% 50% at 50% 50%, #FFFFFF 0%, rgba(0,0,0,0) 100%);
+
+  /* ---- Risk / task cards ---- */
+  --gradient-risk-card-critical-fill:
+    radial-gradient(181% 175% at 0% 0%, rgba(0,0,0,0) 0%, rgba(143,36,35,0.30) 100%),
+    rgba(255,255,255,0.05);
+  --gradient-risk-card-critical-stroke:
+    linear-gradient(115deg, #EE3C3B 0%, rgba(0,0,0,0) 50%, rgba(238,60,59,0) 100%);
+  --gradient-risk-card-moderate-fill:
+    radial-gradient(181% 175% at 0% 0%, rgba(0,0,0,0) 0%, rgba(153,105,28,0.30) 100%),
+    rgba(255,255,255,0.05);
+  --gradient-risk-card-moderate-stroke:
+    linear-gradient(115deg, #FFAF2E 0%, rgba(0,0,0,0) 50%, rgba(255,175,46,0) 100%);
+  --gradient-risk-card-resolved-fill:
+    radial-gradient(181% 175% at 0% 0%, rgba(0,0,0,0) 0%, rgba(28,113,56,0.30) 100%),
+    rgba(255,255,255,0.05);
+  --gradient-risk-card-resolved-stroke:
+    linear-gradient(115deg, #2EBC5D 0%, rgba(0,0,0,0) 50%, rgba(46,188,93,0) 100%);
+}
+
+/* Light-mode Cooper insight text */
+:root[data-theme="light"],
+.light {
+  --gradient-cooper-insight-text:
+    linear-gradient(271deg, #C87941 0%, #FFFFFF 100%);
+}

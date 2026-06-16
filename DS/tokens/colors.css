@@ -1,0 +1,237 @@
+/* ============================================================
+   IFS Copperleaf — Color primitives
+   Brand identity: purple (logo). Brand accent: cooper ("Copperleaf").
+   Figma calls the copper hue "cooper" — primary token names follow
+   Figma 1:1; legacy --copper-* names are kept as aliases.
+   Primary UI actions are neutral (white-on-dark); purple is not a UI primary.
+   Full 13-step ramps (50 → 500-base → 950) per Figma variables.
+   ============================================================ */
+
+:root {
+  /* ---- brand/purple (brand identity — the logo; + one data-viz hue.
+     NOT the UI primary: primary actions are neutral white-on-dark.) ---- */
+  --purple-50:  #F3F0FE;
+  --purple-100: #E6E0FD;
+  --purple-150: #DAD1FD;
+  --purple-200: #CDC2FC;
+  --purple-300: #B5A3FA;
+  --purple-400: #9C85F9;
+  --purple-500: #8366F7;   /* 500-base */
+  --purple-600: #6952C6;
+  --purple-700: #4F3D95;
+  --purple-800: #352964;
+  --purple-850: #281F4C;
+  --purple-900: #1B1433;
+  --purple-950: #0E0A1B;
+
+  /* ---- brand/cooper (brand accent — "Copperleaf"; recommendations,
+     value moments, selected/active states) ---- */
+  --cooper-50:  #FAF2EC;
+  --cooper-100: #F4E4D9;
+  --cooper-150: #EFD7C6;
+  --cooper-200: #E9C9B3;
+  --cooper-300: #DEAF8D;
+  --cooper-400: #D39467;
+  --cooper-500: #C87941;   /* 500-base */
+  --cooper-600: #A06134;
+  --cooper-700: #784927;
+  --cooper-800: #50301A;
+  --cooper-850: #3C2414;
+  --cooper-900: #28180D;
+  --cooper-950: #140C07;
+
+  /* ---- system/success (green) ---- */
+  --green-50:  #EAF8EF;
+  --green-100: #D5F2DF;
+  --green-150: #C0EBCE;
+  --green-200: #ABE4BE;
+  --green-300: #82D79E;
+  --green-400: #58C97D;
+  --green-500: #2EBC5D;   /* 500-base */
+  --green-600: #25964A;
+  --green-700: #1C7138;
+  --green-800: #124B25;
+  --green-850: #0E381C;
+  --green-900: #092613;
+  --green-950: #051309;
+
+  /* ---- system/danger (red) ---- */
+  --red-50:  #FDECEB;
+  --red-100: #FCD8D8;
+  --red-150: #FAC5C4;
+  --red-200: #F8B1B1;
+  --red-300: #F58A89;
+  --red-400: #F16362;
+  --red-500: #EE3C3B;   /* 500-base */
+  --red-600: #BF302F;
+  --red-700: #8F2423;
+  --red-800: #601818;
+  --red-850: #481212;
+  --red-900: #300C0C;
+  --red-950: #190606;
+
+  /* ---- system/warning (amber) ---- */
+  --amber-50:  #FFF7EA;
+  --amber-100: #FFEFD5;
+  --amber-150: #FFE7C0;
+  --amber-200: #FFDFAB;
+  --amber-300: #FFCF82;
+  --amber-400: #FFBF58;
+  --amber-500: #FFAF2E;   /* 500-base */
+  --amber-600: #CC8C25;
+  --amber-700: #99691C;
+  --amber-800: #664612;
+  --amber-850: #4D350E;
+  --amber-900: #332309;
+  --amber-950: #1A1205;
+
+  /* ---- system/info (blue) ---- */
+  --blue-50:  #EAF2FF;
+  --blue-100: #D5E5FF;
+  --blue-150: #BFD9FF;
+  --blue-200: #AACCFF;
+  --blue-300: #80B2FF;
+  --blue-400: #5599FF;
+  --blue-500: #2B7FFF;   /* 500-base */
+  --blue-600: #2266CC;
+  --blue-700: #1A4D9A;
+  --blue-800: #113367;
+  --blue-850: #0D274E;
+  --blue-900: #091A35;
+  --blue-950: #040E1B;
+
+  /* ---- system/grey ---- */
+  --grey-600:  rgba(70,70,70,0.60);  /* system/grey/600 */
+  --grey-1000: #464646;              /* system/grey/1000-base */
+  /* Legacy alias */
+  --grey-500:  #464646;
+
+  /* ---- Neutral solids (dark-first surface ladder) ---- */
+  --black:     #000000;
+  --surface-0: #000000;   /* page / canvas */
+  --surface-1: #0F0F0F;   /* secondary background */
+  --surface-2: #1B1B1B;   /* tertiary background / cards */
+  --surface-3: #373636;   /* quaternary / raised */
+  --white:     #FFFFFF;
+
+  /* ---- white/* alpha scale (on dark) ---- */
+  --white-0:    rgba(255,255,255,0);
+  --white-50:   rgba(255,255,255,0.05);
+  --white-100:  rgba(255,255,255,0.10);
+  --white-150:  rgba(255,255,255,0.15);
+  --white-200:  rgba(255,255,255,0.20);
+  --white-300:  rgba(255,255,255,0.30);
+  --white-400:  rgba(255,255,255,0.40);
+  --white-500:  rgba(255,255,255,0.50);
+  --white-550:  rgba(255,255,255,0.55);
+  --white-600:  rgba(255,255,255,0.60);
+  --white-750:  rgba(255,255,255,0.75);
+  --white-850:  rgba(255,255,255,0.85);
+  --white-1000: #FFFFFF;     /* white/1000-base */
+  /* Legacy step kept for backward compat */
+  --white-450:  rgba(255,255,255,0.45);
+
+  /* ---- black/* alpha scale (on light) ---- */
+  --black-0:    rgba(0,0,0,0);
+  --black-50:   rgba(0,0,0,0.05);
+  --black-100:  rgba(0,0,0,0.10);
+  --black-150:  rgba(0,0,0,0.15);
+  --black-200:  rgba(0,0,0,0.20);
+  --black-300:  rgba(0,0,0,0.30);
+  --black-400:  rgba(0,0,0,0.40);
+  --black-450:  rgba(0,0,0,0.45);
+  --black-500:  rgba(0,0,0,0.50);
+  --black-600:  rgba(0,0,0,0.60);
+  --black-800:  rgba(0,0,0,0.80);
+  --black-850:  rgba(0,0,0,0.85);
+  --black-1000: #000000;
+
+  /* ---- neutral/rose ---- */
+  --rose-50:  #FFF2FE;
+  --rose-100: #F3D1F2;
+  --rose-150: #ECBDE9;
+  --rose-200: #E8B0E5;
+  --rose-300: #D598D2;
+  --rose-400: #BA78B7;
+  --rose-500: #9F579C;   /* 500-base */
+  --rose-600: #843781;
+  --rose-700: #691766;
+  --rose-800: #541252;
+  --rose-850: #450943;
+  --rose-900: #350533;
+  --rose-950: #210020;
+
+  /* ---- neutral/muted-purple ---- */
+  --muted-purple-50:  #EDEAF3;
+  --muted-purple-100: #DAD3E7;
+  --muted-purple-150: #C6BCDB;
+  --muted-purple-200: #AFA2CD;
+  --muted-purple-300: #8D82B4;
+  --muted-purple-400: #6F6298;
+  --muted-purple-500: #50427D;   /* 500-base */
+  --muted-purple-600: #433374;
+  --muted-purple-700: #32255F;
+  --muted-purple-800: #281D4D;
+  --muted-purple-850: #221844;
+  --muted-purple-900: #17102E;
+  --muted-purple-950: #0F0A1E;
+
+  /* ---- neutral/teal ---- */
+  --teal-50:  #EAF6F6;
+  --teal-100: #D2ECEB;
+  --teal-150: #BADBDA;
+  --teal-200: #86B9BA;
+  --teal-300: #5FA7A7;
+  --teal-400: #4A8C8F;
+  --teal-500: #438587;   /* 500-base */
+  --teal-600: #2F6B6F;
+  --teal-700: #175C65;
+  --teal-800: #1D535B;
+  --teal-850: #1B3E43;
+  --teal-900: #0F2A2E;
+  --teal-950: #06181B;
+
+  /* ---- neutral/steel-blue (same ramp as teal per spec — pending differentiation) ---- */
+  --steel-blue-50:  #EAF6F6;
+  --steel-blue-100: #D2ECEB;
+  --steel-blue-150: #BADBDA;
+  --steel-blue-200: #86B9BA;
+  --steel-blue-300: #5FA7A7;
+  --steel-blue-400: #4A8C8F;
+  --steel-blue-500: #438587;   /* 500-base */
+  --steel-blue-600: #2F6B6F;
+  --steel-blue-700: #175C65;
+  --steel-blue-800: #1D535B;
+  --steel-blue-850: #1B3E43;
+  --steel-blue-900: #0F2A2E;
+  --steel-blue-950: #06181B;
+
+  /* ---- expressive palettes (500-base values pending finalisation;
+     all steps below use placeholder values from spec sheet) ---- */
+  --fuchsia-500:      #8366F7;   /* PLACEHOLDER */
+  --violet-200:       #CDC2FC;   /* PLACEHOLDER */
+  --violet-300:       #B5A3FA;   /* PLACEHOLDER */
+  --violet-500:       #8366F7;   /* PLACEHOLDER */
+  --electric-blue-500: #8366F7;  /* PLACEHOLDER */
+  --lime-500:         #8366F7;   /* PLACEHOLDER */
+  --coral-orange-300: #B5A3FA;   /* PLACEHOLDER */
+  --coral-orange-500: #8366F7;   /* PLACEHOLDER */
+
+  /* ============================================================
+     Legacy aliases (deprecated — kept so existing components keep
+     working; use the --cooper-* names going forward)
+     ============================================================ */
+  --copper-50:  var(--cooper-50);
+  --copper-100: var(--cooper-100);
+  --copper-150: var(--cooper-150);
+  --copper-200: var(--cooper-200);
+  --copper-300: var(--cooper-300);
+  --copper-400: var(--cooper-400);
+  --copper-500: var(--cooper-500);
+  --copper-600: var(--cooper-600);
+  --copper-700: var(--cooper-700);
+  --copper-800: var(--cooper-800);
+  --copper-850: var(--cooper-850);
+  --copper-900: var(--cooper-900);
+  --copper-950: var(--cooper-950);
+}

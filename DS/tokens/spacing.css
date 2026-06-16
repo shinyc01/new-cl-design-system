@@ -1,0 +1,164 @@
+/* ============================================================
+   IFS Copperleaf — Spacing, layout, shape, elevation, motion
+   Names map 1:1 to Figma (paddings/*, gaps/*, margins/*,
+   gutters/*, radius/*, border-widths/*, box-shadow/*, blur/*,
+   motion/*, z-index/*). Verified against the Figma foundations
+   page + exported spec PDF (June 2026).
+   Legacy DS aliases kept at the bottom.
+   ============================================================ */
+
+:root {
+  /* ---- paddings/padding-N ---- */
+  --padding-0:   0;
+  --padding-50:  2px;
+  --padding-100: 4px;
+  --padding-150: 6px;
+  --padding-200: 8px;
+  --padding-250: 10px;
+  --padding-300: 12px;
+  --padding-400: 16px;
+  --padding-500: 20px;
+
+  /* ---- gaps/gap-N ---- */
+  --gap-0:   0;
+  --gap-50:  2px;
+  --gap-100: 4px;
+  --gap-150: 6px;
+  --gap-200: 8px;
+  --gap-250: 10px;
+  --gap-300: 12px;
+  --gap-400: 16px;
+  --gap-500: 20px;
+  --gap-600: 24px;
+  --gap-700: 32px;
+  --gap-800: 40px;
+  --gap-900: 48px;
+
+  /* ---- margins/layout-margin-* & gutters/gutter-* (page grid) ---- */
+  --layout-margin-xs: 8px;   --gutter-xs: 8px;
+  --layout-margin-sm: 8px;   --gutter-sm: 8px;
+  --layout-margin-md: 12px;  --gutter-md: 12px;
+  --layout-margin-lg: 12px;  --gutter-lg: 12px;
+  --layout-margin-xl: 16px;  --gutter-xl: 16px;
+
+  /* ---- radius/* — spec scale: 0 / 4 / 8 / 12 / full.
+     (16 and 24 do NOT exist. radius-50 (2) and radius-1000 (40)
+     exist as ad-hoc Figma variables but are not on the spec sheet.) ---- */
+  --radius-0:    0;
+  --radius-50:   2px;     /* radius/r0,5 — ad-hoc, not on spec sheet */
+  --radius-100:  4px;     /* controls, chips, inputs */
+  --radius-150:  6px;     /* radius/r1,5 — ad-hoc; used by ghost square icon button L */
+  --radius-200:  8px;     /* cards, panels, large buttons */
+  --radius-300:  12px;    /* modals, large surfaces */
+  --radius-1000: 40px;    /* radius/r10 — ad-hoc, not on spec sheet */
+  --radius-full: 1000px;  /* pills, circular */
+
+  /* ---- border-widths/border-N ---- */
+  --border-0:   0;
+  --border-100: 1px;
+  --border-150: 1.5px;
+  --border-200: 2px;
+  --border-300: 3px;
+  --border-400: 4px;
+
+  /* ---- box-shadow/* (exactly 3 elevations + floating; pair with
+       --background-elevation-* fills and backdrop blur) ----
+     elevation-1: structural panels & sidebars
+     elevation-2: modals, large popovers, secondary windows
+     elevation-3: highest floating panels & critical overlays
+     floating:    tooltips, chips, tags, geopoint markers */
+  --elevation-1: 0 4px 8px 0 rgba(0,0,0,0.25);
+  --elevation-2: 0 8px 12px -1px rgba(0,0,0,0.25);
+  --elevation-3: 0 12px 16px -2px rgba(0,0,0,0.35);
+  --shadow-floating: 0 4px 8px 0 rgba(0,0,0,0.25);
+  /* Hairline edge highlight on dark cards (top inner light line) */
+  --edge-top: inset 0 1px 0 rgba(255,255,255,0.06); /* @kind shadow */
+
+  /* ---- blur/* (backdrop blur — all values confirmed from spec) ----
+     light: tooltips, chips, tags · medium: cards, popovers ·
+     strong: large panels, sidebars */
+  --blur-light:  10px;
+  --blur-medium: 40px;
+  --blur-strong: 80px;
+
+  /* ---- motion/duration/* ---- */
+  --motion-duration-instant:    0ms;    /* disabled motion, reduced-motion fallback */
+  --motion-duration-fast:       100ms;  /* hover, press, focus, micro-interactions */
+  --motion-duration-moderate:   200ms;  /* default state changes, expand/collapse, fade */
+  --motion-duration-slow:       300ms;  /* modals, drawers, larger movements */
+  --motion-duration-extra-slow: 500ms;  /* page transitions, prominent reveals */
+  --motion-duration-extended:   700ms;  /* complex sequences (rare) */
+
+  /* ---- motion/ease/* ---- */
+  --motion-ease-linear:     cubic-bezier(0, 0, 1, 1);      /* looping: spinner, skeleton, progress */ /* @kind other */
+  --motion-ease-standard:   cubic-bezier(0.4, 0, 0.2, 1);  /* default for most state changes */ /* @kind other */
+  --motion-ease-decelerate: cubic-bezier(0, 0, 0.2, 1);    /* elements entering */ /* @kind other */
+  --motion-ease-accelerate: cubic-bezier(0.4, 0, 1, 1);    /* elements leaving */ /* @kind other */
+  --motion-ease-emphasize:  cubic-bezier(0.2, 0, 0, 1);    /* attention-grabbing movements */ /* @kind other */
+
+  /* ---- Focus ring geometry — single 2px ring; WCAG 2.4.11 AAA (5.6:1).
+     One size for all components. Color lives in semantic.css (--focus-ring). ---- */
+  --focus-ring-width: var(--border-200);  /* 2px */
+
+  /* ---- z-index/* (spaced for intermediate layers) ---- */
+  --z-base:              0;   /* main content: canvas, map layer */ /* @kind other */
+  --z-sticky:            50;  /* sticky header, toolbars, bottom bar */ /* @kind other */
+  --z-panels:            100; /* elevation-1 panels, AI chat panel */ /* @kind other */
+  --z-floating:          200; /* floating buttons, prompt chips, draggable windows */ /* @kind other */
+  --z-popover:           300; /* dropdowns, popups, tooltips, context menus */ /* @kind other */
+  --z-selection-overlay: 400; /* selection layer for map */ /* @kind other */
+  --z-modal-overlay:     500; /* dark backdrop behind modals */ /* @kind other */
+  --z-modal:             600; /* modal windows */ /* @kind other */
+  --z-toast:             700; /* snackbars / notifications */ /* @kind other */
+  --z-max:               999; /* collaborator cursors, global spinner */ /* @kind other */
+
+  /* ============================================================
+     Legacy DS aliases (deprecated — use the Figma names above)
+     ============================================================ */
+  --space-0:   0;
+  --space-1:   2px;
+  --space-2:   4px;
+  --space-3:   6px;
+  --space-4:   8px;
+  --space-5:   10px;
+  --space-6:   12px;
+  --space-8:   16px;
+  --space-10:  20px;
+  --space-12:  24px;
+  --space-16:  32px;
+  --space-20:  40px;
+  --space-24:  48px;
+  --space-32:  64px;
+
+  --radius-xs:   var(--radius-50);
+  --radius-sm:   var(--radius-100);
+  --radius-md:   var(--radius-200);
+  --radius-lg:   var(--radius-300);
+  --radius-xl:   var(--radius-300);   /* WAS 16px — 16 doesn't exist; modals are 12 */
+  --radius-2xl:  var(--radius-1000);  /* WAS 24px — not in Figma */
+  --radius-pill: var(--radius-full);
+
+  --border-width-hair: 0.5px;             /* size-ruler 0,5 — rarely used */
+  --border-width-1:    var(--border-100);
+  --border-width-2:    var(--border-150);
+
+  --shadow-xs: var(--elevation-1);
+  --shadow-sm: var(--elevation-1);
+  --shadow-md: var(--elevation-2);
+  --shadow-lg: var(--elevation-3);
+  --shadow-xl: var(--elevation-3);
+
+  --ease-standard: var(--motion-ease-standard);   /* @kind other */
+  --ease-emphasis: var(--motion-ease-emphasize);  /* @kind other */
+  --ease-exit:     var(--motion-ease-accelerate); /* @kind other */
+  --duration-fast: var(--motion-duration-fast);   /* @kind other */
+  --duration-base: var(--motion-duration-moderate); /* @kind other */
+  --duration-slow: var(--motion-duration-slow);   /* @kind other */
+
+  --focus-width:  var(--focus-outer-width-sm);
+  --focus-offset: 2px;
+
+  --z-dropdown: var(--z-popover); /* @kind other */
+  --z-overlay:  var(--z-modal-overlay); /* @kind other */
+  --z-tooltip:  var(--z-popover); /* @kind other */
+}

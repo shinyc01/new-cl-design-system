@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Navigation — IFS Copperleaf Design System</title>
+<link rel="stylesheet" href="../../DS/styles.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.34.0/dist/tabler-icons.min.css">
+<link rel="stylesheet" href="../site.css">
+<script src="../site.js"></script>
+<script src="../../DS/icons/icons.js"></script>
+<style>
+/* ── Global Header component ─────────────────────────────── */
+.global-header {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border-radius: var(--radius-200);
+  overflow: hidden;
+}
+
+.global-header__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--gap-200) var(--gap-300);
+  background: var(--surface-primary-alpha);
+  border-bottom: 1px solid var(--border-base);
+  backdrop-filter: blur(var(--blur-light));
+  -webkit-backdrop-filter: blur(var(--blur-light));
+  gap: var(--gap-600);
+}
+
+.global-header__left {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-600);
+  flex: 1;
+  min-width: 0;
+}
+
+.global-header__logo {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.global-header__logo img {
+  height: 22px;
+  display: block;
+}
+
+.global-header__nav {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-200);
+}
+
+.header-item {
+  display: inline-flex;
+  align-items: center;
+  height: 32px;
+  padding: var(--gap-150, 6px) var(--gap-250);
+  border-radius: var(--radius-100);
+  background: var(--header-item-fill-default);
+  color: var(--text-primary);
+  font-family: var(--label-l-family);
+  font-size: var(--label-l-size);
+  font-weight: var(--weight-medium);
+  line-height: var(--label-l-line);
+  letter-spacing: var(--label-l-tracking);
+  white-space: nowrap;
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+  transition: background var(--motion-fast);
+}
+
+.header-item:hover {
+  background: var(--white-150);
+}
+
+.header-item:active {
+  background: var(--white-150);
+}
+
+.header-item.is-active {
+  background: var(--header-item-fill-active);
+}
+
+.header-item:disabled,
+.header-item.is-disabled {
+  background: var(--header-item-fill-default);
+  color: var(--text-disabled);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.header-item:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--focus-outer), inset 0 0 0 1.5px var(--focus-inner);
+}
+
+/* Right actions */
+.global-header__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-200);
+  flex-shrink: 0;
+}
+
+.global-header__icon-buttons {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-100);
+}
+
+.header-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-100);
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--text-primary);
+  cursor: pointer;
+  position: relative;
+  flex-shrink: 0;
+  transition: background var(--motion-fast), border-color var(--motion-fast);
+}
+
+.header-icon-btn:hover {
+  background: var(--white-150);
+  border-color: var(--border-base);
+}
+
+.header-icon-btn svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.header-notif-dot {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--background-system-danger);
+  box-shadow: 0 0 0 1.5px var(--surface-1);
+}
+
+/* Avatar */
+.header-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(70,70,70,0.6);
+  border: 1.3px solid rgba(255,255,255,0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--text-primary);
+  font-size: var(--label-m-size);
+  font-weight: var(--weight-semibold);
+  letter-spacing: 0.2px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+/* AI Insight banner */
+.global-header__insight {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--gap-300);
+  height: 40px;
+  backdrop-filter: blur(var(--blur-light));
+  -webkit-backdrop-filter: blur(var(--blur-light));
+  background: linear-gradient(90deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.05) 100%);
+  overflow: hidden;
+}
+
+.global-header__insight--expanded {
+  background-image:
+    url("data:image/svg+xml;utf8,<svg viewBox='0 0 1440 40' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none'><rect x='0' y='0' height='100%' width='100%' fill='url(%23grad)' opacity='0.6'/><defs><radialGradient id='grad' gradientUnits='userSpaceOnUse' cx='0' cy='0' r='10' gradientTransform='matrix(62.55 -3.15 0.23884 4.7427 -33.5 71.5)'><stop stop-color='rgba(79,61,149,1)' offset='0'/><stop stop-color='rgba(59,46,112,1)' offset='0.25'/><stop stop-color='rgba(40,31,75,1)' offset='0.5'/><stop stop-color='rgba(20,15,37,1)' offset='0.75'/><stop stop-color='rgba(10,8,19,1)' offset='0.875'/><stop stop-color='rgba(5,4,9,1)' offset='0.9375'/><stop stop-color='rgba(0,0,0,1)' offset='1'/></radialGradient></defs></svg>"),
+    linear-gradient(90deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.05) 100%);
+  background-size: 100% 100%, 100% 100%;
+}
+
+.insight-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.insight-collapse-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-100);
+  background: rgba(0,0,0,0.1);
+  border: 1px solid var(--white-200);
+  color: var(--text-primary);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.insight-collapse-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.insight-text {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-200);
+}
+
+.insight-location {
+  font-size: var(--label-m-size);
+  font-weight: var(--weight-medium);
+  line-height: var(--label-m-line);
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+.insight-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-100);
+}
+
+.insight-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px var(--gap-250);
+  border-radius: var(--radius-100);
+  background: var(--button-secondary-fill-default);
+  border: 1px solid var(--button-secondary-border-default);
+  font-size: var(--label-m-size);
+  font-weight: var(--weight-medium);
+  color: var(--text-primary);
+  white-space: nowrap;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.insight-report-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gap-100);
+  padding: 4px var(--gap-250);
+  border-radius: var(--radius-100);
+  background: rgba(0,0,0,0.1);
+  border: 1px solid var(--white-200);
+  font-size: var(--label-m-size);
+  font-weight: var(--weight-medium);
+  color: var(--text-primary);
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.insight-report-btn svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* ── Variants demo grid ───────────────────────────────────── */
+.variant-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-600);
+}
+
+.variant-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-200);
+}
+
+.variant-label {
+  font-size: var(--label-m-size);
+  font-weight: var(--weight-medium);
+  color: var(--text-secondary);
+  letter-spacing: 0.2px;
+}
+
+/* Header item state matrix */
+.state-matrix {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap-300);
+  align-items: flex-start;
+}
+
+.state-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--gap-200);
+}
+
+.state-cell .state-label {
+  font-size: var(--label-m-size);
+  color: var(--text-tertiary);
+  letter-spacing: 0.15px;
+}
+</style>
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="main">
+    <div class="page">
+      <div class="page-eyebrow">Patterns</div>
+      <h1>Navigation</h1>
+      <p class="page-lede">The Global Header is the primary application shell. It carries the IFS Copperleaf logo, top-level navigation items, utility actions, and an optional AI insight banner. It renders at full viewport width, fixed to the top of every page.</p>
+
+      <h2>Anatomy</h2>
+      <div class="demo" style="padding:0;overflow:hidden;border-radius:var(--radius-200);">
+        <div class="global-header">
+          <div class="global-header__bar">
+            <div class="global-header__left">
+              <div class="global-header__logo">
+                <img src="../../DS/assets/logo-white.png" alt="IFS Copperleaf">
+              </div>
+              <nav class="global-header__nav" aria-label="Main">
+                <button class="header-item">Command</button>
+                <button class="header-item is-active">Value</button>
+                <button class="header-item">Explore</button>
+                <button class="header-item">Build</button>
+                <button class="header-item">Plan</button>
+                <button class="header-item">Results</button>
+              </nav>
+            </div>
+            <div class="global-header__actions">
+              <div class="global-header__icon-buttons">
+                <button class="header-icon-btn" aria-label="Search">
+                  <svg class="ds-icon" style="width:16px;height:16px"><use href="#system-search"/></svg>
+                </button>
+                <button class="header-icon-btn" aria-label="Settings">
+                  <svg class="ds-icon" style="width:16px;height:16px"><use href="#system-settings"/></svg>
+                </button>
+                <button class="header-icon-btn" aria-label="Notifications" style="position:relative">
+                  <svg class="ds-icon" style="width:16px;height:16px"><use href="#system-notification"/></svg>
+                  <span class="header-notif-dot"></span>
+                </button>
+              </div>
+              <div class="header-avatar">AL</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h2>Header item states</h2>
+      <p class="section-note">Nav items use the <code>element/header-item</code> token pair. Only default and active are defined as tokens; hover and pressed use <code>--white-150</code> (the ghost button hover fill).</p>
+      <div class="demo" style="gap: var(--gap-600)">
+        <div class="state-matrix">
+          <div class="state-cell">
+            <span class="state-label">Default</span>
+            <button class="header-item">Overview</button>
+          </div>
+          <div class="state-cell">
+            <span class="state-label">Hover</span>
+            <button class="header-item" style="background:var(--white-150)">Overview</button>
+          </div>
+          <div class="state-cell">
+            <span class="state-label">Pressed</span>
+            <button class="header-item" style="background:var(--white-150);color:var(--text-secondary)">Overview</button>
+          </div>
+          <div class="state-cell">
+            <span class="state-label">Active</span>
+            <button class="header-item is-active">Overview</button>
+          </div>
+          <div class="state-cell">
+            <span class="state-label">Disabled</span>
+            <button class="header-item is-disabled" disabled>Overview</button>
+          </div>
+          <div class="state-cell">
+            <span class="state-label">Focus</span>
+            <button class="header-item" style="outline:none;box-shadow:0 0 0 3px var(--focus-outer), inset 0 0 0 1.5px var(--focus-inner)">Overview</button>
+          </div>
+        </div>
+      </div>
+      <div id="t-header-items"></div>
+
+      <h2>Variants</h2>
+      <p class="section-note">Three <code>bottomPanel</code> states control whether the AI insight banner appears below the main bar. The bar height is always 48px; the insight row adds 40px when present.</p>
+
+      <div class="variant-stack">
+        <div class="variant-item">
+          <div class="variant-label">Default — no insight panel</div>
+          <div class="demo" style="padding:0;overflow:hidden;border-radius:var(--radius-200);">
+            <div class="global-header">
+              <div class="global-header__bar">
+                <div class="global-header__left">
+                  <div class="global-header__logo">
+                    <img src="../../DS/assets/logo-white.png" alt="IFS Copperleaf">
+                  </div>
+                  <nav class="global-header__nav">
+                    <button class="header-item">Command</button>
+                    <button class="header-item is-active">Value</button>
+                    <button class="header-item">Explore</button>
+                    <button class="header-item">Build</button>
+                    <button class="header-item">Plan</button>
+                    <button class="header-item">Results</button>
+                  </nav>
+                </div>
+                <div class="global-header__actions">
+                  <div class="global-header__icon-buttons">
+                    <button class="header-icon-btn" aria-label="Search"><svg class="ds-icon" style="width:16px;height:16px"><use href="#system-search"/></svg></button>
+                    <button class="header-icon-btn" aria-label="Settings"><svg class="ds-icon" style="width:16px;height:16px"><use href="#system-settings"/></svg></button>
+                    <button class="header-icon-btn" aria-label="Notifications" style="position:relative"><svg class="ds-icon" style="width:16px;height:16px"><use href="#system-notification"/></svg><span class="header-notif-dot"></span></button>
+                  </div>
+                  <div class="header-avatar">AL</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="variant-item">
+          <div class="variant-label">insight/expanded — AI overnight summary</div>
+          <div class="demo" style="padding:0;overflow:hidden;border-radius:var(--radius-200);">
+            <div class="global-header">
+              <div class="global-header__bar">
+                <div class="global-header__left">
+                  <div class="global-header__logo">
+                    <img src="../../DS/assets/logo-white.png" alt="IFS Copperleaf">
+                  </div>
+                  <nav class="global-header__nav">
+                    <button class="header-item">Command</button>
+                    <button class="header-item">Value</button>
+                    <button class="header-item is-active">Explore</button>
+                    <button class="header-item">Build</button>
+                    <button class="header-item">Plan</button>
+                    <button class="header-item">Results</button>
+                  </nav>
+                </div>
+                <div class="global-header__actions">
+                  <div class="global-header__icon-buttons">
+                    <button class="header-icon-btn" aria-label="Search"><svg class="ds-icon" style="width:16px;height:16px"><use href="#system-search"/></svg></button>
+                    <button class="header-icon-btn" aria-label="Settings"><svg class="ds-icon" style="width:16px;height:16px"><use href="#system-settings"/></svg></button>
+                    <button class="header-icon-btn" aria-label="Notifications" style="position:relative"><svg class="ds-icon" style="width:16px;height:16px"><use href="#system-notification"/></svg><span class="header-notif-dot"></span></button>
+                  </div>
+                  <div class="header-avatar">AL</div>
+                </div>
+              </div>
+              <div class="global-header__insight global-header__insight--expanded">
+                <div class="insight-left">
+                  <button class="insight-collapse-btn" aria-label="Collapse insight panel">
+                    <svg class="ds-icon" style="width:16px;height:16px"><use href="#system-minus"/></svg>
+                  </button>
+                  <div class="insight-text">
+                    <span class="insight-location">West District:</span>
+                    <div class="insight-actions">
+                      <span class="insight-chip">3 Updates</span>
+                      <span class="insight-chip">3 Portfolio changes</span>
+                    </div>
+                  </div>
+                </div>
+                <button class="insight-report-btn">
+                  View Full Report
+                  <svg class="ds-icon" style="width:14px;height:14px"><use href="#system-arrow-right"/></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="variant-item">
+          <div class="variant-label">insight/hidden — collapsed</div>
+          <div class="demo" style="padding:0;overflow:hidden;border-radius:var(--radius-200);">
+            <div class="global-header">
+              <div class="global-header__bar">
+                <div class="global-header__left">
+                  <div class="global-header__logo">
+                    <img src="../../DS/assets/logo-white.png" alt="IFS Copperleaf">
+                  </div>
+                  <nav class="global-header__nav">
+                    <button class="header-item">Command</button>
+                    <button class="header-item">Value</button>
+                    <button class="header-item is-active">Explore</button>
+                    <button class="header-item">Build</button>
+                    <button class="header-item">Plan</button>
+                    <button class="header-item">Results</button>
+                  </nav>
+                </div>
+                <div class="global-header__actions">
+                  <div class="global-header__icon-buttons">
+                    <button class="header-icon-btn" aria-label="Search"><svg class="ds-icon" style="width:16px;height:16px"><use href="#system-search"/></svg></button>
+                    <button class="header-icon-btn" aria-label="Settings"><svg class="ds-icon" style="width:16px;height:16px"><use href="#system-settings"/></svg></button>
+                    <button class="header-icon-btn" aria-label="Notifications" style="position:relative"><svg class="ds-icon" style="width:16px;height:16px"><use href="#system-notification"/></svg><span class="header-notif-dot"></span></button>
+                  </div>
+                  <div class="header-avatar">AL</div>
+                </div>
+              </div>
+              <div class="global-header__insight">
+                <button class="insight-collapse-btn" aria-label="Expand insight panel">
+                  <svg class="ds-icon" style="width:16px;height:16px"><use href="#system-plus"/></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h2>Usage</h2>
+      <p>The header is a fixed shell component — it sits above all page content at <code>z-index: var(--z-overlay)</code>. The <code>backdrop-filter: blur(var(--blur-light))</code> on <code>--surface-primary-alpha</code> (black/85%) creates the frosted-glass separation from content beneath it.</p>
+      <p>Navigation items use the <code>element/header-item</code> tokens. Only one item should carry <code>.is-active</code> at a time, reflecting the current section. The active item uses <code>--header-item-fill-active</code> (white/10%); all other states use <code>--white-150</code> (white/15%) for hover and press.</p>
+      <p>The AI insight banner (<code>bottomPanel</code>) is shown when Cooper has overnight analysis to surface. The expanded state includes a purple radial gradient bleed from the left edge — this is a Figma-specified art direction value and does not map to a token. The collapsed state (<code>insight/hidden</code>) shows only a pill-shaped expand trigger.</p>
+
+      <div class="callout">Figma source: <strong>IFS Design System</strong> → Global Header (node <code>1399-16113</code>). Header item component: node <code>788-39790</code> et al. The <code>bottomPanel</code> prop drives which variant renders.</div>
+    </div>
+  </main>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  document.body.insertAdjacentHTML("afterbegin", window.IFSIconSprite);
+
+  tokenTable("t-header-items", [
+    ["--header-item-fill-default",  "Default — transparent"],
+    ["--header-item-fill-active",   "Active — white/10%"],
+    ["--white-150",                 "Hover & pressed — white/15%"],
+    ["--text-disabled",             "Disabled label color"],
+    ["--focus-outer",               "Focus ring outer"],
+    ["--focus-inner",               "Focus ring inner"],
+  ], {notes: true});
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,222 @@
+/* ============================================================
+   IFS Copperleaf — Semantic color tokens
+   Names map 1:1 to Figma variables (surface/*, text/*, icon/*,
+   border/*, background/*, overlay/*, focus/*). Values verified
+   against the Figma foundations page (June 2026).
+   DARK is the default theme (the product ships dark-first).
+   A light theme is provided under [data-theme="light"] / .light —
+   it is a derivation; Figma models inversion via *-inverse tokens.
+   Legacy DS aliases kept at the bottom.
+   ============================================================ */
+
+:root {
+  /* ---- surface/* ---- */
+  --surface-primary:               #000000;          /* black/1000-base */
+  --surface-secondary-alpha:       rgba(255,255,255,0.05);  /* white/50 */
+  --surface-tertiary-alpha:        rgba(255,255,255,0.15);  /* white/150 */
+  --surface-primary-alpha:         rgba(0,0,0,0.85);        /* black/850 */
+  --surface-primary-inverse:       #FFFFFF;          /* white/1000-base */
+  --surface-primary-inverse-alpha: rgba(255,255,255,0.85);  /* white/850 */
+
+  /* ---- text/* (dark theme) ---- */
+  --text-primary:        #FFFFFF;
+  --text-secondary:      rgba(255,255,255,0.75);   /* #ffffffbf */
+  --text-tertiary:       rgba(255,255,255,0.55);   /* #ffffff8c */
+  --text-disabled:       rgba(255,255,255,0.30);   /* #ffffff4d */
+  --text-accent-cooper:  #C87941;                  /* 500-base */
+  --text-accent-purple:  #8366F7;                  /* 500-base */
+  --text-info:           #80B2FF;                  /* blue-300 */
+  --text-success:        #2EBC5D;
+  --text-danger:         #EE3C3B;
+  --text-warning:        #FFAF2E;
+  --text-primary-inverse:   #000000;
+  --text-secondary-inverse: rgba(0,0,0,0.60);      /* #00000099 */
+  --text-tertiary-inverse:  rgba(0,0,0,0.45);      /* #00000073 */
+  --text-disabled-inverse:  rgba(0,0,0,0.20);      /* #00000033 */
+
+  /* ---- icon/* (mirror text) ---- */
+  --icon-primary:        #FFFFFF;
+  --icon-secondary:      rgba(255,255,255,0.75);
+  --icon-tertiary:       rgba(255,255,255,0.55);
+  --icon-disabled:       rgba(255,255,255,0.30);
+  --icon-accent-cooper:  #C87941;
+  --icon-accent-purple:  #8366F7;
+  --icon-info:           #80B2FF;
+  --icon-success:        #2EBC5D;
+  --icon-danger:         #EE3C3B;
+  --icon-warning:        #FFAF2E;
+  --icon-primary-inverse:   #000000;
+  --icon-secondary-inverse: rgba(0,0,0,0.60);
+  --icon-tertiary-inverse:  rgba(0,0,0,0.45);
+  --icon-disabled-inverse:  rgba(0,0,0,0.20);
+
+  /* ---- border/* ---- */
+  --border-base:           rgba(255,255,255,0.10);  /* #ffffff1a */
+  --border-medium:         rgba(255,255,255,0.20);  /* #ffffff33 */
+  --border-strong:         rgba(255,255,255,0.40);  /* unchanged from DS; not in remote pull */
+  --border-white:          #FFFFFF;
+  --border-black:          #000000;
+  --border-accent-cooper:  #C87941;
+  --border-accent-purple:  #8366F7;
+  --border-info:           #80B2FF;                 /* blue-300, NOT 500 */
+  --border-success:        #2EBC5D;
+  --border-danger:         #EE3C3B;
+  --border-warning:        #FFAF2E;
+  --border-base-inverse:   rgba(0,0,0,0.10);
+  --border-medium-inverse: rgba(0,0,0,0.20);
+  --border-strong-inverse: rgba(0,0,0,0.40);
+
+  /* ---- background/elevation-* (fills for elevated surfaces; pair with
+       the elevation shadows + blur in spacing.css) ---- */
+  --background-elevation-1-primary:   rgba(0,0,0,0.60);          /* #00000099 */
+  --background-elevation-1-secondary: rgba(255,255,255,0.10);
+  --background-elevation-1-tertiary:  rgba(255,255,255,0.15);
+  --background-elevation-2-primary:   rgba(70,70,70,0.60);       /* #46464699 */
+  --background-elevation-2-secondary: rgba(255,255,255,0.10);
+  --background-elevation-2-tertiary:  rgba(255,255,255,0.15);
+  --background-elevation-3-primary:   rgba(255,255,255,0.10);
+  --background-elevation-3-secondary: rgba(255,255,255,0.10);
+  --background-elevation-3-tertiary:  rgba(255,255,255,0.15);
+
+  /* ---- background/solid/* ---- */
+  --background-solid-black:         #000000;
+  --background-solid-white:         #FFFFFF;
+  --background-solid-accent-cooper: #C87941;
+  --background-solid-accent-purple: #8366F7;
+  --background-solid-blue:          #5599FF;   /* system/info/400 */
+  --background-solid-dark-blue:     #113367;   /* system/info/800 */
+  --background-solid-dark-purple:   #352964;   /* brand/purple/800 */
+  --background-solid-dark-green:    #0E381C;   /* system/success/850 */
+  --background-solid-dark-orange:   #300C0C;   /* system/danger/900 */
+  --background-solid-dark-pink:     #450943;   /* neutral/rose/850 */
+
+  /* ---- background/color-alpha/* ---- */
+  --background-color-alpha-blue-base:     rgba(43,127,255,0.10);   /* #2B7FFF 10% */
+  --background-color-alpha-blue-strong:   rgba(43,127,255,0.25);   /* #2B7FFF 25% */
+  --background-color-alpha-cooper-base:   rgba(200,121,65,0.10);   /* #C87941 10% */
+  --background-color-alpha-cooper-strong: rgba(200,121,65,0.25);   /* #C87941 25% */
+  --background-color-alpha-purple-base:   rgba(131,102,247,0.10);  /* #8366F7 10% */
+  --background-color-alpha-purple-strong: rgba(131,102,247,0.25);  /* #8366F7 25% */
+  --background-color-alpha-black-base:    rgba(0,0,0,0.05);        /* black/50 */
+  --background-color-alpha-black-strong:  rgba(0,0,0,0.10);        /* black/100 */
+  --background-color-alpha-white-base:    rgba(255,255,255,0.10);  /* white/100 */
+  --background-color-alpha-white-strong:  rgba(255,255,255,0.20);  /* white/200 */
+
+  /* ---- background/system/* (solid status fills) ---- */
+  --background-system-info:    #2B7FFF;
+  --background-system-success: #2EBC5D;
+  --background-system-danger:  #EE3C3B;
+  --background-system-warning: #FFAF2E;
+
+  /* ---- overlay/* ---- */
+  --overlay-element-light: rgba(255,255,255,0.20);  /* #ffffff33 */
+  --overlay-screen-medium: rgba(0,0,0,0.30);        /* #0000004d */
+  --overlay-screen-strong: rgba(0,0,0,0.60);        /* #00000099 */
+
+  /* ---- element/cooper-insight/* ---- */
+  --element-cooper-insight-fill-strong:  rgba(0,0,0,0.85);         /* black/850 */
+  --element-cooper-insight-fill-base:    rgba(0,0,0,0.10);         /* black/100 */
+  --element-cooper-insight-fill-inverse: rgba(255,255,255,0.05);   /* white/50 */
+
+  /* ---- background/canvas/* ---- */
+  --background-canvas-primary:   rgba(255,255,255,0.05);   /* white/50 */
+  --background-canvas-secondary: rgba(255,255,255,0.05);   /* white/50 */
+
+  /* ---- focus/* ---- */
+  --focus-inner: #000000;          /* black/1000-base — kept for light mode */
+  --focus-outer: var(--blue-500);  /* system/info/500 — 5.6:1 vs black, just over WCAG AAA 4.5:1 */
+
+  /* ============================================================
+     Legacy DS aliases (deprecated — use the Figma names above)
+     ============================================================ */
+  --bg-canvas:            var(--surface-primary);
+  --bg-secondary:         var(--surface-1);
+  --bg-tertiary:          var(--surface-2);
+  --bg-raised:            var(--surface-3);
+  --surface-card:         var(--surface-2);
+  --surface-card-alpha:   var(--white-50);
+  --surface-overlay:      var(--background-elevation-2-primary);
+  --surface-inverse:      var(--surface-primary-inverse);
+
+  --bg-accent-purple:        var(--background-color-alpha-purple-base);
+  --bg-accent-purple-strong: var(--background-color-alpha-purple-strong);
+  --bg-accent-copper:        var(--background-color-alpha-cooper-base);
+  --bg-accent-copper-strong: var(--background-color-alpha-cooper-strong);
+  --bg-info:              var(--background-color-alpha-blue-base);
+  --bg-success:           rgba(46,188,93,0.12);   /* DS-derived tint; no Figma equivalent */
+  --bg-warning:           rgba(255,175,46,0.12);  /* DS-derived tint; no Figma equivalent */
+  --bg-danger:            rgba(238,60,59,0.12);   /* DS-derived tint; no Figma equivalent */
+
+  --text-accent-copper:   var(--text-accent-cooper);
+  --text-on-accent:       var(--white);
+  --text-inverse:         var(--text-primary-inverse);
+  --icon-accent-copper:   var(--icon-accent-cooper);
+
+  --border-subtle:        var(--border-base);
+  --border-grey:          var(--grey-1000);   /* system/grey/1000-base = #464646 */
+  --border-accent-copper: var(--border-accent-cooper);
+
+  --accent-purple:        var(--purple-500);
+  --accent-copper:        var(--cooper-500);
+  --accent-cooper:        var(--cooper-500);
+  /* Lead brand accent (= cooper) for selected/active/value states */
+  --accent-brand:         var(--cooper-500);
+  --accent-brand-hover:   var(--cooper-400);
+  --accent-brand-pressed: var(--cooper-600);
+  --accent-brand-bg:      var(--background-color-alpha-cooper-base);
+
+  --focus-ring:           var(--focus-outer);
+  --focus-ring-inner:     var(--focus-inner);
+}
+
+/* ============================================================
+   Light theme — DERIVED (not lifted 1:1 from Figma; Figma models
+   light contexts via *-inverse tokens). Review before relying on it.
+   ============================================================ */
+:root[data-theme="light"],
+.light {
+  --surface-primary:         #FFFFFD;
+  --surface-primary-inverse: #000000;
+
+  --bg-canvas:            #FFFFFD;
+  --bg-secondary:         #F4F4F3;
+  --bg-tertiary:          #ECECEB;
+  --bg-raised:            #FFFFFF;
+  --surface-card:         #FFFFFF;
+  --surface-card-alpha:   var(--black-50);
+  --surface-overlay:      rgba(255,255,255,0.85);
+  --surface-inverse:      var(--black);
+
+  --text-primary:         #181D27;
+  --text-secondary:       rgba(0,0,0,0.66);
+  --text-tertiary:        rgba(0,0,0,0.45);
+  --text-disabled:        var(--black-300);
+  --text-accent-cooper:   var(--cooper-600);
+  --text-accent-copper:   var(--cooper-600);
+  --text-accent-purple:   var(--purple-600);
+  --text-info:            var(--blue-600);
+  --text-success:         var(--green-600);
+  --text-warning:         var(--amber-700);
+  --text-danger:          var(--red-600);
+  --text-on-accent:       var(--white);
+  --text-inverse:         var(--white);
+
+  --icon-primary:         #181D27;
+  --icon-secondary:       rgba(0,0,0,0.66);
+  --icon-tertiary:        rgba(0,0,0,0.45);
+  --icon-disabled:        var(--black-300);
+  --icon-accent-cooper:   var(--cooper-600);
+  --icon-accent-copper:   var(--cooper-600);
+  --icon-accent-purple:   var(--purple-600);
+
+  --border-base:          var(--black-100);
+  --border-subtle:        var(--black-100);
+  --border-medium:        var(--black-200);
+  --border-strong:        var(--black-400);
+  --border-grey:          var(--grey-1000);
+
+  --focus-outer:          var(--blue-500);
+  --focus-inner:          var(--white);
+  --focus-ring:           var(--blue-500);
+  --focus-ring-inner:     var(--white);
+}

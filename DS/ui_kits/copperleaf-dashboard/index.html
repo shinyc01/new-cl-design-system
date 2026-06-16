@@ -1,0 +1,480 @@
+<!-- @dsCard group="Copperleaf Dashboard" viewport="1320x860" name="Decision Analytics dashboard" subtitle="Strategy framework — allocation, objectives, capex & recommendations" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IFS Copperleaf — Decision Analytics</title>
+<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.34.0/dist/tabler-icons.min.css">
+<style>
+  html, body { height:100%; margin:0; background:var(--surface-1); }
+  #root { position:absolute; inset:0; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+
+<!-- UI-kit view code is inlined (NOT separate .jsx files) so the design-system
+     compiler does not bundle it into _ds_bundle.js / auto-run its render. -->
+<script type="text/babel" data-presets="react">
+/* === charts === */
+(function(){
+/* IFS Copperleaf — UI-kit chart presentationals (pure SVG/CSS, dataviz tokens). */
+
+const DV = ['var(--dataviz-1)','var(--dataviz-2)','var(--dataviz-3)','var(--dataviz-4)','var(--dataviz-5)','var(--dataviz-6)','var(--dataviz-7)','var(--dataviz-8)'];
+
+/* Stacked horizontal allocation bar — the portfolio-split motif. */
+function AllocationBar({ segments, height = 34, money = false }) {
+  const total = segments.reduce((s, x) => s + x.value, 0);
+  return (
+    <div style={{ display:'flex', gap:3, width:'100%' }}>
+      {segments.map((s, i) => {
+        const pct = (s.value / total) * 100;
+        return (
+          <div key={i} title={`${s.label} · ${money ? '$'+s.value+'M' : Math.round(pct)+'%'}`}
+            style={{ flex:`${pct} 0 0`, height, borderRadius:6, background: s.color || DV[i % DV.length],
+              display:'flex', alignItems:'center', justifyContent:'center', minWidth:0, overflow:'hidden',
+              color:'#fff', fontSize:12, fontWeight:600, letterSpacing:'-.2px',
+              boxShadow:'inset 0 1px 0 rgba(255,255,255,.12)' }}>
+            {pct > 6 ? (money ? '$'+s.value+'M' : Math.round(pct)+'%') : ''}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+/* Legend row for a series. */
+function Legend({ items }) {
+  return (
+    <div style={{ display:'flex', flexWrap:'wrap', gap:'8px 16px', marginTop:14 }}>
+      {items.map((it, i) => (
+        <div key={i} style={{ display:'flex', alignItems:'center', gap:7, fontSize:11.5, color:'var(--text-secondary)' }}>
+          <span style={{ width:9, height:9, borderRadius:3, background: it.color || DV[i % DV.length] }} />
+          {it.label}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/* Treemap — strategic objectives by value. Simple slice-and-dice. */
+function Treemap({ data, height = 220 }) {
+  const total = data.reduce((s, d) => s + d.value, 0);
+  return (
+    <div style={{ display:'flex', gap:4, height, width:'100%' }}>
+      {data.map((d, i) => {
+        const w = (d.value / total) * 100;
+        const kids = d.children || [];
+        const ktot = kids.reduce((s, k) => s + k.value, 0) || 1;
+        const base = d.color || DV[i % DV.length];
+        return (
+          <div key={i} style={{ flex:`${w} 0 0`, minWidth:0, display:'flex', flexDirection:'column', gap:4 }}>
+            <div style={{ background:base, borderRadius:7, padding:'10px 12px', color:'#fff',
+              boxShadow:'inset 0 1px 0 rgba(255,255,255,.14)', minHeight:54 }}>
+              <div style={{ fontSize:11, opacity:.85, letterSpacing:'.2px' }}>{d.label}</div>
+              <div style={{ fontSize:18, fontWeight:600, letterSpacing:'-.4px' }}>${d.value}M</div>
+            </div>
+            {kids.length ? (
+              <div style={{ display:'flex', gap:4, flex:1 }}>
+                {kids.map((k, j) => (
+                  <div key={j} title={`${k.label} · $${k.value}M`}
+                    style={{ flex:`${(k.value/ktot)*100} 0 0`, minWidth:0, background:base, opacity:.5,
+                      borderRadius:6, padding:'7px 9px', color:'#fff', fontSize:10.5, fontWeight:500,
+                      display:'flex', alignItems:'flex-end' }}>
+                    <span style={{ whiteSpace:'nowrap', overflow:'hidden', textOverflow:'ellipsis' }}>{k.label}</span>
+                  </div>
+                ))}
+              </div>
+            ) : null}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+/* Capex burn — grouped columns (plan vs actual) by quarter. */
+function BurnChart({ data, height = 180 }) {
+  const max = Math.max(...data.flatMap(d => [d.plan, d.actual])) * 1.1;
+  return (
+    <div>
+      <div style={{ display:'flex', alignItems:'flex-end', gap:18, height, padding:'0 4px' }}>
+        {data.map((d, i) => (
+          <div key={i} style={{ flex:1, display:'flex', flexDirection:'column', alignItems:'center', gap:8, height:'100%' }}>
+            <div style={{ flex:1, display:'flex', alignItems:'flex-end', gap:6, width:'100%', justifyContent:'center' }}>
+              <div title={`Plan $${d.plan}M`} style={{ width:'34%', height:`${(d.plan/max)*100}%`,
+                background:'var(--white-150)', borderRadius:'4px 4px 0 0' }} />
+              <div title={`Actual $${d.actual}M`} style={{ width:'34%', height:`${(d.actual/max)*100}%`,
+                background:'var(--accent-brand)', borderRadius:'4px 4px 0 0',
+                boxShadow:'inset 0 1px 0 rgba(255,255,255,.2)' }} />
+            </div>
+            <div style={{ fontSize:11, color:'var(--text-tertiary)' }}>{d.label}</div>
+          </div>
+        ))}
+      </div>
+      <Legend items={[{label:'Plan',color:'var(--white-150)'},{label:'Actual',color:'var(--accent-brand)'}]} />
+    </div>
+  );
+}
+
+/* Donut gauge for a single coverage/score metric. */
+function Donut({ value, label, sub, color = 'var(--accent-brand)', size = 116 }) {
+  const r = size/2 - 9, c = 2*Math.PI*r, off = c*(1 - value/100);
+  return (
+    <div style={{ display:'flex', alignItems:'center', gap:16 }}>
+      <svg width={size} height={size} style={{ flex:'none' }}>
+        <circle cx={size/2} cy={size/2} r={r} fill="none" stroke="var(--white-100)" strokeWidth="9" />
+        <circle cx={size/2} cy={size/2} r={r} fill="none" stroke={color} strokeWidth="9" strokeLinecap="round"
+          strokeDasharray={c} strokeDashoffset={off} transform={`rotate(-90 ${size/2} ${size/2})`} />
+        <text x="50%" y="49%" textAnchor="middle" fontSize="24" fontWeight="600" fill="var(--text-primary)"
+          fontFamily="var(--font-sans)" letterSpacing="-.6">{value}%</text>
+        <text x="50%" y="64%" textAnchor="middle" fontSize="10" fill="var(--text-tertiary)" fontFamily="var(--font-sans)">{sub}</text>
+      </svg>
+      <div>
+        <div style={{ fontSize:14, fontWeight:600 }}>{label}</div>
+        <div style={{ fontSize:12, color:'var(--text-tertiary)', maxWidth:150, lineHeight:1.4 }}>{sub}</div>
+      </div>
+    </div>
+  );
+}
+
+Object.assign(window, { AllocationBar, Legend, Treemap, BurnChart, Donut, DV });
+
+})();
+</script>
+<script type="text/babel" data-presets="react">
+/* === shell === */
+(function(){
+/* IFS Copperleaf — Decision Analytics dashboard UI kit (screens). */
+const { Button, Badge, Card, Avatar, AvatarGroup, Tabs, SegmentedControl, Stepper, Select, Input } = window.IFSDesignSystem_6f71e3;
+
+/* ---- Tabler icon set (the product's icon family). Rendered as webfont
+   glyphs (class `ti ti-<name>`); 24px grid / 2px stroke, recolored with
+   currentColor. Semantic names below map to Tabler glyph names. ---- */
+const TI = {
+  grid:"layout-grid", map:"map-2", layers:"stack-2", chart:"chart-bar",
+  settings:"settings", bulb:"bulb", share:"share-3", comment:"message",
+  search:"search", star:"star", bell:"bell", plus:"plus",
+  arrowUp:"arrow-up-right", arrowRight:"arrow-right", check:"check", x:"x",
+  chevDown:"chevron-down", cube:"cube", filter:"filter", download:"download",
+};
+function Icon({ name, size = 17, style }) {
+  return (
+    <i className={"ti ti-" + (TI[name] || name)}
+      style={{ fontSize: size, lineHeight: 1, display: "inline-flex", ...style }} />
+  );
+}
+window.Icon = Icon;
+
+/* ---- Left navigation rail ---- */
+function Rail({ active, onNav }) {
+  const items = [["overview","grid"],["map","map"],["portfolio","layers"],["analytics","chart"]];
+  return (
+    <div style={{ width:56, background:'var(--surface-0)', borderRight:'1px solid var(--border-subtle)',
+      display:'flex', flexDirection:'column', alignItems:'center', padding:'14px 0', gap:6, flex:'none' }}>
+      <div style={{ width:30, height:30, borderRadius:8, marginBottom:10,
+        background:'linear-gradient(140deg,var(--purple-400),var(--purple-700))',
+        display:'flex', alignItems:'center', justifyContent:'center', color:'#fff', boxShadow:'var(--shadow-sm)' }}>
+        <Icon name="cube" size={17} sw={2} />
+      </div>
+      {items.map(([id, icon]) => (
+        <button key={id} onClick={() => onNav(id)} title={id}
+          style={{ width:40, height:40, borderRadius:10, border:'none', cursor:'pointer',
+            display:'flex', alignItems:'center', justifyContent:'center',
+            background: active===id ? 'var(--white-100)' : 'transparent',
+            color: active===id ? 'var(--copper-300)' : 'var(--icon-tertiary)',
+            transition:'background .12s, color .12s' }}>
+          <Icon name={icon} size={19} />
+        </button>
+      ))}
+      <div style={{ marginTop:'auto', display:'flex', flexDirection:'column', alignItems:'center', gap:10 }}>
+        <button style={{ width:40, height:40, borderRadius:10, border:'none', cursor:'pointer', background:'transparent', color:'var(--icon-tertiary)', display:'flex', alignItems:'center', justifyContent:'center' }}><Icon name="settings" size={19}/></button>
+        <Avatar name="Jamie Carter" size="sm" />
+      </div>
+    </div>
+  );
+}
+
+/* ---- Top app bar + toolbar ---- */
+function Header({ tab, onTab, dim, onDim, onReview, onRec }) {
+  return (
+    <div style={{ background:'var(--surface-0)', borderBottom:'1px solid var(--border-subtle)', flex:'none' }}>
+      <div style={{ display:'flex', alignItems:'center', gap:14, padding:'12px 18px' }}>
+        <div style={{ minWidth:0 }}>
+          <div style={{ display:'flex', alignItems:'center', gap:10 }}>
+            <span style={{ fontSize:20, fontWeight:500, letterSpacing:'-.5px', whiteSpace:'nowrap' }}>Q1 2026 Strategy Framework</span>
+            <Badge tone="success" dot>Active</Badge>
+          </div>
+          <div style={{ fontSize:11, color:'var(--text-tertiary)', marginTop:2 }}>Last updated June 2, 2026 · Owned by J. Carter</div>
+        </div>
+        <div style={{ marginLeft:'auto', display:'flex', alignItems:'center', gap:10 }}>
+          <button onClick={onRec} style={{ border:'none', background:'none', padding:0, cursor:'pointer' }}>
+            <Badge tone="copper" icon={<Icon name="bulb" size={12}/>}>1 Recommendation</Badge>
+          </button>
+          <Button variant="tertiary" size="md" leadingIcon={<Icon name="share" size={15}/>}>Share</Button>
+          <Button variant="tertiary" size="md" leadingIcon={<Icon name="grid" size={15}/>}>Widgets</Button>
+          <AvatarGroup size="sm" max={3} people={[{name:'Jamie Carter'},{name:'Priya Nair'},{name:'Sam Lee'},{name:'Dana Vu'},{name:'Ravi K'}]} />
+          <Button variant="ghost" size="md" iconOnly aria-label="Comments"><Icon name="comment" size={17}/></Button>
+          <Button variant="primary" size="md" leadingIcon={<Icon name="star" size={15}/>} onClick={onReview}>Review</Button>
+        </div>
+      </div>
+      <div style={{ display:'flex', alignItems:'center', gap:14, padding:'0 18px', borderTop:'1px solid var(--border-subtle)' }}>
+        <Tabs value={tab} onChange={onTab} plain items={[
+          {id:'overview',label:'Overview'},{id:'map',label:'Map'},{id:'capital',label:'Capital Flow'}
+        ]}/>
+        <div style={{ marginLeft:'auto', display:'flex', alignItems:'center', gap:12, padding:'7px 0' }}>
+          <Stepper current={2} steps={['Input','Shape','Review','Publish']} />
+          <div style={{ width:1, height:22, background:'var(--border-subtle)' }} />
+          <Select size="sm" options={['Optimized scenario','Baseline','Constrained']} defaultValue="Optimized scenario" />
+          <SegmentedControl size="sm" value={dim} onChange={onDim}
+            options={[{value:'3d',label:'3D'},{value:'2d',label:'2D'}]} />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+window.Rail = Rail;
+window.Header = Header;
+
+})();
+</script>
+<script type="text/babel" data-presets="react">
+/* === views === */
+(function(){
+/* IFS Copperleaf — dashboard views + recommendation drawer + App. */
+const { Button, Badge, Card, Avatar, Checkbox, Switch } = window.IFSDesignSystem_6f71e3;
+const { AllocationBar, Legend, Treemap, BurnChart, Donut } = window;
+const Icon = window.Icon;
+
+const OBJECTIVES = [
+  { label:'Growth',          color:'var(--dataviz-1)' },
+  { label:'Reliability',     color:'var(--dataviz-2)' },
+  { label:'Compliance',      color:'var(--dataviz-3)' },
+  { label:'Safety',          color:'var(--dataviz-4)' },
+  { label:'Decarbonization', color:'var(--dataviz-5)' },
+];
+const seg = (vals) => OBJECTIVES.map((o, i) => ({ ...o, value: vals[i] }));
+
+/* ---- KPI stat ---- */
+function Stat({ label, value, delta, deltaTone = 'success', foot }) {
+  return (
+    <Card padding="md">
+      <div style={{ fontSize:11, color:'var(--text-tertiary)', letterSpacing:'.2px' }}>{label}</div>
+      <div style={{ display:'flex', alignItems:'baseline', gap:8, marginTop:6 }}>
+        <span style={{ fontSize:28, fontWeight:500, letterSpacing:'-.8px' }}>{value}</span>
+        {delta ? <Badge tone={deltaTone} size="sm" icon={<Icon name="arrowUp" size={10}/>}>{delta}</Badge> : null}
+      </div>
+      {foot ? <div style={{ fontSize:11.5, color:'var(--text-tertiary)', marginTop:6 }}>{foot}</div> : null}
+    </Card>
+  );
+}
+
+function OverviewView({ dim }) {
+  return (
+    <div style={{ display:'flex', flexDirection:'column', gap:16 }}>
+      <div style={{ display:'grid', gridTemplateColumns:'repeat(4,1fr)', gap:16 }}>
+        <Stat label="Portfolio value" value="$478M" delta="+12%" foot="vs. baseline scenario" />
+        <Stat label="Optimization uplift" value="+$51M" delta="+3.1%" foot="from rebalancing" />
+        <Stat label="Strategic objectives" value="5" foot="3 on track · 2 at risk" />
+        <Stat label="Framework coverage" value="86%" delta="+4%" deltaTone="success" foot="assets mapped to plan" />
+      </div>
+
+      <div style={{ display:'grid', gridTemplateColumns:'1.5fr 1fr', gap:16 }}>
+        <Card title="Capital allocation by objective" subtitle={dim==='3d' ? 'Stacked · share of portfolio' : 'Flat · share of portfolio'}
+          action={<Badge tone="copper" variant="soft">Optimized</Badge>}>
+          <div style={{ display:'flex', flexDirection:'column', gap:10, marginTop:4 }}>
+            <Row name="Recommended"><AllocationBar segments={seg([40,35,13,7,5])} /></Row>
+            <Row name="Baseline"><AllocationBar segments={seg([35,25,16,8,16])} /></Row>
+            <Row name="Current"><AllocationBar segments={seg([38,28,19,4,11])} /></Row>
+          </div>
+          <Legend items={OBJECTIVES} />
+        </Card>
+
+        <Card title="Framework coverage" subtitle="Decision criteria mapped">
+          <div style={{ display:'flex', flexDirection:'column', gap:18, marginTop:6 }}>
+            <Donut value={86} label="Overall coverage" sub="142 of 165 assets" />
+            <div style={{ display:'flex', gap:10 }}>
+              <Mini label="On track" value="3" tone="var(--text-success)" />
+              <Mini label="At risk" value="2" tone="var(--text-warning)" />
+              <Mini label="Blocked" value="0" tone="var(--text-tertiary)" />
+            </div>
+          </div>
+        </Card>
+      </div>
+
+      <div style={{ display:'grid', gridTemplateColumns:'1.5fr 1fr', gap:16 }}>
+        <Card title="Strategic objectives by value" subtitle="$1.24B planned across programs">
+          <Treemap data={[
+            { label:'Growth', value:478, children:[{label:'Network expansion',value:300},{label:'New markets',value:178}] },
+            { label:'Reliability', value:418, children:[{label:'Asset renewal',value:250},{label:'Maintenance',value:168}] },
+            { label:'Compliance', value:155, color:'var(--dataviz-3)', children:[{label:'Regulatory',value:155}] },
+            { label:'Safety', value:96, color:'var(--dataviz-4)' },
+            { label:'Decarb.', value:93, color:'var(--dataviz-5)' },
+          ]} />
+        </Card>
+
+        <Card title="Capex burn by quarter" subtitle="Plan vs. actual, FY2026">
+          <BurnChart data={[
+            { label:'Q1', plan:120, actual:112 },
+            { label:'Q2', plan:135, actual:141 },
+            { label:'Q3', plan:128, actual:96 },
+            { label:'Q4', plan:120, actual:0 },
+          ]} />
+        </Card>
+      </div>
+    </div>
+  );
+}
+
+function Row({ name, children }) {
+  return (
+    <div style={{ display:'flex', alignItems:'center', gap:12 }}>
+      <div style={{ width:96, flex:'none', fontSize:12, color:'var(--text-secondary)', fontWeight:500 }}>{name}</div>
+      <div style={{ flex:1, minWidth:0 }}>{children}</div>
+    </div>
+  );
+}
+function Mini({ label, value, tone }) {
+  return (
+    <div style={{ flex:1, border:'1px solid var(--border-subtle)', borderRadius:8, padding:'10px 12px', background:'var(--white-50)' }}>
+      <div style={{ fontSize:20, fontWeight:600, color:tone, letterSpacing:'-.4px' }}>{value}</div>
+      <div style={{ fontSize:11, color:'var(--text-tertiary)' }}>{label}</div>
+    </div>
+  );
+}
+
+function MapView() {
+  return (
+    <Card padding="lg" style={{ minHeight:420, alignItems:'center', justifyContent:'center', textAlign:'center' }}>
+      <div style={{ display:'flex', flexDirection:'column', alignItems:'center', gap:14, color:'var(--text-tertiary)', margin:'auto' }}>
+        <div style={{ width:56, height:56, borderRadius:14, background:'var(--white-50)', border:'1px solid var(--border-subtle)', display:'flex', alignItems:'center', justifyContent:'center', color:'var(--icon-tertiary)' }}>
+          <Icon name="map" size={26} />
+        </div>
+        <div style={{ fontSize:16, fontWeight:600, color:'var(--text-secondary)' }}>Geospatial asset map</div>
+        <div style={{ fontSize:13, maxWidth:360, lineHeight:1.5 }}>The interactive asset & investment map is part of the live product and is not reproduced in this UI-kit recreation.</div>
+        <Button variant="tertiary" size="md">Open in product</Button>
+      </div>
+    </Card>
+  );
+}
+
+function CapitalFlowView({ dim }) {
+  const sources = seg([40,35,13,7,5]);
+  return (
+    <div style={{ display:'flex', flexDirection:'column', gap:16 }}>
+      <Card title="Capital flow" subtitle="From funding sources through objectives to programs">
+        <div style={{ display:'flex', flexDirection:'column', gap:18, marginTop:6 }}>
+          <div>
+            <div style={{ fontSize:11, color:'var(--text-tertiary)', marginBottom:7 }}>Funding · $1.24B total</div>
+            <AllocationBar height={40} money segments={[
+              { label:'Capex', value:840, color:'var(--copper-600)' },
+              { label:'Opex', value:280, color:'var(--solid-dark-blue)' },
+              { label:'Grants', value:120, color:'var(--solid-dark-green)' },
+            ]}/>
+          </div>
+          <div>
+            <div style={{ fontSize:11, color:'var(--text-tertiary)', marginBottom:7 }}>Allocated to objectives</div>
+            <AllocationBar height={40} segments={seg([478,418,155,96,93])} money />
+          </div>
+          <Legend items={OBJECTIVES}/>
+        </div>
+      </Card>
+      <div style={{ display:'grid', gridTemplateColumns:'repeat(3,1fr)', gap:16 }}>
+        {OBJECTIVES.slice(0,3).map((o,i)=>(
+          <Card key={i} title={o.label} subtitle="Top programs">
+            <div style={{ display:'flex', flexDirection:'column', gap:8 }}>
+              {[['Network expansion',62],['Asset renewal',24],['Resilience',14]].map(([n,v],j)=>(
+                <div key={j} style={{ display:'flex', alignItems:'center', gap:10 }}>
+                  <div style={{ flex:1, height:8, borderRadius:4, background:'var(--white-100)', overflow:'hidden' }}>
+                    <div style={{ width:v+'%', height:'100%', background:o.color, borderRadius:4 }}/>
+                  </div>
+                  <div style={{ width:84, fontSize:11, color:'var(--text-secondary)' }}>{n}</div>
+                </div>
+              ))}
+            </div>
+          </Card>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ---- Recommendation drawer ---- */
+function Drawer({ open, onClose }) {
+  return (
+    <>
+      <div onClick={onClose} style={{ position:'absolute', inset:0, background:'rgba(0,0,0,.5)',
+        opacity: open?1:0, pointerEvents: open?'auto':'none', transition:'opacity .2s', zIndex:40 }} />
+      <div style={{ position:'absolute', top:0, right:0, bottom:0, width:380, background:'var(--surface-2)',
+        borderLeft:'1px solid var(--border-subtle)', boxShadow:'var(--shadow-xl)', zIndex:41,
+        transform: open?'translateX(0)':'translateX(100%)', transition:'transform .26s var(--ease-emphasis)',
+        display:'flex', flexDirection:'column' }}>
+        <div style={{ padding:'16px 18px', borderBottom:'1px solid var(--border-subtle)', display:'flex', alignItems:'center', justifyContent:'space-between' }}>
+          <div style={{ display:'flex', alignItems:'center', gap:9 }}>
+            <span style={{ color:'var(--text-accent-copper)' }}><Icon name="bulb" size={18}/></span>
+            <span style={{ fontSize:15, fontWeight:600 }}>Recommendation</span>
+          </div>
+          <Button variant="ghost" size="sm" iconOnly aria-label="Close" onClick={onClose}><Icon name="x" size={16}/></Button>
+        </div>
+        <div style={{ padding:18, overflow:'auto', display:'flex', flexDirection:'column', gap:16 }}>
+          <Badge tone="copper" variant="soft">+$51M portfolio value</Badge>
+          <div style={{ fontSize:18, fontWeight:500, letterSpacing:'-.4px', lineHeight:1.35 }}>
+            Rebalance $42M from Reliability into Growth
+          </div>
+          <div style={{ fontSize:13, color:'var(--text-secondary)', lineHeight:1.55 }}>
+            The optimizer projects a 3.1% increase in risk-adjusted portfolio value by shifting deferrable
+            renewal spend toward network-expansion programs in high-demand regions.
+          </div>
+          <Card variant="flush" padding="sm" style={{ border:'1px solid var(--border-subtle)' }}>
+            <div style={{ display:'flex', flexDirection:'column', gap:10 }}>
+              {[['Risk-adjusted value','+$51M','var(--text-success)'],['Reliability impact','−0.4% SAIDI','var(--text-warning)'],['Payback','2.3 yrs','var(--text-primary)']].map(([k,v,c],i)=>(
+                <div key={i} style={{ display:'flex', justifyContent:'space-between', fontSize:12.5 }}>
+                  <span style={{ color:'var(--text-tertiary)' }}>{k}</span>
+                  <span style={{ fontWeight:600, color:c }}>{v}</span>
+                </div>
+              ))}
+            </div>
+          </Card>
+          <Checkbox label="Apply to the Optimized scenario only" defaultChecked />
+        </div>
+        <div style={{ marginTop:'auto', padding:18, borderTop:'1px solid var(--border-subtle)', display:'flex', gap:10 }}>
+          <Button variant="ghost" block onClick={onClose}>Dismiss</Button>
+          <Button variant="accent" block leadingIcon={<Icon name="check" size={15}/>} onClick={onClose}>Accept</Button>
+        </div>
+      </div>
+    </>
+  );
+}
+
+function App() {
+  const [nav, setNav] = React.useState('overview');
+  const [tab, setTab] = React.useState('overview');
+  const [dim, setDim] = React.useState('3d');
+  const [drawer, setDrawer] = React.useState(false);
+  const view = tab === 'map' ? <MapView/> : tab === 'capital' ? <CapitalFlowView dim={dim}/> : <OverviewView dim={dim}/>;
+  return (
+    <div style={{ position:'absolute', inset:0, display:'flex', background:'var(--surface-1)', color:'var(--text-primary)', fontFamily:'var(--font-sans)', overflow:'auto' }}>
+      <window.Rail active={nav} onNav={(id)=>{ setNav(id); if(id==='overview'||id==='map') setTab(id); }} />
+      <div style={{ flex:1, display:'flex', flexDirection:'column', minWidth:1180 }}>
+        <window.Header tab={tab} onTab={setTab} dim={dim} onDim={setDim}
+          onReview={()=>setDrawer(true)} onRec={()=>setDrawer(true)} />
+        <div style={{ flex:1, overflow:'auto', padding:18 }}>{view}</div>
+      </div>
+      <Drawer open={drawer} onClose={()=>setDrawer(false)} />
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+/* ============================================================
+   IFS Copperleaf — Product palettes (from Figma variables)
+   Data-viz, Asset Health, Failure Probability, collaboration
+   user colors, and map tokens. Names map 1:1 to Figma.
+   ============================================================ */
+
+:root {
+  /* ---- chart/data — the official categorical chart sequence
+     (semantic spec sheet). Bright 400-step hues, in order. ---- */
+  --chart-data-1: #58C97D;  /* green  */
+  --chart-data-2: #5599FF;  /* blue   */
+  --chart-data-3: #F16362;  /* red    */
+  --chart-data-4: #D39467;  /* cooper */
+  --chart-data-5: #9C85F9;  /* purple */
+  --chart-data-6: #FFBF58;  /* amber  */
+  --chart-data-7: #7EDCE8;  /* cyan   */
+
+  /* ---- data-viz/primary — separate dark solid set (variable
+     collection; used for map/product solid surfaces) ---- */
+  --data-viz-primary-1: #BF302F;  /* dark red    */
+  --data-viz-primary-2: #A06D1C;  /* dark amber  */
+  --data-viz-primary-3: #176932;  /* dark green  */
+  --data-viz-primary-4: #5238A4;  /* dark purple */
+  --data-viz-primary-5: #3556A0;  /* dark blue   */
+  --data-viz-primary-6: #00B5CE;  /* PENDING — data-6 not on spec sheet or
+                                     resolvable remotely; placeholder */
+  --data-viz-primary-7: #692917;  /* dark orange */
+  --data-viz-primary-8: #6A1766;  /* dark pink   */
+
+  /* Bright accents used alongside the sequences */
+  --data-viz-bright-green: #0FB26E;
+  --data-viz-bright-cyan:  #00B5CE;
+  --data-viz-bright-pink:  #FF87ED;
+
+  /* ---- Asset Health ---- */
+  --asset-health-critical: #EE3C3B;
+  --asset-health-high:     #EF5533;
+  --asset-health-medium:   #FFAF2E;
+  --asset-health-healthy:  #2EBC5D;
+  --asset-health-grey:     #FFFFFF;
+  --asset-health-blue:     #5599FF;
+
+  /* ---- Failure Probability ---- */
+  --failure-probability-very-high: #9C18FB;
+  --failure-probability-high:      #3056EE;
+  --failure-probability-medium:    #00B5CE;
+  --failure-probability-low:       #FF87ED;
+
+  /* ---- collaboration/user-1..16 (cursors, avatars, presence)
+     Source: semantic spec sheet. Expressive palette values are
+     PLACEHOLDER (#8366F7-based) pending finalisation in Figma. ---- */
+  --collaboration-user-1:  #8366F7;   /* expressive/coral-orange/500 — PLACEHOLDER */
+  --collaboration-user-2:  #175C65;   /* neutral/steel-blue/700 */
+  --collaboration-user-3:  #25964A;   /* system/success/600 */
+  --collaboration-user-4:  #AACCFF;   /* system/info/200 */
+  --collaboration-user-5:  #8366F7;   /* expressive/fuchsia/500 — PLACEHOLDER */
+  --collaboration-user-6:  #8366F7;   /* expressive/lime/500 — PLACEHOLDER */
+  --collaboration-user-7:  #B5A3FA;   /* expressive/coral-orange/300 — PLACEHOLDER */
+  --collaboration-user-8:  #8366F7;   /* expressive/violet/500 — PLACEHOLDER */
+  --collaboration-user-9:  #300C0C;   /* system/danger/900 */
+  --collaboration-user-10: #8366F7;   /* expressive/electric-blue/500 — PLACEHOLDER */
+  --collaboration-user-11: #CDC2FC;   /* expressive/violet/200 — PLACEHOLDER */
+  --collaboration-user-12: #EE3C3B;   /* system/danger/500-base */
+  --collaboration-user-13: #FFAF2E;   /* system/warning/500-base */
+  --collaboration-user-14: #B5A3FA;   /* expressive/violet/300 — PLACEHOLDER */
+  --collaboration-user-15: #CDC2FC;   /* expressive/fuchsia/200 — PLACEHOLDER */
+  --collaboration-user-16: rgba(70,70,70,0.60);  /* system/grey/600 */
+
+  /* ---- element/map-pin fills (600-step of the status hues) ---- */
+  --map-pin-fill-success: #25964A;
+  --map-pin-fill-warning: #CC8C25;
+  --map-pin-fill-error:   #BF302F;
+
+  /* ---- inner-shadow/map-highlight (glow ring around map features) ----
+     Effect: inner shadow, offset 0/0, radius 12, spread 7, color @ 40% */
+  --map-highlight-critical:  inset 0 0 12px 7px rgba(238,60,59,0.40);
+  --map-highlight-moderate:  inset 0 0 12px 7px rgba(255,175,46,0.40);
+  --map-highlight-resolved:  inset 0 0 12px 7px rgba(46,188,93,0.40);
+  --map-highlight-cooper:    inset 0 0 12px 7px rgba(200,121,65,0.40);
+  --map-highlight-evaluated: inset 0 0 12px 7px rgba(131,102,247,0.40);
+  --map-highlight-grey:      inset 0 0 12px 7px rgba(84,84,84,0.40);
+
+  /* ============================================================
+     Legacy aliases (deprecated — use --chart-data-* /
+     --background-solid-dark-* going forward)
+     ============================================================ */
+  --dataviz-1: var(--chart-data-1);
+  --dataviz-2: var(--chart-data-2);
+  --dataviz-3: var(--chart-data-3);
+  --dataviz-4: var(--chart-data-4);
+  --dataviz-5: var(--chart-data-5);
+  --dataviz-6: var(--chart-data-6);
+  --dataviz-7: var(--chart-data-7);
+  --dataviz-8: #FF87ED;  /* pink — not part of the official chart/data sequence */
+  --dataviz-bright-green: var(--data-viz-bright-green);
+  --dataviz-bright-cyan:  var(--data-viz-bright-cyan);
+  --dataviz-bright-pink:  var(--data-viz-bright-pink);
+  --solid-dark-blue:   var(--background-solid-dark-blue);
+  --solid-dark-purple: var(--background-solid-dark-purple);
+  --solid-dark-green:  var(--background-solid-dark-green);
+  --solid-dark-orange: var(--background-solid-dark-orange);
+  --solid-dark-pink:   var(--background-solid-dark-pink);
+}

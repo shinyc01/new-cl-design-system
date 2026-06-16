@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shape & elevation — IFS Copperleaf Design System</title>
+<link rel="stylesheet" href="../DS/styles.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.34.0/dist/tabler-icons.min.css">
+<link rel="stylesheet" href="site.css">
+<script src="site.js"></script>
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="main">
+    <div class="page">
+      <div class="page-eyebrow">Foundations</div>
+      <h1>Shape & elevation</h1>
+      <p class="page-lede">Tight radii and hairline borders carry the structure. Elevation is exactly three levels — each a drop shadow paired with a backdrop blur and an elevation background fill — used sparingly for menus, drawers and modals.</p>
+
+      <h2>Corner radius</h2>
+      <p class="section-note">The spec scale is 0 / 4 / 8 / 12 / full — there is no 16 or 24. (2 and 40 exist as ad-hoc Figma variables only.)</p>
+      <div class="radius-demo" id="radius-demo"></div>
+      <div id="t-radius"></div>
+
+      <h2>Border widths</h2>
+      <div id="t-borders"></div>
+
+      <h2>Elevation</h2>
+      <div class="elev-demo">
+        <div class="elev-card" style="background:var(--background-elevation-1-primary);box-shadow:var(--elevation-1)"><span class="n">Elevation 1</span><span class="v">0 4 8 · blur</span></div>
+        <div class="elev-card" style="background:var(--background-elevation-2-primary);box-shadow:var(--elevation-2)"><span class="n">Elevation 2</span><span class="v">0 8 12 −1 · blur</span></div>
+        <div class="elev-card" style="background:var(--background-elevation-3-primary);box-shadow:var(--elevation-3)"><span class="n">Elevation 3</span><span class="v">0 12 16 −2 · blur</span></div>
+      </div>
+      <div id="t-elev"></div>
+
+      <h2>Blur</h2>
+      <div id="t-blur"></div>
+
+      <h2>Focus</h2>
+      <p class="section-note">Two-layer ring: blue outer accent over a contrast inner ring (black on dark, white on light). Thickness scales with element size — no layout shift, ever.</p>
+      <div class="demo">
+        <button class="btn btn-secondary" style="outline:var(--focus-outer-width-sm) solid var(--focus-outer);outline-offset:1px;box-shadow:0 0 0 var(--focus-inner-width-sm) var(--focus-inner)">Small ≤31px</button>
+        <button class="btn btn-secondary" style="padding:10px 16px;outline:var(--focus-outer-width-md) solid var(--focus-outer);outline-offset:1.5px;box-shadow:0 0 0 var(--focus-inner-width-md) var(--focus-inner)">Medium 32–39px</button>
+        <button class="btn btn-secondary" style="padding:14px 20px;outline:var(--focus-outer-width-lg) solid var(--focus-outer);outline-offset:2px;box-shadow:0 0 0 var(--focus-inner-width-lg) var(--focus-inner)">Large ≥40px</button>
+      </div>
+      <div id="t-focus"></div>
+
+      <h2>Motion</h2>
+      <p class="section-note">Quick and functional — fades and short slides, no bounces, no infinite decorative loops. Reduced motion falls back to <code>instant</code>.</p>
+      <div id="t-motion"></div>
+
+      <h2>Z-index</h2>
+      <p class="section-note">Values spaced by 100 so intermediate layers can be added without conflicts.</p>
+      <div id="t-zindex"></div>
+    </div>
+  </main>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const radii = [["--radius-0","0"],["--radius-50","2"],["--radius-100","4"],["--radius-200","8"],["--radius-300","12"],["--radius-1000","40"],["--radius-full","full"]];
+  const rd = document.getElementById("radius-demo");
+  const css = getComputedStyle(document.documentElement);
+  rd.innerHTML = radii.map(([t, n]) => {
+    const v = css.getPropertyValue(t).trim();
+    return `<div class="chip" style="border-radius:${v}"><span class="n">${n}</span><span class="v">${t.replace("--","")}</span></div>`;
+  }).join("");
+
+  valueTable("t-radius", [
+    ["--radius-100", "Controls, chips, inputs"],
+    ["--radius-200", "Cards, panels, large buttons"],
+    ["--radius-300", "Modals, large surfaces"],
+    ["--radius-1000", "Hero surfaces"],
+    ["--radius-full", "Pills, circular elements"],
+  ]);
+
+  valueTable("t-borders", [
+    ["--border-100", "Default hairline"],
+    ["--border-150", "Emphasis strokes, focus inner"],
+    ["--border-200", "Focus ring, selected"],
+    ["--border-300", "Chart strokes"],
+    ["--border-400", "Heavy chart strokes"],
+  ]);
+
+  valueTable("t-elev", [
+    ["--elevation-1", "Dropdowns, menus — pair with --background-elevation-1-primary"],
+    ["--elevation-2", "Drawers, popovers — pair with --background-elevation-2-primary"],
+    ["--elevation-3", "Modals — pair with --background-elevation-3-primary"],
+    ["--shadow-floating", "Floating action elements"],
+    ["--edge-top", "Top inner-edge highlight on dark cards"],
+  ]);
+
+  valueTable("t-blur", [
+    ["--blur-light", "Tooltips, chips, tags"],
+    ["--blur-medium", "Cards, popovers"],
+    ["--blur-strong", "Large panels, sidebars"],
+  ]);
+
+  valueTable("t-focus", [
+    ["--focus-outer", "Outer accent layer (info/400 dark · info/500 light)"],
+    ["--focus-inner", "Inner contrast layer"],
+    ["--focus-outer-width-lg", "Large ≥40px — buttons L, cards, navigation"],
+    ["--focus-inner-width-lg", ""],
+    ["--focus-outer-width-md", "Medium 32–39px — buttons M"],
+    ["--focus-inner-width-md", ""],
+    ["--focus-outer-width-sm", "Small ≤31px — buttons S, tags, badges"],
+    ["--focus-inner-width-sm", ""],
+  ]);
+
+  valueTable("t-motion", [
+    ["--motion-duration-instant", "Disabled motion, reduced-motion fallback"],
+    ["--motion-duration-fast", "Hover, press, focus, micro-interactions"],
+    ["--motion-duration-moderate", "Default state changes, expand/collapse, fade"],
+    ["--motion-duration-slow", "Modals, drawers, larger movements"],
+    ["--motion-duration-extra-slow", "Page transitions, prominent reveals"],
+    ["--motion-duration-extended", "Complex sequences (rare)"],
+    ["--motion-ease-standard", "Default for most state changes"],
+    ["--motion-ease-decelerate", "Elements entering the screen"],
+    ["--motion-ease-accelerate", "Elements leaving the screen"],
+    ["--motion-ease-emphasize", "Attention-grabbing movements"],
+    ["--motion-ease-linear", "Looping: spinner, skeleton, progress"],
+  ]);
+
+  valueTable("t-zindex", [
+    ["--z-base", "Main content: canvas, map layer"],
+    ["--z-sticky", "Sticky header, toolbars, bottom bar"],
+    ["--z-panels", "Elevation-1 panels, AI chat panel"],
+    ["--z-floating", "Floating AI button, prompt chips, draggable windows"],
+    ["--z-popover", "Dropdowns, popups, tooltips, context menus"],
+    ["--z-selection-overlay", "Selection layer for map"],
+    ["--z-modal-overlay", "Dark backdrop behind modals"],
+    ["--z-modal", "Modal windows"],
+    ["--z-toast", "Snackbars, notifications"],
+    ["--z-max", "Collaborator cursors, global spinner"],
+  ]);
+});
+</script>
+</body>
+</html>

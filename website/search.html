@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Search — IFS Copperleaf Design System</title>
+<link rel="stylesheet" href="../DS/styles.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.34.0/dist/tabler-icons.min.css">
+<link rel="stylesheet" href="site.css">
+<script src="site.js"></script>
+<script src="../DS/icons/icons.js"></script>
+<style>
+/* ─── Search field ───────────────────────────────────────────── */
+.ifs-search-wrap {
+  position: relative; display: inline-flex; flex-direction: column; font-family: var(--font-sans);
+}
+.ifs-search {
+  display: flex; align-items: center; gap: 4px; box-sizing: border-box;
+  height: 32px; padding: 0 4px 0 8px; border-radius: var(--radius-sm, 4px);
+  background: var(--search-fill-default); border: 1px solid var(--search-border-default);
+  transition: border-color var(--duration-fast, 120ms) var(--ease-standard, ease),
+              background   var(--duration-fast, 120ms) var(--ease-standard, ease);
+}
+.ifs-search:hover        { border-color: var(--search-border-hover); background: var(--search-fill-hover); }
+.ifs-search--typing      { border-color: var(--search-border-typing); background: var(--search-fill-typing); }
+.ifs-search--focus       { box-shadow: 0 0 0 2px var(--focus-ring); }
+.ifs-search--disabled    { opacity: .5; pointer-events: none; }
+.ifs-search__icon        { display: inline-flex; flex: none; color: var(--icon-tertiary); }
+.ifs-search__el {
+  flex: 1; min-width: 0; border: none; outline: none; background: transparent;
+  font-family: var(--font-sans); font-size: 12px; font-weight: 500;
+  letter-spacing: -0.15px; color: var(--text-primary);
+  caret-color: var(--text-accent-cooper, #c87941); line-height: 1;
+}
+.ifs-search__el::placeholder { color: var(--text-tertiary); }
+.ifs-search__clear {
+  display: inline-flex; align-items: center; justify-content: center;
+  flex: none; width: 24px; height: 24px; padding: 4px;
+  border: none; background: transparent; border-radius: var(--radius-sm, 4px);
+  color: var(--icon-tertiary); cursor: pointer;
+  transition: color var(--duration-fast) var(--ease-standard),
+              background var(--duration-fast) var(--ease-standard);
+}
+.ifs-search__clear:hover { color: var(--text-primary); background: var(--button-ghost-fill-hover, rgba(255,255,255,0.15)); }
+.ifs-search-dropdown {
+  position: absolute; top: calc(100% + 4px); left: 0; right: 0;
+  z-index: var(--z-dropdown, 200); border-radius: var(--radius-md, 8px);
+  border: 1px solid var(--border-base, rgba(255,255,255,0.1));
+  background: rgba(0,0,0,0.88); backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px);
+  box-shadow: 0 12px 16px -2px rgba(0,0,0,0.35); overflow: hidden; max-height: 280px; overflow-y: auto;
+}
+.ifs-search-dropdown::-webkit-scrollbar { width: 4px; }
+.ifs-search-dropdown::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 8px; }
+.ifs-search-dropdown__section { padding: 12px 8px 8px; }
+.ifs-search-dropdown__heading {
+  padding: 4px 8px; font-size: 10px; font-weight: 400; letter-spacing: 0.1px;
+  text-transform: uppercase; color: var(--text-secondary, rgba(255,255,255,0.75)); margin: 0 0 4px;
+}
+.ifs-search-item {
+  display: flex; align-items: center; height: 40px; padding: 4px 8px; gap: 4px;
+  border-radius: var(--radius-xs, 4px); cursor: pointer;
+  transition: background var(--duration-fast) var(--ease-standard);
+}
+.ifs-search-item:hover,
+.ifs-search-item--active { background: rgba(255,255,255,0.05); }
+.ifs-search-item__text {
+  flex: 1; min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
+  font-size: 14px; font-weight: 400; line-height: 20px; letter-spacing: -0.1px; color: var(--text-primary, white);
+}
+.ifs-search-item__match      { color: var(--text-primary, white); }
+.ifs-search-item__completion { color: var(--text-tertiary, rgba(255,255,255,0.55)); }
+
+/* ─── Smart Search (pill) ────────────────────────────────────── */
+.ifs-smart-search-wrap { position:relative; display:inline-flex; flex-direction:column; font-family:var(--font-sans); }
+.ifs-smart-search {
+  display:flex; align-items:center; justify-content:space-between; box-sizing:border-box;
+  height:40px; padding:8px 4px 8px 12px; border-radius:1000px;
+  border:1px solid var(--search-border-default); background:transparent;
+  transition: border-color var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard);
+}
+.ifs-smart-search:hover           { border-color: var(--search-border-hover); }
+.ifs-smart-search--typing         { border-color: var(--search-border-typing); }
+.ifs-smart-search--focus          { box-shadow: 0 0 0 2px var(--focus-ring); }
+.ifs-smart-search--disabled       { opacity:.5; pointer-events:none; }
+.ifs-smart-search__left           { display:flex; align-items:center; gap:6px; flex:1; min-width:0; overflow:hidden; }
+.ifs-smart-search__ai-icon        { display:inline-flex; flex:none; color:var(--icon-tertiary); }
+.ifs-smart-search__input-wrap     { position:relative; flex:1; min-width:0; display:flex; align-items:center; }
+.ifs-smart-search__el {
+  flex:1; min-width:0; width:100%; border:none; outline:none; background:transparent;
+  font-family:var(--font-sans); font-size:12px; font-weight:500; letter-spacing:-0.15px;
+  color:var(--text-primary); caret-color:var(--text-accent-cooper, #c87941); line-height:1;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+.ifs-smart-search__el::placeholder { color:var(--text-tertiary); }
+.ifs-smart-search__ghost {
+  position:absolute; left:0; top:50%; transform:translateY(-50%);
+  pointer-events:none; white-space:nowrap; overflow:hidden;
+  font:500 12px/1 var(--font-sans); letter-spacing:-0.15px;
+}
+.ifs-smart-search__action {
+  display:inline-flex; align-items:center; justify-content:center;
+  flex:none; width:32px; height:32px; border:1px solid transparent;
+  background:transparent; cursor:pointer; color:var(--icon-tertiary);
+  transition: color var(--duration-fast) var(--ease-standard), background var(--duration-fast) var(--ease-standard);
+}
+.ifs-smart-search__action--toggle  { border-radius:1000px; }
+.ifs-smart-search__action--clear   { border-radius:var(--radius-sm, 4px); }
+.ifs-smart-search__action:hover    { color:var(--text-primary); background:var(--button-ghost-fill-hover, rgba(255,255,255,0.15)); }
+.ifs-smart-search-dropdown         { position:absolute; top:calc(100% + 6px); left:0; right:0; z-index:var(--z-dropdown, 200); border-radius:var(--radius-md, 8px); border:1px solid var(--border-base, rgba(255,255,255,0.1)); background:rgba(0,0,0,0.88); backdrop-filter:blur(40px); -webkit-backdrop-filter:blur(40px); box-shadow:0 12px 16px -2px rgba(0,0,0,0.35); overflow:hidden; max-height:280px; overflow-y:auto; }
+.ifs-smart-search-dropdown::-webkit-scrollbar { width:4px; }
+.ifs-smart-search-dropdown::-webkit-scrollbar-thumb { background:rgba(255,255,255,0.15); border-radius:8px; }
+.ifs-smart-search-dropdown__section { padding:12px 8px 8px; }
+.ifs-smart-search-dropdown__heading { padding:4px 8px; margin:0 0 4px; font-size:10px; font-weight:400; letter-spacing:0.1px; text-transform:uppercase; color:var(--text-secondary, rgba(255,255,255,0.75)); }
+.ifs-smart-search-item             { display:flex; align-items:center; height:40px; padding:4px 8px; gap:4px; border-radius:var(--radius-xs, 4px); cursor:pointer; transition:background var(--duration-fast) var(--ease-standard); }
+.ifs-smart-search-item:hover,
+.ifs-smart-search-item--active     { background:rgba(255,255,255,0.05); }
+.ifs-smart-search-item__text       { flex:1; min-width:0; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; font-size:14px; font-weight:400; line-height:20px; letter-spacing:-0.1px; }
+.ifs-smart-search-item__match      { color:var(--text-primary, white); }
+.ifs-smart-search-item__completion { color:var(--text-tertiary, rgba(255,255,255,0.55)); }
+</style>
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="main">
+    <div class="page">
+      <div class="page-eyebrow">Components</div>
+      <h1>Search</h1>
+      <p class="page-lede">Two search variants: a compact square field for filtering tables and lists, and a pill-shaped AI smart search for conversational queries. Both support autofill-as-you-type, a filtered suggestion dropdown, and a × clear button when text is present.</p>
+
+      <!-- ═══════════════════ SEARCH FIELD ═══════════════════ -->
+      <h2>Search field</h2>
+      <p class="section-note">32px square field (radius 4). Autofill-as-you-type with inline ghost completion and filtered dropdown. × clear button appears as soon as text is present. Caret uses <code>--text-accent-cooper</code> amber. Typing state brightens the border to <code>--search-border-typing</code> (40%).</p>
+      <div class="demo" style="flex-wrap:wrap;align-items:flex-start;gap:24px">
+
+        <!-- Interactive search with autocomplete -->
+        <div class="ifs-search-wrap" style="min-width:280px">
+          <div class="ifs-search" id="demo-search-field">
+            <span class="ifs-search__icon">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M5.25 1.5a3.75 3.75 0 1 0 0 7.5 3.75 3.75 0 0 0 0-7.5ZM0 5.25a5.25 5.25 0 1 1 9.37 3.25l2.44 2.44a.75.75 0 1 1-1.06 1.06L8.31 9.56A5.25 5.25 0 0 1 0 5.25Z"
+                  fill="currentColor"/>
+              </svg>
+            </span>
+            <div style="position:relative;flex:1;min-width:0;display:flex;align-items:center">
+              <input id="demo-search-input" type="text" class="ifs-search__el"
+                placeholder="Search for…" autocomplete="off" spellcheck="false"
+                role="combobox" aria-autocomplete="list" aria-expanded="false"
+                aria-controls="demo-search-listbox" />
+              <span id="demo-ghost" aria-hidden="true" style="
+                position:absolute;left:0;top:50%;transform:translateY(-50%);
+                pointer-events:none;white-space:nowrap;overflow:hidden;
+                font:500 12px/1 var(--font-sans);letter-spacing:-0.15px;display:none
+              "></span>
+            </div>
+            <button type="button" id="demo-clear" class="ifs-search__clear"
+              aria-label="Clear search" style="display:none" tabindex="-1">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0Zm2.53 5.47a.75.75 0 0 1 0 1.06L9.06 8l1.47 1.47a.75.75 0 1 1-1.06 1.06L8 9.06l-1.47 1.47a.75.75 0 0 1-1.06-1.06L6.94 8 5.47 6.53a.75.75 0 0 1 1.06-1.06L8 6.94l1.47-1.47a.75.75 0 0 1 1.06 0Z"
+                  fill="currentColor"/>
+              </svg>
+            </button>
+          </div>
+          <div id="demo-search-dropdown" class="ifs-search-dropdown" style="display:none"
+            role="listbox" id="demo-search-listbox" aria-label="Suggestions">
+          </div>
+        </div>
+
+        <!-- Disabled state -->
+        <div class="ifs-search-wrap">
+          <div class="ifs-search ifs-search--disabled" style="min-width:200px">
+            <span class="ifs-search__icon">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M5.25 1.5a3.75 3.75 0 1 0 0 7.5 3.75 3.75 0 0 0 0-7.5ZM0 5.25a5.25 5.25 0 1 1 9.37 3.25l2.44 2.44a.75.75 0 1 1-1.06 1.06L8.31 9.56A5.25 5.25 0 0 1 0 5.25Z"
+                  fill="currentColor"/>
+              </svg>
+            </span>
+            <input class="ifs-search__el" placeholder="Disabled" disabled />
+          </div>
+        </div>
+      </div>
+
+      <script>
+      (function() {
+        const SUGGESTIONS = [
+          "Where is wildfire risk used?",
+          "How does pricing affect asset decisions?",
+          "Show risk exposure by region",
+          "What assets are due for maintenance?",
+          "Compare investment plans by ROI",
+          "Forecast capital spend next 5 years",
+          "Which assets have the highest criticality?",
+        ];
+        const wrap     = document.getElementById("demo-search-field");
+        const input    = document.getElementById("demo-search-input");
+        const clearBtn = document.getElementById("demo-clear");
+        const ghost    = document.getElementById("demo-ghost");
+        const dropdown = document.getElementById("demo-search-dropdown");
+        let activeIdx  = -1;
+        function filtered(q) { return q ? SUGGESTIONS.filter(s => s.toLowerCase().includes(q.toLowerCase())) : SUGGESTIONS; }
+        function renderDropdown(q) {
+          const list = filtered(q);
+          if (!list.length) { closeDropdown(); return; }
+          dropdown.innerHTML = `<div class="ifs-search-dropdown__section"><p class="ifs-search-dropdown__heading">Suggested questions</p>${list.map((s,i)=>{
+            const lc=s.toLowerCase(),qlc=(q||"").toLowerCase(),mi=lc.indexOf(qlc);
+            let html = mi!==-1&&q ? `${s.slice(0,mi)?`<span class="ifs-search-item__completion">${s.slice(0,mi)}</span>`:""}<span class="ifs-search-item__match">${s.slice(mi,mi+q.length)}</span>${s.slice(mi+q.length)?`<span class="ifs-search-item__completion">${s.slice(mi+q.length)}</span>`:""}` : `<span class="ifs-search-item__completion">${s}</span>`;
+            return `<div class="ifs-search-item" role="option" aria-selected="false" data-idx="${i}" data-val="${s.replace(/"/g,'&quot;')}"><span class="ifs-search-item__text">${html}</span></div>`;
+          }).join("")}</div>`;
+          dropdown.querySelectorAll(".ifs-search-item").forEach(el => {
+            el.addEventListener("mousedown", e => { e.preventDefault(); pick(el.dataset.val); });
+            el.addEventListener("mouseenter", () => { activeIdx = +el.dataset.idx; highlight(); });
+          });
+          dropdown.style.display = "block"; input.setAttribute("aria-expanded","true"); activeIdx=-1;
+        }
+        function closeDropdown() { dropdown.style.display="none"; input.setAttribute("aria-expanded","false"); activeIdx=-1; }
+        function highlight() { dropdown.querySelectorAll(".ifs-search-item").forEach((el,i)=>{ el.classList.toggle("ifs-search-item--active",i===activeIdx); el.setAttribute("aria-selected",i===activeIdx?"true":"false"); }); }
+        function pick(val) { input.value=val; updateField(); closeDropdown(); }
+        function updateField() {
+          const q=input.value, isTyping=q.length>0;
+          wrap.classList.toggle("ifs-search--typing",isTyping);
+          clearBtn.style.display=isTyping?"":"none";
+          const first=filtered(q)[0];
+          if(first&&q&&first.toLowerCase().startsWith(q.toLowerCase())){ghost.innerHTML=`<span style="color:transparent">${q}</span><span style="color:var(--text-tertiary)">${first.slice(q.length)}</span>`;ghost.style.display="";}
+          else{ghost.style.display="none";}
+        }
+        input.addEventListener("input",()=>{updateField();renderDropdown(input.value);});
+        input.addEventListener("focus",()=>{wrap.classList.add("ifs-search--focus");renderDropdown(input.value);});
+        input.addEventListener("blur",()=>{wrap.classList.remove("ifs-search--focus");setTimeout(closeDropdown,120);});
+        input.addEventListener("keydown",e=>{
+          const items=dropdown.querySelectorAll(".ifs-search-item");
+          if(e.key==="ArrowDown"){e.preventDefault();activeIdx=Math.min(activeIdx+1,items.length-1);highlight();}
+          else if(e.key==="ArrowUp"){e.preventDefault();activeIdx=Math.max(activeIdx-1,-1);highlight();}
+          else if(e.key==="Enter"){e.preventDefault();if(activeIdx>=0&&items[activeIdx])pick(items[activeIdx].dataset.val);else closeDropdown();}
+          else if(e.key==="Escape")closeDropdown();
+        });
+        clearBtn.addEventListener("click",()=>{input.value="";updateField();closeDropdown();input.focus();});
+        document.addEventListener("mousedown",e=>{if(!wrap.parentElement.contains(e.target))closeDropdown();});
+      })();
+      </script>
+
+      <div id="t-search"></div>
+
+      <!-- ═══════════════════ SMART SEARCH ═══════════════════ -->
+      <h2>Smart search</h2>
+      <p class="section-note">Pill-shaped AI search (40px, radius 9999px). Right button toggles between mic (text mode) and keyboard (voice mode) when empty; becomes a filled × as soon as text is present. Same autocomplete dropdown as the search field.</p>
+      <div class="demo" style="flex-wrap:wrap;align-items:flex-start;gap:24px">
+
+        <!-- Interactive smart search -->
+        <div class="ifs-smart-search-wrap" style="min-width:320px;max-width:460px;width:100%">
+          <div class="ifs-smart-search" id="demo-smart-field">
+            <div class="ifs-smart-search__left">
+              <span class="ifs-smart-search__ai-icon" id="demo-smart-ai-icon">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M6.5 2a4.5 4.5 0 1 0 2.768 8.036l2.848 2.848a.75.75 0 1 0 1.06-1.06L10.33 8.976A4.5 4.5 0 0 0 6.5 2ZM3.5 6.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0Z"
+                    fill="currentColor"/>
+                  <path d="M10.5 2.5c0-.28.22-.5.5-.5.83 0 1.5.67 1.5 1.5 0 .28-.22.5-.5.5a.5.5 0 0 1-.5-.5A.5.5 0 0 0 11 3a.5.5 0 0 1-.5-.5Z"
+                    fill="currentColor" opacity=".7"/>
+                  <circle cx="12" cy="2" r=".75" fill="currentColor"/>
+                </svg>
+              </span>
+              <div class="ifs-smart-search__input-wrap">
+                <input id="demo-smart-input" type="text" class="ifs-smart-search__el"
+                  placeholder="Ask anything about strategy frameworks?"
+                  autocomplete="off" spellcheck="false"
+                  role="combobox" aria-autocomplete="list" aria-expanded="false" />
+                <span id="demo-smart-ghost" class="ifs-smart-search__ghost" style="display:none" aria-hidden="true"></span>
+              </div>
+            </div>
+            <button type="button" id="demo-smart-action"
+              class="ifs-smart-search__action ifs-smart-search__action--toggle"
+              aria-label="Switch to voice input" tabindex="-1">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M8 1.5A2.5 2.5 0 0 0 5.5 4v4a2.5 2.5 0 0 0 5 0V4A2.5 2.5 0 0 0 8 1.5ZM4 4a4 4 0 0 1 8 0v4a4 4 0 0 1-8 0V4Zm-1.5 4a.75.75 0 0 1 .75.75A4.75 4.75 0 0 0 12.75 8.75a.75.75 0 0 1 1.5 0 6.25 6.25 0 0 1-5.5 6.21V16a.75.75 0 0 1-1.5 0v-1.04A6.25 6.25 0 0 1 1.75 8.75.75.75 0 0 1 2.5 8Z"
+                  fill="currentColor"/>
+              </svg>
+            </button>
+          </div>
+          <div id="demo-smart-dropdown" class="ifs-smart-search-dropdown" style="display:none"
+            role="listbox" aria-label="Suggestions"></div>
+        </div>
+
+        <!-- Disabled -->
+        <div class="ifs-smart-search-wrap">
+          <div class="ifs-smart-search ifs-smart-search--disabled" style="min-width:280px">
+            <div class="ifs-smart-search__left">
+              <span class="ifs-smart-search__ai-icon">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M6.5 2a4.5 4.5 0 1 0 2.768 8.036l2.848 2.848a.75.75 0 1 0 1.06-1.06L10.33 8.976A4.5 4.5 0 0 0 6.5 2ZM3.5 6.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0Z"
+                    fill="currentColor"/>
+                </svg>
+              </span>
+              <input class="ifs-smart-search__el" placeholder="Ask anything about strategy frameworks?" disabled />
+            </div>
+            <button class="ifs-smart-search__action ifs-smart-search__action--toggle" disabled tabindex="-1">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M8 1.5A2.5 2.5 0 0 0 5.5 4v4a2.5 2.5 0 0 0 5 0V4A2.5 2.5 0 0 0 8 1.5ZM4 4a4 4 0 0 1 8 0v4a4 4 0 0 1-8 0V4Zm-1.5 4a.75.75 0 0 1 .75.75A4.75 4.75 0 0 0 12.75 8.75a.75.75 0 0 1 1.5 0 6.25 6.25 0 0 1-5.5 6.21V16a.75.75 0 0 1-1.5 0v-1.04A6.25 6.25 0 0 1 1.75 8.75.75.75 0 0 1 2.5 8Z"
+                  fill="currentColor"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <script>
+      (function() {
+        const SUGGESTIONS = [
+          "Where is wildfire risk used?",
+          "How does pricing affect asset decisions?",
+          "Show risk exposure by region",
+          "What assets are due for maintenance?",
+          "Compare investment plans by ROI",
+          "Forecast capital spend next 5 years",
+          "Which assets have the highest criticality?",
+        ];
+        const MIC_SVG = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M8 1.5A2.5 2.5 0 0 0 5.5 4v4a2.5 2.5 0 0 0 5 0V4A2.5 2.5 0 0 0 8 1.5ZM4 4a4 4 0 0 1 8 0v4a4 4 0 0 1-8 0V4Zm-1.5 4a.75.75 0 0 1 .75.75A4.75 4.75 0 0 0 12.75 8.75a.75.75 0 0 1 1.5 0 6.25 6.25 0 0 1-5.5 6.21V16a.75.75 0 0 1-1.5 0v-1.04A6.25 6.25 0 0 1 1.75 8.75.75.75 0 0 1 2.5 8Z" fill="currentColor"/></svg>`;
+        const KB_SVG  = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M1.5 4A1.5 1.5 0 0 0 0 5.5v5A1.5 1.5 0 0 0 1.5 12h13a1.5 1.5 0 0 0 1.5-1.5v-5A1.5 1.5 0 0 0 14.5 4h-13ZM1.5 5.5h13v5h-13v-5ZM3 7a.75.75 0 0 1 .75-.75h.5a.75.75 0 0 1 0 1.5h-.5A.75.75 0 0 1 3 7Zm2.75-.75h.5a.75.75 0 0 1 0 1.5h-.5a.75.75 0 0 1 0-1.5Zm2 0h.5a.75.75 0 0 1 0 1.5h-.5a.75.75 0 0 1 0-1.5Zm2 0h.5a.75.75 0 0 1 0 1.5h-.5a.75.75 0 0 1 0-1.5Zm2 0h.5a.75.75 0 0 1 0 1.5h-.5a.75.75 0 0 1 0-1.5ZM3 9.25a.75.75 0 0 1 .75-.75h8.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 9.25Z" fill="currentColor"/></svg>`;
+        const CLOSE_SVG=`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0Zm2.53 5.47a.75.75 0 0 1 0 1.06L9.06 8l1.47 1.47a.75.75 0 1 1-1.06 1.06L8 9.06l-1.47 1.47a.75.75 0 0 1-1.06-1.06L6.94 8 5.47 6.53a.75.75 0 0 1 1.06-1.06L8 6.94l1.47-1.47a.75.75 0 0 1 1.06 0Z" fill="currentColor"/></svg>`;
+
+        const field    = document.getElementById("demo-smart-field");
+        const input    = document.getElementById("demo-smart-input");
+        const action   = document.getElementById("demo-smart-action");
+        const ghost    = document.getElementById("demo-smart-ghost");
+        const dropdown = document.getElementById("demo-smart-dropdown");
+        let mode="text", activeIdx=-1;
+
+        function filtered(q){return q?SUGGESTIONS.filter(s=>s.toLowerCase().includes(q.toLowerCase())):SUGGESTIONS;}
+        function renderDropdown(q){
+          const list=filtered(q);if(!list.length){closeDropdown();return;}
+          dropdown.innerHTML=`<div class="ifs-smart-search-dropdown__section"><p class="ifs-smart-search-dropdown__heading">Suggested questions</p>${list.map((s,i)=>{
+            const lc=s.toLowerCase(),qlc=(q||"").toLowerCase(),mi=lc.indexOf(qlc);
+            let html=mi!==-1&&q?`${s.slice(0,mi)?`<span class="ifs-smart-search-item__completion">${s.slice(0,mi)}</span>`:""}<span class="ifs-smart-search-item__match">${s.slice(mi,mi+q.length)}</span>${s.slice(mi+q.length)?`<span class="ifs-smart-search-item__completion">${s.slice(mi+q.length)}</span>`:""}`:` <span class="ifs-smart-search-item__completion">${s}</span>`;
+            return `<div class="ifs-smart-search-item" role="option" aria-selected="false" data-idx="${i}" data-val="${s.replace(/"/g,'&quot;')}"><span class="ifs-smart-search-item__text">${html}</span></div>`;
+          }).join("")}</div>`;
+          dropdown.querySelectorAll(".ifs-smart-search-item").forEach(el=>{
+            el.addEventListener("mousedown",e=>{e.preventDefault();pick(el.dataset.val);});
+            el.addEventListener("mouseenter",()=>{activeIdx=+el.dataset.idx;highlight();});
+          });
+          dropdown.style.display="block";input.setAttribute("aria-expanded","true");activeIdx=-1;
+        }
+        function closeDropdown(){dropdown.style.display="none";input.setAttribute("aria-expanded","false");activeIdx=-1;}
+        function highlight(){dropdown.querySelectorAll(".ifs-smart-search-item").forEach((el,i)=>{el.classList.toggle("ifs-smart-search-item--active",i===activeIdx);el.setAttribute("aria-selected",i===activeIdx?"true":"false");});}
+        function pick(val){input.value=val;updateField();closeDropdown();}
+        function updateField(){
+          const q=input.value,isTyping=q.length>0;
+          field.classList.toggle("ifs-smart-search--typing",isTyping);
+          if(isTyping){action.className="ifs-smart-search__action ifs-smart-search__action--clear";action.setAttribute("aria-label","Clear");action.innerHTML=CLOSE_SVG;}
+          else{action.className="ifs-smart-search__action ifs-smart-search__action--toggle";action.setAttribute("aria-label",mode==="text"?"Switch to voice input":"Switch to text input");action.innerHTML=mode==="text"?MIC_SVG:KB_SVG;}
+          const first=filtered(q)[0];
+          if(first&&q&&first.toLowerCase().startsWith(q.toLowerCase())){ghost.innerHTML=`<span style="color:transparent">${q}</span><span style="color:var(--text-tertiary)">${first.slice(q.length)}</span>`;ghost.style.display="";}
+          else{ghost.style.display="none";}
+        }
+        input.addEventListener("input",()=>{updateField();renderDropdown(input.value);});
+        input.addEventListener("focus",()=>{field.classList.add("ifs-smart-search--focus");renderDropdown(input.value);});
+        input.addEventListener("blur",()=>{field.classList.remove("ifs-smart-search--focus");setTimeout(closeDropdown,120);});
+        input.addEventListener("keydown",e=>{
+          const items=dropdown.querySelectorAll(".ifs-smart-search-item");
+          if(e.key==="ArrowDown"){e.preventDefault();activeIdx=Math.min(activeIdx+1,items.length-1);highlight();}
+          else if(e.key==="ArrowUp"){e.preventDefault();activeIdx=Math.max(activeIdx-1,-1);highlight();}
+          else if(e.key==="Enter"){e.preventDefault();if(activeIdx>=0&&items[activeIdx])pick(items[activeIdx].dataset.val);else closeDropdown();}
+          else if(e.key==="Escape")closeDropdown();
+        });
+        action.addEventListener("click",()=>{
+          if(input.value){input.value="";updateField();closeDropdown();input.focus();}
+          else{mode=mode==="text"?"voice":"text";updateField();}
+        });
+        document.addEventListener("mousedown",e=>{if(!field.parentElement.contains(e.target))closeDropdown();});
+      })();
+      </script>
+
+      <div id="t-smart-search"></div>
+
+    </div><!-- /page -->
+  </main>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  tokenTable("t-search", [
+    ["--search-fill-default",   "5% — quieter than text inputs"],
+    ["--search-fill-hover",     "Hover fill"],
+    ["--search-fill-typing",    "Typing fill"],
+    ["--search-fill-disabled",  "Disabled fill"],
+    ["--search-border-default", "10%"],
+    ["--search-border-hover",   "Hover border"],
+    ["--search-border-typing",  "40% while typing"],
+    ["--search-border-disabled","Disabled border"],
+  ], { notes: true });
+});
+</script>
+</body>
+</html>

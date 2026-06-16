@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Form fields — IFS Copperleaf Design System</title>
+<link rel="stylesheet" href="../DS/styles.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.34.0/dist/tabler-icons.min.css">
+<link rel="stylesheet" href="site.css">
+<script src="site.js"></script>
+<script src="../DS/icons/icons.js"></script>
+<style>
+/* ---- Input ---- */
+.ifs-field { display:flex; flex-direction:column; gap:6px; font-family:var(--font-sans); min-width:0; }
+.ifs-field__header { display:flex; align-items:center; gap:var(--gap-200); width:100%; }
+.ifs-field__header .ifs-field__label { flex:1; }
+.ifs-field__label { font-size:12px; font-weight:var(--weight-medium); color:var(--text-secondary); }
+.ifs-field__label .req { color:var(--text-danger); margin-left:2px; }
+.ifs-field__help { display:inline-flex; align-items:center; color:var(--icon-tertiary); cursor:pointer; flex:none; }
+.ifs-field__help svg { width:16px; height:16px; display:block; }
+.ifs-field__hint { font-size:11px; line-height:1.4; color:var(--text-tertiary); }
+.ifs-field__hint--error { color:var(--text-danger); }
+
+.ifs-input {
+  display:flex; align-items:center; gap:8px; box-sizing:border-box;
+  height:32px; padding:0 10px; border-radius:var(--radius-sm);
+  background:var(--text-area-fill-default); border:1px solid var(--text-area-border-default);
+  transition:border-color var(--duration-fast) var(--ease-standard), background var(--duration-fast) var(--ease-standard);
+}
+.ifs-input--lg { height:40px; padding:0 12px; border-radius:var(--radius-md); }
+.ifs-input:hover { border-color:var(--text-area-border-hover); }
+/* Focus: single 2px blue ring — WCAG 2.4.11 AAA (5.6:1 contrast vs dark bg). */
+.ifs-input:focus-within {
+  box-shadow: 0 0 0 2px var(--focus-ring);
+}
+.ifs-input--error { border-color:var(--text-area-border-danger); }
+.ifs-input--disabled { opacity:.5; pointer-events:none; }
+.ifs-input__el {
+  flex:1; min-width:0; border:none; outline:none; background:transparent;
+  font-family:var(--font-sans); font-size:13px; color:var(--text-primary); line-height:1;
+}
+.ifs-input__el::placeholder { color:var(--text-tertiary); }
+.ifs-input__affix { display:inline-flex; align-items:center; color:var(--icon-tertiary); flex:none; font-size:12px; }
+.ifs-input__affix svg { width:15px; height:15px; display:block; }
+
+/* ---- Select ---- */
+.ifs-select {
+  position:relative; display:flex; align-items:center; box-sizing:border-box;
+  height:32px; border-radius:var(--radius-sm); background:var(--text-area-fill-default);
+  border:1px solid var(--text-area-border-default); font-family:var(--font-sans);
+  transition:border-color var(--duration-fast) var(--ease-standard);
+}
+.ifs-select--lg { height:40px; border-radius:var(--radius-md); }
+.ifs-select:hover { border-color:var(--text-area-border-hover); }
+/* Focus: single 2px blue ring. */
+.ifs-select:focus-within {
+  box-shadow: 0 0 0 2px var(--focus-ring);
+}
+.ifs-select--disabled { opacity:.5; pointer-events:none; }
+/* Custom trigger replaces native <select> */
+.ifs-select__trigger {
+  flex:1; min-width:0; display:flex; align-items:center;
+  border:none; outline:none; background:transparent; cursor:pointer;
+  padding:0 28px 0 10px; height:100%;
+}
+.ifs-select--lg .ifs-select__trigger { padding-left:12px; }
+.ifs-select__value {
+  font-family:var(--font-sans); font-size:13px; line-height:1;
+  color:var(--text-tertiary); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+.ifs-select--has-value .ifs-select__value { color:var(--text-primary); }
+.ifs-select__chev {
+  position:absolute; right:8px; pointer-events:none; color:var(--icon-tertiary);
+  display:inline-flex; align-items:center;
+  transition:transform var(--duration-fast) var(--ease-standard);
+}
+.ifs-select__chev svg { width:12px; height:12px; }
+.ifs-select--open .ifs-select__chev { transform:rotate(180deg); }
+/* Dropdown panel */
+.ifs-select__panel {
+  position:absolute; top:calc(100% + 4px); left:0; min-width:100%;
+  z-index:var(--z-popover);
+}
+/* [hidden] override — .ifs-dropdown-list's display:inline-flex would otherwise win */
+.ifs-select__panel[hidden] { display:none !important; }
+/* Selected item inside the panel */
+.ifs-dropdown-item--selected { color:var(--text-primary); }
+
+/* ---- Dropdown list ---- */
+.ifs-dropdown-list {
+  display:inline-flex; flex-direction:column;
+  background:var(--background-elevation-2-primary);
+  backdrop-filter:blur(var(--blur-strong));
+  border:1px solid var(--border-base);
+  border-radius:var(--radius-100);
+  padding:var(--gap-100);
+  min-width:200px;
+}
+.ifs-dropdown-item {
+  display:flex; align-items:center; gap:var(--gap-100);
+  padding:var(--gap-100) var(--gap-200);
+  border-radius:var(--radius-100);
+  font-family:var(--font-sans); font-size:14px; font-weight:var(--weight-medium);
+  color:var(--text-secondary); cursor:pointer;
+  transition:background var(--duration-fast) var(--ease-standard);
+}
+.ifs-dropdown-item svg { width:16px; height:16px; flex:none; color:var(--icon-secondary); }
+.ifs-dropdown-item:hover,
+.ifs-dropdown-item--hover { background:var(--background-elevation-2-secondary); }
+.ifs-dropdown-item--disabled { opacity:.4; pointer-events:none; }
+
+/* ---- Multi-select ---- */
+.ifs-multiselect {
+  position:relative; display:flex; align-items:center; box-sizing:border-box;
+  min-height:40px; padding:var(--gap-250) var(--gap-200); padding-right:28px;
+  border-radius:var(--radius-md); background:var(--text-area-fill-default);
+  border:1px solid var(--text-area-border-default); font-family:var(--font-sans);
+  transition:border-color var(--duration-fast) var(--ease-standard); cursor:pointer;
+}
+.ifs-multiselect:hover { border-color:var(--text-area-border-hover); }
+.ifs-multiselect:focus-within { box-shadow:0 0 0 2px var(--focus-ring); }
+.ifs-multiselect--disabled { opacity:.5; pointer-events:none; }
+.ifs-multiselect__body {
+  flex:1; min-width:0; display:flex; flex-wrap:wrap; gap:var(--gap-100); align-items:center;
+}
+.ifs-multiselect__placeholder { font-size:13px; color:var(--text-tertiary); line-height:1; }
+.ifs-multiselect__tag {
+  display:inline-flex; align-items:center; gap:var(--gap-100);
+  background:var(--background-color-alpha-white-base); border-radius:var(--radius-full);
+  padding:var(--gap-100) var(--gap-200);
+  font-size:12px; font-weight:var(--weight-medium); color:var(--text-primary);
+  white-space:nowrap; user-select:none;
+}
+.ifs-multiselect__tag-remove {
+  display:inline-flex; align-items:center; color:var(--icon-tertiary);
+  background:none; border:none; padding:0; cursor:pointer;
+  transition:color var(--duration-fast) var(--ease-standard);
+}
+.ifs-multiselect__tag-remove:hover { color:var(--icon-primary); }
+.ifs-multiselect__tag-remove svg { width:12px; height:12px; display:block; }
+.ifs-multiselect__overflow {
+  display:inline-flex; align-items:center;
+  background:var(--background-color-alpha-white-base); border-radius:var(--radius-full);
+  padding:var(--gap-100) var(--gap-200);
+  font-size:12px; font-weight:var(--weight-medium); color:var(--text-primary);
+}
+.ifs-multiselect__chev {
+  position:absolute; right:8px; top:50%; transform:translateY(-50%);
+  pointer-events:none; color:var(--icon-tertiary); display:inline-flex; align-items:center;
+  transition:transform var(--duration-fast) var(--ease-standard);
+}
+.ifs-multiselect--open .ifs-multiselect__chev { transform:translateY(-50%) rotate(180deg); }
+.ifs-multiselect__panel {
+  position:absolute; top:calc(100% + 4px); left:0; min-width:100%;
+  z-index:var(--z-popover);
+}
+.ifs-multiselect__panel[hidden] { display:none !important; }
+/* Checked item in multiselect panel */
+.ifs-dropdown-item--checked { color:var(--text-primary); }
+.ifs-dropdown-item__check {
+  width:16px; height:16px; display:flex; align-items:center; justify-content:center;
+  color:var(--accent-brand); opacity:0; flex:none; margin-right:-4px;
+}
+.ifs-dropdown-item--checked .ifs-dropdown-item__check { opacity:1; }
+
+/* ---- Checkbox ---- */
+.ifs-check {
+  display:inline-flex; align-items:center; gap:8px; font-family:var(--font-sans);
+  font-size:13px; color:var(--text-primary); cursor:pointer; user-select:none;
+  position:relative;
+}
+.ifs-check--disabled { opacity:.5; cursor:not-allowed; }
+.ifs-check__box {
+  width:16px; height:16px; border-radius:var(--radius-xs); flex:none;
+  border:1.5px solid var(--border-strong); background:var(--text-area-fill-default);
+  display:inline-flex; align-items:center; justify-content:center; color:var(--icon-primary);
+  transition:background var(--duration-fast) var(--ease-standard), border-color var(--duration-fast) var(--ease-standard);
+}
+.ifs-check__box svg { width:12px; height:12px; opacity:0; transform:scale(.6);
+  transition:opacity var(--duration-fast) var(--ease-standard), transform var(--duration-fast) var(--ease-standard); }
+.ifs-check input { position:absolute; opacity:0; width:0; height:0; }
+.ifs-check input:checked + .ifs-check__box,
+.ifs-check input:indeterminate + .ifs-check__box { background:var(--accent-brand); border-color:var(--accent-brand); }
+.ifs-check input:checked + .ifs-check__box svg,
+.ifs-check input:indeterminate + .ifs-check__box svg { opacity:1; transform:scale(1); }
+.ifs-check input:focus-visible + .ifs-check__box { box-shadow:0 0 0 1px var(--focus-ring-inner), 0 0 0 3px var(--focus-ring); } /* sm ≤31px */
+.ifs-check:hover input:not(:checked):not(:indeterminate) + .ifs-check__box { border-color:var(--white-400); background:var(--white-100); }
+
+/* ---- Switch ---- */
+.ifs-switch {
+  display:inline-flex; align-items:center; gap:9px; font-family:var(--font-sans);
+  font-size:13px; color:var(--text-primary); cursor:pointer; user-select:none;
+}
+.ifs-switch--disabled { opacity:.5; cursor:not-allowed; }
+.ifs-switch input { position:absolute; opacity:0; width:0; height:0; }
+.ifs-switch__track {
+  position:relative; width:34px; height:20px; flex:none; border-radius:999px;
+  background:var(--white-200); transition:background var(--duration-base) var(--ease-standard);
+}
+.ifs-switch--sm .ifs-switch__track { width:28px; height:16px; }
+.ifs-switch__thumb {
+  position:absolute; top:2px; left:2px; width:16px; height:16px; border-radius:50%;
+  background:var(--white); box-shadow:var(--elevation-1);
+  transition:transform var(--duration-base) var(--ease-emphasis);
+}
+.ifs-switch--sm .ifs-switch__thumb { width:12px; height:12px; }
+.ifs-switch input:checked + .ifs-switch__track { background:var(--accent-brand); }
+.ifs-switch input:checked + .ifs-switch__track .ifs-switch__thumb { transform:translateX(14px); }
+.ifs-switch--sm input:checked + .ifs-switch__track .ifs-switch__thumb { transform:translateX(12px); }
+.ifs-switch input:focus-visible + .ifs-switch__track { box-shadow:0 0 0 1px var(--focus-ring-inner), 0 0 0 3px var(--focus-ring); } /* sm ≤31px */
+
+</style>
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="main">
+    <div class="page">
+      <div class="page-eyebrow">Components</div>
+      <h1>Form fields</h1>
+      <p class="page-lede">Verified against the Figma Form sheet. Text inputs (sizes L/M), search fields, selects, checkboxes, and switches — all states. Focus uses a single 2px blue ring (WCAG 2.4.11 AAA, 5.6:1 contrast). Error state switches the border to danger red.</p>
+
+      <!-- ═══════════════════ TEXT INPUT ═══════════════════ -->
+      <h2>Text input</h2>
+      <p class="section-note">Two sizes: L 40 (pad 12, radius 8) · M 32 (pad 10, radius 4). Focus ring: single 2px solid blue (<code>--focus-ring</code>, 5.6:1 contrast — WCAG AAA). Error border switches to <code>--text-area-border-danger</code>.</p>
+
+      <h3>Sizes</h3>
+      <div class="demo" style="align-items:flex-end">
+        <div class="ifs-field">
+          <label class="ifs-field__label">Label</label>
+          <div class="ifs-input ifs-input--lg">
+            <input class="ifs-input__el" placeholder="L (40)" />
+          </div>
+          <span class="ifs-field__hint">Hint text</span>
+        </div>
+        <div class="ifs-field">
+          <label class="ifs-field__label">Label</label>
+          <div class="ifs-input">
+            <input class="ifs-input__el" placeholder="M (32)" />
+          </div>
+          <span class="ifs-field__hint">Hint text</span>
+        </div>
+      </div>
+
+      <h3>States</h3>
+      <div class="demo" style="flex-wrap:wrap">
+        <div class="ifs-field">
+          <label class="ifs-field__label">Default</label>
+          <div class="ifs-input">
+            <input class="ifs-input__el" placeholder="Placeholder" />
+          </div>
+        </div>
+        <div class="ifs-field">
+          <label class="ifs-field__label">Filled</label>
+          <div class="ifs-input">
+            <input class="ifs-input__el" value="Framework name" readonly />
+          </div>
+        </div>
+        <div class="ifs-field">
+          <label class="ifs-field__label">Error</label>
+          <div class="ifs-input ifs-input--error">
+            <input class="ifs-input__el" value="–$12M" aria-invalid="true" />
+          </div>
+          <span class="ifs-field__hint ifs-field__hint--error">Value is out of range</span>
+        </div>
+        <div class="ifs-field">
+          <label class="ifs-field__label" style="color:var(--text-disabled)">Disabled</label>
+          <div class="ifs-input ifs-input--disabled">
+            <input class="ifs-input__el" placeholder="Placeholder" disabled />
+          </div>
+        </div>
+      </div>
+
+      <h3>With affixes</h3>
+      <p class="section-note">Leading and trailing affixes: icons, currency symbols, units. Icon affix uses 15×15px icons at <code>--icon-tertiary</code>.</p>
+      <div class="demo">
+        <div class="ifs-field">
+          <label class="ifs-field__label">Budget cap</label>
+          <div class="ifs-input ifs-input--lg">
+            <span class="ifs-input__affix">$</span>
+            <input class="ifs-input__el" placeholder="0.00" />
+            <span class="ifs-input__affix">M</span>
+          </div>
+        </div>
+        <div class="ifs-field">
+          <label class="ifs-field__label">With icon</label>
+          <div class="ifs-input ifs-input--lg">
+            <span class="ifs-input__affix"><svg class="ds-icon"><use href="#system-star-favourite"/></svg></span>
+            <input class="ifs-input__el" placeholder="Placeholder" />
+          </div>
+        </div>
+        <div class="ifs-field">
+          <label class="ifs-field__label">Required</label>
+          <div class="ifs-input ifs-input--lg">
+            <input class="ifs-input__el" placeholder="Placeholder" required />
+          </div>
+        </div>
+        <div class="ifs-field">
+          <div class="ifs-field__header">
+            <label class="ifs-field__label">With help</label>
+            <span class="ifs-field__help" title="More information about this field">
+              <svg class="ds-icon"><use href="#system-question-hint"/></svg>
+            </span>
+          </div>
+          <div class="ifs-input ifs-input--lg">
+            <input class="ifs-input__el" placeholder="Placeholder" />
+          </div>
+        </div>
+      </div>
+      <div id="t-inputs"></div>
+
+      <!-- ═══════════════════ SELECT ═══════════════════ -->
+      <h2>Dropdown</h2>
+      <p class="section-note">Fully custom — trigger opens an <code>.ifs-dropdown-list</code> panel. Two sizes: L 40 (radius 8) · M 32 (radius 4). Caret is <code>arrow-caret-down-filled</code> 12×12 in <code>--icon-tertiary</code>, rotates 180° when open. Placeholder text: <code>--text-tertiary</code>; selected value: <code>--text-primary</code>.</p>
+      <div class="demo" style="align-items:flex-end">
+        <div class="ifs-field">
+          <label class="ifs-field__label">Size L</label>
+          <div class="ifs-select ifs-select--lg ifs-select--has-value" style="min-width:200px">
+            <button class="ifs-select__trigger" type="button" aria-haspopup="listbox" aria-expanded="false">
+              <span class="ifs-select__value">Asset management</span>
+            </button>
+            <span class="ifs-select__chev" aria-hidden="true"><svg class="ds-icon" width="12" height="12"><use href="#arrow-caret-down-filled"/></svg></span>
+            <div class="ifs-select__panel ifs-dropdown-list" role="listbox" hidden>
+              <div class="ifs-dropdown-item ifs-dropdown-item--selected" role="option" data-value="Asset management">Asset management</div>
+              <div class="ifs-dropdown-item" role="option" data-value="Capital planning">Capital planning</div>
+              <div class="ifs-dropdown-item" role="option" data-value="Risk analysis">Risk analysis</div>
+            </div>
+          </div>
+        </div>
+        <div class="ifs-field">
+          <label class="ifs-field__label">Size M</label>
+          <div class="ifs-select ifs-select--has-value" style="min-width:200px">
+            <button class="ifs-select__trigger" type="button" aria-haspopup="listbox" aria-expanded="false">
+              <span class="ifs-select__value">Asset management</span>
+            </button>
+            <span class="ifs-select__chev" aria-hidden="true"><svg class="ds-icon" width="12" height="12"><use href="#arrow-caret-down-filled"/></svg></span>
+            <div class="ifs-select__panel ifs-dropdown-list" role="listbox" hidden>
+              <div class="ifs-dropdown-item ifs-dropdown-item--selected" role="option" data-value="Asset management">Asset management</div>
+              <div class="ifs-dropdown-item" role="option" data-value="Capital planning">Capital planning</div>
+              <div class="ifs-dropdown-item" role="option" data-value="Risk analysis">Risk analysis</div>
+            </div>
+          </div>
+        </div>
+        <div class="ifs-field">
+          <label class="ifs-field__label" style="color:var(--text-disabled)">Disabled</label>
+          <div class="ifs-select ifs-select--disabled ifs-select--has-value" style="min-width:200px">
+            <button class="ifs-select__trigger" type="button" disabled>
+              <span class="ifs-select__value">Asset management</span>
+            </button>
+            <span class="ifs-select__chev" aria-hidden="true"><svg class="ds-icon" width="12" height="12"><use href="#arrow-caret-down-filled"/></svg></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════════════════ DROPDOWN LIST ═══════════════════ -->
+      <h2>Dropdown list</h2>
+      <p class="section-note">The floating list that opens below a select or dropdown trigger. Background: <code>--background-elevation-2-primary</code> + <code>blur-strong</code> backdrop. Border: <code>--border-base</code>. Radius 4px, padding 4px. Items: 14px medium, <code>--text-secondary</code>, hover gets <code>--background-elevation-2-secondary</code>.</p>
+      <div class="demo" style="gap:var(--gap-600);align-items:flex-start">
+        <div class="ifs-dropdown-list">
+          <div class="ifs-dropdown-item">
+            <svg class="ds-icon"><use href="#system-star-favourite"/></svg>
+            Asset management
+          </div>
+          <div class="ifs-dropdown-item ifs-dropdown-item--hover">
+            <svg class="ds-icon"><use href="#system-star-favourite"/></svg>
+            Capital planning
+          </div>
+          <div class="ifs-dropdown-item">
+            <svg class="ds-icon"><use href="#system-star-favourite"/></svg>
+            Risk analysis
+          </div>
+          <div class="ifs-dropdown-item">
+            <svg class="ds-icon"><use href="#system-star-favourite"/></svg>
+            Maintenance
+          </div>
+          <div class="ifs-dropdown-item ifs-dropdown-item--disabled">
+            <svg class="ds-icon"><use href="#system-star-favourite"/></svg>
+            Disabled option
+          </div>
+        </div>
+        <div class="ifs-dropdown-list">
+          <div class="ifs-dropdown-item">Financial summary</div>
+          <div class="ifs-dropdown-item">Risk overview</div>
+          <div class="ifs-dropdown-item ifs-dropdown-item--hover">Asset inventory</div>
+          <div class="ifs-dropdown-item">Capital forecast</div>
+        </div>
+      </div>
+
+      <!-- ═══════════════════ MULTI-SELECT ═══════════════════ -->
+      <h2>Multi-select</h2>
+      <p class="section-note">Single size (40px, radius 8). Selected options appear as pill tags that wrap; overflow shows a <code>+N</code> badge. Tags use <code>--background-color-alpha-white-base</code> with <code>--radius-full</code>. Focus ring: 2px <code>--focus-ring</code>.</p>
+      <div class="demo" style="gap:var(--gap-600);align-items:flex-start;flex-wrap:wrap">
+
+        <!-- Interactive -->
+        <div class="ifs-field" style="min-width:260px;max-width:340px">
+          <label class="ifs-field__label">Interactive</label>
+          <div class="ifs-multiselect" id="ms-interactive">
+            <div class="ifs-multiselect__body">
+              <span class="ifs-multiselect__placeholder">Select options</span>
+            </div>
+            <span class="ifs-multiselect__chev" aria-hidden="true"><svg class="ds-icon" width="12" height="12"><use href="#arrow-caret-down-filled"/></svg></span>
+            <div class="ifs-multiselect__panel ifs-dropdown-list" role="listbox" hidden>
+              <div class="ifs-dropdown-item" role="option" data-value="Asset management"><span class="ifs-dropdown-item__check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="12" height="12"><path d="M20 6 9 17l-5-5"/></svg></span>Asset management</div>
+              <div class="ifs-dropdown-item" role="option" data-value="Capital planning"><span class="ifs-dropdown-item__check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="12" height="12"><path d="M20 6 9 17l-5-5"/></svg></span>Capital planning</div>
+              <div class="ifs-dropdown-item" role="option" data-value="Risk analysis"><span class="ifs-dropdown-item__check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="12" height="12"><path d="M20 6 9 17l-5-5"/></svg></span>Risk analysis</div>
+              <div class="ifs-dropdown-item" role="option" data-value="Maintenance"><span class="ifs-dropdown-item__check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="12" height="12"><path d="M20 6 9 17l-5-5"/></svg></span>Maintenance</div>
+              <div class="ifs-dropdown-item" role="option" data-value="Capital forecast"><span class="ifs-dropdown-item__check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="12" height="12"><path d="M20 6 9 17l-5-5"/></svg></span>Capital forecast</div>
+              <div class="ifs-dropdown-item" role="option" data-value="Financial summary"><span class="ifs-dropdown-item__check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="12" height="12"><path d="M20 6 9 17l-5-5"/></svg></span>Financial summary</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Selected (3 items) — static -->
+        <div class="ifs-field" style="min-width:260px;max-width:340px">
+          <label class="ifs-field__label">Selected</label>
+          <div class="ifs-multiselect">
+            <div class="ifs-multiselect__body">
+              <span class="ifs-multiselect__tag">Asset management<button class="ifs-multiselect__tag-remove" tabindex="-1" aria-label="Remove"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="12" height="12"><path d="M18 6 6 18M6 6l12 12"/></svg></button></span>
+              <span class="ifs-multiselect__tag">Capital planning<button class="ifs-multiselect__tag-remove" tabindex="-1" aria-label="Remove"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="12" height="12"><path d="M18 6 6 18M6 6l12 12"/></svg></button></span>
+              <span class="ifs-multiselect__tag">Risk analysis<button class="ifs-multiselect__tag-remove" tabindex="-1" aria-label="Remove"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="12" height="12"><path d="M18 6 6 18M6 6l12 12"/></svg></button></span>
+            </div>
+            <span class="ifs-multiselect__chev" aria-hidden="true"><svg class="ds-icon" width="12" height="12"><use href="#arrow-caret-down-filled"/></svg></span>
+          </div>
+        </div>
+
+        <!-- Selected more (overflow) — static -->
+        <div class="ifs-field" style="min-width:260px;max-width:340px">
+          <label class="ifs-field__label">Selected (overflow)</label>
+          <div class="ifs-multiselect">
+            <div class="ifs-multiselect__body">
+              <span class="ifs-multiselect__tag">Asset management<button class="ifs-multiselect__tag-remove" tabindex="-1" aria-label="Remove"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="12" height="12"><path d="M18 6 6 18M6 6l12 12"/></svg></button></span>
+              <span class="ifs-multiselect__tag">Capital planning<button class="ifs-multiselect__tag-remove" tabindex="-1" aria-label="Remove"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="12" height="12"><path d="M18 6 6 18M6 6l12 12"/></svg></button></span>
+              <span class="ifs-multiselect__tag">Risk analysis<button class="ifs-multiselect__tag-remove" tabindex="-1" aria-label="Remove"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="12" height="12"><path d="M18 6 6 18M6 6l12 12"/></svg></button></span>
+              <span class="ifs-multiselect__overflow">+3</span>
+            </div>
+            <span class="ifs-multiselect__chev" aria-hidden="true"><svg class="ds-icon" width="12" height="12"><use href="#arrow-caret-down-filled"/></svg></span>
+          </div>
+        </div>
+
+        <!-- Disabled — static -->
+        <div class="ifs-field" style="min-width:260px;max-width:340px">
+          <label class="ifs-field__label" style="color:var(--text-disabled)">Disabled</label>
+          <div class="ifs-multiselect ifs-multiselect--disabled">
+            <div class="ifs-multiselect__body">
+              <span class="ifs-multiselect__tag">Asset management</span>
+              <span class="ifs-multiselect__tag">Capital planning</span>
+            </div>
+            <span class="ifs-multiselect__chev" aria-hidden="true"><svg class="ds-icon" width="12" height="12"><use href="#arrow-caret-down-filled"/></svg></span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ═══════════════════ CHECKBOX ═══════════════════ -->
+      <h2>Checkbox</h2>
+      <p class="section-note">16×16px box, radius XS. Checked and indeterminate use <code>--accent-brand</code>. The check mark scales in on check. Focus ring: 2px solid <code>--focus-ring</code>.</p>
+      <div class="demo" style="flex-wrap:wrap;gap:var(--gap-400)">
+        <label class="ifs-check">
+          <input type="checkbox">
+          <span class="ifs-check__box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+          Unchecked
+        </label>
+        <label class="ifs-check">
+          <input type="checkbox" checked>
+          <span class="ifs-check__box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+          Checked
+        </label>
+        <label class="ifs-check" id="check-indeterminate">
+          <input type="checkbox" id="cb-indet">
+          <span class="ifs-check__box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"><path d="M5 12h14"/></svg></span>
+          Indeterminate
+        </label>
+        <label class="ifs-check ifs-check--disabled">
+          <input type="checkbox" disabled>
+          <span class="ifs-check__box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+          Disabled
+        </label>
+        <label class="ifs-check ifs-check--disabled">
+          <input type="checkbox" checked disabled>
+          <span class="ifs-check__box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+          Disabled checked
+        </label>
+      </div>
+
+      <!-- ═══════════════════ SWITCH ═══════════════════ -->
+      <h2>Switch</h2>
+      <p class="section-note">Track 34×20px (MD) / 28×16px (SM). Thumb slides 14px on check. Off state uses <code>--white-200</code>; on state uses <code>--accent-brand</code>.</p>
+      <div class="demo" style="flex-wrap:wrap;gap:var(--gap-400)">
+        <label class="ifs-switch">
+          <input type="checkbox">
+          <span class="ifs-switch__track"><span class="ifs-switch__thumb"></span></span>
+          Off
+        </label>
+        <label class="ifs-switch">
+          <input type="checkbox" checked>
+          <span class="ifs-switch__track"><span class="ifs-switch__thumb"></span></span>
+          On
+        </label>
+        <label class="ifs-switch ifs-switch--sm">
+          <input type="checkbox">
+          <span class="ifs-switch__track"><span class="ifs-switch__thumb"></span></span>
+          Small off
+        </label>
+        <label class="ifs-switch ifs-switch--sm">
+          <input type="checkbox" checked>
+          <span class="ifs-switch__track"><span class="ifs-switch__thumb"></span></span>
+          Small on
+        </label>
+        <label class="ifs-switch ifs-switch--disabled">
+          <input type="checkbox" disabled>
+          <span class="ifs-switch__track"><span class="ifs-switch__thumb"></span></span>
+          Disabled
+        </label>
+        <label class="ifs-switch ifs-switch--disabled">
+          <input type="checkbox" checked disabled>
+          <span class="ifs-switch__track"><span class="ifs-switch__thumb"></span></span>
+          Disabled on
+        </label>
+      </div>
+
+      <div class="callout">React primitives for all these components live in <code>DS/components/forms/</code> — <code>Input</code>, <code>Select</code>, <code>Checkbox</code>, <code>Switch</code>. See each component's <code>.prompt.md</code> for the API.</div>
+    </div>
+  </main>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  document.body.insertAdjacentHTML("afterbegin", window.IFSIconSprite);
+
+  // Set indeterminate state
+  document.getElementById("cb-indet").indeterminate = true;
+
+  // Custom select: open/close panel and pick value
+  function closeAllSelects(except) {
+    document.querySelectorAll(".ifs-select--open").forEach(s => {
+      if (s === except) return;
+      s.classList.remove("ifs-select--open");
+      s.querySelector(".ifs-select__panel")?.setAttribute("hidden", "");
+      s.querySelector(".ifs-select__trigger")?.setAttribute("aria-expanded", "false");
+    });
+  }
+  document.querySelectorAll(".ifs-select__trigger").forEach(btn => {
+    btn.addEventListener("click", e => {
+      const wrap = btn.closest(".ifs-select");
+      const panel = wrap.querySelector(".ifs-select__panel");
+      if (!panel) return;
+      const opening = panel.hasAttribute("hidden");
+      closeAllSelects(opening ? wrap : null);
+      if (opening) {
+        panel.removeAttribute("hidden");
+        wrap.classList.add("ifs-select--open");
+        btn.setAttribute("aria-expanded", "true");
+      } else {
+        panel.setAttribute("hidden", "");
+        wrap.classList.remove("ifs-select--open");
+        btn.setAttribute("aria-expanded", "false");
+      }
+      e.stopPropagation();
+    });
+  });
+  document.querySelectorAll(".ifs-select__panel .ifs-dropdown-item:not(.ifs-dropdown-item--disabled)").forEach(item => {
+    item.addEventListener("click", e => {
+      const panel = item.closest(".ifs-select__panel");
+      const wrap = item.closest(".ifs-select");
+      // Update selected state
+      panel.querySelectorAll(".ifs-dropdown-item").forEach(i => i.classList.remove("ifs-dropdown-item--selected"));
+      item.classList.add("ifs-dropdown-item--selected");
+      // Update trigger display
+      wrap.querySelector(".ifs-select__value").textContent = item.dataset.value;
+      wrap.classList.add("ifs-select--has-value");
+      // Close
+      closeAllSelects(null);
+      e.stopPropagation();
+    });
+  });
+  document.addEventListener("click", () => closeAllSelects(null));
+
+  // Multi-select — interactive demo
+  const MAX_VISIBLE = 3;
+  function makeTag(value, wrap) {
+    const tag = document.createElement("span");
+    tag.className = "ifs-multiselect__tag";
+    tag.dataset.value = value;
+    tag.textContent = value;
+    const removeBtn = document.createElement("button");
+    removeBtn.className = "ifs-multiselect__tag-remove";
+    removeBtn.setAttribute("aria-label", "Remove");
+    removeBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="12" height="12"><path d="M18 6 6 18M6 6l12 12"/></svg>`;
+    removeBtn.addEventListener("click", e => {
+      e.stopPropagation();
+      msDeselect(wrap, value);
+    });
+    tag.appendChild(removeBtn);
+    return tag;
+  }
+  function msRender(wrap) {
+    const body = wrap.querySelector(".ifs-multiselect__body");
+    const panel = wrap.querySelector(".ifs-multiselect__panel");
+    const selected = [...panel.querySelectorAll(".ifs-dropdown-item--checked")].map(i => i.dataset.value);
+    // Clear tags and placeholder
+    body.innerHTML = "";
+    if (selected.length === 0) {
+      const ph = document.createElement("span");
+      ph.className = "ifs-multiselect__placeholder";
+      ph.textContent = "Select options";
+      body.appendChild(ph);
+    } else {
+      const visible = selected.slice(0, MAX_VISIBLE);
+      const overflow = selected.length - MAX_VISIBLE;
+      visible.forEach(v => body.appendChild(makeTag(v, wrap)));
+      if (overflow > 0) {
+        const badge = document.createElement("span");
+        badge.className = "ifs-multiselect__overflow";
+        badge.textContent = `+${overflow}`;
+        body.appendChild(badge);
+      }
+    }
+  }
+  function msDeselect(wrap, value) {
+    const item = wrap.querySelector(`.ifs-dropdown-item[data-value="${value}"]`);
+    if (item) item.classList.remove("ifs-dropdown-item--checked");
+    msRender(wrap);
+  }
+  document.querySelectorAll(".ifs-multiselect").forEach(wrap => {
+    const panel = wrap.querySelector(".ifs-multiselect__panel");
+    if (!panel) return;
+    // Open/close
+    wrap.addEventListener("click", e => {
+      if (e.target.closest(".ifs-multiselect__tag-remove")) return;
+      const opening = panel.hasAttribute("hidden");
+      // Close all other selects/multiselects
+      closeAllSelects(null);
+      document.querySelectorAll(".ifs-multiselect--open").forEach(s => {
+        if (s === wrap) return;
+        s.classList.remove("ifs-multiselect--open");
+        s.querySelector(".ifs-multiselect__panel")?.setAttribute("hidden", "");
+      });
+      if (opening) {
+        panel.removeAttribute("hidden");
+        wrap.classList.add("ifs-multiselect--open");
+      } else {
+        panel.setAttribute("hidden", "");
+        wrap.classList.remove("ifs-multiselect--open");
+      }
+      e.stopPropagation();
+    });
+    // Item toggle
+    panel.querySelectorAll(".ifs-dropdown-item:not(.ifs-dropdown-item--disabled)").forEach(item => {
+      item.addEventListener("click", e => {
+        item.classList.toggle("ifs-dropdown-item--checked");
+        msRender(wrap);
+        e.stopPropagation();
+      });
+    });
+  });
+  // Close multiselects on outside click
+  document.addEventListener("click", () => {
+    document.querySelectorAll(".ifs-multiselect--open").forEach(s => {
+      s.classList.remove("ifs-multiselect--open");
+      s.querySelector(".ifs-multiselect__panel")?.setAttribute("hidden", "");
+    });
+  });
+
+  tokenTable("t-inputs", [
+    ["--text-area-fill-default",   "Default fill — 10% white"],
+    ["--text-area-border-default", "Default border — 10%"],
+    ["--text-area-border-hover",   "Hover border — 20%"],
+    ["--text-area-border-typing",  "Focus/typing border — 55%"],
+    ["--text-area-border-danger",  "Error border — danger red"],
+    ["--text-area-fill-disabled",  "Disabled fill"],
+    ["--text-area-border-disabled","Disabled border"],
+  ], { notes: true });
+
+});
+</script>
+</body>
+</html>

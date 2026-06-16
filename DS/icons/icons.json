@@ -1,0 +1,887 @@
+[
+ {
+  "name": "arrow-left",
+  "category": "arrow",
+  "size": 16.0
+ },
+ {
+  "name": "arrow-right",
+  "category": "arrow",
+  "size": 16.0
+ },
+ {
+  "name": "arrow-down",
+  "category": "arrow",
+  "size": 16.0
+ },
+ {
+  "name": "arrow-up",
+  "category": "arrow",
+  "size": 16.0
+ },
+ {
+  "name": "arrow-window-minimize",
+  "category": "arrow",
+  "size": 19
+ },
+ {
+  "name": "arrow-window-maximize",
+  "category": "arrow",
+  "size": 19
+ },
+ {
+  "name": "arrow-bar-left",
+  "category": "arrow",
+  "size": 18
+ },
+ {
+  "name": "arrow-bar-right",
+  "category": "arrow",
+  "size": 18
+ },
+ {
+  "name": "arrow-diagonal-expand",
+  "category": "arrow",
+  "size": 18
+ },
+ {
+  "name": "arrow-diagonal-minimize-collapse",
+  "category": "arrow",
+  "size": 18
+ },
+ {
+  "name": "arrow-chevron-left",
+  "category": "arrow",
+  "size": 16.0
+ },
+ {
+  "name": "arrow-chevron-right",
+  "category": "arrow",
+  "size": 16.0
+ },
+ {
+  "name": "arrow-chevron-down",
+  "category": "arrow",
+  "size": 16.0
+ },
+ {
+  "name": "arrow-chevron-up",
+  "category": "arrow",
+  "size": 16.0
+ },
+ {
+  "name": "arrow-trend-up",
+  "category": "arrow",
+  "size": 20
+ },
+ {
+  "name": "arrow-trend-down",
+  "category": "arrow",
+  "size": 20
+ },
+ {
+  "name": "arrow-sort",
+  "category": "arrow",
+  "size": 20
+ },
+ {
+  "name": "arrow-back-up",
+  "category": "arrow",
+  "size": 17
+ },
+ {
+  "name": "corner-down-right-arrow",
+  "category": "arrow",
+  "size": 16.0
+ },
+ {
+  "name": "corner-down-left-arrow",
+  "category": "arrow",
+  "size": 16.0
+ },
+ {
+  "name": "arrow-refresh",
+  "category": "arrow",
+  "size": 18
+ },
+ {
+  "name": "arrow-selector",
+  "category": "arrow",
+  "size": 16.0
+ },
+ {
+  "name": "arrow-horizontal-expand",
+  "category": "arrow",
+  "size": 22
+ },
+ {
+  "name": "arrow-horizontal-collapse",
+  "category": "arrow",
+  "size": 22
+ },
+ {
+  "name": "icon-arrow-down-left",
+  "category": "arrow",
+  "size": 16.0
+ },
+ {
+  "name": "chat-archive",
+  "category": "chat",
+  "size": 20
+ },
+ {
+  "name": "chat-folder-add",
+  "category": "chat",
+  "size": 21
+ },
+ {
+  "name": "chat-folder-move",
+  "category": "chat",
+  "size": 21
+ },
+ {
+  "name": "chat-folder",
+  "category": "chat",
+  "size": 20
+ },
+ {
+  "name": "chat-pin",
+  "category": "chat",
+  "size": 17
+ },
+ {
+  "name": "chat-pinned-off",
+  "category": "chat",
+  "size": 20
+ },
+ {
+  "name": "chat-keyboard-ai-text",
+  "category": "chat",
+  "size": 22
+ },
+ {
+  "name": "chat-microphone-ai-voice",
+  "category": "chat",
+  "size": 21
+ },
+ {
+  "name": "chat",
+  "category": "chat",
+  "size": 20
+ },
+ {
+  "name": "chat-add",
+  "category": "chat",
+  "size": 21
+ },
+ {
+  "name": "chat-logic-tree",
+  "category": "chat",
+  "size": 20
+ },
+ {
+  "name": "chat-share",
+  "category": "chat",
+  "size": 20
+ },
+ {
+  "name": "chat-external-link",
+  "category": "chat",
+  "size": 18
+ },
+ {
+  "name": "chat-attachment",
+  "category": "chat",
+  "size": 21
+ },
+ {
+  "name": "chat-history",
+  "category": "chat",
+  "size": 20
+ },
+ {
+  "name": "chat-player-stop-ai",
+  "category": "chat",
+  "size": 16.0
+ },
+ {
+  "name": "system-player-pause-ai",
+  "category": "chat",
+  "size": 16.0
+ },
+ {
+  "name": "system-player-play-ai",
+  "category": "chat",
+  "size": 18
+ },
+ {
+  "name": "mention",
+  "category": "chat",
+  "size": 20
+ },
+ {
+  "name": "map-base-background",
+  "category": "map",
+  "size": 18
+ },
+ {
+  "name": "map-settings-tool-bar",
+  "category": "map",
+  "size": 21
+ },
+ {
+  "name": "map-width-stroke",
+  "category": "map",
+  "size": 18
+ },
+ {
+  "name": "map-layers",
+  "category": "map",
+  "size": 18
+ },
+ {
+  "name": "map-opacity",
+  "category": "map",
+  "size": 18
+ },
+ {
+  "name": "map",
+  "category": "map",
+  "size": 20
+ },
+ {
+  "name": "map-view-2d",
+  "category": "map",
+  "size": 18
+ },
+ {
+  "name": "map-view-3d",
+  "category": "map",
+  "size": 22
+ },
+ {
+  "name": "map-risk-storm",
+  "category": "map",
+  "size": 22
+ },
+ {
+  "name": "map-views",
+  "category": "map",
+  "size": 20
+ },
+ {
+  "name": "map-tool-bar-lasso",
+  "category": "map",
+  "size": 20
+ },
+ {
+  "name": "map-pin",
+  "category": "map",
+  "size": 20
+ },
+ {
+  "name": "map-location",
+  "category": "map",
+  "size": 22
+ },
+ {
+  "name": "map-tool-bar-pen",
+  "category": "map",
+  "size": 21
+ },
+ {
+  "name": "map-tool-bar-select-area",
+  "category": "map",
+  "size": 20
+ },
+ {
+  "name": "map-tool-bar-buzier-curve",
+  "category": "map",
+  "size": 20
+ },
+ {
+  "name": "map-tool-bar-pointer-dot",
+  "category": "map",
+  "size": 21
+ },
+ {
+  "name": "map-risk-cyclone",
+  "category": "map",
+  "size": 20
+ },
+ {
+  "name": "map-risk-flood",
+  "category": "map",
+  "size": 21
+ },
+ {
+  "name": "map-risk-heat",
+  "category": "map",
+  "size": 22
+ },
+ {
+  "name": "map-tool-bar-cursor",
+  "category": "map",
+  "size": 20
+ },
+ {
+  "name": "map-tool-bar-hand-cursor",
+  "category": "map",
+  "size": 22
+ },
+ {
+  "name": "git-branch",
+  "category": "map",
+  "size": 18
+ },
+ {
+  "name": "node-map",
+  "category": "map",
+  "size": 22
+ },
+ {
+  "name": "system-search",
+  "category": "system",
+  "size": 20
+ },
+ {
+  "name": "system-info-hint",
+  "category": "system",
+  "size": 20
+ },
+ {
+  "name": "system-volume-on",
+  "category": "system",
+  "size": 20
+ },
+ {
+  "name": "system-volume-off",
+  "category": "system",
+  "size": 20
+ },
+ {
+  "name": "system-filter-settings",
+  "category": "system",
+  "size": 18
+ },
+ {
+  "name": "system-check",
+  "category": "system",
+  "size": 17
+ },
+ {
+  "name": "system-drag-and-drop",
+  "category": "system",
+  "size": 18
+ },
+ {
+  "name": "system-edit-rename",
+  "category": "system",
+  "size": 19
+ },
+ {
+  "name": "system-clock-time",
+  "category": "system",
+  "size": 20
+ },
+ {
+  "name": "system-close",
+  "category": "system",
+  "size": 16.0
+ },
+ {
+  "name": "system-link",
+  "category": "system",
+  "size": 18
+ },
+ {
+  "name": "system-dots-vertical",
+  "category": "system",
+  "size": 18
+ },
+ {
+  "name": "system-dots-horizont",
+  "category": "system",
+  "size": 18
+ },
+ {
+  "name": "system-filter",
+  "category": "system",
+  "size": 18
+ },
+ {
+  "name": "system-download",
+  "category": "system",
+  "size": 19
+ },
+ {
+  "name": "system-trash-delete",
+  "category": "system",
+  "size": 20
+ },
+ {
+  "name": "system-minus",
+  "category": "system",
+  "size": 16.0
+ },
+ {
+  "name": "system-plus",
+  "category": "system",
+  "size": 16.0
+ },
+ {
+  "name": "system-access-point",
+  "category": "system",
+  "size": 18
+ },
+ {
+  "name": "system-sound-waves-ai-speaking",
+  "category": "system",
+  "size": 20
+ },
+ {
+  "name": "system-sound-waves-ai-paused",
+  "category": "system",
+  "size": 20
+ },
+ {
+  "name": "system-comment",
+  "category": "system",
+  "size": 21
+ },
+ {
+  "name": "system-notification",
+  "category": "system",
+  "size": 20
+ },
+ {
+  "name": "system-question-hint",
+  "category": "system",
+  "size": 20
+ },
+ {
+  "name": "system-bolt",
+  "category": "system",
+  "size": 20
+ },
+ {
+  "name": "system-bulb",
+  "category": "system",
+  "size": 20
+ },
+ {
+  "name": "system-book",
+  "category": "system",
+  "size": 20
+ },
+ {
+  "name": "system-brain",
+  "category": "system",
+  "size": 20
+ },
+ {
+  "name": "system-home",
+  "category": "system",
+  "size": 20
+ },
+ {
+  "name": "system-briefcase",
+  "category": "system",
+  "size": 20
+ },
+ {
+  "name": "system-user",
+  "category": "system",
+  "size": 20
+ },
+ {
+  "name": "system-flame",
+  "category": "system",
+  "size": 21
+ },
+ {
+  "name": "system-building",
+  "category": "system",
+  "size": 20
+ },
+ {
+  "name": "system-calendar-date",
+  "category": "system",
+  "size": 20
+ },
+ {
+  "name": "system-clipboard-file",
+  "category": "system",
+  "size": 20
+ },
+ {
+  "name": "system-star-favourite",
+  "category": "system",
+  "size": 22
+ },
+ {
+  "name": "system-mail-message",
+  "category": "system",
+  "size": 20
+ },
+ {
+  "name": "system-loader",
+  "category": "system",
+  "size": 20
+ },
+ {
+  "name": "system-file",
+  "category": "system",
+  "size": 20
+ },
+ {
+  "name": "system-video",
+  "category": "system",
+  "size": 20
+ },
+ {
+  "name": "system-image",
+  "category": "system",
+  "size": 20
+ },
+ {
+  "name": "system-cloud",
+  "category": "system",
+  "size": 22
+ },
+ {
+  "name": "system-library",
+  "category": "system",
+  "size": 18
+ },
+ {
+  "name": "system-square-check",
+  "category": "system",
+  "size": 20
+ },
+ {
+  "name": "system-circle-check",
+  "category": "system",
+  "size": 20
+ },
+ {
+  "name": "system-mail-user",
+  "category": "system",
+  "size": 20
+ },
+ {
+  "name": "system-world-web",
+  "category": "system",
+  "size": 20
+ },
+ {
+  "name": "system-database",
+  "category": "system",
+  "size": 20
+ },
+ {
+  "name": "system-settings",
+  "category": "system",
+  "size": 20
+ },
+ {
+  "name": "compare",
+  "category": "system",
+  "size": 18
+ },
+ {
+  "name": "ecosystem",
+  "category": "system",
+  "size": 20
+ },
+ {
+  "name": "ecosystem-remove",
+  "category": "system",
+  "size": 22
+ },
+ {
+  "name": "users-group",
+  "category": "system",
+  "size": 20
+ },
+ {
+  "name": "duplicate",
+  "category": "system",
+  "size": 20
+ },
+ {
+  "name": "formula",
+  "category": "system",
+  "size": 20
+ },
+ {
+  "name": "evidence",
+  "category": "system",
+  "size": 20
+ },
+ {
+  "name": "calendar-time",
+  "category": "system",
+  "size": 21
+ },
+ {
+  "name": "calendar-settings",
+  "category": "system",
+  "size": 21
+ },
+ {
+  "name": "system-slash",
+  "category": "system",
+  "size": 16.0
+ },
+ {
+  "name": "number",
+  "category": "system",
+  "size": 20
+ },
+ {
+  "name": "save",
+  "category": "system",
+  "size": 18
+ },
+ {
+  "name": "system-text",
+  "category": "system",
+  "size": 17
+ },
+ {
+  "name": "node",
+  "category": "system",
+  "size": 24
+ },
+ {
+  "name": "system-upload",
+  "category": "system",
+  "size": 19
+ },
+ {
+  "name": "flag",
+  "category": "system",
+  "size": 19
+ },
+ {
+  "name": "overview",
+  "category": "system",
+  "size": 18
+ },
+ {
+  "name": "decline",
+  "category": "system",
+  "size": 20
+ },
+ {
+  "name": "system-pencil-plus",
+  "category": "system",
+  "size": 20
+ },
+ {
+  "name": "user-replace",
+  "category": "system",
+  "size": 21
+ },
+ {
+  "name": "customize",
+  "category": "system",
+  "size": 18
+ },
+ {
+  "name": "replace-user",
+  "category": "system",
+  "size": 21
+ },
+ {
+  "name": "chart",
+  "category": "system",
+  "size": 20
+ },
+ {
+  "name": "exit-arrow-back",
+  "category": "system",
+  "size": 20
+ },
+ {
+  "name": "cursor-pointer",
+  "category": "cursors",
+  "size": 16.0
+ },
+ {
+  "name": "cursor-hand-hover",
+  "category": "cursors",
+  "size": 17
+ },
+ {
+  "name": "cursor-hand-drag",
+  "category": "cursors",
+  "size": 16.0
+ },
+ {
+  "name": "cursor-text",
+  "category": "cursors",
+  "size": 18
+ },
+ {
+  "name": "cursor-zoom-in",
+  "category": "cursors",
+  "size": 19
+ },
+ {
+  "name": "cursor-zoom-out",
+  "category": "cursors",
+  "size": 19
+ },
+ {
+  "name": "cursor-lasso",
+  "category": "cursors",
+  "size": 23
+ },
+ {
+  "name": "cursor-add-new-point",
+  "category": "cursors",
+  "size": 24
+ },
+ {
+  "name": "cursor-comment",
+  "category": "cursors",
+  "size": 18
+ },
+ {
+  "name": "cursor-move",
+  "category": "cursors",
+  "size": 20
+ },
+ {
+  "name": "cursor-double-arrow-horizont",
+  "category": "cursors",
+  "size": 20
+ },
+ {
+  "name": "cursor-double-arrow-vertical",
+  "category": "cursors",
+  "size": 20
+ },
+ {
+  "name": "cursor-arrow-up",
+  "category": "cursors",
+  "size": 20
+ },
+ {
+  "name": "cursor-arrow-right",
+  "category": "cursors",
+  "size": 18
+ },
+ {
+  "name": "cursor-arrow-bottom",
+  "category": "cursors",
+  "size": 18
+ },
+ {
+  "name": "cursor-arrow-left",
+  "category": "cursors",
+  "size": 18
+ },
+ {
+  "name": "cursor-more-cross",
+  "category": "cursors",
+  "size": 16.0
+ },
+ {
+  "name": "status-success-filled",
+  "category": "filled",
+  "size": 21
+ },
+ {
+  "name": "status-warning-filled",
+  "category": "filled",
+  "size": 21
+ },
+ {
+  "name": "status-error-filled",
+  "category": "filled",
+  "size": 21
+ },
+ {
+  "name": "status-evaluated-filled",
+  "category": "filled",
+  "size": 21
+ },
+ {
+  "name": "arrow-caret-down-filled",
+  "category": "filled",
+  "size": 16.0
+ },
+ {
+  "name": "arrow-caret-up-filled",
+  "category": "filled",
+  "size": 16.0
+ },
+ {
+  "name": "arrow-caret-left-filled",
+  "category": "filled",
+  "size": 16.0
+ },
+ {
+  "name": "arrow-caret-right-filled",
+  "category": "filled",
+  "size": 16.0
+ },
+ {
+  "name": "player-pause-fiiled",
+  "category": "filled",
+  "size": 16.0
+ },
+ {
+  "name": "player-play-filled",
+  "category": "filled",
+  "size": 18
+ },
+ {
+  "name": "player-stop-filled",
+  "category": "filled",
+  "size": 17
+ },
+ {
+  "name": "caret-updown",
+  "category": "filled",
+  "size": 19
+ },
+ {
+  "name": "close-circle-fiiled",
+  "category": "filled",
+  "size": 21
+ },
+ {
+  "name": "ai-search",
+  "category": "cooper",
+  "size": 63
+ },
+ {
+  "name": "cooper-dots-default",
+  "category": "cooper",
+  "size": 17
+ },
+ {
+  "name": "cooper-dots-voice-animation",
+  "category": "cooper",
+  "size": 17
+ },
+ {
+  "name": "cooper-dots-insight",
+  "category": "cooper",
+  "size": 17
+ },
+ {
+  "name": "cooper-voice-animation-default",
+  "category": "cooper",
+  "size": 152
+ },
+ {
+  "name": "cooper-voice-animation-in-progress",
+  "category": "cooper",
+  "size": 150
+ }
+]
