@@ -1,0 +1,13 @@
+{
+  "name": "ifs-copperleaf-design-system",
+  "version": "1.0.0",
+  "description": "IFS Copperleaf Design System — component library and tokens",
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs",
+    "build:watch": "node --watch build.mjs"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.0"
+  }
+}
