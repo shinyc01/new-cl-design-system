@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio Bar Chart — IFS Copperleaf Design System</title>
+<link rel="stylesheet" href="../DS/styles.css">
+<link rel="stylesheet" href="../DS/components/charts/portfolio-bar-chart.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.34.0/dist/tabler-icons.min.css">
+<link rel="stylesheet" href="site.css">
+<script src="site.js"></script>
+<script src="../DS/icons/icons.js"></script>
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="main">
+    <div class="page">
+      <div class="page-eyebrow">Charts</div>
+      <h1>Portfolio Bar Chart</h1>
+      <p class="page-lede">Horizontal stacked bar chart showing portfolio distribution across 5 risk/value dimensions (Reliability, Financial, Environment, Social, Governance). Compares You, Peer avg, and Best in class rows. Supports By weight (%) and By budget ($) modes with an interactive switcher.</p>
+
+      <!-- ── By weight ── -->
+      <h2>By weight</h2>
+      <p>Default mode. Segment widths are proportional to percentage values. "You" row uses bright category colors; peer rows use dim variants with tertiary text.</p>
+
+      <div class="demo">
+        <div class="ifs-portfolio-chart" id="chart-by-weight">
+          <!-- header -->
+          <div class="ifs-portfolio-chart__header">
+            <span class="ifs-portfolio-chart__title">Portfolio under this framework</span>
+            <div class="ifs-portfolio-chart__switcher">
+              <div class="ifs-portfolio-chart__switcher-track">
+                <button class="ifs-portfolio-chart__switch-btn ifs-portfolio-chart__switch-btn--active" data-mode="by-weight" onclick="switchMode('chart-by-weight', 'by-weight')">By weight</button>
+                <button class="ifs-portfolio-chart__switch-btn" data-mode="by-budget" onclick="switchMode('chart-by-weight', 'by-budget')">By budget</button>
+              </div>
+            </div>
+          </div>
+          <!-- bars -->
+          <div class="ifs-portfolio-chart__body">
+            <div class="ifs-portfolio-chart__bar-container">
+
+              <!-- You -->
+              <div class="ifs-portfolio-chart__row ifs-portfolio-chart__row--bright">
+                <div class="ifs-portfolio-chart__row-label">You</div>
+                <div class="ifs-portfolio-chart__bars">
+                  <div class="ifs-portfolio-chart__segment ifs-portfolio-chart__segment--cat1 ifs-portfolio-chart__segment--bright" style="--_flex:40"><div class="ifs-portfolio-chart__segment-fill"></div><span class="ifs-portfolio-chart__segment-value" data-weight="40%" data-budget="$478M">40%</span></div>
+                  <div class="ifs-portfolio-chart__segment ifs-portfolio-chart__segment--cat2 ifs-portfolio-chart__segment--bright" style="--_flex:35"><div class="ifs-portfolio-chart__segment-fill"></div><span class="ifs-portfolio-chart__segment-value" data-weight="35%" data-budget="$418M">35%</span></div>
+                  <div class="ifs-portfolio-chart__segment ifs-portfolio-chart__segment--cat3 ifs-portfolio-chart__segment--bright" style="--_flex:13"><div class="ifs-portfolio-chart__segment-fill"></div><span class="ifs-portfolio-chart__segment-value" data-weight="13%" data-budget="$155M">13%</span></div>
+                  <div class="ifs-portfolio-chart__segment ifs-portfolio-chart__segment--cat4 ifs-portfolio-chart__segment--bright" style="--_flex:7"><div class="ifs-portfolio-chart__segment-fill"></div><span class="ifs-portfolio-chart__segment-value" data-weight="7%" data-budget="$84M">7%</span></div>
+                  <div class="ifs-portfolio-chart__segment ifs-portfolio-chart__segment--cat5 ifs-portfolio-chart__segment--bright" style="--_flex:5"><div class="ifs-portfolio-chart__segment-fill"></div><span class="ifs-portfolio-chart__segment-value" data-weight="5%" data-budget="$60M">5%</span></div>
+                </div>
+              </div>
+
+              <!-- Peer avg -->
+              <div class="ifs-portfolio-chart__row ifs-portfolio-chart__row--dim">
+                <div class="ifs-portfolio-chart__row-label">Peer avg</div>
+                <div class="ifs-portfolio-chart__bars">
+                  <div class="ifs-portfolio-chart__segment ifs-portfolio-chart__segment--cat1 ifs-portfolio-chart__segment--dim" style="--_flex:35"><div class="ifs-portfolio-chart__segment-fill"></div><span class="ifs-portfolio-chart__segment-value" data-weight="35%" data-budget="$418M">35%</span></div>
+                  <div class="ifs-portfolio-chart__segment ifs-portfolio-chart__segment--cat2 ifs-portfolio-chart__segment--dim" style="--_flex:25"><div class="ifs-portfolio-chart__segment-fill"></div><span class="ifs-portfolio-chart__segment-value" data-weight="25%" data-budget="$298M">25%</span></div>
+                  <div class="ifs-portfolio-chart__segment ifs-portfolio-chart__segment--cat3 ifs-portfolio-chart__segment--dim" style="--_flex:16"><div class="ifs-portfolio-chart__segment-fill"></div><span class="ifs-portfolio-chart__segment-value" data-weight="16%" data-budget="$191M">16%</span></div>
+                  <div class="ifs-portfolio-chart__segment ifs-portfolio-chart__segment--cat4 ifs-portfolio-chart__segment--dim" style="--_flex:8"><div class="ifs-portfolio-chart__segment-fill"></div><span class="ifs-portfolio-chart__segment-value" data-weight="8%" data-budget="$96M">8%</span></div>
+                  <div class="ifs-portfolio-chart__segment ifs-portfolio-chart__segment--cat5 ifs-portfolio-chart__segment--dim" style="--_flex:16"><div class="ifs-portfolio-chart__segment-fill"></div><span class="ifs-portfolio-chart__segment-value" data-weight="16%" data-budget="$191M">16%</span></div>
+                </div>
+              </div>
+
+              <!-- Best in class -->
+              <div class="ifs-portfolio-chart__row ifs-portfolio-chart__row--dim">
+                <div class="ifs-portfolio-chart__row-label">Best in class</div>
+                <div class="ifs-portfolio-chart__bars">
+                  <div class="ifs-portfolio-chart__segment ifs-portfolio-chart__segment--cat1 ifs-portfolio-chart__segment--dim" style="--_flex:38"><div class="ifs-portfolio-chart__segment-fill"></div><span class="ifs-portfolio-chart__segment-value" data-weight="38%" data-budget="$454M">38%</span></div>
+                  <div class="ifs-portfolio-chart__segment ifs-portfolio-chart__segment--cat2 ifs-portfolio-chart__segment--dim" style="--_flex:28"><div class="ifs-portfolio-chart__segment-fill"></div><span class="ifs-portfolio-chart__segment-value" data-weight="28%" data-budget="$334M">28%</span></div>
+                  <div class="ifs-portfolio-chart__segment ifs-portfolio-chart__segment--cat3 ifs-portfolio-chart__segment--dim" style="--_flex:19"><div class="ifs-portfolio-chart__segment-fill"></div><span class="ifs-portfolio-chart__segment-value" data-weight="19%" data-budget="$227M">19%</span></div>
+                  <div class="ifs-portfolio-chart__segment ifs-portfolio-chart__segment--cat4 ifs-portfolio-chart__segment--dim" style="--_flex:4"><div class="ifs-portfolio-chart__segment-fill"></div><span class="ifs-portfolio-chart__segment-value" data-weight="4%" data-budget="$47M">4%</span></div>
+                  <div class="ifs-portfolio-chart__segment ifs-portfolio-chart__segment--cat5 ifs-portfolio-chart__segment--dim" style="--_flex:11"><div class="ifs-portfolio-chart__segment-fill"></div><span class="ifs-portfolio-chart__segment-value" data-weight="11%" data-budget="$131M">11%</span></div>
+                </div>
+              </div>
+
+            </div>
+            <!-- legend -->
+            <div class="ifs-portfolio-chart__legend">
+              <div class="ifs-portfolio-chart__legend-item"><span class="ifs-portfolio-chart__legend-swatch ifs-portfolio-chart__legend-swatch--cat1"></span><span class="ifs-portfolio-chart__legend-label">Reliability</span></div>
+              <div class="ifs-portfolio-chart__legend-item"><span class="ifs-portfolio-chart__legend-swatch ifs-portfolio-chart__legend-swatch--cat2"></span><span class="ifs-portfolio-chart__legend-label">Financial</span></div>
+              <div class="ifs-portfolio-chart__legend-item"><span class="ifs-portfolio-chart__legend-swatch ifs-portfolio-chart__legend-swatch--cat3"></span><span class="ifs-portfolio-chart__legend-label">Environment</span></div>
+              <div class="ifs-portfolio-chart__legend-item"><span class="ifs-portfolio-chart__legend-swatch ifs-portfolio-chart__legend-swatch--cat4"></span><span class="ifs-portfolio-chart__legend-label">Social</span></div>
+              <div class="ifs-portfolio-chart__legend-item"><span class="ifs-portfolio-chart__legend-swatch ifs-portfolio-chart__legend-swatch--cat5"></span><span class="ifs-portfolio-chart__legend-label">Governance</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Skeleton ── -->
+      <h2>Skeleton</h2>
+      <p>Loading state. Row labels and segments are replaced with shimmer placeholders.</p>
+
+      <div class="demo">
+        <div class="ifs-portfolio-chart">
+          <div class="ifs-portfolio-chart__header">
+            <span class="ifs-portfolio-chart__title">Portfolio under this framework</span>
+            <div class="ifs-portfolio-chart__switcher">
+              <div class="ifs-portfolio-chart__switcher-track">
+                <button class="ifs-portfolio-chart__switch-btn ifs-portfolio-chart__switch-btn--active">By weight</button>
+                <button class="ifs-portfolio-chart__switch-btn">By budget</button>
+              </div>
+            </div>
+          </div>
+          <div class="ifs-portfolio-chart__body">
+            <div class="ifs-portfolio-chart__bar-container">
+              <!-- Row skeleton -->
+              <div class="ifs-portfolio-chart__row">
+                <div class="ifs-portfolio-chart__row-label"><span class="ifs-portfolio-chart__skeleton-label" style="width:100px"></span></div>
+                <div class="ifs-portfolio-chart__bars">
+                  <div class="ifs-portfolio-chart__segment ifs-portfolio-chart__segment--skeleton" style="--_flex:1"><div class="ifs-portfolio-chart__segment-fill"></div></div>
+                  <div class="ifs-portfolio-chart__segment ifs-portfolio-chart__segment--skeleton" style="--_flex:1"><div class="ifs-portfolio-chart__segment-fill"></div></div>
+                  <div class="ifs-portfolio-chart__segment ifs-portfolio-chart__segment--skeleton" style="--_flex:1"><div class="ifs-portfolio-chart__segment-fill"></div></div>
+                  <div class="ifs-portfolio-chart__segment ifs-portfolio-chart__segment--skeleton" style="--_flex:1"><div class="ifs-portfolio-chart__segment-fill"></div></div>
+                  <div class="ifs-portfolio-chart__segment ifs-portfolio-chart__segment--skeleton" style="--_flex:1"><div class="ifs-portfolio-chart__segment-fill"></div></div>
+                </div>
+              </div>
+              <div class="ifs-portfolio-chart__row">
+                <div class="ifs-portfolio-chart__row-label"><span class="ifs-portfolio-chart__skeleton-label" style="width:68px"></span></div>
+                <div class="ifs-portfolio-chart__bars">
+                  <div class="ifs-portfolio-chart__segment ifs-portfolio-chart__segment--skeleton" style="--_flex:1"><div class="ifs-portfolio-chart__segment-fill"></div></div>
+                  <div class="ifs-portfolio-chart__segment ifs-portfolio-chart__segment--skeleton" style="--_flex:1"><div class="ifs-portfolio-chart__segment-fill"></div></div>
+                  <div class="ifs-portfolio-chart__segment ifs-portfolio-chart__segment--skeleton" style="--_flex:1"><div class="ifs-portfolio-chart__segment-fill"></div></div>
+                  <div class="ifs-portfolio-chart__segment ifs-portfolio-chart__segment--skeleton" style="--_flex:1"><div class="ifs-portfolio-chart__segment-fill"></div></div>
+                  <div class="ifs-portfolio-chart__segment ifs-portfolio-chart__segment--skeleton" style="--_flex:1"><div class="ifs-portfolio-chart__segment-fill"></div></div>
+                </div>
+              </div>
+              <div class="ifs-portfolio-chart__row">
+                <div class="ifs-portfolio-chart__row-label"><span class="ifs-portfolio-chart__skeleton-label" style="width:84px"></span></div>
+                <div class="ifs-portfolio-chart__bars">
+                  <div class="ifs-portfolio-chart__segment ifs-portfolio-chart__segment--skeleton" style="--_flex:1"><div class="ifs-portfolio-chart__segment-fill"></div></div>
+                  <div class="ifs-portfolio-chart__segment ifs-portfolio-chart__segment--skeleton" style="--_flex:1"><div class="ifs-portfolio-chart__segment-fill"></div></div>
+                  <div class="ifs-portfolio-chart__segment ifs-portfolio-chart__segment--skeleton" style="--_flex:1"><div class="ifs-portfolio-chart__segment-fill"></div></div>
+                  <div class="ifs-portfolio-chart__segment ifs-portfolio-chart__segment--skeleton" style="--_flex:1"><div class="ifs-portfolio-chart__segment-fill"></div></div>
+                  <div class="ifs-portfolio-chart__segment ifs-portfolio-chart__segment--skeleton" style="--_flex:1"><div class="ifs-portfolio-chart__segment-fill"></div></div>
+                </div>
+              </div>
+            </div>
+            <div class="ifs-portfolio-chart__legend">
+              <div class="ifs-portfolio-chart__legend-item"><span class="ifs-portfolio-chart__skeleton-label" style="width:16px;height:16px;border-radius:3px"></span><span class="ifs-portfolio-chart__skeleton-label" style="width:60px"></span></div>
+              <div class="ifs-portfolio-chart__legend-item"><span class="ifs-portfolio-chart__skeleton-label" style="width:16px;height:16px;border-radius:3px"></span><span class="ifs-portfolio-chart__skeleton-label" style="width:52px"></span></div>
+              <div class="ifs-portfolio-chart__legend-item"><span class="ifs-portfolio-chart__skeleton-label" style="width:16px;height:16px;border-radius:3px"></span><span class="ifs-portfolio-chart__skeleton-label" style="width:74px"></span></div>
+              <div class="ifs-portfolio-chart__legend-item"><span class="ifs-portfolio-chart__skeleton-label" style="width:16px;height:16px;border-radius:3px"></span><span class="ifs-portfolio-chart__skeleton-label" style="width:44px"></span></div>
+              <div class="ifs-portfolio-chart__legend-item"><span class="ifs-portfolio-chart__skeleton-label" style="width:16px;height:16px;border-radius:3px"></span><span class="ifs-portfolio-chart__skeleton-label" style="width:68px"></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Empty ── -->
+      <h2>Empty — insufficient data</h2>
+      <p>When portfolio data isn't available, the chart body is replaced with an inline empty state. The title still renders without the switcher.</p>
+
+      <div class="demo">
+        <div class="ifs-portfolio-chart">
+          <div class="ifs-portfolio-chart__header">
+            <span class="ifs-portfolio-chart__title">Portfolio under this framework</span>
+          </div>
+          <div class="ifs-portfolio-chart__empty">
+            <span class="ifs-portfolio-chart__empty-title">Insufficient data</span>
+            <span class="ifs-portfolio-chart__empty-body">Not enough data to display portfolio information.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Specs ── -->
+      <h2>Specs</h2>
+      <p>Container: <code>surface/secondary-alpha</code> background, <code>border/base</code> border, <code>radius-100</code> (4px), padding 16px top / 20px right-bottom-left. Gap between header and body: 16px.</p>
+      <p>Row label: 140px fixed width, 12px Medium, <code>text/primary</code>. Segments: 32px tall, gap 2px, <code>border/base</code> border, <code>radius-100</code>. Label text inside segments: 12px 500-weight uppercase, centered, <code>text/primary</code> (bright rows) or <code>text/tertiary</code> (dim rows). Switcher track: <code>black-600</code> bg (rgba 0,0,0,0.6), 6px radius, 2px padding. Active tab: <code>surface/tertiary-alpha</code> bg, <code>border/base</code> border, 4px radius.</p>
+      <p>Color tokens — 5 new portfolio palette tokens added to <code>DS/tokens/palettes.css</code>: <code>--portfolio-cat-4-bright</code> (#2699A8), <code>--portfolio-cat-5-bright</code> (#38B5A8), and dim variants for all 5 categories.</p>
+
+    </div>
+  </main>
+</div>
+
+<script>
+function switchMode(chartId, mode) {
+  const chart = document.getElementById(chartId);
+  if (!chart) return;
+
+  // Update switcher buttons
+  chart.querySelectorAll('.ifs-portfolio-chart__switch-btn').forEach(btn => {
+    btn.classList.toggle('ifs-portfolio-chart__switch-btn--active', btn.dataset.mode === mode);
+  });
+
+  // Swap label values shown
+  chart.querySelectorAll('.ifs-portfolio-chart__segment-value').forEach(span => {
+    span.textContent = mode === 'by-budget' ? span.dataset.budget : span.dataset.weight;
+  });
+
+  // Swap row label for "You" vs "[Your company]"
+  const youLabel = chart.querySelector('.ifs-portfolio-chart__row--bright .ifs-portfolio-chart__row-label');
+  if (youLabel) youLabel.textContent = mode === 'by-budget' ? '[Your company]' : 'You';
+}
+</script>
+</body>
+</html>

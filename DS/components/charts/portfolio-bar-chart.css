@@ -1,0 +1,289 @@
+/* ================================================================
+   IFS Copperleaf — Portfolio Bar Chart
+   Shows portfolio distribution across 5 risk/value dimensions.
+   Dimensions: Reliability · Financial · Environment · Social · Governance
+   States: by-weight (%) · by-budget ($) · skeleton · empty
+
+   Usage:
+     <link rel="stylesheet" href="DS/components/charts/portfolio-bar-chart.css">
+     Apply markup from PortfolioBarChart.html.
+   ================================================================ */
+
+/* ── Category color aliases ──────────────────────────────────── */
+/* Maps semantic chart roles to palette tokens. Override per-component
+   if a different color sequence is needed.                        */
+.ifs-portfolio-chart {
+  --_cat1-bright: var(--portfolio-cat-1-bright); /* Reliability */
+  --_cat2-bright: var(--portfolio-cat-2-bright); /* Financial   */
+  --_cat3-bright: var(--portfolio-cat-3-bright); /* Environment */
+  --_cat4-bright: var(--portfolio-cat-4-bright); /* Social      */
+  --_cat5-bright: var(--portfolio-cat-5-bright); /* Governance  */
+  --_cat1-dim:    var(--portfolio-cat-1-dim);
+  --_cat2-dim:    var(--portfolio-cat-2-dim);
+  --_cat3-dim:    var(--portfolio-cat-3-dim);
+  --_cat4-dim:    var(--portfolio-cat-4-dim);
+  --_cat5-dim:    var(--portfolio-cat-5-dim);
+}
+
+/* ── Container ───────────────────────────────────────────────── */
+.ifs-portfolio-chart {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-400, 16px);
+  background: var(--surface-secondary-alpha);
+  border: 1px solid var(--border-base);
+  border-radius: var(--radius-100, 4px);
+  padding: 16px 20px 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* ── Header ──────────────────────────────────────────────────── */
+.ifs-portfolio-chart__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--gap-300, 12px);
+  min-height: 28px;
+}
+
+.ifs-portfolio-chart__title {
+  font-family: var(--label-l-font-family, "Inter", sans-serif);
+  font-size: var(--label-l-font-size, 14px);
+  font-weight: 600;
+  line-height: var(--label-l-line-height, 20px);
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  white-space: nowrap;
+}
+
+/* ── Switcher ────────────────────────────────────────────────── */
+.ifs-portfolio-chart__switcher {
+  display: flex;
+  align-items: center;
+  height: 28px;
+}
+
+.ifs-portfolio-chart__switcher-track {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding: 2px;
+  background: var(--black-600, rgba(0, 0, 0, 0.6));
+  border-radius: 6px;
+  gap: 0;
+}
+
+.ifs-portfolio-chart__switch-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 24px;
+  padding: 0 8px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background: transparent;
+  font-family: var(--headline-h4-font-family, "Inter", sans-serif);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: -0.1px;
+  color: var(--text-primary);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 120ms ease, border-color 120ms ease;
+}
+
+.ifs-portfolio-chart__switch-btn--active {
+  background: var(--surface-tertiary-alpha);
+  border-color: var(--border-base);
+}
+
+/* ── Body ────────────────────────────────────────────────────── */
+.ifs-portfolio-chart__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-400, 16px);
+  align-items: center;
+  width: 100%;
+}
+
+/* ── Bar rows ────────────────────────────────────────────────── */
+.ifs-portfolio-chart__bar-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.ifs-portfolio-chart__row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 0;
+  width: 100%;
+}
+
+.ifs-portfolio-chart__row-label {
+  flex-shrink: 0;
+  width: 140px;
+  font-family: var(--headline-h4-font-family, "Inter", sans-serif);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 14px;
+  letter-spacing: -0.1px;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ifs-portfolio-chart__bars {
+  display: flex;
+  flex: 1 0 0;
+  min-width: 1px;
+  gap: 2px;
+  align-items: center;
+}
+
+/* ── Bar segments ────────────────────────────────────────────── */
+.ifs-portfolio-chart__segment {
+  position: relative;
+  flex: var(--_flex, 1) 0 0;
+  min-width: 1px;
+  height: 32px;
+  border: 1px solid var(--border-base);
+  border-radius: var(--radius-100, 4px);
+  overflow: hidden;
+}
+
+.ifs-portfolio-chart__segment-fill {
+  position: absolute;
+  inset: -1px;
+}
+
+.ifs-portfolio-chart__segment-value {
+  position: absolute;
+  inset: 8px 8px 8px 7px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-family: var(--headline-h4-font-family, "Inter", sans-serif);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 14px;
+  letter-spacing: 0.1px;
+  text-transform: uppercase;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--text-primary);
+}
+
+/* ── Per-category colors ─────────────────────────────────────── */
+/* bright (You row) */
+.ifs-portfolio-chart__segment--cat1.ifs-portfolio-chart__segment--bright .ifs-portfolio-chart__segment-fill { background: var(--_cat1-bright); }
+.ifs-portfolio-chart__segment--cat2.ifs-portfolio-chart__segment--bright .ifs-portfolio-chart__segment-fill { background: var(--_cat2-bright); }
+.ifs-portfolio-chart__segment--cat3.ifs-portfolio-chart__segment--bright .ifs-portfolio-chart__segment-fill { background: var(--_cat3-bright); }
+.ifs-portfolio-chart__segment--cat4.ifs-portfolio-chart__segment--bright .ifs-portfolio-chart__segment-fill { background: var(--_cat4-bright); }
+.ifs-portfolio-chart__segment--cat5.ifs-portfolio-chart__segment--bright .ifs-portfolio-chart__segment-fill { background: var(--_cat5-bright); }
+
+/* dim (Peer avg, Best in class rows) */
+.ifs-portfolio-chart__segment--cat1.ifs-portfolio-chart__segment--dim .ifs-portfolio-chart__segment-fill { background: var(--_cat1-dim); }
+.ifs-portfolio-chart__segment--cat2.ifs-portfolio-chart__segment--dim .ifs-portfolio-chart__segment-fill { background: var(--_cat2-dim); }
+.ifs-portfolio-chart__segment--cat3.ifs-portfolio-chart__segment--dim .ifs-portfolio-chart__segment-fill { background: var(--_cat3-dim); }
+.ifs-portfolio-chart__segment--cat4.ifs-portfolio-chart__segment--dim .ifs-portfolio-chart__segment-fill { background: var(--_cat4-dim); }
+.ifs-portfolio-chart__segment--cat5.ifs-portfolio-chart__segment--dim .ifs-portfolio-chart__segment-fill { background: var(--_cat5-dim); }
+
+/* dim row text is tertiary instead of primary */
+.ifs-portfolio-chart__row--dim .ifs-portfolio-chart__segment-value {
+  color: var(--text-tertiary);
+}
+
+/* ── Skeleton state ──────────────────────────────────────────── */
+.ifs-portfolio-chart__segment--skeleton .ifs-portfolio-chart__segment-fill {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.10) 0%,
+    rgba(255, 255, 255, 0.04) 50%,
+    rgba(255, 255, 255, 0.10) 100%
+  );
+}
+
+.ifs-portfolio-chart__skeleton-label {
+  height: 14px;
+  border-radius: 3px;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.10) 0%,
+    rgba(255, 255, 255, 0.04) 50%,
+    rgba(255, 255, 255, 0.10) 100%
+  );
+}
+
+/* ── Empty state ─────────────────────────────────────────────── */
+.ifs-portfolio-chart__empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 160px;
+  width: 100%;
+}
+
+.ifs-portfolio-chart__empty-title {
+  font-family: var(--label-m-font-family, "Inter", sans-serif);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+  letter-spacing: -0.15px;
+  color: var(--text-primary);
+}
+
+.ifs-portfolio-chart__empty-body {
+  font-family: var(--body-m-font-family, "Inter", sans-serif);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: 0px;
+  color: var(--text-secondary);
+}
+
+/* ── Legend ──────────────────────────────────────────────────── */
+.ifs-portfolio-chart__legend {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+.ifs-portfolio-chart__legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0;
+}
+
+.ifs-portfolio-chart__legend-swatch {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+}
+
+.ifs-portfolio-chart__legend-swatch--cat1 { background: var(--_cat1-bright); }
+.ifs-portfolio-chart__legend-swatch--cat2 { background: var(--_cat2-bright); }
+.ifs-portfolio-chart__legend-swatch--cat3 { background: var(--_cat3-bright); }
+.ifs-portfolio-chart__legend-swatch--cat4 { background: var(--_cat4-bright); }
+.ifs-portfolio-chart__legend-swatch--cat5 { background: var(--_cat5-bright); }
+
+.ifs-portfolio-chart__legend-label {
+  font-family: var(--headline-h4-font-family, "Inter", sans-serif);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 14px;
+  letter-spacing: -0.1px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}

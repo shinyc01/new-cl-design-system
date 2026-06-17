@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quick Stat Card — IFS Copperleaf Design System</title>
+<link rel="stylesheet" href="../DS/styles.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.34.0/dist/tabler-icons.min.css">
+<link rel="stylesheet" href="site.css">
+<script src="site.js"></script>
+<script src="../DS/icons/icons.js"></script>
+<style>
+/* QuickStatCard component CSS — mirrors QuickStatCard.jsx */
+.ifs-quick-stat-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-200);
+  padding: var(--padding-300);
+  border-radius: var(--radius-100);
+  background: var(--surface-secondary-alpha);
+  border: var(--border-100) solid var(--border-base);
+  box-sizing: border-box;
+}
+.ifs-quick-stat-card__title {
+  font-family: var(--font-sans);
+  font-size: var(--h4-size);
+  line-height: var(--h4-line);
+  font-weight: var(--h4-weight);
+  letter-spacing: var(--h4-tracking);
+  color: var(--text-secondary);
+}
+.ifs-quick-stat-card__value-row {
+  display: flex;
+  align-items: baseline;
+  gap: var(--gap-150);
+}
+.ifs-quick-stat-card__value {
+  font-family: var(--font-sans);
+  font-size: var(--fs-20);
+  line-height: var(--lh-24);
+  font-weight: var(--weight-medium);
+  letter-spacing: -0.5px;
+  color: var(--text-primary);
+}
+.ifs-quick-stat-card__desc {
+  font-family: var(--font-sans);
+  font-size: var(--label-m-size);
+  line-height: var(--label-m-line);
+  font-weight: var(--label-m-weight);
+  letter-spacing: var(--label-m-tracking);
+  color: var(--text-tertiary);
+}
+</style>
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="main">
+    <div class="page">
+      <div class="page-eyebrow">Components</div>
+      <h1>Quick Stat Card</h1>
+      <p class="page-lede">Compact KPI tile for investment and asset detail overview screens. Shows a metric label, a large value, and an optional description line. Typically used in a 4-up grid.</p>
+
+      <!-- ── Default (title + value) ── -->
+      <h2>Default</h2>
+      <p>Title and value only — no description. Suitable when the metric is self-explanatory.</p>
+      <div class="demo" style="align-items:flex-start; gap:12px; flex-wrap:wrap; max-width:600px">
+        <div class="ifs-quick-stat-card" style="flex:1; min-width:120px">
+          <div class="ifs-quick-stat-card__title">Estimated cost</div>
+          <div class="ifs-quick-stat-card__value-row">
+            <span class="ifs-quick-stat-card__value">$4.2M</span>
+          </div>
+        </div>
+        <div class="ifs-quick-stat-card" style="flex:1; min-width:120px">
+          <div class="ifs-quick-stat-card__title">Value score</div>
+          <div class="ifs-quick-stat-card__value-row">
+            <span class="ifs-quick-stat-card__value">87</span>
+          </div>
+        </div>
+        <div class="ifs-quick-stat-card" style="flex:1; min-width:120px">
+          <div class="ifs-quick-stat-card__title">Risk score</div>
+          <div class="ifs-quick-stat-card__value-row">
+            <span class="ifs-quick-stat-card__value">4.2 / 5</span>
+          </div>
+        </div>
+        <div class="ifs-quick-stat-card" style="flex:1; min-width:120px">
+          <div class="ifs-quick-stat-card__title">BCR</div>
+          <div class="ifs-quick-stat-card__value-row">
+            <span class="ifs-quick-stat-card__value">2.3</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── With description ── -->
+      <h2>With description</h2>
+      <p>Optional <code>.ifs-quick-stat-card__desc</code> adds a subdued context line below the value — useful for units, basis, or comparison notes.</p>
+      <div class="demo" style="align-items:flex-start; gap:12px; flex-wrap:wrap; max-width:600px">
+        <div class="ifs-quick-stat-card" style="flex:1; min-width:120px">
+          <div class="ifs-quick-stat-card__title">Estimated cost</div>
+          <div class="ifs-quick-stat-card__value-row">
+            <span class="ifs-quick-stat-card__value">$4.2M</span>
+          </div>
+          <div class="ifs-quick-stat-card__desc">FY2025–2026 · CapEx</div>
+        </div>
+        <div class="ifs-quick-stat-card" style="flex:1; min-width:120px">
+          <div class="ifs-quick-stat-card__title">Value score</div>
+          <div class="ifs-quick-stat-card__value-row">
+            <span class="ifs-quick-stat-card__value">87</span>
+          </div>
+          <div class="ifs-quick-stat-card__desc">of 100 · +12 vs baseline</div>
+        </div>
+        <div class="ifs-quick-stat-card" style="flex:1; min-width:120px">
+          <div class="ifs-quick-stat-card__title">Risk score</div>
+          <div class="ifs-quick-stat-card__value-row">
+            <span class="ifs-quick-stat-card__value">4.2 / 5</span>
+          </div>
+          <div class="ifs-quick-stat-card__desc">High · 78% failure probability</div>
+        </div>
+        <div class="ifs-quick-stat-card" style="flex:1; min-width:120px">
+          <div class="ifs-quick-stat-card__title">BCR</div>
+          <div class="ifs-quick-stat-card__value-row">
+            <span class="ifs-quick-stat-card__value">2.3</span>
+          </div>
+          <div class="ifs-quick-stat-card__desc">25-year NPV basis</div>
+        </div>
+      </div>
+
+      <!-- ── Usage ── -->
+      <h2>Usage</h2>
+      <p>Import from <code>DS/components/core/QuickStatCard.jsx</code>. Props: <code>title</code> (string, required), <code>value</code> (string or number, required), <code>desc</code> (string, optional).</p>
+      <pre><code>&lt;QuickStatCard
+  title="Estimated cost"
+  value="$4.2M"
+  desc="FY2025–2026 · CapEx"
+/&gt;</code></pre>
+      <p>For HTML-only use, apply the classes directly:</p>
+      <pre><code>&lt;div class="ifs-quick-stat-card"&gt;
+  &lt;div class="ifs-quick-stat-card__title"&gt;Estimated cost&lt;/div&gt;
+  &lt;div class="ifs-quick-stat-card__value-row"&gt;
+    &lt;span class="ifs-quick-stat-card__value"&gt;$4.2M&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="ifs-quick-stat-card__desc"&gt;FY2025–2026 · CapEx&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+      <!-- ── Token notes ── -->
+      <h2>Token notes</h2>
+      <p>One value has no exact DS token: the value's <code>letter-spacing: -0.5px</code> (Figma spec). The nearest tokens are <code>--h1-tracking: -0.6px</code> and <code>--h3-tracking: -0.2px</code>. The raw value is used with an explicit comment in the source. If a <code>--fs-20-tracking</code> token is added to <code>typography.css</code>, update this component.</p>
+
+    </div>
+  </main>
+</div>
+</body>
+</html>

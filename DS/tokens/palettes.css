@@ -32,6 +32,21 @@
   --data-viz-bright-cyan:  #00B5CE;
   --data-viz-bright-pink:  #FF87ED;
 
+  /* ---- portfolio category colors (5-dimension risk/value framework)
+     Used in PortfolioBarChart: bright = "You" row, dim = peer/benchmark rows.
+     Reliability + Financial + Environment aliases point to existing tokens.
+     Social + Governance (bright/dim) are new Figma-spec values.            ---- */
+  --portfolio-cat-1-bright: var(--data-viz-primary-4);  /* Reliability — #5238A4 */
+  --portfolio-cat-2-bright: var(--data-viz-primary-5);  /* Financial   — #3556A0 */
+  --portfolio-cat-3-bright: var(--data-viz-bright-green); /* Environment — #0FB26E */
+  --portfolio-cat-4-bright: #2699A8;  /* Social      — bright teal   */
+  --portfolio-cat-5-bright: #38B5A8;  /* Governance  — bright cyan-teal */
+  --portfolio-cat-1-dim:    #312262;  /* Reliability — muted purple   */
+  --portfolio-cat-2-dim:    #203460;  /* Financial   — muted navy     */
+  --portfolio-cat-3-dim:    #096B42;  /* Environment — muted green    */
+  --portfolio-cat-4-dim:    #175C65;  /* Social      — muted teal     */
+  --portfolio-cat-5-dim:    #226D65;  /* Governance  — muted cyan-teal */
+
   /* ---- Asset Health ---- */
   --asset-health-critical: #EE3C3B;
   --asset-health-high:     #EF5533;
