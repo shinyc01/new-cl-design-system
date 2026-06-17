@@ -26,11 +26,16 @@
       { href: "buttons.html", icon: "square-rounded", label: "Buttons" },
       { href: "forms.html", icon: "forms", label: "Form fields" },
       { href: "search.html", icon: "search", label: "Search" },
+      { href: "board-card.html", icon: "layout-cards", label: "Board Card" },
       { href: "components.html", icon: "components", label: "Other elements" },
     ]},
     { head: "Patterns", items: [
       { href: "patterns/navigation.html", icon: "layout-navbar", label: "Navigation" },
+      { href: "patterns/sidebar.html",    icon: "layout-sidebar", label: "Sidebar" },
       { href: "patterns/cooper-chat.html", icon: "message-chatbot", label: "Cooper Chat" },
+      { href: "patterns/header.html", icon: "layout-top", label: "Library page header" },
+      { href: "patterns/entity-header.html", icon: "layout-rows", label: "Entity header" },
+      { href: "patterns/table.html",         icon: "table",          label: "Table" },
     ]},
   ];
 

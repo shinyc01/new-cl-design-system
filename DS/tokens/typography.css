@@ -11,7 +11,7 @@
   /* Families */
   --font-sans:    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-display: var(--font-sans);   /* font-family/display = Inter */
-  --font-mono:    "Roboto Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --font-mono:    "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 
   /* Weights */
   --weight-regular:  400;
@@ -43,7 +43,7 @@
   --display-size: 24px;  --display-line: 32px;  --display-weight: var(--weight-medium);  --display-tracking: -0.6px;
 
   /* Headlines (UI section + page titles) — all medium (500) */
-  --h1-size: 20px;  --h1-line: 24px;  --h1-weight: var(--weight-medium);  --h1-tracking: -0.5px;
+  --h1-size: 24px;  --h1-line: 32px;  --h1-weight: var(--weight-medium);  --h1-tracking: -0.6px;
   --h2-size: 16px;  --h2-line: 20px;  --h2-weight: var(--weight-medium);  --h2-tracking: -0.3px;
   --h3-size: 14px;  --h3-line: 16px;  --h3-weight: var(--weight-medium);  --h3-tracking: -0.2px;
   --h4-size: 12px;  --h4-line: 14px;  --h4-weight: var(--weight-medium);  --h4-tracking: -0.1px;

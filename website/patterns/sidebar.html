@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sidebar — IFS Copperleaf Design System</title>
+<link rel="stylesheet" href="../../DS/styles.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.34.0/dist/tabler-icons.min.css">
+<link rel="stylesheet" href="../site.css">
+<script src="../site.js"></script>
+<script src="../../DS/icons/icons.js"></script>
+<style>
+
+/* ── Sidebar component styles ────────────────────────────────────────────── */
+
+.ifs-sidebar {
+  display: flex;
+  flex-direction: column;
+  width: 240px;
+  background: var(--surface-primary);
+  border-right: 1px solid var(--border-base);
+  padding: var(--gap-300);
+  box-sizing: border-box;
+  overflow: hidden;
+  transition: width var(--motion-duration-slow) var(--motion-ease-standard);
+}
+.ifs-sidebar--collapsed {
+  width: 48px;
+}
+
+.ifs-sidebar__menu {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-100);
+  flex: 1 0 0;
+  min-height: 0;
+}
+
+.ifs-sidebar__title {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-100);
+  padding: var(--gap-100) var(--gap-200) 0;
+  flex-shrink: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+.ifs-sidebar--collapsed .ifs-sidebar__title {
+  padding: var(--gap-100) 0 0;
+}
+
+.ifs-sidebar__title-text {
+  flex: 1 0 0;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 16px;
+  letter-spacing: 0.2px;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  opacity: 1;
+  transition: opacity var(--motion-duration-fast) var(--motion-ease-standard);
+}
+.ifs-sidebar--collapsed .ifs-sidebar__title-text {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.ifs-sidebar__icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  padding: var(--gap-100);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--radius-100);
+  cursor: pointer;
+  color: var(--text-secondary);
+  transition:
+    background var(--motion-duration-fast) var(--motion-ease-standard),
+    color var(--motion-duration-fast) var(--motion-ease-standard);
+  box-sizing: border-box;
+}
+.ifs-sidebar__icon-btn:hover {
+  background: var(--background-elevation-1-secondary);
+  color: var(--text-primary);
+}
+.ifs-sidebar__icon-btn svg {
+  display: block;
+  width: 16px;
+  height: 16px;
+}
+
+.ifs-sidebar__items {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-200);
+  padding: 12px 0;
+  flex-shrink: 0;
+  width: 100%;
+  opacity: 1;
+  transition: opacity var(--motion-duration-fast) var(--motion-ease-standard);
+}
+.ifs-sidebar--collapsed .ifs-sidebar__items {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.ifs-sidebar__section {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.ifs-sidebar__section-heading {
+  display: flex;
+  align-items: flex-end;
+  padding: 12px var(--gap-200) var(--gap-100) var(--gap-200);
+  border-radius: var(--radius-150);
+  flex-shrink: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.ifs-sidebar__section-label {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 14px;
+  letter-spacing: 0.1px;
+  text-transform: uppercase;
+  color: var(--text-disabled);
+  white-space: nowrap;
+}
+
+.ifs-sidebar__children {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* Nav item */
+.ifs-sidebar__item {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  border-radius: var(--radius-100);
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  width: 100%;
+  padding: 0;
+  text-align: left;
+  flex-shrink: 0;
+  transition: background var(--motion-duration-fast) var(--motion-ease-standard);
+  position: relative;
+}
+.ifs-sidebar__item:hover {
+  background: var(--background-elevation-1-secondary);
+}
+.ifs-sidebar__item--selected {
+  background: var(--background-elevation-1-secondary);
+}
+.ifs-sidebar__item:focus-visible {
+  outline: 2px solid var(--focus-ring, var(--accent-brand));
+  outline-offset: -2px;
+}
+
+.ifs-sidebar__item-inner {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-100);
+  padding: var(--gap-200);
+  border-radius: var(--radius-150);
+  width: 100%;
+  box-sizing: border-box;
+}
+.ifs-sidebar__item--child .ifs-sidebar__item-inner {
+  gap: var(--gap-50);
+}
+
+.ifs-sidebar__item-label {
+  flex: 1 0 0;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 16px;
+  letter-spacing: -0.2px;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+.ifs-sidebar__item--child .ifs-sidebar__item-label {
+  color: var(--text-secondary);
+}
+.ifs-sidebar__item--child.ifs-sidebar__item--selected .ifs-sidebar__item-label,
+.ifs-sidebar__item--child:hover .ifs-sidebar__item-label {
+  color: var(--text-primary);
+}
+
+.ifs-sidebar__child-icon {
+  display: flex;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  overflow: hidden;
+  color: var(--text-secondary);
+}
+.ifs-sidebar__item--selected .ifs-sidebar__child-icon,
+.ifs-sidebar__item--child:hover .ifs-sidebar__child-icon {
+  color: var(--text-primary);
+}
+.ifs-sidebar__child-icon svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Pencil-plus edit button — child items, hover only */
+.ifs-sidebar__edit-btn {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  padding: var(--gap-100);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--radius-100);
+  cursor: pointer;
+  color: var(--text-secondary);
+  box-sizing: border-box;
+  transition:
+    background var(--motion-duration-fast) var(--motion-ease-standard),
+    color var(--motion-duration-fast) var(--motion-ease-standard);
+}
+.ifs-sidebar__item:hover .ifs-sidebar__edit-btn {
+  display: flex;
+}
+.ifs-sidebar__edit-btn:hover {
+  background: var(--background-elevation-1-tertiary);
+  color: var(--text-primary);
+}
+.ifs-sidebar__edit-btn svg {
+  display: block;
+  width: 16px;
+  height: 16px;
+}
+
+/* ── Page-local layout helpers ──────────────────────────────────────────── */
+
+.demo-dark {
+  background: var(--surface-primary);
+  border-radius: var(--radius-200);
+  border: 1px solid var(--border-base);
+  display: flex;
+  overflow: hidden;
+}
+
+.variant-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-600);
+}
+
+.variant-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-200);
+}
+
+.variant-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  letter-spacing: 0.1px;
+}
+
+.state-matrix {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap-400);
+  align-items: flex-start;
+}
+
+.state-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--gap-150);
+}
+
+.state-label {
+  font-size: 12px;
+  color: var(--text-tertiary);
+  letter-spacing: 0.15px;
+}
+
+/* Inline forced states for the state matrix */
+.is-hovered  { background: var(--background-elevation-1-secondary) !important; }
+.is-selected { background: var(--background-elevation-1-secondary) !important; }
+.is-hovered .ifs-sidebar__edit-btn   { display: flex !important; }
+.is-hovered .ifs-sidebar__item-label,
+.is-selected .ifs-sidebar__item-label { color: var(--text-primary) !important; }
+.is-hovered .ifs-sidebar__child-icon,
+.is-selected .ifs-sidebar__child-icon { color: var(--text-primary) !important; }
+</style>
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="main">
+    <div class="page">
+      <div class="page-eyebrow">Patterns</div>
+      <h1>Sidebar</h1>
+      <p class="page-lede">The Sidebar is a collapsible side navigation panel used inside product views. It groups navigation items into flat parent items and labelled sections with indented child items. A single icon button toggles between expanded (240 px) and collapsed (icon-only) states.</p>
+
+      <h2>Anatomy</h2>
+      <div class="demo" style="padding:0;overflow:hidden;">
+        <div class="demo-dark" style="border:none;border-radius:0;">
+          <nav class="ifs-sidebar" aria-label="Value" style="height:340px;" id="demo-sidebar">
+            <div class="ifs-sidebar__menu">
+              <div class="ifs-sidebar__title">
+                <span class="ifs-sidebar__title-text" id="demo-title">Value</span>
+                <button class="ifs-sidebar__icon-btn" id="demo-toggle" aria-label="Collapse sidebar" title="Collapse sidebar" onclick="toggleSidebar()">
+                  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <line x1="13" y1="2" x2="13" y2="14"/>
+                    <polyline points="7 4 3 8 7 12"/>
+                    <line x1="3" y1="8" x2="11" y2="8"/>
+                  </svg>
+                </button>
+              </div>
+              <div class="ifs-sidebar__items" id="demo-items">
+                <!-- Parent: selected -->
+                <button class="ifs-sidebar__item ifs-sidebar__item--parent ifs-sidebar__item--selected" onclick="selectItem(this)">
+                  <span class="ifs-sidebar__item-inner">
+                    <span class="ifs-sidebar__item-label">Active Framework</span>
+                  </span>
+                </button>
+                <!-- Section -->
+                <div class="ifs-sidebar__section">
+                  <div class="ifs-sidebar__section-heading">
+                    <span class="ifs-sidebar__section-label">Library</span>
+                  </div>
+                  <div class="ifs-sidebar__children">
+                    <button class="ifs-sidebar__item ifs-sidebar__item--child" onclick="selectItem(this)">
+                      <span class="ifs-sidebar__item-inner">
+                        <span class="ifs-sidebar__child-icon">
+                          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v5a3 3 0 0 0 3 3h7"/><polyline points="10 8 13 11 10 14"/></svg>
+                        </span>
+                        <span class="ifs-sidebar__item-label">Strategy Frameworks</span>
+                        <span class="ifs-sidebar__edit-btn" aria-label="Edit">
+                          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.5 2.5l3 3L5 14H2v-3L10.5 2.5z"/><line x1="8" y1="5" x2="11" y2="8"/><line x1="13" y1="1" x2="13" y2="5"/><line x1="11" y1="3" x2="15" y2="3"/></svg>
+                        </span>
+                      </span>
+                    </button>
+                    <button class="ifs-sidebar__item ifs-sidebar__item--child" onclick="selectItem(this)">
+                      <span class="ifs-sidebar__item-inner">
+                        <span class="ifs-sidebar__child-icon">
+                          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v5a3 3 0 0 0 3 3h7"/><polyline points="10 8 13 11 10 14"/></svg>
+                        </span>
+                        <span class="ifs-sidebar__item-label">Value Frameworks</span>
+                        <span class="ifs-sidebar__edit-btn" aria-label="Edit">
+                          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.5 2.5l3 3L5 14H2v-3L10.5 2.5z"/><line x1="8" y1="5" x2="11" y2="8"/><line x1="13" y1="1" x2="13" y2="5"/><line x1="11" y1="3" x2="15" y2="3"/></svg>
+                        </span>
+                      </span>
+                    </button>
+                    <button class="ifs-sidebar__item ifs-sidebar__item--child" onclick="selectItem(this)">
+                      <span class="ifs-sidebar__item-inner">
+                        <span class="ifs-sidebar__child-icon">
+                          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v5a3 3 0 0 0 3 3h7"/><polyline points="10 8 13 11 10 14"/></svg>
+                        </span>
+                        <span class="ifs-sidebar__item-label">Value Models</span>
+                        <span class="ifs-sidebar__edit-btn" aria-label="Edit">
+                          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.5 2.5l3 3L5 14H2v-3L10.5 2.5z"/><line x1="8" y1="5" x2="11" y2="8"/><line x1="13" y1="1" x2="13" y2="5"/><line x1="11" y1="3" x2="15" y2="3"/></svg>
+                        </span>
+                      </span>
+                    </button>
+                  </div>
+                </div>
+                <!-- Parent: default -->
+                <button class="ifs-sidebar__item ifs-sidebar__item--parent" onclick="selectItem(this)">
+                  <span class="ifs-sidebar__item-inner">
+                    <span class="ifs-sidebar__item-label">Human Performance</span>
+                  </span>
+                </button>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </div>
+
+      <h2>Expanded and collapsed</h2>
+      <p class="section-note">The collapse button lives in the title row. In expanded mode the panel is 240 px wide and shows all items. In collapsed mode the panel shrinks to the icon button only — use this to reclaim canvas space on dense layouts.</p>
+      <div class="state-matrix">
+        <div class="state-cell">
+          <span class="state-label">Expanded</span>
+          <div class="demo-dark" style="height:220px;">
+            <nav class="ifs-sidebar" aria-label="Value" style="height:220px;">
+              <div class="ifs-sidebar__menu">
+                <div class="ifs-sidebar__title">
+                  <span class="ifs-sidebar__title-text">Value</span>
+                  <button class="ifs-sidebar__icon-btn" aria-label="Collapse">
+                    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="13" y1="2" x2="13" y2="14"/><polyline points="7 4 3 8 7 12"/><line x1="3" y1="8" x2="11" y2="8"/></svg>
+                  </button>
+                </div>
+                <div class="ifs-sidebar__items">
+                  <button class="ifs-sidebar__item ifs-sidebar__item--parent ifs-sidebar__item--selected">
+                    <span class="ifs-sidebar__item-inner"><span class="ifs-sidebar__item-label">Active Framework</span></span>
+                  </button>
+                  <div class="ifs-sidebar__section">
+                    <div class="ifs-sidebar__section-heading"><span class="ifs-sidebar__section-label">Library</span></div>
+                    <div class="ifs-sidebar__children">
+                      <button class="ifs-sidebar__item ifs-sidebar__item--child">
+                        <span class="ifs-sidebar__item-inner">
+                          <span class="ifs-sidebar__child-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v5a3 3 0 0 0 3 3h7"/><polyline points="10 8 13 11 10 14"/></svg></span>
+                          <span class="ifs-sidebar__item-label">Strategy Frameworks</span>
+                        </span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </nav>
+          </div>
+        </div>
+        <div class="state-cell">
+          <span class="state-label">Collapsed</span>
+          <div class="demo-dark" style="height:220px;">
+            <nav class="ifs-sidebar ifs-sidebar--collapsed" aria-label="Value" style="height:220px;border-right:1px solid var(--border-base);">
+              <div class="ifs-sidebar__menu">
+                <div class="ifs-sidebar__title" style="padding-top:var(--gap-100);padding-left:0;padding-right:0;">
+                  <button class="ifs-sidebar__icon-btn" aria-label="Expand">
+                    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="2" x2="3" y2="14"/><polyline points="9 4 13 8 9 12"/><line x1="13" y1="8" x2="5" y2="8"/></svg>
+                  </button>
+                </div>
+              </div>
+            </nav>
+          </div>
+        </div>
+      </div>
+
+      <h2>Item states</h2>
+      <p class="section-note">Parent items and child items share the same state model. Hover and selected apply <code>--background-elevation-1-secondary</code> as a fill. Child items also reveal an edit (pencil-plus) icon on hover.</p>
+
+      <div class="state-matrix" style="gap:var(--gap-600);">
+        <!-- Parent items -->
+        <div class="state-cell">
+          <span class="state-label" style="margin-bottom:var(--gap-100)">Parent</span>
+          <div style="display:flex;flex-direction:column;gap:var(--gap-300);">
+            <div class="state-cell">
+              <span class="state-label">Default</span>
+              <div class="demo-dark" style="width:216px;">
+                <button class="ifs-sidebar__item ifs-sidebar__item--parent" style="width:216px;">
+                  <span class="ifs-sidebar__item-inner"><span class="ifs-sidebar__item-label">Overview</span></span>
+                </button>
+              </div>
+            </div>
+            <div class="state-cell">
+              <span class="state-label">Hover</span>
+              <div class="demo-dark" style="width:216px;">
+                <button class="ifs-sidebar__item ifs-sidebar__item--parent is-hovered" style="width:216px;">
+                  <span class="ifs-sidebar__item-inner"><span class="ifs-sidebar__item-label">Overview</span></span>
+                </button>
+              </div>
+            </div>
+            <div class="state-cell">
+              <span class="state-label">Selected</span>
+              <div class="demo-dark" style="width:216px;">
+                <button class="ifs-sidebar__item ifs-sidebar__item--parent is-selected" style="width:216px;">
+                  <span class="ifs-sidebar__item-inner"><span class="ifs-sidebar__item-label">Overview</span></span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Child items -->
+        <div class="state-cell">
+          <span class="state-label" style="margin-bottom:var(--gap-100)">Child</span>
+          <div style="display:flex;flex-direction:column;gap:var(--gap-300);">
+            <div class="state-cell">
+              <span class="state-label">Default</span>
+              <div class="demo-dark" style="width:216px;">
+                <button class="ifs-sidebar__item ifs-sidebar__item--child" style="width:216px;">
+                  <span class="ifs-sidebar__item-inner">
+                    <span class="ifs-sidebar__child-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v5a3 3 0 0 0 3 3h7"/><polyline points="10 8 13 11 10 14"/></svg></span>
+                    <span class="ifs-sidebar__item-label">Value Frameworks</span>
+                  </span>
+                </button>
+              </div>
+            </div>
+            <div class="state-cell">
+              <span class="state-label">Hover</span>
+              <div class="demo-dark" style="width:216px;">
+                <button class="ifs-sidebar__item ifs-sidebar__item--child is-hovered" style="width:216px;">
+                  <span class="ifs-sidebar__item-inner">
+                    <span class="ifs-sidebar__child-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v5a3 3 0 0 0 3 3h7"/><polyline points="10 8 13 11 10 14"/></svg></span>
+                    <span class="ifs-sidebar__item-label">Value Frameworks</span>
+                    <span class="ifs-sidebar__edit-btn" style="display:flex;" aria-label="Edit">
+                      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.5 2.5l3 3L5 14H2v-3L10.5 2.5z"/><line x1="8" y1="5" x2="11" y2="8"/><line x1="13" y1="1" x2="13" y2="5"/><line x1="11" y1="3" x2="15" y2="3"/></svg>
+                    </span>
+                  </span>
+                </button>
+              </div>
+            </div>
+            <div class="state-cell">
+              <span class="state-label">Selected</span>
+              <div class="demo-dark" style="width:216px;">
+                <button class="ifs-sidebar__item ifs-sidebar__item--child is-selected" style="width:216px;">
+                  <span class="ifs-sidebar__item-inner">
+                    <span class="ifs-sidebar__child-icon" style="color:var(--text-primary)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v5a3 3 0 0 0 3 3h7"/><polyline points="10 8 13 11 10 14"/></svg></span>
+                    <span class="ifs-sidebar__item-label" style="color:var(--text-primary)">Value Frameworks</span>
+                  </span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h2>Tokens</h2>
+      <div id="t-sidebar"></div>
+
+      <h2>Usage</h2>
+      <p>The Sidebar sits to the left of the main content area. It uses <code>--surface-primary</code> as its background (same as the application shell) and a 1 px <code>--border-base</code> right edge to separate it from the canvas.</p>
+      <p>Navigation items are 40 px tall with 8 px padding on all sides. Hover and selected states share the same fill — <code>--background-elevation-1-secondary</code> (white/10%) — providing a clear but low-contrast highlight against the dark surface.</p>
+      <p>Section headings use the <code>--text-disabled</code> colour and <code>Heading/H4/UPPERCASE</code> type style to act as quiet structural labels that don't compete with navigable items. Child items are indented via a 16 px <code>corner-down-right</code> icon and set to <code>--text-secondary</code> by default, upgrading to <code>--text-primary</code> on hover and when selected.</p>
+      <p>The edit (pencil-plus) button is only revealed when a child item is hovered — it should trigger an inline rename or settings action for that item. It must not appear in the default or selected states.</p>
+
+      <div class="callout">Figma source: <strong>IFS Design System</strong> → Navigation controls / Sidebar (node <code>2676-48538</code>). Item component: <code>1544-2682</code>. Shell component: <code>1440-4344</code>.</div>
+    </div>
+  </main>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  document.body.insertAdjacentHTML("afterbegin", window.IFSIconSprite);
+
+  tokenTable("t-sidebar", [
+    ["--surface-primary",                  "Sidebar background"],
+    ["--border-base",                      "Right-edge separator"],
+    ["--background-elevation-1-secondary", "Hover and selected item fill"],
+    ["--text-primary",                     "Parent item label / selected child label"],
+    ["--text-secondary",                   "Title label / default child label"],
+    ["--text-disabled",                    "Section heading label"],
+    ["--radius-100",                       "Item border-radius (4 px)"],
+    ["--gap-300",                          "Panel padding (12 px)"],
+    ["--motion-duration-fast",             "Hover / press transition"],
+  ], { notes: true });
+});
+
+/* ── Interactive collapse demo ─────────────────────────────────────────── */
+let collapsed = false;
+
+const ICON_COLLAPSE = `<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="13" y1="2" x2="13" y2="14"/><polyline points="7 4 3 8 7 12"/><line x1="3" y1="8" x2="11" y2="8"/></svg>`;
+const ICON_EXPAND   = `<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="2" x2="3" y2="14"/><polyline points="9 4 13 8 9 12"/><line x1="13" y1="8" x2="5" y2="8"/></svg>`;
+
+function toggleSidebar() {
+  collapsed = !collapsed;
+  const sidebar = document.getElementById("demo-sidebar");
+  const btn     = document.getElementById("demo-toggle");
+
+  sidebar.classList.toggle("ifs-sidebar--collapsed", collapsed);
+  btn.setAttribute("aria-label", collapsed ? "Expand sidebar" : "Collapse sidebar");
+  btn.title = collapsed ? "Expand sidebar" : "Collapse sidebar";
+  btn.innerHTML = collapsed ? ICON_EXPAND : ICON_COLLAPSE;
+}
+
+function selectItem(btn) {
+  const sidebar = document.getElementById("demo-sidebar");
+  sidebar.querySelectorAll(".ifs-sidebar__item").forEach(el => el.classList.remove("ifs-sidebar__item--selected"));
+  btn.classList.add("ifs-sidebar__item--selected");
+}
+</script>
+</body>
+</html>

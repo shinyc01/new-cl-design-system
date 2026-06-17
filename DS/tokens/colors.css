@@ -117,6 +117,7 @@
   /* ---- white/* alpha scale (on dark) ---- */
   --white-0:    rgba(255,255,255,0);
   --white-50:   rgba(255,255,255,0.05);
+  --white-80:   rgba(255,255,255,0.08);
   --white-100:  rgba(255,255,255,0.10);
   --white-150:  rgba(255,255,255,0.15);
   --white-200:  rgba(255,255,255,0.20);
@@ -133,8 +134,10 @@
 
   /* ---- black/* alpha scale (on light) ---- */
   --black-0:    rgba(0,0,0,0);
+  --black-40:   rgba(0,0,0,0.04);
   --black-50:   rgba(0,0,0,0.05);
   --black-100:  rgba(0,0,0,0.10);
+  --black-120:  rgba(0,0,0,0.12);
   --black-150:  rgba(0,0,0,0.15);
   --black-200:  rgba(0,0,0,0.20);
   --black-300:  rgba(0,0,0,0.30);
@@ -177,45 +180,91 @@
   --muted-purple-950: #0F0A1E;
 
   /* ---- neutral/teal ---- */
-  --teal-50:  #EAF6F6;
-  --teal-100: #D2ECEB;
-  --teal-150: #BADBDA;
-  --teal-200: #86B9BA;
-  --teal-300: #5FA7A7;
-  --teal-400: #4A8C8F;
-  --teal-500: #438587;   /* 500-base */
-  --teal-600: #2F6B6F;
-  --teal-700: #175C65;
-  --teal-800: #1D535B;
-  --teal-850: #1B3E43;
-  --teal-900: #0F2A2E;
-  --teal-950: #06181B;
+  --teal-50:  #EBF5F5;
+  --teal-100: #D2E7E7;
+  --teal-150: #B7D7D7;
+  --teal-200: #94C2C2;
+  --teal-300: #6FA9A9;
+  --teal-400: #539191;
+  --teal-500: #427D7D;   /* 500-base */
+  --teal-600: #376868;
+  --teal-700: #2D5555;
+  --teal-800: #244444;
+  --teal-850: #1E3A3A;
+  --teal-900: #162C2C;
+  --teal-950: #0F1D1D;
 
-  /* ---- neutral/steel-blue (same ramp as teal per spec — pending differentiation) ---- */
-  --steel-blue-50:  #EAF6F6;
-  --steel-blue-100: #D2ECEB;
-  --steel-blue-150: #BADBDA;
-  --steel-blue-200: #86B9BA;
-  --steel-blue-300: #5FA7A7;
-  --steel-blue-400: #4A8C8F;
-  --steel-blue-500: #438587;   /* 500-base */
-  --steel-blue-600: #2F6B6F;
-  --steel-blue-700: #175C65;
-  --steel-blue-800: #1D535B;
-  --steel-blue-850: #1B3E43;
-  --steel-blue-900: #0F2A2E;
-  --steel-blue-950: #06181B;
+  /* ---- neutral/steel-blue ---- */
+  --steel-blue-50:  #EEF1F6;
+  --steel-blue-100: #D6DCE8;
+  --steel-blue-150: #BCC6DA;
+  --steel-blue-200: #9CAAC9;
+  --steel-blue-300: #7A88B1;
+  --steel-blue-400: #5A6997;
+  --steel-blue-500: #35466A;   /* 500-base */
+  --steel-blue-600: #2D3C5C;
+  --steel-blue-700: #25324D;
+  --steel-blue-800: #1E2940;
+  --steel-blue-850: #192236;
+  --steel-blue-900: #131A29;
+  --steel-blue-950: #0C111B;
 
-  /* ---- expressive palettes (500-base values pending finalisation;
-     all steps below use placeholder values from spec sheet) ---- */
-  --fuchsia-500:      #8366F7;   /* PLACEHOLDER */
-  --violet-200:       #CDC2FC;   /* PLACEHOLDER */
-  --violet-300:       #B5A3FA;   /* PLACEHOLDER */
-  --violet-500:       #8366F7;   /* PLACEHOLDER */
-  --electric-blue-500: #8366F7;  /* PLACEHOLDER */
-  --lime-500:         #8366F7;   /* PLACEHOLDER */
-  --coral-orange-300: #B5A3FA;   /* PLACEHOLDER */
-  --coral-orange-500: #8366F7;   /* PLACEHOLDER */
+  /* ---- neutral/deep-green ---- */
+  --deep-green-50:  #EAF5EF;
+  --deep-green-100: #CFE8DA;
+  --deep-green-150: #B2D8C3;
+  --deep-green-200: #8FC3A8;
+  --deep-green-300: #68AB89;
+  --deep-green-400: #4A936F;
+  --deep-green-500: #28875F;   /* 500-base */
+  --deep-green-600: #237A52;
+  --deep-green-700: #1E6344;
+  --deep-green-800: #184E36;
+  --deep-green-850: #14422E;
+  --deep-green-900: #103525;
+  --deep-green-950: #0A2319;
+
+  /* ---- expressive palettes (all PLACEHOLDER — do not use in production
+     until Figma variables are finalised; light half from spec sheet) ---- */
+  --fuchsia-50:  #FDEAF7;  /* PLACEHOLDER */
+  --fuchsia-100: #FBCFF0;  /* PLACEHOLDER */
+  --fuchsia-150: #F8B3E7;  /* PLACEHOLDER */
+  --fuchsia-200: #F58ADB;  /* PLACEHOLDER */
+  --fuchsia-300: #F65CCB;  /* PLACEHOLDER */
+  --fuchsia-400: #F63DBF;  /* PLACEHOLDER */
+  --fuchsia-500: #F531B3;  /* PLACEHOLDER */
+
+  --violet-50:  #F5E9FF;   /* PLACEHOLDER */
+  --violet-100: #E6CCFF;   /* PLACEHOLDER */
+  --violet-150: #D7AFFF;   /* PLACEHOLDER */
+  --violet-200: #C992FF;   /* PLACEHOLDER */
+  --violet-300: #B46DFF;   /* PLACEHOLDER */
+  --violet-400: #A14BFF;   /* PLACEHOLDER */
+  --violet-500: #9C18FB;   /* PLACEHOLDER */
+
+  --electric-blue-50:  #EBF0FF;  /* PLACEHOLDER */
+  --electric-blue-100: #D6E0FF;  /* PLACEHOLDER */
+  --electric-blue-150: #C2D1FF;  /* PLACEHOLDER */
+  --electric-blue-200: #A8BDFF;  /* PLACEHOLDER */
+  --electric-blue-300: #7F9CFF;  /* PLACEHOLDER */
+  --electric-blue-400: #557AFF;  /* PLACEHOLDER */
+  --electric-blue-500: #3056EE;  /* PLACEHOLDER */
+
+  --lime-50:  #F3FBE3;  /* PLACEHOLDER */
+  --lime-100: #E6F7C6;  /* PLACEHOLDER */
+  --lime-150: #D9F2A6;  /* PLACEHOLDER */
+  --lime-200: #CBEF82;  /* PLACEHOLDER */
+  --lime-300: #B7E85A;  /* PLACEHOLDER */
+  --lime-400: #AEE345;  /* PLACEHOLDER */
+  --lime-500: #A9D10A;  /* PLACEHOLDER */
+
+  --coral-orange-50:  #FEF0EC;  /* PLACEHOLDER */
+  --coral-orange-100: #FCDDD6;  /* PLACEHOLDER */
+  --coral-orange-150: #FAC7BC;  /* PLACEHOLDER */
+  --coral-orange-200: #F7AE9E;  /* PLACEHOLDER */
+  --coral-orange-300: #F48E76;  /* PLACEHOLDER */
+  --coral-orange-400: #F16B4F;  /* PLACEHOLDER */
+  --coral-orange-500: #EF5533;  /* PLACEHOLDER */
 
   /* ============================================================
      Legacy aliases (deprecated — kept so existing components keep

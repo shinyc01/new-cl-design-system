@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Value Framework — IFS Copperleaf</title>
+<link rel="stylesheet" href="https://shinyc01.github.io/new-cl-design-system/DS/styles.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.34.0/dist/tabler-icons.min.css">
+<style>
+  html, body { height: 100%; margin: 0; background: var(--surface-0); font-family: var(--font-sans); overflow: hidden; }
+  #root { position: absolute; inset: 0; display: flex; flex-direction: column; }
+
+  /* ── Cooper FAB ── */
+  .cooper-fab {
+    position: relative; width: 32px; height: 32px;
+    padding: 0; border: none; background: none; cursor: pointer;
+    overflow: visible; flex-shrink: 0;
+  }
+  .cooper-fab:disabled { cursor: not-allowed; }
+  .cooper-fab:focus-visible { outline: none; }
+  .cooper-fab svg {
+    display: block;
+    filter: drop-shadow(0 0 8px rgba(155,93,229,0.30)) drop-shadow(0 0 20px rgba(200,121,65,0.15));
+    transition: filter 400ms, transform 300ms;
+  }
+  .cooper-fab:hover:not(:disabled) svg {
+    transform: scale(1.04);
+    animation: cooper-fab-aurora 3.6s ease-in-out infinite;
+  }
+  .cooper-fab:active:not(:disabled) svg { transform: scale(0.97); animation: none; }
+  .cooper-fab:disabled svg { filter: none; opacity: 0.4; }
+  @keyframes cooper-fab-aurora {
+    0%   { filter: drop-shadow(0 0 10px rgba(155,93,229,0.55)) drop-shadow(0 0 28px rgba(155,93,229,0.25)); }
+    22%  { filter: drop-shadow(0 0 14px rgba(251,196,230,0.65)) drop-shadow(0 0 34px rgba(200,121,65,0.35)); }
+    50%  { filter: drop-shadow(0 0 18px rgba(237,140,83,0.60)) drop-shadow(0 0 40px rgba(251,196,230,0.30)); }
+    78%  { filter: drop-shadow(0 0 14px rgba(90,18,191,0.60)) drop-shadow(0 0 34px rgba(155,93,229,0.32)); }
+    100% { filter: drop-shadow(0 0 10px rgba(155,93,229,0.55)) drop-shadow(0 0 28px rgba(155,93,229,0.25)); }
+  }
+  .cooper-fab .fab-tip {
+    position: absolute; bottom: calc(100% + 4px); left: 50%;
+    display: flex; flex-direction: column; align-items: flex-end;
+    filter: drop-shadow(0 4px 4px rgba(0,0,0,0.25));
+    opacity: 0; visibility: hidden; transform: translateX(-50%) translateY(2px);
+    transition: opacity 120ms ease-out, transform 120ms ease-out, visibility 0s linear 120ms;
+    pointer-events: none;
+  }
+  .cooper-fab:hover:not(:disabled) .fab-tip {
+    opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); transition-delay: 0s;
+  }
+  .cooper-fab .fab-tip .tip-body {
+    display: flex; gap: var(--space-2);
+    background: var(--white);
+    backdrop-filter: blur(var(--blur-medium));
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius-xs);
+    font-family: var(--font-sans);
+    font-size: var(--body-m-size); line-height: 1.5; font-weight: var(--weight-medium); letter-spacing: -0.15px;
+    color: var(--text-inverse); white-space: nowrap;
+  }
+  .cooper-fab .fab-tip .tip-arrow {
+    width: 0; height: 0; margin-right: 10px;
+    border-left: 4px solid transparent; border-right: 4px solid transparent;
+    border-top: 5px solid var(--white);
+  }
+
+  /* ── Layout ── */
+  .app-shell { display: flex; flex-direction: column; height: 100%; }
+  .global-header {
+    height: 48px; min-height: 48px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 var(--space-6);
+    background: var(--black-850);
+    backdrop-filter: blur(var(--blur-light));
+    border-bottom: 1px solid var(--border-subtle);
+    z-index: 100;
+  }
+  .body-row { display: flex; flex: 1; overflow: hidden; }
+  .sidebar {
+    width: 240px; min-width: 240px; flex-shrink: 0;
+    background: var(--surface-0);
+    border-right: 1px solid var(--border-subtle);
+    display: flex; flex-direction: column;
+    padding: var(--space-6);
+    overflow-y: auto;
+  }
+  .main-content {
+    flex: 1; display: flex; flex-direction: column;
+    overflow: hidden;
+    background: var(--surface-0);
+  }
+  .content-inner {
+    flex: 1; overflow-y: auto;
+    padding: var(--space-6);
+    display: flex; flex-direction: column; gap: var(--space-10);
+  }
+  .evidence-strip {
+    height: 40px; min-height: 40px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: flex-end;
+    padding: 0 var(--space-6); gap: var(--space-4);
+    background: var(--black-850);
+    backdrop-filter: blur(var(--blur-light));
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  /* ── Nav items ── */
+  .nav-item {
+    display: flex; align-items: center;
+    padding: var(--space-3) var(--space-5);
+    border-radius: var(--radius-sm);
+    font-size: var(--label-l-size); font-weight: var(--label-l-weight); line-height: var(--label-l-line); letter-spacing: -0.15px;
+    color: var(--text-primary); cursor: pointer; white-space: nowrap;
+    background: transparent; border: none;
+    transition: background var(--duration-fast) var(--ease-standard);
+  }
+  .nav-item:hover { background: var(--surface-3); }
+  .nav-item.active { background: var(--white-100); }
+
+  /* ── Sidebar tree ── */
+  .sidebar-section-label {
+    font-size: var(--label-m-size); font-weight: var(--label-m-weight); letter-spacing: 0.2px; text-transform: uppercase;
+    color: var(--text-tertiary); padding: var(--space-2) var(--space-4); margin-bottom: var(--space-2);
+  }
+  .sidebar-section-divider-label {
+    font-size: var(--label-m-size); font-weight: var(--label-m-weight); letter-spacing: 0.1px; text-transform: uppercase;
+    color: var(--text-disabled); padding: var(--space-6) var(--space-4) var(--space-2);
+  }
+  .tree-item {
+    display: flex; align-items: center; gap: var(--space-2);
+    height: 40px; padding: var(--space-4);
+    border-radius: var(--radius-sm); cursor: pointer;
+    font-size: var(--label-l-size); font-weight: var(--label-l-weight); line-height: var(--h3-line); letter-spacing: -0.2px;
+    color: var(--text-secondary);
+    transition: background var(--duration-fast) var(--ease-standard);
+  }
+  .tree-item:hover { background: var(--surface-2); }
+  .tree-item.active { background: var(--surface-3); color: var(--text-primary); }
+
+  /* ── Table ── */
+  .table-wrap {
+    background: var(--white-50);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+  }
+  .table-header-row {
+    display: flex; align-items: center;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .th {
+    display: flex; align-items: center; gap: var(--space-4);
+    padding: var(--space-4) var(--space-6);
+    font-size: var(--label-m-size); font-weight: var(--label-m-weight); letter-spacing: 0.1px; text-transform: uppercase;
+    color: var(--text-tertiary); white-space: nowrap; height: 32px;
+  }
+  .th.flex1 { flex: 1; min-width: 0; }
+  .th.w180 { width: 180px; flex-shrink: 0; }
+  .th.w48 { width: 48px; flex-shrink: 0; }
+  .th i { color: var(--text-disabled); font-size: var(--fs-14); }
+  .table-row {
+    display: flex; align-items: center; height: 48px;
+    border-bottom: 1px solid var(--border-subtle);
+    transition: background var(--duration-fast) var(--ease-standard); cursor: pointer;
+  }
+  .table-row:last-child { border-bottom: none; }
+  .table-row:hover { background: var(--surface-2); }
+  .td {
+    display: flex; align-items: center; gap: var(--space-2);
+    padding: var(--space-6);
+    font-size: var(--label-m-size); font-weight: var(--label-m-weight); line-height: var(--label-m-line); letter-spacing: -0.1px;
+    color: var(--text-primary); overflow: hidden;
+  }
+  .td.flex1 { flex: 1; min-width: 0; }
+  .td.w180 { width: 180px; flex-shrink: 0; }
+  .td.w48 { width: 48px; flex-shrink: 0; }
+  .td-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+  /* ── Suggestion chips ── */
+  .suggestion-chip {
+    display: flex; align-items: center;
+    padding: var(--space-4) var(--space-6);
+    background: var(--surface-3);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-pill);
+    font-size: var(--label-m-size); font-weight: var(--label-m-weight); color: var(--text-primary);
+    cursor: pointer; white-space: nowrap;
+    box-shadow: var(--shadow-sm);
+    backdrop-filter: blur(var(--blur-strong));
+    transition: background 120ms;
+  }
+  .suggestion-chip:hover { opacity: 0.85; }
+
+
+  /* ── Page top ── */
+  .page-top { display: flex; flex-direction: column; gap: var(--space-10); }
+  .title-row { display: flex; align-items: flex-end; justify-content: space-between; }
+  .page-title { font-size: var(--h1-size); font-weight: var(--h1-weight); line-height: var(--h1-line); letter-spacing: var(--h1-tracking); color: var(--text-primary); }
+  .page-subtitle { font-size: var(--body-m-size); font-weight: var(--body-m-weight); color: var(--text-secondary); margin-top: var(--space-4); }
+  .tabs-search-row { display: flex; align-items: center; justify-content: space-between; }
+
+  /* ── Icon button (header) ── */
+  .icon-btn {
+    width: 24px; height: 24px; display: flex; align-items: center; justify-content: center;
+    border-radius: var(--radius-sm); border: none; background: transparent; cursor: pointer;
+    color: var(--text-secondary); transition: background 120ms;
+  }
+  .icon-btn:hover { background: var(--surface-3); }
+
+  /* Avatar in header */
+  .header-avatar {
+    width: 32px; height: 32px; border-radius: var(--radius-pill);
+    background: var(--surface-3);
+    display: flex; align-items: center; justify-content: center;
+    font-size: var(--fs-12); font-weight: var(--weight-semibold); color: var(--text-primary);
+    letter-spacing: 0.2px; text-transform: uppercase;
+    border: var(--border-width-1) solid var(--white-300);
+    cursor: pointer; flex-shrink: 0;
+  }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin></script>
+<script src="https://shinyc01.github.io/new-cl-design-system/DS/_ds_bundle.js"></script>
+<script type="text/babel" data-presets="react">
+const { Button, Badge, Tabs, SmartSearch } = window.IFSDesignSystem_6f71e3;
+
+const ROWS = [
+  { name: "Value Framework v12",   status: "Active",           date: "Jan 15, 2026", models: 14, measures: 52, extra: null },
+  { name: "Value Framework v13",   status: "Pending approval", date: "Jan 10, 2026", models: 12, measures: 47, extra: "5/8" },
+  { name: "Cost Optimization 2026",status: "Draft",            date: "Dec 18, 2025", models: 12, measures: 42, extra: "Input" },
+  { name: "Value Framework v4",    status: "Draft",            date: "Dec 5, 2025",  models: 13, measures: 49, extra: "Shape" },
+  { name: "Decarbonization 2026",  status: "Draft",            date: "Nov 22, 2025", models: 15, measures: 40, extra: "Review" },
+  { name: "Reliability 2025",      status: "Archived",         date: "Oct 2, 2025",  models: 11, measures: 39, extra: null },
+  { name: "Compliance 2025",       status: "Archived",         date: "Apr 18, 2025", models: 5,  measures: 18, extra: null },
+  { name: "Value Framework v8",    status: "Archived",         date: "Nov 10, 2024", models: 2,  measures: 8,  extra: null },
+];
+
+const STATUS_TONE = {
+  "Active":           { tone: "success",  dot: true,    variant: "soft" },
+  "Pending approval": { tone: "warning",  dot: true,    variant: "soft" },
+  "Draft":            { tone: "neutral",  dot: false,   variant: "soft" },
+  "Archived":         { tone: "neutral",  dot: false,   variant: "outline" },
+};
+
+function StatusCell({ status, extra }) {
+  const cfg = STATUS_TONE[status] || { tone: "neutral", dot: false, variant: "soft" };
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
+      <Badge tone={cfg.tone} dot={cfg.dot} variant={cfg.variant}>{status}</Badge>
+      {extra && <Badge tone="neutral" variant="soft">{extra}</Badge>}
+    </div>
+  );
+}
+
+function CooperFab() {
+  return (
+    <button className="cooper-fab" aria-label="Ask Cooper">
+      <svg width="32" height="32" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="48" height="48" rx="24" fill="black" fillOpacity="0.1"/>
+        <rect width="48" height="48" rx="24" fill="url(#fab_p0)" fillOpacity="0.2"/>
+        <rect x="0.5" y="0.5" width="47" height="47" rx="23.5" stroke="white" strokeOpacity="0.2"/>
+        <g filter="url(#fab_f1)">
+          <circle cx="24" cy="24" r="16" fill="url(#fab_p1)"/>
+          <g filter="url(#fab_f2)"><circle cx="15.8876" cy="24.1122" r="5.29577" fill="url(#fab_p2)"/></g>
+          <g filter="url(#fab_f3)">
+            <ellipse cx="27.5918" cy="23.3469" rx="8.48979" ry="8.16327" fill="#ED8C53"/>
+            <ellipse cx="27.5918" cy="23.3469" rx="8.48979" ry="8.16327" fill="url(#fab_p3)" fillOpacity="0.2"/>
+          </g>
+          <g filter="url(#fab_f4)">
+            <path d="M19.1548 20.3935C16.6613 23.7021 12.5445 25.877 10.7041 25.1821C12.4506 32.168 16.9539 28.5858 19.6055 28.0555C22.9858 27.3795 24.3379 20.1118 30.4224 20.1118C36.5069 20.1118 34.9295 31.2104 36.5633 28.0555C37.8703 25.5315 37.1079 21.7081 36.5633 20.1118C35.9623 18.4968 35.3013 14.309 30.7041 14.0836C24.9576 13.8019 22.0844 16.5063 19.1548 20.3935Z" fill="url(#fab_p4)"/>
+            <path d="M19.1548 20.3935C16.6613 23.7021 12.5445 25.877 10.7041 25.1821C12.4506 32.168 16.9539 28.5858 19.6055 28.0555C22.9858 27.3795 24.3379 20.1118 30.4224 20.1118C36.5069 20.1118 34.9295 31.2104 36.5633 28.0555C37.8703 25.5315 37.1079 21.7081 36.5633 20.1118C35.9623 18.4968 35.3013 14.309 30.7041 14.0836C24.9576 13.8019 22.0844 16.5063 19.1548 20.3935Z" fill="url(#fab_p5)"/>
+            <path d="M19.1548 20.3935C16.6613 23.7021 12.5445 25.877 10.7041 25.1821C12.4506 32.168 16.9539 28.5858 19.6055 28.0555C22.9858 27.3795 24.3379 20.1118 30.4224 20.1118C36.5069 20.1118 34.9295 31.2104 36.5633 28.0555C37.8703 25.5315 37.1079 21.7081 36.5633 20.1118C35.9623 18.4968 35.3013 14.309 30.7041 14.0836C24.9576 13.8019 22.0844 16.5063 19.1548 20.3935Z" fill="url(#fab_p6)"/>
+          </g>
+          <circle cx="24" cy="24" r="16" fill="url(#fab_p7)"/>
+          <circle cx="24" cy="24" r="16" fill="url(#fab_p8)"/>
+          <circle cx="24" cy="24" r="16" fill="url(#fab_p9)"/>
+          <circle cx="24" cy="24" r="16" fill="url(#fab_p10)"/>
+          <circle cx="24" cy="24" r="16" fill="url(#fab_p11)"/>
+        </g>
+        <ellipse cx="17.3333" cy="17.8333" rx="1.33334" ry="1.33329" fill="white"/>
+        <ellipse cx="21.3333" cy="21.8343" rx="1.33334" ry="1.33329" fill="white"/>
+        <ellipse cx="21.3333" cy="27.1673" rx="1.33334" ry="1.33329" fill="white"/>
+        <ellipse cx="30.6667" cy="22.4997" rx="0.666669" ry="0.666647" fill="white" fillOpacity="0.5"/>
+        <ellipse cx="17.3333" cy="31.1663" rx="1.33334" ry="1.33329" fill="white"/>
+        <ellipse cx="17.3332" cy="26.5006" rx="0.666669" ry="0.666647" fill="white" fillOpacity="0.5"/>
+        <ellipse cx="30.6668" cy="17.8333" rx="1.33334" ry="1.33329" fill="white"/>
+        <ellipse cx="26.6668" cy="21.8343" rx="1.33334" ry="1.33329" fill="white"/>
+        <ellipse cx="26.6668" cy="27.1673" rx="1.33334" ry="1.33329" fill="white"/>
+        <ellipse cx="30.6668" cy="31.1663" rx="1.33334" ry="1.33329" fill="white"/>
+        <defs>
+          <filter id="fab_f1" x="4.45" y="4.45" width="39.1" height="39.1" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB"><feFlood floodOpacity="0" result="BackgroundImageFix"/><feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/><feOffset/><feGaussianBlur stdDeviation="1.775"/><feComposite in2="hardAlpha" operator="out"/><feColorMatrix type="matrix" values="0 0 0 0 0.75 0 0 0 0 0.67 0 0 0 0 0.93 0 0 0 1 0"/><feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/><feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/><feGaussianBlur stdDeviation="0.03" result="effect2_foregroundBlur"/></filter>
+          <filter id="fab_f2" x="9.54" y="17.76" width="12.7" height="12.7" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB"><feFlood floodOpacity="0" result="BackgroundImageFix"/><feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/><feGaussianBlur stdDeviation="0.14" result="effect1_foregroundBlur"/></filter>
+          <filter id="fab_f3" x="15.93" y="12.01" width="23.32" height="22.66" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB"><feFlood floodOpacity="0" result="BackgroundImageFix"/><feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/><feGaussianBlur stdDeviation="1.58" result="effect1_foregroundBlur"/></filter>
+          <filter id="fab_f4" x="8.79" y="12.15" width="30.41" height="19.21" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB"><feFlood floodOpacity="0" result="BackgroundImageFix"/><feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/><feGaussianBlur stdDeviation="0.96" result="effect1_foregroundBlur"/></filter>
+          <radialGradient id="fab_p0" cx="0" cy="0" r="1" gradientTransform="matrix(25.43 -33.43 0.72 70.25 7.37 48)" gradientUnits="userSpaceOnUse"><stop stopColor="#C87941"/><stop offset="1"/></radialGradient>
+          <radialGradient id="fab_p1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(24 24) rotate(90) scale(16)"><stop stopColor="white"/><stop offset="1" stopColor="#F3C79B"/></radialGradient>
+          <linearGradient id="fab_p2" x1="14.48" y1="19.38" x2="15.89" y2="29.41" gradientUnits="userSpaceOnUse"><stop stopColor="#FBC4E6"/><stop offset="0.89" stopColor="#FFD49B"/></linearGradient>
+          <linearGradient id="fab_p3" x1="27.11" y1="23.74" x2="27.76" y2="31.5" gradientUnits="userSpaceOnUse"><stop stopColor="#5A12BF"/><stop offset="1" stopColor="white"/></linearGradient>
+          <linearGradient id="fab_p4" x1="37.30" y1="19.66" x2="25.92" y2="16.34" gradientUnits="userSpaceOnUse"><stop stopColor="#233288"/><stop offset="1" stopColor="#CD9579"/></linearGradient>
+          <linearGradient id="fab_p5" x1="18.65" y1="22.99" x2="22.76" y2="27.83" gradientUnits="userSpaceOnUse"><stop stopColor="#FFB0B0"/><stop offset="1" stopColor="#EC603E" stopOpacity="0.4"/></linearGradient>
+          <linearGradient id="fab_p6" x1="20.88" y1="19.36" x2="21.92" y2="20.40" gradientUnits="userSpaceOnUse"><stop stopColor="white" stopOpacity="0.4"/><stop offset="1" stopColor="white" stopOpacity="0"/></linearGradient>
+          <linearGradient id="fab_p7" x1="24" y1="24" x2="24" y2="40" gradientUnits="userSpaceOnUse"><stop stopColor="#D9D9D9" stopOpacity="0"/><stop offset="1" stopColor="#9F7260"/></linearGradient>
+          <linearGradient id="fab_p8" x1="25" y1="15" x2="28" y2="33" gradientUnits="userSpaceOnUse"><stop stopColor="#EBC7C5" stopOpacity="0"/><stop offset="1" stopColor="#6F3632"/></linearGradient>
+          <linearGradient id="fab_p9" x1="31" y1="16" x2="13.18" y2="15.38" gradientUnits="userSpaceOnUse"><stop stopColor="#D9D9D9" stopOpacity="0"/><stop offset="1" stopColor="#3D16B2" stopOpacity="0.3"/></linearGradient>
+          <radialGradient id="fab_p10" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(27.60 17.75) rotate(115.50) scale(22.87 25.26)"><stop stopColor="white" stopOpacity="0"/><stop offset="0.61" stopColor="white" stopOpacity="0"/><stop offset="1" stopColor="white"/></radialGradient>
+          <radialGradient id="fab_p11" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(19.17 10.08) rotate(-18.75) scale(16.20 17.89)"><stop stopColor="white"/><stop offset="0.61" stopColor="white" stopOpacity="0"/></radialGradient>
+        </defs>
+      </svg>
+      <span className="fab-tip">
+        <span className="tip-body">Ask Cooper <span style={{color:'var(--text-tertiary)'}}>/</span></span>
+        <span className="tip-arrow"></span>
+      </span>
+    </button>
+  );
+}
+
+function GlobalHeader({ activeNav }) {
+  const navItems = ["Command", "Value", "Explore", "Build", "Plan", "Results"];
+  return (
+    <header className="global-header">
+      <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-12)' }}>
+        {/* Logo */}
+        <img
+          src="https://shinyc01.github.io/new-cl-design-system/DS/assets/logo-white.png"
+          alt="IFS Copperleaf"
+          style={{ height: 22, display: 'block' }}
+        />
+        {/* Nav */}
+        <nav style={{ display: 'flex', gap: 'var(--space-4)' }}>
+          {navItems.map(item => (
+            <button key={item} className={`nav-item${item === activeNav ? ' active' : ''}`}>{item}</button>
+          ))}
+        </nav>
+      </div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-4)' }}>
+        <button className="icon-btn"><i className="ti ti-search" style={{ fontSize: 'var(--fs-16)' }} /></button>
+        <button className="icon-btn"><i className="ti ti-settings" style={{ fontSize: 'var(--fs-16)' }} /></button>
+        <button className="icon-btn" style={{ position: 'relative' }}>
+          <i className="ti ti-bell" style={{ fontSize: 'var(--fs-16)' }} />
+          <span style={{ position:'absolute', top: 'var(--space-1)', right: 'var(--space-1)', width:6, height:6, borderRadius: 'var(--radius-pill)', background:'var(--text-danger)', border: 'var(--border-width-1) solid var(--surface-0)' }} />
+        </button>
+        <div className="header-avatar">AL</div>
+      </div>
+    </header>
+  );
+}
+
+function Sidebar() {
+  return (
+    <aside className="sidebar">
+      <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', marginBottom: 'var(--space-4)' }}>
+        <span className="sidebar-section-label">Value</span>
+        <button className="icon-btn"><i className="ti ti-arrow-bar-left" style={{ fontSize: 'var(--fs-14)' }} /></button>
+      </div>
+      <div style={{ display:'flex', flexDirection:'column', gap: 'var(--space-4)' }}>
+        <div className="tree-item" style={{ color: 'var(--text-primary)' }}>Active framework</div>
+        <div>
+          <div className="sidebar-section-divider-label">Library</div>
+          <div className="tree-item">
+            <i className="ti ti-corner-down-right" style={{ fontSize: 'var(--fs-14)', color: 'var(--text-tertiary)', flexShrink: 0 }} />
+            Strategy Framework
+          </div>
+          <div className="tree-item active">
+            <i className="ti ti-corner-down-right" style={{ fontSize: 'var(--fs-14)', color: 'var(--text-tertiary)', flexShrink: 0 }} />
+            Value Framework
+          </div>
+          <div className="tree-item">
+            <i className="ti ti-corner-down-right" style={{ fontSize: 'var(--fs-14)', color: 'var(--text-tertiary)', flexShrink: 0 }} />
+            Value Models
+          </div>
+        </div>
+        <div className="tree-item" style={{ color: 'var(--text-primary)' }}>Human performance</div>
+      </div>
+    </aside>
+  );
+}
+
+function App() {
+  const [tab, setTab] = React.useState("all");
+
+  const tabItems = [
+    { id: "all",              label: "All",              count: 8 },
+    { id: "active",           label: "Active",           count: 1 },
+    { id: "pending_approval", label: "Pending approval", count: 1 },
+    { id: "archived",         label: "Archived",         count: 3 },
+    { id: "draft",            label: "Draft",            count: 3 },
+  ];
+
+  const visibleRows = tab === "all"
+    ? ROWS
+    : ROWS.filter(r => r.status.toLowerCase().replace(' ', '_') === tab);
+
+  return (
+    <div className="app-shell">
+      <GlobalHeader activeNav="Value" />
+      <div className="body-row">
+        <Sidebar />
+        <div className="main-content">
+          <div className="content-inner">
+            {/* Page top */}
+            <div className="page-top">
+              <div className="title-row">
+                <div>
+                  <div className="page-title">Value Framework</div>
+                  <div className="page-subtitle">Published, archived and draft value frameworks</div>
+                </div>
+                <Button variant="secondary" size="md">
+                  <i className="ti ti-pencil-plus" style={{ marginRight: 'var(--space-2)', fontSize: 'var(--fs-14)' }} />New
+                </Button>
+              </div>
+              <div className="tabs-search-row">
+                <Tabs value={tab} onChange={setTab} items={tabItems} />
+                <SmartSearch
+                  placeholder="Ask anything about value frameworks"
+                  suggestions={["What frameworks are pending approval?", "Which models haven't been updated?", "Compare active frameworks", "Show decarbonization frameworks"]}
+                  onSearch={q => console.log("search:", q)}
+                  style={{ width: 360 }}
+                />
+              </div>
+            </div>
+
+            {/* Table */}
+            <div className="table-wrap">
+              <div className="table-header-row">
+                <div className="th flex1">Value Framework</div>
+                <div className="th flex1">Status</div>
+                <div className="th w180">
+                  Last modified
+                  <i className="ti ti-arrows-sort" />
+                  <i className="ti ti-filter" />
+                </div>
+                <div className="th w180">
+                  Models
+                  <i className="ti ti-arrows-sort" />
+                </div>
+                <div className="th w180">
+                  Value measures
+                  <i className="ti ti-arrows-sort" />
+                </div>
+                <div className="th w48"></div>
+              </div>
+              {visibleRows.map((row, i) => (
+                <div key={i} className="table-row">
+                  <div className="td flex1"><span className="td-name">{row.name}</span></div>
+                  <div className="td flex1"><StatusCell status={row.status} extra={row.extra} /></div>
+                  <div className="td w180" style={{ color: 'var(--text-secondary)' }}>{row.date}</div>
+                  <div className="td w180">{row.models}</div>
+                  <div className="td w180">{row.measures}</div>
+                  <div className="td w48">
+                    <button className="icon-btn"><i className="ti ti-dots" style={{ fontSize: 'var(--fs-14)' }} /></button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Evidence strip */}
+          <div className="evidence-strip">
+            <button className="suggestion-chip">Walk me through this framework</button>
+            <button className="suggestion-chip">What hasn't been updated in a while?</button>
+            <CooperFab />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

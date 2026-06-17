@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Entity Header — IFS Copperleaf Design System</title>
+<link rel="stylesheet" href="../../DS/styles.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.34.0/dist/tabler-icons.min.css">
+<link rel="stylesheet" href="../site.css">
+<script src="../site.js"></script>
+<script src="../../DS/icons/icons.js"></script>
+<style>
+/* ─────────────────────────────────────────────
+   PATTERN: Entity Header
+   Figma nodes: 2676:48130, 2676:48493
+   ─────────────────────────────────────────────
+   40 px contextual bar shown when a specific entity is open.
+   Three layout zones:
+     LEFT     name · back btn · chevron · status dot + label · badge · divider · seg control
+     CENTER   .ph-progress — 4-step tracker (omit for Default/Active variant)
+     RIGHT    collab · comments · timestamp · CTA
+
+   Status modifiers:   .active · .draft · .scheduled
+   Step modifiers:     .done · .active · .pending
+   ───────────────────────────────────────────── */
+
+/* ── ROOT BAR ── */
+.page-header {
+  height:40px; min-height:40px;
+  background:var(--surface-primary-alpha);
+  backdrop-filter:blur(var(--blur-light));
+  -webkit-backdrop-filter:blur(var(--blur-light));
+  border-bottom:1px solid var(--border-base);
+  display:flex; align-items:center; justify-content:space-between;
+  padding:0 var(--padding-300); gap:0; flex:none;
+  overflow:hidden; width:100%; box-sizing:border-box;
+}
+
+/* ── LEFT ── */
+.ph-left { display:flex; align-items:center; gap:var(--gap-200); flex:1; min-width:0; }
+
+/* Shared micro-button base (back, chevron) */
+.ph-back-btn,
+.ph-chevron-btn {
+  width:20px; height:20px; display:flex; align-items:center; justify-content:center;
+  background:var(--button-tertiary-fill-default);
+  border:1px solid var(--button-tertiary-border-default);
+  border-radius:var(--radius-100);
+  backdrop-filter:blur(var(--blur-medium));
+  color:var(--text-secondary);
+  cursor:pointer; flex:none; padding:0; font-family:inherit;
+}
+.ph-back-btn i,
+.ph-chevron-btn i { font-size:10px; }
+.ph-back-btn:hover,
+.ph-chevron-btn:hover {
+  background:var(--background-color-alpha-white-base); /* white/100 — closest token to Figma 0.08 */
+  color:var(--text-primary);
+}
+
+.ph-name {
+  font-size:12px; font-weight:500; color:var(--text-primary);
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  max-width:220px; letter-spacing:-0.15px; flex:none; cursor:default;
+}
+
+/* Status dot + label */
+.ph-status { display:flex; align-items:center; gap:var(--gap-100); flex:none; }
+.ph-status-dot { width:6px; height:6px; border-radius:50%; flex:none; }
+.ph-status-dot.active    { background:var(--text-info); }
+.ph-status-dot.draft     { background:var(--text-secondary); }
+.ph-status-dot.scheduled { background:var(--purple-500); }
+.ph-status-dot.in-review { background:var(--text-warning); }
+.ph-status-dot.decided   { background:var(--text-success); }
+.ph-status-label { font-size:12px; font-weight:500; color:var(--text-primary); letter-spacing:-0.15px; white-space:nowrap; }
+
+/* Version badge (e.g. 1/2) */
+.ph-badge {
+  background:var(--background-color-alpha-white-base);
+  border-radius:var(--radius-full);
+  padding:var(--padding-100) var(--padding-200);
+  font-size:12px; font-weight:500; color:var(--text-primary);
+  letter-spacing:-0.15px; white-space:nowrap; flex:none; line-height:16px;
+}
+
+/* Vertical rule between groups */
+.ph-vdivider {
+  width:1px; height:16px;
+  background:var(--border-base); /* Figma-specified at rgba(255,255,255,0.12); using --border-base (0.10) as nearest token */
+  flex:none; margin:0 var(--gap-50);
+}
+
+/* Segmented control */
+.ph-seg {
+  display:flex; align-items:center; gap:var(--gap-50);
+  background:var(--background-color-alpha-white-base);
+  border-radius:var(--radius-150);
+  padding:var(--padding-50); flex:none;
+}
+.ph-seg-btn {
+  width:24px; height:24px; display:flex; align-items:center; justify-content:center;
+  border-radius:var(--radius-100); border:none; cursor:pointer; background:transparent;
+  color:var(--text-tertiary);
+  transition:background var(--duration-fast) var(--ease-standard),
+             color var(--duration-fast) var(--ease-standard);
+  padding:0; font-family:inherit;
+}
+.ph-seg-btn i { font-size:11px; }
+.ph-seg-btn.active {
+  background:var(--surface-tertiary-alpha); /* white/150 = element/segmented-control/on/fill/default */
+  border:1px solid var(--border-base);
+  color:var(--text-primary);
+}
+.ph-seg-btn:hover:not(.active) {
+  background:var(--surface-secondary-alpha); /* white/50 — closest token to Figma 0.06 */
+  color:var(--text-secondary);
+}
+
+/* Name edit input */
+.ph-name-input-wrap {
+  display:flex; align-items:center; gap:0;
+  height:32px; width:260px; /* layout geometry */
+  border:1px solid var(--border-medium);
+  border-radius:var(--radius-100);
+  padding:var(--padding-100) var(--padding-100) var(--padding-100) var(--padding-200);
+  box-sizing:border-box; flex:none;
+}
+.ph-name-input {
+  flex:1; min-width:0; background:transparent; border:none; outline:none;
+  font-family:var(--font-sans); font-size:12px; font-weight:500;
+  color:var(--text-primary); letter-spacing:-0.1px;
+  caret-color:var(--text-accent-cooper);
+}
+.ph-name-input-actions { display:flex; align-items:center; gap:0; flex:none; }
+.ph-icon-ghost {
+  width:24px; height:24px; display:flex; align-items:center; justify-content:center;
+  background:transparent; border:none; cursor:pointer;
+  color:var(--text-secondary); border-radius:var(--radius-100);
+  padding:0; font-family:inherit;
+}
+.ph-icon-ghost i { font-size:13px; }
+.ph-icon-ghost:hover {
+  background:var(--surface-secondary-alpha); /* white/50 — closest token to Figma 0.06 */
+  color:var(--text-primary);
+}
+
+/* ── CENTER — progress tracker ── */
+.ph-progress { display:flex; align-items:center; gap:var(--gap-200); flex:none; }
+.ph-step { display:flex; flex-direction:column; gap:var(--gap-150); align-items:flex-start; width:88px; flex:none; }
+.ph-step-top { display:flex; align-items:center; gap:var(--gap-100); width:100%; }
+.ph-step-top i { font-size:13px; flex:none; width:16px; height:16px; display:flex; align-items:center; justify-content:center; }
+.ph-step-top span { font-size:12px; font-weight:500; letter-spacing:-0.1px; white-space:nowrap; line-height:14px; }
+.ph-step.done    .ph-step-top { color:var(--text-primary); }
+.ph-step.active  .ph-step-top { color:var(--text-primary); }
+.ph-step.pending .ph-step-top { color:var(--text-secondary); }
+.ph-track { height:4px; border-radius:var(--radius-full); width:100%; flex:none; }
+.ph-step.done    .ph-track { background:var(--border-white); }
+.ph-step.pending .ph-track { background:var(--background-color-alpha-white-strong); }
+.ph-step.active  .ph-track {
+  /* Static diagonal stripe — Figma node 1219:169725 (active/in-progress state) */
+  background:repeating-linear-gradient(
+    -45deg,
+    rgba(255,255,255,0.55) 0px,
+    rgba(255,255,255,0.55) 2px,
+    rgba(255,255,255,0.15) 2px,
+    rgba(255,255,255,0.15) 6px
+  );
+}
+
+/* ── RIGHT ── */
+.ph-right { display:flex; align-items:center; gap:var(--gap-200); flex:1; justify-content:flex-end; }
+
+/* Shared tertiary button base (collab, comment, action) */
+.ph-collab-btn,
+.ph-comment-btn,
+.ph-action-btn {
+  display:inline-flex; align-items:center; justify-content:center;
+  background:var(--button-tertiary-fill-default);
+  border:1px solid var(--button-tertiary-border-default);
+  border-radius:var(--radius-100);
+  backdrop-filter:blur(var(--blur-medium));
+  color:var(--text-primary);
+  cursor:pointer; font-family:inherit; font-size:12px; font-weight:500;
+  letter-spacing:-0.15px; white-space:nowrap;
+}
+.ph-collab-btn:hover,
+.ph-comment-btn:hover,
+.ph-action-btn:hover {
+  background:var(--background-color-alpha-white-base); /* white/100 — closest token to Figma 0.08 */
+}
+.ph-collab-btn { gap:var(--gap-100); height:28px; padding:0 var(--padding-150); }
+.ph-collab-btn i { font-size:12px; }
+.ph-comment-btn { width:28px; height:28px; color:var(--text-secondary); padding:0; }
+.ph-comment-btn:hover { color:var(--text-primary); }
+.ph-comment-btn i { font-size:13px; }
+.ph-action-btn { gap:var(--gap-100); height:28px; padding:0 var(--padding-200); }
+.ph-action-btn i { font-size:12px; }
+
+/* Timestamp (Scheduled variant) */
+.ph-timestamp {
+  display:flex; align-items:center; gap:var(--gap-100); flex:none;
+  font-size:10px; font-weight:400; color:var(--text-tertiary);
+  letter-spacing:0.1px; text-transform:uppercase; white-space:nowrap;
+}
+.ph-timestamp i { font-size:11px; }
+
+/* Scheduled dropdown CTA */
+.ph-scheduled-btn {
+  display:inline-flex; align-items:center; gap:var(--gap-100); height:28px;
+  padding:0 var(--padding-200) 0 var(--padding-250);
+  background:var(--button-primary-fill-default);
+  border:1px solid var(--button-primary-border-default);
+  border-radius:var(--radius-100);
+  backdrop-filter:blur(var(--blur-medium));
+  font-size:12px; font-weight:500;
+  color:var(--text-primary-inverse);
+  cursor:pointer; letter-spacing:-0.15px; font-family:inherit;
+}
+.ph-scheduled-btn i { font-size:11px; }
+.ph-scheduled-btn:hover { background:var(--button-primary-fill-hover); }
+
+/* Cooper recommendation chip
+   Background uses Cooper brand colour at low opacity — no DS token exists for this;
+   Figma-specified art direction for the Cooper chip component. */
+.ph-cooper-chip {
+  display:inline-flex; align-items:center; gap:var(--gap-100); height:28px;
+  padding:var(--padding-100) var(--padding-250);
+  background:rgba(200,121,65,0.1); /* Cooper chip tint — no token; Figma-specified */
+  border-radius:var(--radius-full); cursor:pointer; border:none; font-family:inherit;
+}
+.ph-cooper-chip:hover { background:rgba(200,121,65,0.18); } /* Figma-specified hover tint */
+.ph-cooper-chip i { font-size:11px; color:var(--text-accent-cooper); }
+.ph-cooper-chip span {
+  font-size:12px; font-weight:500; letter-spacing:-0.15px;
+  /* Gradient art direction — CSS var() doesn't work inside gradient colour stops */
+  background:linear-gradient(-81deg,rgb(200,121,65) 6%,white 99%);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  background-clip:text; white-space:nowrap;
+}
+
+/* ── TOOLTIP EXAMPLES ── */
+.ph-tooltip-demo { display:flex; align-items:flex-start; gap:var(--gap-600); flex-wrap:wrap; }
+.ph-tooltip-item { display:flex; flex-direction:column; align-items:flex-start; gap:var(--gap-200); }
+.ph-tooltip-trigger-label { font-size:10px; font-weight:600; letter-spacing:.5px; text-transform:uppercase; color:var(--text-tertiary); }
+
+.ph-tooltip {
+  display:inline-flex; align-items:center; gap:var(--gap-100);
+  height:24px; padding:0 var(--padding-200);
+  background:var(--surface-primary);
+  border:1px solid var(--border-base);
+  border-radius:var(--radius-full);
+  font-size:11px; font-weight:500; color:var(--text-primary);
+  letter-spacing:-0.1px; white-space:nowrap;
+  box-shadow:0 4px 12px rgba(0,0,0,0.5); /* elevation shadow — exempt per DS rules */
+}
+
+.ph-tooltip-card {
+  background:var(--surface-primary);
+  border:1px solid var(--border-base);
+  border-radius:var(--radius-200);
+  padding:var(--padding-300) 14px; /* 14px has no token; nearest are 12 (--padding-300) and 16 (--padding-400) */
+  box-shadow:0 4px 16px rgba(0,0,0,0.5); /* elevation shadow — exempt per DS rules */
+  min-width:200px;
+}
+.ph-tc-row { display:flex; gap:var(--gap-200); align-items:baseline; margin-bottom:var(--gap-100); }
+.ph-tc-row:last-child { margin-bottom:0; }
+.ph-tc-label { font-size:11px; color:var(--text-tertiary); min-width:84px; flex:none; }
+.ph-tc-value { font-size:11px; font-weight:500; color:var(--text-primary); }
+.ph-tc-avatar {
+  width:16px; height:16px; border-radius:50%; /* geometry */
+  background:var(--text-accent-cooper);
+  display:inline-flex; align-items:center; justify-content:center;
+  font-size:8px; font-weight:700; color:var(--text-primary-inverse); flex:none;
+}
+</style>
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="main">
+    <div class="page">
+      <div class="page-eyebrow">Patterns</div>
+      <h1>Entity header</h1>
+      <p class="page-lede">The 40 px contextual bar shown when a user opens a specific entity — investment, strategy framework, program, or asset. Sits directly below the global app nav. Three layout zones: <strong>left</strong> (name, chevron, status, view-mode control), <strong>center</strong> (4-step workflow tracker), <strong>right</strong> (collaborators, comments, CTA). Figma node <code>2676:48493</code>.</p>
+
+      <!-- ═══════════════════ ACTIVE — COOPER CHIP ═══════════════════ -->
+      <h2>Active — Cooper chip</h2>
+      <p class="section-note">Default state for an active entity with no selected view. Right zone shows the Cooper recommendation chip. Center zone is empty (no workflow tracker).</p>
+      <div class="demo" style="display:block;padding:0;overflow:hidden;">
+        <div class="page-header">
+          <div class="ph-left">
+            <span class="ph-name">Q1 2026 Strategy Framework</span>
+            <button class="ph-chevron-btn"><i class="ti ti-chevron-down"></i></button>
+            <div class="ph-status">
+              <span class="ph-status-dot active"></span>
+              <span class="ph-status-label">Active</span>
+            </div>
+            <div class="ph-vdivider"></div>
+            <div class="ph-seg">
+              <button class="ph-seg-btn active" title="Overview"><i class="ti ti-layout-dashboard"></i></button>
+              <button class="ph-seg-btn" title="Map"><i class="ti ti-git-fork"></i></button>
+              <button class="ph-seg-btn" title="Capital flow"><i class="ti ti-arrows-split-2"></i></button>
+            </div>
+          </div>
+          <div class="ph-right">
+            <button class="ph-cooper-chip"><i class="ti ti-sparkles"></i><span>1 Recommendation</span></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════════════════ ACTIVE — OVERVIEW (Share + Widgets) ═══════════════════ -->
+      <h2>Active — Overview selected</h2>
+      <p class="section-note">When the Overview view is active, the right zone switches to contextual action buttons: <strong>Share</strong> and <strong>Widgets</strong>.</p>
+      <div class="demo" style="display:block;padding:0;overflow:hidden;">
+        <div class="page-header">
+          <div class="ph-left">
+            <span class="ph-name">Q1 2026 Strategy Framework</span>
+            <button class="ph-chevron-btn"><i class="ti ti-chevron-down"></i></button>
+            <div class="ph-status">
+              <span class="ph-status-dot active"></span>
+              <span class="ph-status-label">Active</span>
+            </div>
+            <div class="ph-vdivider"></div>
+            <div class="ph-seg">
+              <button class="ph-seg-btn active" title="Overview"><i class="ti ti-layout-dashboard"></i></button>
+              <button class="ph-seg-btn" title="Map"><i class="ti ti-git-fork"></i></button>
+              <button class="ph-seg-btn" title="Capital flow"><i class="ti ti-arrows-split-2"></i></button>
+            </div>
+          </div>
+          <div class="ph-right">
+            <button class="ph-cooper-chip"><i class="ti ti-sparkles"></i><span>1 Recommendation</span></button>
+            <button class="ph-action-btn"><i class="ti ti-share"></i>Share</button>
+            <button class="ph-action-btn"><i class="ti ti-layout-grid"></i>Widgets</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════════════════ DRAFT ═══════════════════ -->
+      <h2>Draft</h2>
+      <p class="section-note">Entity is in draft state with an active workflow. The center zone shows the 4-step progress tracker (Input active, others pending). A version badge appears when there are multiple versions. CTA advances the entity to the next stage.</p>
+      <div class="demo" style="display:block;padding:0;overflow:hidden;">
+        <div class="page-header">
+          <div class="ph-left">
+            <span class="ph-name">Q1 2027 Strategy Framework</span>
+            <button class="ph-chevron-btn"><i class="ti ti-chevron-down"></i></button>
+            <div class="ph-status">
+              <span class="ph-status-dot draft"></span>
+              <span class="ph-status-label">Draft</span>
+            </div>
+            <span class="ph-badge">1/2</span>
+            <div class="ph-vdivider"></div>
+            <div class="ph-seg">
+              <button class="ph-seg-btn active" title="Overview"><i class="ti ti-layout-dashboard"></i></button>
+              <button class="ph-seg-btn" title="Map"><i class="ti ti-git-fork"></i></button>
+              <button class="ph-seg-btn" title="Capital flow"><i class="ti ti-arrows-split-2"></i></button>
+            </div>
+          </div>
+          <div class="ph-progress">
+            <div class="ph-step active">
+              <div class="ph-step-top"><i class="ti ti-circle-half-2"></i><span>Input</span></div>
+              <div class="ph-track"></div>
+            </div>
+            <div class="ph-step pending">
+              <div class="ph-step-top"><i class="ti ti-circle"></i><span>Shape</span></div>
+              <div class="ph-track"></div>
+            </div>
+            <div class="ph-step pending">
+              <div class="ph-step-top"><i class="ti ti-circle"></i><span>Review</span></div>
+              <div class="ph-track"></div>
+            </div>
+            <div class="ph-step pending">
+              <div class="ph-step-top"><i class="ti ti-circle"></i><span>Approve</span></div>
+              <div class="ph-track"></div>
+            </div>
+          </div>
+          <div class="ph-right">
+            <button class="ph-collab-btn"><i class="ti ti-users"></i><span>3/5</span></button>
+            <button class="ph-comment-btn"><i class="ti ti-message-circle"></i></button>
+            <div class="ph-vdivider"></div>
+            <button class="ifs-btn ifs-btn--primary ifs-btn--sm">Review</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════════════════ EDIT NAME ═══════════════════ -->
+      <h2>Edit name</h2>
+      <p class="section-note">Double-clicking the entity name activates an inline text field. Cancel (✕) discards, confirm (✓) saves. The rest of the bar remains interactive.</p>
+      <div class="demo" style="display:block;padding:0;overflow:hidden;">
+        <div class="page-header">
+          <div class="ph-left">
+            <div class="ph-name-input-wrap">
+              <input class="ph-name-input" type="text" value="2026 Strategy Framework" />
+              <div class="ph-name-input-actions">
+                <button class="ph-icon-ghost" title="Cancel"><i class="ti ti-x"></i></button>
+                <button class="ph-icon-ghost" title="Confirm"><i class="ti ti-check"></i></button>
+              </div>
+            </div>
+            <button class="ph-chevron-btn"><i class="ti ti-chevron-down"></i></button>
+            <div class="ph-status">
+              <span class="ph-status-dot draft"></span>
+              <span class="ph-status-label">Draft</span>
+            </div>
+            <div class="ph-vdivider"></div>
+            <div class="ph-seg">
+              <button class="ph-seg-btn active" title="Overview"><i class="ti ti-layout-dashboard"></i></button>
+              <button class="ph-seg-btn" title="Map"><i class="ti ti-git-fork"></i></button>
+              <button class="ph-seg-btn" title="Capital flow"><i class="ti ti-arrows-split-2"></i></button>
+            </div>
+          </div>
+          <div class="ph-progress">
+            <div class="ph-step active">
+              <div class="ph-step-top"><i class="ti ti-circle-half-2"></i><span>Input</span></div>
+              <div class="ph-track"></div>
+            </div>
+            <div class="ph-step pending">
+              <div class="ph-step-top"><i class="ti ti-circle"></i><span>Shape</span></div>
+              <div class="ph-track"></div>
+            </div>
+            <div class="ph-step pending">
+              <div class="ph-step-top"><i class="ti ti-circle"></i><span>Review</span></div>
+              <div class="ph-track"></div>
+            </div>
+            <div class="ph-step pending">
+              <div class="ph-step-top"><i class="ti ti-circle"></i><span>Approve</span></div>
+              <div class="ph-track"></div>
+            </div>
+          </div>
+          <div class="ph-right">
+            <button class="ph-collab-btn"><i class="ti ti-users"></i><span>3/5</span></button>
+            <button class="ph-comment-btn"><i class="ti ti-message-circle"></i></button>
+            <div class="ph-vdivider"></div>
+            <button class="ifs-btn ifs-btn--primary ifs-btn--sm">Review</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════════════════ SCHEDULED ═══════════════════ -->
+      <h2>Scheduled</h2>
+      <p class="section-note">Entity has been scheduled for publication. All workflow steps are done except the final step (in progress). A back button appears on the left. The right zone shows a scheduled timestamp and a dropdown CTA. No items are selected in the seg control.</p>
+      <div class="demo" style="display:block;padding:0;overflow:hidden;">
+        <div class="page-header">
+          <div class="ph-left">
+            <button class="ph-back-btn"><i class="ti ti-chevron-left"></i></button>
+            <span class="ph-name">Copy of Q1 2026 Enterprise Strategy…</span>
+            <button class="ph-chevron-btn"><i class="ti ti-chevron-down"></i></button>
+            <div class="ph-status">
+              <span class="ph-status-dot scheduled"></span>
+              <span class="ph-status-label">Scheduled</span>
+            </div>
+            <div class="ph-vdivider"></div>
+            <div class="ph-seg">
+              <button class="ph-seg-btn" title="Overview"><i class="ti ti-layout-dashboard"></i></button>
+              <button class="ph-seg-btn" title="Map"><i class="ti ti-git-fork"></i></button>
+              <button class="ph-seg-btn" title="Capital flow"><i class="ti ti-arrows-split-2"></i></button>
+            </div>
+          </div>
+          <div class="ph-progress">
+            <div class="ph-step done">
+              <div class="ph-step-top"><i class="ti ti-circle-check"></i><span>Input</span></div>
+              <div class="ph-track"></div>
+            </div>
+            <div class="ph-step done">
+              <div class="ph-step-top"><i class="ti ti-circle-check"></i><span>Shape</span></div>
+              <div class="ph-track"></div>
+            </div>
+            <div class="ph-step done">
+              <div class="ph-step-top"><i class="ti ti-circle-check"></i><span>Review</span></div>
+              <div class="ph-track"></div>
+            </div>
+            <div class="ph-step active">
+              <div class="ph-step-top"><i class="ti ti-circle-half-2"></i><span>Approve</span></div>
+              <div class="ph-track"></div>
+            </div>
+          </div>
+          <div class="ph-right">
+            <button class="ph-collab-btn"><i class="ti ti-users"></i><span>3/5</span></button>
+            <button class="ph-comment-btn"><i class="ti ti-message-circle"></i></button>
+            <div class="ph-vdivider"></div>
+            <div class="ph-timestamp"><i class="ti ti-clock"></i>17.02.2026 · 9:30 AM</div>
+            <button class="ph-scheduled-btn">Scheduled <i class="ti ti-caret-down-filled"></i></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════════════════ TOOLTIPS ═══════════════════ -->
+      <h2>Tooltips</h2>
+      <p class="section-note">Hovering any interactive element in the bar reveals a contextual tooltip below the bar. Two shapes: a pill for simple labels, and a card for rich metadata (status hover).</p>
+
+      <div class="demo" style="padding:20px 20px 24px;">
+        <div class="ph-tooltip-demo">
+
+          <div class="ph-tooltip-item">
+            <span class="ph-tooltip-trigger-label">Name (full title)</span>
+            <div class="ph-tooltip">Q1 2026 Enterprise Strategy Framework</div>
+          </div>
+
+          <div class="ph-tooltip-item">
+            <span class="ph-tooltip-trigger-label">Seg control — Overview</span>
+            <div class="ph-tooltip">Overview</div>
+          </div>
+
+          <div class="ph-tooltip-item">
+            <span class="ph-tooltip-trigger-label">Seg control — Map</span>
+            <div class="ph-tooltip">Map</div>
+          </div>
+
+          <div class="ph-tooltip-item">
+            <span class="ph-tooltip-trigger-label">Seg control — Capital flow</span>
+            <div class="ph-tooltip">Capital Flow</div>
+          </div>
+
+          <div class="ph-tooltip-item">
+            <span class="ph-tooltip-trigger-label">Progress step — Input</span>
+            <div class="ph-tooltip">Add context and define your Enterprise Goals</div>
+          </div>
+
+          <div class="ph-tooltip-item">
+            <span class="ph-tooltip-trigger-label">Progress step — Shape</span>
+            <div class="ph-tooltip">Build the framework based on enterprise goals</div>
+          </div>
+
+          <div class="ph-tooltip-item">
+            <span class="ph-tooltip-trigger-label">Progress step — Review</span>
+            <div class="ph-tooltip">Send to approvers for review</div>
+          </div>
+
+          <div class="ph-tooltip-item">
+            <span class="ph-tooltip-trigger-label">Progress step — Approve</span>
+            <div class="ph-tooltip">Ready to publish once everyone approves</div>
+          </div>
+
+          <div class="ph-tooltip-item">
+            <span class="ph-tooltip-trigger-label">Collaborators button</span>
+            <div class="ph-tooltip">Collaborators</div>
+          </div>
+
+          <div class="ph-tooltip-item">
+            <span class="ph-tooltip-trigger-label">Comments button</span>
+            <div class="ph-tooltip">Comments</div>
+          </div>
+
+          <div class="ph-tooltip-item">
+            <span class="ph-tooltip-trigger-label">Status dot (card)</span>
+            <div class="ph-tooltip-card">
+              <div class="ph-tc-row">
+                <span class="ph-tc-label">Last updated</span>
+                <span class="ph-tc-value">June 2, 2026</span>
+              </div>
+              <div class="ph-tc-row">
+                <span class="ph-tc-label">Published</span>
+                <span class="ph-tc-value">May 20, 2025</span>
+              </div>
+              <div class="ph-tc-row">
+                <span class="ph-tc-label">Created by</span>
+                <span class="ph-tc-value" style="display:flex;align-items:center;gap:6px;"><span class="ph-tc-avatar">JC</span> J. Carter</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ═══════════════════ TOKENS ═══════════════════ -->
+      <h2>Tokens</h2>
+      <table class="token-table" style="margin-top:12px">
+        <thead><tr><th>Element</th><th>Token</th></tr></thead>
+        <tbody>
+          <tr><td>Bar background</td><td class="tok">--surface-primary-alpha</td></tr>
+          <tr><td>Bar blur</td><td class="tok">--blur-light</td></tr>
+          <tr><td>Bar border</td><td class="tok">--border-base</td></tr>
+          <tr><td>Status — Active</td><td class="tok">--text-info</td></tr>
+          <tr><td>Status — Draft</td><td class="tok">--text-secondary</td></tr>
+          <tr><td>Status — Scheduled</td><td class="tok">--purple-500</td></tr>
+          <tr><td>Status — In review</td><td class="tok">--text-warning</td></tr>
+          <tr><td>Status — Decided</td><td class="tok">--text-success</td></tr>
+          <tr><td>Step label — active/done</td><td class="tok">--text-primary</td></tr>
+          <tr><td>Step label — pending</td><td class="tok">--text-secondary</td></tr>
+          <tr><td>Track — done</td><td class="tok">white</td></tr>
+          <tr><td>Track — active / pending</td><td class="tok">rgba(255,255,255,0.2)</td></tr>
+          <tr><td>Seg control background</td><td class="tok">--background/elevation-1/secondary → rgba(255,255,255,0.1)</td></tr>
+          <tr><td>Seg btn — selected fill</td><td class="tok">--element/segmented-control/on/fill/default → rgba(255,255,255,0.15)</td></tr>
+          <tr><td>Cooper chip background</td><td class="tok">rgba(--accent-copper, 0.1)</td></tr>
+          <tr><td>Version badge background</td><td class="tok">rgba(255,255,255,0.1)</td></tr>
+        </tbody>
+      </table>
+
+    </div><!-- /page -->
+  </main>
+</div>
+</body>
+</html>

@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pattern · Table — IFS Copperleaf DS</title>
+<link rel="stylesheet" href="../../DS/styles.css">
+<link rel="stylesheet" href="../site.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.34.0/dist/tabler-icons.min.css">
+<script src="../site.js"></script>
+<style>
+/* ─────────────────────────────────────────────
+   PATTERN: Table
+   Figma source: Strategy Framework Handover — node 2356:84052
+   ─────────────────────────────────────────────
+   Structure:
+     .ifs-table
+       .ifs-table__header
+         .ifs-table__th  (+ .ifs-table__sort / .ifs-table__filter)
+       .ifs-table__row
+         .ifs-table__td  (or .ifs-table__td--stack)
+         .ifs-table__status  (dot + label)
+         .ifs-table__count   (inline badge)
+   ───────────────────────────────────────────── */
+
+/* Container */
+.ifs-table {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-100);
+  padding: var(--gap-300);
+  background: var(--surface-secondary-alpha);
+  border-radius: var(--radius-200);
+  overflow: hidden;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+/* Header row */
+.ifs-table__header {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+/* Header cell */
+.ifs-table__th {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-200);
+  height: 32px;
+  padding: var(--gap-200) var(--gap-300);
+  font-family: var(--font-sans);
+  font-size: var(--h4-size);
+  font-weight: var(--h4-upper-weight);
+  line-height: var(--h4-line);
+  letter-spacing: var(--h4-upper-tracking);
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1 0 0;
+  min-width: 0;
+}
+
+/* Sort icon */
+.ifs-table__sort {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 1px;
+  width: 16px;
+  height: 16px;
+  align-items: center;
+  justify-content: center;
+  color: var(--icon-tertiary);
+  flex: none;
+  cursor: pointer;
+  transition: color var(--motion-duration-fast) var(--motion-ease-standard);
+}
+.ifs-table__sort:hover { color: var(--icon-secondary); }
+.ifs-table__sort--asc,
+.ifs-table__sort--desc { color: var(--text-primary); }
+.ifs-table__sort svg { display: block; }
+
+/* Filter icon */
+.ifs-table__filter {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  flex: none;
+  cursor: pointer;
+  color: var(--icon-tertiary);
+  transition: color var(--motion-duration-fast) var(--motion-ease-standard);
+}
+.ifs-table__filter:hover   { color: var(--icon-secondary); }
+.ifs-table__filter--active { color: var(--text-primary); }
+.ifs-table__filter svg { display: block; }
+
+/* Data row */
+.ifs-table__row {
+  display: flex;
+  align-items: center;
+  height: 48px;
+  width: 100%;
+  flex: none;
+  box-sizing: border-box;
+  background: var(--surface-secondary-alpha);
+  border-radius: var(--radius-100);
+  cursor: pointer;
+  transition: background var(--motion-duration-fast) var(--motion-ease-standard);
+}
+.ifs-table__row:hover {
+  background: var(--background-color-alpha-white-base);
+}
+.ifs-table__row--selected {
+  background: var(--background-color-alpha-white-strong);
+}
+
+/* Data cell */
+.ifs-table__td {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding: 0 var(--gap-300);
+  overflow: hidden;
+  flex: 1 0 0;
+  min-width: 0;
+  font-family: var(--font-sans);
+  font-size: var(--body-m-size);
+  font-weight: var(--body-m-medium-weight);
+  line-height: var(--body-m-line);
+  letter-spacing: var(--body-m-medium-tracking);
+  color: var(--text-primary);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* Stacked cell: primary + secondary */
+.ifs-table__td--stack {
+  flex-direction: column;
+  gap: var(--gap-100);
+  align-items: flex-start;
+  justify-content: center;
+}
+.ifs-table__td-primary {
+  font-family: var(--font-sans);
+  font-size: var(--body-m-size);
+  font-weight: var(--body-m-medium-weight);
+  line-height: var(--body-m-line);
+  letter-spacing: var(--body-m-medium-tracking);
+  color: var(--text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+}
+.ifs-table__td-secondary {
+  font-family: var(--font-sans);
+  font-size: var(--body-m-size);
+  font-weight: var(--body-m-weight);
+  line-height: var(--body-m-line);
+  letter-spacing: var(--body-m-tracking);
+  color: var(--text-secondary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+}
+
+/* Status pill */
+.ifs-table__status {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gap-150);
+  white-space: nowrap;
+  flex: none;
+}
+.ifs-table__status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  flex: none;
+  background: var(--icon-tertiary);
+}
+.ifs-table__status-label {
+  font-family: var(--font-sans);
+  font-size: var(--label-m-size);
+  font-weight: var(--label-m-upper-weight);
+  line-height: var(--label-m-line);
+  letter-spacing: var(--label-m-upper-tracking);
+  text-transform: uppercase;
+  color: var(--text-primary);
+}
+.ifs-table__status--active   .ifs-table__status-dot { background: var(--text-success); }
+.ifs-table__status--pending  .ifs-table__status-dot { background: var(--text-warning); }
+.ifs-table__status--draft    .ifs-table__status-dot { background: var(--text-tertiary); }
+.ifs-table__status--archived .ifs-table__status-dot { background: var(--text-disabled); }
+.ifs-table__status--archived .ifs-table__status-label { color: var(--text-disabled); }
+.ifs-table__status--info     .ifs-table__status-dot { background: var(--text-info); }
+.ifs-table__status--danger   .ifs-table__status-dot { background: var(--text-danger); }
+
+/* Count badge */
+.ifs-table__count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--background-color-alpha-white-base);
+  border-radius: var(--radius-full);
+  padding: var(--gap-100) var(--gap-200);
+  font-family: var(--font-sans);
+  font-size: var(--label-m-size);
+  font-weight: var(--label-m-weight);
+  line-height: var(--label-m-line);
+  letter-spacing: var(--label-l-tracking);
+  color: var(--text-primary);
+  white-space: nowrap;
+  flex: none;
+}
+
+/* Avatar (inline, for person cells) */
+.ifs-table__avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-full);
+  font-family: var(--font-sans);
+  font-size: var(--fs-10);
+  font-weight: var(--weight-semibold);
+  color: var(--text-primary);
+  text-transform: uppercase;
+  letter-spacing: var(--label-m-upper-tracking);
+  overflow: hidden;
+  user-select: none;
+}
+</style>
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="main">
+    <div class="page">
+      <div class="page-eyebrow">Patterns</div>
+      <h1>Table</h1>
+      <p class="page-lede">Flex-row data table for dense list views. Header cells support sort and filter affordances; rows support hover, selected, and stacked-text states. Status pills, count badges and inline avatars slot directly into cells.</p>
+
+      <!-- ══════════════════════════════════════
+           FULL EXAMPLE
+      ══════════════════════════════════════ -->
+      <h2>Full example</h2>
+      <p class="section-note">Strategy Framework list. Header uses sort + filter icons; the Status column mixes pills and count badges; Created by uses inline avatars.</p>
+
+      <div class="demo" style="padding:24px;">
+        <div class="ifs-table">
+          <div class="ifs-table__header">
+            <div class="ifs-table__th" style="flex:2 0 0">
+              Strategy Framework
+              <span class="ifs-table__filter"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 4H14M4.5 8H11.5M7 12H9" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/></svg></span>
+            </div>
+            <div class="ifs-table__th">
+              Status
+              <span class="ifs-table__filter"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 4H14M4.5 8H11.5M7 12H9" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/></svg></span>
+            </div>
+            <div class="ifs-table__th">
+              Last Modified
+              <span class="ifs-table__sort ifs-table__sort--desc"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M5 6.5L8 3L11 6.5" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 9.5L8 13L11 9.5" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <span class="ifs-table__filter"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 4H14M4.5 8H11.5M7 12H9" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/></svg></span>
+            </div>
+            <div class="ifs-table__th">
+              Created by
+              <span class="ifs-table__filter"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 4H14M4.5 8H11.5M7 12H9" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/></svg></span>
+            </div>
+            <div class="ifs-table__th" style="flex:none;width:48px"></div>
+          </div>
+
+          <div class="ifs-table__row">
+            <div class="ifs-table__td" style="flex:2 0 0">Q1 2026 Strategy Framework</div>
+            <div class="ifs-table__td">
+              <span class="ifs-table__status ifs-table__status--active">
+                <span class="ifs-table__status-dot"></span>
+                <span class="ifs-table__status-label">Active</span>
+              </span>
+            </div>
+            <div class="ifs-table__td">Jan 15, 2026</div>
+            <div class="ifs-table__td" style="gap:var(--gap-200)">
+              <span class="ifs-table__avatar" style="background:var(--collaboration-user-7,#ff8a00)">JC</span>
+              J. Carter
+            </div>
+            <div class="ifs-table__td" style="flex:none;width:48px"></div>
+          </div>
+
+          <div class="ifs-table__row">
+            <div class="ifs-table__td" style="flex:2 0 0">Q2 2026 Strategy Framework</div>
+            <div class="ifs-table__td" style="gap:var(--gap-100)">
+              <span class="ifs-table__status ifs-table__status--pending">
+                <span class="ifs-table__status-dot"></span>
+                <span class="ifs-table__status-label">Pending Approval</span>
+              </span>
+              <span class="ifs-table__count">5/8</span>
+            </div>
+            <div class="ifs-table__td">Jan 10, 2026</div>
+            <div class="ifs-table__td" style="gap:var(--gap-200)">
+              <span class="ifs-table__avatar" style="background:var(--collaboration-user-10,#18a0fb)">AS</span>
+              A. Singh
+            </div>
+            <div class="ifs-table__td" style="flex:none;width:48px"></div>
+          </div>
+
+          <div class="ifs-table__row">
+            <div class="ifs-table__td" style="flex:2 0 0">Cost Optimization 2026</div>
+            <div class="ifs-table__td" style="gap:var(--gap-100)">
+              <span class="ifs-table__status ifs-table__status--draft">
+                <span class="ifs-table__status-dot"></span>
+                <span class="ifs-table__status-label">Draft</span>
+              </span>
+              <span class="ifs-table__count">Input</span>
+            </div>
+            <div class="ifs-table__td">Dec 18, 2025</div>
+            <div class="ifs-table__td" style="gap:var(--gap-200)">
+              <span class="ifs-table__avatar" style="background:var(--collaboration-user-10,#18a0fb)">AS</span>
+              A. Singh
+            </div>
+            <div class="ifs-table__td" style="flex:none;width:48px"></div>
+          </div>
+
+          <div class="ifs-table__row">
+            <div class="ifs-table__td" style="flex:2 0 0">2025 Strategy Framework v6</div>
+            <div class="ifs-table__td" style="gap:var(--gap-100)">
+              <span class="ifs-table__status ifs-table__status--draft">
+                <span class="ifs-table__status-dot"></span>
+                <span class="ifs-table__status-label">Draft</span>
+              </span>
+              <span class="ifs-table__count">Shape</span>
+            </div>
+            <div class="ifs-table__td">Dec 5, 2025</div>
+            <div class="ifs-table__td" style="gap:var(--gap-200)">
+              <span class="ifs-table__avatar" style="background:var(--collaboration-user-10,#18a0fb)">AS</span>
+              A. Singh
+            </div>
+            <div class="ifs-table__td" style="flex:none;width:48px"></div>
+          </div>
+
+          <div class="ifs-table__row">
+            <div class="ifs-table__td" style="flex:2 0 0">2025 Strategy Framework v3</div>
+            <div class="ifs-table__td">
+              <span class="ifs-table__status ifs-table__status--archived">
+                <span class="ifs-table__status-dot"></span>
+                <span class="ifs-table__status-label">Archived</span>
+              </span>
+            </div>
+            <div class="ifs-table__td">Oct 2, 2025</div>
+            <div class="ifs-table__td" style="gap:var(--gap-200)">
+              <span class="ifs-table__avatar" style="background:var(--collaboration-user-8,#9c18fb)">MT</span>
+              M. Torres
+            </div>
+            <div class="ifs-table__td" style="flex:none;width:48px"></div>
+          </div>
+
+          <div class="ifs-table__row">
+            <div class="ifs-table__td" style="flex:2 0 0">2024 Strategy Framework v1</div>
+            <div class="ifs-table__td">
+              <span class="ifs-table__status ifs-table__status--archived">
+                <span class="ifs-table__status-dot"></span>
+                <span class="ifs-table__status-label">Archived</span>
+              </span>
+            </div>
+            <div class="ifs-table__td">Nov 10, 2024</div>
+            <div class="ifs-table__td" style="gap:var(--gap-200)">
+              <span class="ifs-table__avatar" style="background:var(--collaboration-user-8,#9c18fb)">MT</span>
+              M. Torres
+            </div>
+            <div class="ifs-table__td" style="flex:none;width:48px"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════════════════════════════════════
+           STATUS VARIANTS
+      ══════════════════════════════════════ -->
+      <h2>Status variants</h2>
+      <p class="section-note">All six status pill variants. Archived dims both dot and label to <code>--text-disabled</code>.</p>
+
+      <div class="demo" style="padding:24px;">
+        <div class="ifs-table" style="max-width:400px">
+          <div class="ifs-table__header">
+            <div class="ifs-table__th">Status</div>
+          </div>
+          <div class="ifs-table__row">
+            <div class="ifs-table__td">
+              <span class="ifs-table__status ifs-table__status--active">
+                <span class="ifs-table__status-dot"></span>
+                <span class="ifs-table__status-label">Active</span>
+              </span>
+            </div>
+          </div>
+          <div class="ifs-table__row">
+            <div class="ifs-table__td">
+              <span class="ifs-table__status ifs-table__status--pending">
+                <span class="ifs-table__status-dot"></span>
+                <span class="ifs-table__status-label">Pending Approval</span>
+              </span>
+            </div>
+          </div>
+          <div class="ifs-table__row">
+            <div class="ifs-table__td">
+              <span class="ifs-table__status ifs-table__status--draft">
+                <span class="ifs-table__status-dot"></span>
+                <span class="ifs-table__status-label">Draft</span>
+              </span>
+            </div>
+          </div>
+          <div class="ifs-table__row">
+            <div class="ifs-table__td">
+              <span class="ifs-table__status ifs-table__status--info">
+                <span class="ifs-table__status-dot"></span>
+                <span class="ifs-table__status-label">In Review</span>
+              </span>
+            </div>
+          </div>
+          <div class="ifs-table__row">
+            <div class="ifs-table__td">
+              <span class="ifs-table__status ifs-table__status--danger">
+                <span class="ifs-table__status-dot"></span>
+                <span class="ifs-table__status-label">At Risk</span>
+              </span>
+            </div>
+          </div>
+          <div class="ifs-table__row">
+            <div class="ifs-table__td">
+              <span class="ifs-table__status ifs-table__status--archived">
+                <span class="ifs-table__status-dot"></span>
+                <span class="ifs-table__status-label">Archived</span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════════════════════════════════════
+           STACKED CELL
+      ══════════════════════════════════════ -->
+      <h2>Stacked cell</h2>
+      <p class="section-note">Add <code>.ifs-table__td--stack</code> to a cell and use <code>.ifs-table__td-primary</code> + <code>.ifs-table__td-secondary</code> for two-line content — name + code, title + subtitle, etc.</p>
+
+      <div class="demo" style="padding:24px;">
+        <div class="ifs-table" style="max-width:480px">
+          <div class="ifs-table__header">
+            <div class="ifs-table__th">Investment</div>
+            <div class="ifs-table__th" style="flex:none;width:110px">Stage</div>
+          </div>
+          <div class="ifs-table__row">
+            <div class="ifs-table__td ifs-table__td--stack">
+              <span class="ifs-table__td-primary">Northern Corridor Upgrade</span>
+              <span class="ifs-table__td-secondary">INV-2026-0091</span>
+            </div>
+            <div class="ifs-table__td" style="flex:none;width:110px">
+              <span class="ifs-table__status ifs-table__status--info">
+                <span class="ifs-table__status-dot"></span>
+                <span class="ifs-table__status-label">In Review</span>
+              </span>
+            </div>
+          </div>
+          <div class="ifs-table__row">
+            <div class="ifs-table__td ifs-table__td--stack">
+              <span class="ifs-table__td-primary">Westfield Substation — Switchgear</span>
+              <span class="ifs-table__td-secondary">INV-2025-0589</span>
+            </div>
+            <div class="ifs-table__td" style="flex:none;width:110px">
+              <span class="ifs-table__status ifs-table__status--draft">
+                <span class="ifs-table__status-dot"></span>
+                <span class="ifs-table__status-label">Draft</span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════════════════════════════════════
+           TOKEN REFERENCE
+      ══════════════════════════════════════ -->
+      <h2>Token reference</h2>
+
+      <table class="token-table">
+        <thead><tr><th>Element</th><th>Token</th></tr></thead>
+        <tbody>
+          <tr><td>Container background</td><td class="tok">--surface-secondary-alpha</td></tr>
+          <tr><td>Container radius</td><td class="tok">--radius-200</td></tr>
+          <tr><td>Container padding</td><td class="tok">--gap-300</td></tr>
+          <tr><td>Row gap</td><td class="tok">--gap-100</td></tr>
+          <tr><td>Header text</td><td class="tok">--h4-size · --h4-upper-weight · --h4-upper-tracking · --text-tertiary</td></tr>
+          <tr><td>Sort / filter icon</td><td class="tok">--icon-tertiary (default) · --icon-secondary (hover) · --text-primary (active)</td></tr>
+          <tr><td>Row background</td><td class="tok">--surface-secondary-alpha</td></tr>
+          <tr><td>Row radius</td><td class="tok">--radius-100</td></tr>
+          <tr><td>Row hover</td><td class="tok">--background-color-alpha-white-base</td></tr>
+          <tr><td>Row selected</td><td class="tok">--background-color-alpha-white-strong</td></tr>
+          <tr><td>Cell text</td><td class="tok">--body-m-size · --body-m-medium-weight · --body-m-medium-tracking · --text-primary</td></tr>
+          <tr><td>Cell secondary text</td><td class="tok">--body-m-weight · --body-m-tracking · --text-secondary</td></tr>
+          <tr><td>Status label</td><td class="tok">--label-m-size · --label-m-upper-weight · --label-m-upper-tracking</td></tr>
+          <tr><td>Status dot — Active</td><td class="tok">--text-success</td></tr>
+          <tr><td>Status dot — Pending</td><td class="tok">--text-warning</td></tr>
+          <tr><td>Status dot — Draft</td><td class="tok">--text-tertiary</td></tr>
+          <tr><td>Status dot — Info</td><td class="tok">--text-info</td></tr>
+          <tr><td>Status dot — Danger</td><td class="tok">--text-danger</td></tr>
+          <tr><td>Status — Archived (dot + label)</td><td class="tok">--text-disabled</td></tr>
+          <tr><td>Count badge background</td><td class="tok">--background-color-alpha-white-base</td></tr>
+          <tr><td>Count badge radius</td><td class="tok">--radius-full</td></tr>
+          <tr><td>Count badge padding</td><td class="tok">--gap-100 / --gap-200</td></tr>
+        </tbody>
+      </table>
+
+    </div><!-- /page -->
+  </main>
+</div>
+</body>
+</html>

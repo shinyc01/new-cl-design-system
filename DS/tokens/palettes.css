@@ -47,24 +47,24 @@
   --failure-probability-low:       #FF87ED;
 
   /* ---- collaboration/user-1..16 (cursors, avatars, presence)
-     Source: semantic spec sheet. Expressive palette values are
-     PLACEHOLDER (#8366F7-based) pending finalisation in Figma. ---- */
-  --collaboration-user-1:  #8366F7;   /* expressive/coral-orange/500 — PLACEHOLDER */
-  --collaboration-user-2:  #175C65;   /* neutral/steel-blue/700 */
-  --collaboration-user-3:  #25964A;   /* system/success/600 */
-  --collaboration-user-4:  #AACCFF;   /* system/info/200 */
-  --collaboration-user-5:  #8366F7;   /* expressive/fuchsia/500 — PLACEHOLDER */
-  --collaboration-user-6:  #8366F7;   /* expressive/lime/500 — PLACEHOLDER */
-  --collaboration-user-7:  #B5A3FA;   /* expressive/coral-orange/300 — PLACEHOLDER */
-  --collaboration-user-8:  #8366F7;   /* expressive/violet/500 — PLACEHOLDER */
-  --collaboration-user-9:  #300C0C;   /* system/danger/900 */
-  --collaboration-user-10: #8366F7;   /* expressive/electric-blue/500 — PLACEHOLDER */
-  --collaboration-user-11: #CDC2FC;   /* expressive/violet/200 — PLACEHOLDER */
-  --collaboration-user-12: #EE3C3B;   /* system/danger/500-base */
-  --collaboration-user-13: #FFAF2E;   /* system/warning/500-base */
-  --collaboration-user-14: #B5A3FA;   /* expressive/violet/300 — PLACEHOLDER */
-  --collaboration-user-15: #CDC2FC;   /* expressive/fuchsia/200 — PLACEHOLDER */
-  --collaboration-user-16: rgba(70,70,70,0.60);  /* system/grey/600 */
+     Source: semantic spec sheet. Expressive steps are PLACEHOLDER
+     pending finalisation in Figma. ---- */
+  --collaboration-user-1:  #EF5533;             /* expressive/coral-orange/500 — PLACEHOLDER */
+  --collaboration-user-2:  #25324D;             /* neutral/steel-blue/700 */
+  --collaboration-user-3:  #25964A;             /* system/success/600 */
+  --collaboration-user-4:  #AACCFF;             /* system/info/200 */
+  --collaboration-user-5:  #F531B3;             /* expressive/fuchsia/500 — PLACEHOLDER */
+  --collaboration-user-6:  #A9D10A;             /* expressive/lime/500 — PLACEHOLDER */
+  --collaboration-user-7:  #F48E76;             /* expressive/coral-orange/300 — PLACEHOLDER */
+  --collaboration-user-8:  #9C18FB;             /* expressive/violet/500 — PLACEHOLDER */
+  --collaboration-user-9:  #300C0C;             /* system/danger/900 */
+  --collaboration-user-10: #3056EE;             /* expressive/electric-blue/500 — PLACEHOLDER */
+  --collaboration-user-11: #C992FF;             /* expressive/violet/200 — PLACEHOLDER */
+  --collaboration-user-12: #EE3C3B;             /* system/danger/500-base */
+  --collaboration-user-13: #FFAF2E;             /* system/warning/500-base */
+  --collaboration-user-14: #B46DFF;             /* expressive/violet/300 — PLACEHOLDER */
+  --collaboration-user-15: #F58ADB;             /* expressive/fuchsia/200 — PLACEHOLDER */
+  --collaboration-user-16: rgba(70,70,70,0.60); /* system/grey/600 */
 
   /* ---- element/map-pin fills (600-step of the status hues) ---- */
   --map-pin-fill-success: #25964A;
@@ -79,6 +79,18 @@
   --map-highlight-cooper:    inset 0 0 12px 7px rgba(200,121,65,0.40);
   --map-highlight-evaluated: inset 0 0 12px 7px rgba(131,102,247,0.40);
   --map-highlight-grey:      inset 0 0 12px 7px rgba(84,84,84,0.40);
+
+  /* ---- data-viz/deep-green sequential series ---- */
+  --deep-green-data-1:  var(--deep-green-100);
+  --deep-green-data-2:  var(--deep-green-200);
+  --deep-green-data-3:  var(--deep-green-300);
+  --deep-green-data-4:  var(--deep-green-400);
+  --deep-green-data-5:  var(--deep-green-500);
+  --deep-green-data-6:  var(--deep-green-600);
+  --deep-green-data-7:  var(--deep-green-700);
+  --deep-green-data-8:  var(--deep-green-800);
+  --deep-green-data-9:  var(--deep-green-900);
+  --deep-green-data-10: var(--deep-green-950);
 
   /* ============================================================
      Legacy aliases (deprecated — use --chart-data-* /

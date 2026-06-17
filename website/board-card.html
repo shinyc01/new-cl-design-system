@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Board Card — IFS Copperleaf Design System</title>
+<link rel="stylesheet" href="../DS/styles.css">
+<link rel="stylesheet" href="../DS/components/core/board-card.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.34.0/dist/tabler-icons.min.css">
+<link rel="stylesheet" href="site.css">
+<script src="site.js"></script>
+<script src="../DS/icons/icons.js"></script>
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="main">
+    <div class="page">
+      <div class="page-eyebrow">Components</div>
+      <h1>Board Card</h1>
+      <p class="page-lede">Kanban-style card for the board / queue view. Represents an asset decision item moving through three workflow stages: queue, in-progress, and completed.</p>
+
+      <!-- ── Queue ── -->
+      <h2>Queue</h2>
+      <p>Default state — awaiting action. Shows a Critical risk chip. Add <code>.ifs-board-card--hover</code> to preview the hover appearance.</p>
+
+      <div class="demo" style="align-items:flex-start; gap:16px; flex-wrap:wrap">
+
+        <!-- Queue default -->
+        <div class="ifs-board-card ifs-board-card--queue">
+          <div class="ifs-board-card__header">
+            <div class="ifs-board-card__header-chips">
+              <span class="ifs-board-card__chip ifs-board-card__chip--critical">
+                <span class="ifs-board-card__chip-icon">
+                  <i class="ti ti-alert-circle-filled" aria-hidden="true"></i>
+                </span>
+                Critical risk
+              </span>
+            </div>
+            <span class="ifs-board-card__time">2 h ago</span>
+          </div>
+          <div class="ifs-board-card__body">
+            <div>
+              <div class="ifs-board-card__title">South Hudson Substation</div>
+              <div class="ifs-board-card__subtitle">Overload</div>
+            </div>
+            <div class="ifs-board-card__meta">
+              <span class="ifs-board-card__meta-icon">
+                <i class="ti ti-home" aria-hidden="true"></i>
+              </span>
+              <span>South District</span>
+              <span style="margin:0 2px">·</span>
+              <span>Hydro Feed Line 3 cluster</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Queue hover -->
+        <div class="ifs-board-card ifs-board-card--queue ifs-board-card--hover">
+          <div class="ifs-board-card__header">
+            <div class="ifs-board-card__header-chips">
+              <span class="ifs-board-card__chip ifs-board-card__chip--critical">
+                <span class="ifs-board-card__chip-icon">
+                  <i class="ti ti-alert-circle-filled" aria-hidden="true"></i>
+                </span>
+                Critical risk
+              </span>
+            </div>
+            <span class="ifs-board-card__time">2 h ago</span>
+          </div>
+          <div class="ifs-board-card__body">
+            <div>
+              <div class="ifs-board-card__title">South Hudson Substation</div>
+              <div class="ifs-board-card__subtitle">Overload</div>
+            </div>
+            <div class="ifs-board-card__meta">
+              <span class="ifs-board-card__meta-icon">
+                <i class="ti ti-home" aria-hidden="true"></i>
+              </span>
+              <span>South District</span>
+              <span style="margin:0 2px">·</span>
+              <span>Hydro Feed Line 3 cluster</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Queue with elevated risk -->
+        <div class="ifs-board-card ifs-board-card--queue">
+          <div class="ifs-board-card__header">
+            <div class="ifs-board-card__header-chips">
+              <span class="ifs-board-card__chip ifs-board-card__chip--elevated">
+                <span class="ifs-board-card__chip-icon">
+                  <!-- filled broadcast / signal icon -->
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="width:16px;height:16px;display:block">
+                    <circle cx="12" cy="12" r="2"/>
+                    <path d="M15.536 8.464a5 5 0 0 1 0 7.072l-1.414-1.414a3 3 0 0 0 0-4.244l1.414-1.414zM19.778 4.222a11 11 0 0 1 0 15.556l-1.414-1.414a9 9 0 0 0 0-12.728l1.414-1.414zM8.464 15.536a5 5 0 0 1 0-7.072l1.414 1.414a3 3 0 0 0 0 4.244l-1.414 1.414zM4.222 19.778a11 11 0 0 1 0-15.556l1.414 1.414a9 9 0 0 0 0 12.728l-1.414 1.414z"/>
+                  </svg>
+                </span>
+                Elevated risk
+              </span>
+              <span class="ifs-board-card__chip ifs-board-card__chip--critical">
+                <span class="ifs-board-card__chip-icon">
+                  <i class="ti ti-alert-circle-filled" aria-hidden="true"></i>
+                </span>
+                Critical risk
+              </span>
+            </div>
+            <span class="ifs-board-card__time">2 h ago</span>
+          </div>
+          <div class="ifs-board-card__body">
+            <div>
+              <div class="ifs-board-card__title">South Hudson Substation</div>
+              <div class="ifs-board-card__subtitle">Overload</div>
+            </div>
+            <div class="ifs-board-card__meta">
+              <span class="ifs-board-card__meta-icon">
+                <i class="ti ti-home" aria-hidden="true"></i>
+              </span>
+              <span>South District</span>
+              <span style="margin:0 2px">·</span>
+              <span>Hydro Feed Line 3 cluster</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ── In Progress ── -->
+      <h2>In progress</h2>
+      <p>Decision has been sent. Shows a "Sent to decide" chip and a segmented progress bar.</p>
+
+      <div class="demo" style="align-items:flex-start; gap:16px; flex-wrap:wrap">
+
+        <!-- In-progress default -->
+        <div class="ifs-board-card ifs-board-card--in-progress">
+          <div class="ifs-board-card__header">
+            <div class="ifs-board-card__header-chips">
+              <span class="ifs-board-card__chip ifs-board-card__chip--sent">
+                <span class="ifs-board-card__chip-icon">
+                  <svg viewBox="0 0 10 10" fill="currentColor">
+                    <path d="M5.8 1 2 5.5h3.2L4 9.5l5.5-5.5H6.2L5.8 1z"/>
+                  </svg>
+                </span>
+                Sent to decide
+              </span>
+            </div>
+            <span class="ifs-board-card__time">2 h ago</span>
+          </div>
+          <div class="ifs-board-card__body">
+            <div class="ifs-board-card__title">South Hudson Substation</div>
+            <div class="ifs-board-card__meta">
+              <span class="ifs-board-card__meta-icon">
+                <i class="ti ti-home" aria-hidden="true"></i>
+              </span>
+              <span>South District</span>
+              <span style="margin:0 2px">·</span>
+              <span>Hydro Feed Line 3 cluster</span>
+            </div>
+          </div>
+          <div class="ifs-board-card__progress">
+            <div class="ifs-board-card__progress-labels">
+              <span>Strategy</span>
+              <span>1/5</span>
+            </div>
+            <div class="ifs-board-card__progress-track">
+              <div class="ifs-board-card__progress-segment ifs-board-card__progress-segment--filled"></div>
+              <div class="ifs-board-card__progress-segment"></div>
+              <div class="ifs-board-card__progress-segment"></div>
+              <div class="ifs-board-card__progress-segment"></div>
+              <div class="ifs-board-card__progress-segment"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- In-progress hover -->
+        <div class="ifs-board-card ifs-board-card--in-progress ifs-board-card--hover">
+          <div class="ifs-board-card__header">
+            <div class="ifs-board-card__header-chips">
+              <span class="ifs-board-card__chip ifs-board-card__chip--sent">
+                <span class="ifs-board-card__chip-icon">
+                  <svg viewBox="0 0 10 10" fill="currentColor">
+                    <path d="M5.8 1 2 5.5h3.2L4 9.5l5.5-5.5H6.2L5.8 1z"/>
+                  </svg>
+                </span>
+                Sent to decide
+              </span>
+            </div>
+            <span class="ifs-board-card__time">2 h ago</span>
+          </div>
+          <div class="ifs-board-card__body">
+            <div class="ifs-board-card__title">South Hudson Substation</div>
+            <div class="ifs-board-card__meta">
+              <span class="ifs-board-card__meta-icon">
+                <i class="ti ti-home" aria-hidden="true"></i>
+              </span>
+              <span>South District</span>
+              <span style="margin:0 2px">·</span>
+              <span>Hydro Feed Line 3 cluster</span>
+            </div>
+          </div>
+          <div class="ifs-board-card__progress">
+            <div class="ifs-board-card__progress-labels">
+              <span>Strategy</span>
+              <span>1/5</span>
+            </div>
+            <div class="ifs-board-card__progress-track">
+              <div class="ifs-board-card__progress-segment ifs-board-card__progress-segment--filled"></div>
+              <div class="ifs-board-card__progress-segment"></div>
+              <div class="ifs-board-card__progress-segment"></div>
+              <div class="ifs-board-card__progress-segment"></div>
+              <div class="ifs-board-card__progress-segment"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ── Completed ── -->
+      <h2>Completed</h2>
+      <p>Item resolved. Shows a resolved chip and Details / Report action buttons.</p>
+
+      <div class="demo" style="align-items:flex-start; gap:16px; flex-wrap:wrap">
+
+        <!-- Completed default -->
+        <div class="ifs-board-card ifs-board-card--completed">
+          <div class="ifs-board-card__header">
+            <div class="ifs-board-card__header-chips">
+              <span class="ifs-board-card__chip ifs-board-card__chip--resolved-compact">
+                <span class="ifs-board-card__chip-icon">
+                  <i class="ti ti-circle-check-filled" aria-hidden="true"></i>
+                </span>
+              </span>
+            </div>
+            <span class="ifs-board-card__time">2 h ago</span>
+          </div>
+          <div class="ifs-board-card__body">
+            <div class="ifs-board-card__title">South Hudson Substation</div>
+            <div class="ifs-board-card__meta">
+              <span class="ifs-board-card__meta-icon">
+                <i class="ti ti-home" aria-hidden="true"></i>
+              </span>
+              <span>South District</span>
+              <span style="margin:0 2px">·</span>
+              <span>Hydro Feed Line 3 cluster</span>
+            </div>
+            <div class="ifs-board-card__actions">
+              <button class="ifs-board-card__btn ifs-board-card__btn--outline">Details</button>
+              <button class="ifs-board-card__btn ifs-board-card__btn--filled">Report</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ── Status chips ── -->
+      <h2>Status chips</h2>
+      <p>Five variants from Figma node 2265-39313. All share a glassmorphic pill shell: <code>--black-120</code> border, <code>--blur-light</code> backdrop blur, <code>--shadow-chip</code> drop shadow.</p>
+
+      <div class="demo" style="gap:8px; flex-wrap:wrap; align-items:center">
+
+        <!-- Resolved — black-200 bg, icon + label -->
+        <span class="ifs-board-card__chip ifs-board-card__chip--resolved">
+          <span class="ifs-board-card__chip-icon">
+            <i class="ti ti-circle-check-filled" aria-hidden="true"></i>
+          </span>
+          Resolved
+        </span>
+
+        <!-- Critical — red-600@20% bg, icon + label -->
+        <span class="ifs-board-card__chip ifs-board-card__chip--critical">
+          <span class="ifs-board-card__chip-icon">
+            <i class="ti ti-alert-circle-filled" aria-hidden="true"></i>
+          </span>
+          Critical risk
+        </span>
+
+        <!-- Moderate — white-50 bg, icon + label -->
+        <span class="ifs-board-card__chip ifs-board-card__chip--moderate">
+          <span class="ifs-board-card__chip-icon">
+            <i class="ti ti-alert-circle-filled" aria-hidden="true"></i>
+          </span>
+          Moderate risk
+        </span>
+
+        <!-- Cause Asset — red-600@20% bg, label only (no icon) -->
+        <span class="ifs-board-card__chip ifs-board-card__chip--cause">
+          Cause asset
+        </span>
+
+        <!-- Elevated — copper-400@20% bg, icon + label -->
+        <span class="ifs-board-card__chip ifs-board-card__chip--elevated">
+          <span class="ifs-board-card__chip-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="width:16px;height:16px;display:block">
+              <circle cx="12" cy="12" r="2"/>
+              <path d="M15.536 8.464a5 5 0 0 1 0 7.072l-1.414-1.414a3 3 0 0 0 0-4.244l1.414-1.414zM19.778 4.222a11 11 0 0 1 0 15.556l-1.414-1.414a9 9 0 0 0 0-12.728l1.414-1.414zM8.464 15.536a5 5 0 0 1 0-7.072l1.414 1.414a3 3 0 0 0 0 4.244l-1.414 1.414zM4.222 19.778a11 11 0 0 1 0-15.556l1.414 1.414a9 9 0 0 0 0 12.728l-1.414 1.414z"/>
+            </svg>
+          </span>
+          Elevated risk
+        </span>
+
+      </div>
+
+      <!-- ── Token reference ── -->
+      <h2>Token reference</h2>
+      <div id="t-board-card"></div>
+
+    </div>
+  </main>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  document.body.insertAdjacentHTML("afterbegin", window.IFSIconSprite);
+
+  tokenTable("t-board-card", [
+    ["--white-50",     "Card default bg (≈ Figma 4%); moderate chip bg (≈ Figma 6%)"],
+    ["--white-80",     "Card hover background (Figma 8%)"],
+    ["--white-100",    "Filled button background"],
+    ["--white-150",    "Filled button hover"],
+    ["--white-200",    "Filled button border"],
+    ["--white-500",    "Secondary text, progress fill"],
+    ["--black-40",     "Chip shadow colour (shadow-chip)"],
+    ["--black-120",    "Chip border"],
+    ["--black-200",    "Resolved chip background"],
+    ["--black-400",    "In-progress card shadow"],
+    ["--shadow-chip",  "Drop shadow on all status chips"],
+    ["--border-base",  "Completed card border, outline button border"],
+    ["--red-600",      "Critical + cause chip bg (color-mix @ 20%)"],
+    ["--copper-400",   "Elevated chip bg (color-mix @ 20%)"],
+    ["--purple-500",   "Sent to decide chip bg + icon fill (color-mix @ 20%)"],
+  ], { notes: true });
+});
+</script>
+</body>
+</html>
