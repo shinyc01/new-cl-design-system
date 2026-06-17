@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":3,"namespace":"IFSDesignSystem_6f71e3","components":[{"name":"Avatar","sourcePath":"components/core/Avatar.jsx"},{"name":"AvatarGroup","sourcePath":"components/core/Avatar.jsx"},{"name":"Badge","sourcePath":"components/core/Badge.jsx"},{"name":"Button","sourcePath":"components/core/Button.jsx"},{"name":"Card","sourcePath":"components/core/Card.jsx"},{"name":"Checkbox","sourcePath":"components/forms/Checkbox.jsx"},{"name":"Input","sourcePath":"components/forms/Input.jsx"},{"name":"Search","sourcePath":"components/forms/Search.jsx"},{"name":"Select","sourcePath":"components/forms/Select.jsx"},{"name":"SmartSearch","sourcePath":"components/forms/SmartSearch.jsx"},{"name":"Switch","sourcePath":"components/forms/Switch.jsx"},{"name":"SegmentedControl","sourcePath":"components/navigation/SegmentedControl.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"}],"sourceHashes":{"components/core/Avatar.jsx":"d8a41d7a453c","components/core/Badge.jsx":"9aa6b7605894","components/core/Button.jsx":"d1d95a4d5515","components/core/Card.jsx":"eaccf9cdd3f4","components/forms/Checkbox.jsx":"ace0ab5489a9","components/forms/Input.jsx":"f08ad3c4f945","components/forms/Search.jsx":"89712c37e7c9","components/forms/Select.jsx":"1dabab96ef47","components/forms/SmartSearch.jsx":"4d93dbc5eedb","components/forms/Switch.jsx":"b1f64e5293a2","components/navigation/SegmentedControl.jsx":"80eb5ce25c09","components/navigation/Stepper.jsx":"ce0987e35973","components/navigation/Tabs.jsx":"af89de9190a2"}} */
+/* @ds-bundle: {"format":3,"namespace":"IFSDesignSystem_6f71e3","components":[{"name":"Avatar","sourcePath":"components/core/Avatar.jsx"},{"name":"AvatarGroup","sourcePath":"components/core/Avatar.jsx"},{"name":"Badge","sourcePath":"components/core/Badge.jsx"},{"name":"Button","sourcePath":"components/core/Button.jsx"},{"name":"Card","sourcePath":"components/core/Card.jsx"},{"name":"Checkbox","sourcePath":"components/forms/Checkbox.jsx"},{"name":"Input","sourcePath":"components/forms/Input.jsx"},{"name":"QuickStatCard","sourcePath":"components/core/QuickStatCard.jsx"},{"name":"Search","sourcePath":"components/forms/Search.jsx"},{"name":"Select","sourcePath":"components/forms/Select.jsx"},{"name":"SmartSearch","sourcePath":"components/forms/SmartSearch.jsx"},{"name":"Switch","sourcePath":"components/forms/Switch.jsx"},{"name":"SegmentedControl","sourcePath":"components/navigation/SegmentedControl.jsx"},{"name":"Stepper","sourcePath":"components/navigation/Stepper.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"}],"sourceHashes":{"components/core/Avatar.jsx":"d8a41d7a453c","components/core/Badge.jsx":"9aa6b7605894","components/core/Button.jsx":"d1d95a4d5515","components/core/Card.jsx":"eaccf9cdd3f4","components/forms/Checkbox.jsx":"ace0ab5489a9","components/forms/Input.jsx":"f08ad3c4f945","components/core/QuickStatCard.jsx":"a3c9f2e81b44","components/forms/Search.jsx":"89712c37e7c9","components/forms/Select.jsx":"1dabab96ef47","components/forms/SmartSearch.jsx":"4d93dbc5eedb","components/forms/Switch.jsx":"b1f64e5293a2","components/navigation/SegmentedControl.jsx":"80eb5ce25c09","components/navigation/Stepper.jsx":"ce0987e35973","components/navigation/Tabs.jsx":"af89de9190a2"}} */
 
 (() => {
 
@@ -1502,5 +1502,39 @@ function Tabs({ items = [], value, onChange, plain = false, className = "", ...r
 }
 __ds_ns.Tabs = Tabs;
 })(); } catch(e) { (__ds_ns.__errors = __ds_ns.__errors || []).push({ file: "components/navigation/Tabs.jsx", error: String(e) }); }
+
+// components/core/QuickStatCard.jsx
+try { (() => {
+const CSS = `
+.ifs-quick-stat-card{display:flex;flex-direction:column;gap:var(--gap-200);padding:var(--padding-300);border-radius:var(--radius-100);background:var(--surface-secondary-alpha);border:var(--border-100) solid var(--border-base);box-sizing:border-box}
+.ifs-quick-stat-card__title{font-family:var(--font-sans);font-size:var(--h4-size);line-height:var(--h4-line);font-weight:var(--h4-weight);letter-spacing:var(--h4-tracking);color:var(--text-secondary)}
+.ifs-quick-stat-card__value-row{display:flex;align-items:baseline;gap:var(--gap-150)}
+.ifs-quick-stat-card__value{font-family:var(--font-sans);font-size:var(--fs-20);line-height:var(--lh-24);font-weight:var(--weight-medium);letter-spacing:-0.5px;color:var(--text-primary)}
+.ifs-quick-stat-card__desc{font-family:var(--font-sans);font-size:var(--label-m-size);line-height:var(--label-m-line);font-weight:var(--label-m-weight);letter-spacing:var(--label-m-tracking);color:var(--text-tertiary)}
+`;
+let _i = false;
+function ensureCSS() {
+  if (_i || typeof document === "undefined") return;
+  _i = true;
+  const s = document.createElement("style");
+  s.setAttribute("data-ifs", "quick-stat-card");
+  s.textContent = CSS;
+  document.head.appendChild(s);
+}
+function QuickStatCard({ title, value, desc, className = "", ...rest }) {
+  ensureCSS();
+  const cls = ["ifs-quick-stat-card", className].filter(Boolean).join(" ");
+  return /* @__PURE__ */ React.createElement("div", { className: cls, ...rest },
+    /* @__PURE__ */ React.createElement("div", { className: "ifs-quick-stat-card__title" }, title),
+    /* @__PURE__ */ React.createElement("div", { className: "ifs-quick-stat-card__value-row" },
+      /* @__PURE__ */ React.createElement("span", { className: "ifs-quick-stat-card__value" }, value)
+    ),
+    desc ? /* @__PURE__ */ React.createElement("div", { className: "ifs-quick-stat-card__desc" }, desc) : null
+  );
+}
+__ds_ns.QuickStatCard = QuickStatCard;
+// Eagerly inject CSS so plain-HTML prototypes pick up the classes on bundle load (no React render needed)
+ensureCSS();
+})(); } catch(e) { (__ds_ns.__errors = __ds_ns.__errors || []).push({ file: "components/core/QuickStatCard.jsx", error: String(e) }); }
 
 })();

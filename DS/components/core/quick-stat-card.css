@@ -1,0 +1,49 @@
+/* ============================================================
+   IFS Copperleaf — QuickStatCard component
+   Compact KPI tile: label + large value + optional description.
+   Use in 4-up grids on investment / asset detail overview screens.
+   ============================================================ */
+
+.ifs-quick-stat-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-200);
+  padding: var(--padding-300);
+  border-radius: var(--radius-100);
+  background: var(--surface-secondary-alpha);
+  border: var(--border-100) solid var(--border-base);
+  box-sizing: border-box;
+}
+
+.ifs-quick-stat-card__title {
+  font-family: var(--font-sans);
+  font-size: var(--h4-size);
+  line-height: var(--h4-line);
+  font-weight: var(--h4-weight);
+  letter-spacing: var(--h4-tracking);
+  color: var(--text-secondary);
+}
+
+.ifs-quick-stat-card__value-row {
+  display: flex;
+  align-items: baseline;
+  gap: var(--gap-150);
+}
+
+.ifs-quick-stat-card__value {
+  font-family: var(--font-sans);
+  font-size: var(--fs-20);
+  line-height: var(--lh-24);
+  font-weight: var(--weight-medium);
+  letter-spacing: -0.5px; /* NOTE: no exact DS token for -0.5px; flagged for future --fs-20-tracking token */
+  color: var(--text-primary);
+}
+
+.ifs-quick-stat-card__desc {
+  font-family: var(--font-sans);
+  font-size: var(--label-m-size);
+  line-height: var(--label-m-line);
+  font-weight: var(--label-m-weight);
+  letter-spacing: var(--label-m-tracking);
+  color: var(--text-tertiary);
+}
