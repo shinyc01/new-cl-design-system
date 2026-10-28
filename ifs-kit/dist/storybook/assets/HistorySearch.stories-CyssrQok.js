@@ -1,4 +1,0 @@
-import{I as o}from"./patterns-cooper-C667F40c.js";import{I as n}from"./patterns-trace-BbbZlZ3a.js";import"./index-B0WjJBI_.js";import"./_commonjsHelpers-CqkleIqs.js";import"./index-x-G-dxfr.js";import"./index-CwPCC0ZT.js";const i=o.find(a=>a.name==="HistorySearch"),g={title:"Pattern helpers/Cooper/HistorySearch",component:n.HistorySearch,tags:["autodocs"],parameters:{docs:{description:{component:"**Figma:** History- search [patterns] (67:125529)"}},design:{type:"figma",url:"https://www.figma.com/design/KmmVU2D0kqWr0dC1xXNzWw/IFS-Design-System-Patterns?node-id=67-125529"}}},r={name:"All variants & states",render:()=>i.render()};var e,t,s;r.parameters={...r.parameters,docs:{...(e=r.parameters)==null?void 0:e.docs,source:{originalSource:`{
-  name: 'All variants & states',
-  render: () => section.render()
-}`,...(s=(t=r.parameters)==null?void 0:t.docs)==null?void 0:s.source}}};const h=["AllVariants"];export{r as AllVariants,h as __namedExportsOrder,g as default};

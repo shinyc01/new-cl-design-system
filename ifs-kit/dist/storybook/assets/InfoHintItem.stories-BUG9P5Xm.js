@@ -1,4 +1,0 @@
-import{I as s}from"./patterns-approval-CcALRbbC.js";import{I as a}from"./patterns-trace-BbbZlZ3a.js";import"./index-B0WjJBI_.js";import"./_commonjsHelpers-CqkleIqs.js";import"./index-x-G-dxfr.js";import"./index-CwPCC0ZT.js";const i=s.find(r=>r.name==="InfoHintItem"),f={title:"More components/Approval chain/InfoHintItem",component:a.InfoHintItem,tags:["autodocs"],parameters:{docs:{description:{component:"**Figma:** info-hint-item (12:121968)"}},design:{type:"figma",url:"https://www.figma.com/design/atgUmwcA1AE5sjFoWBT7ar/IFS-Design-System?node-id=12-121968"}}},t={name:"All variants & states",render:()=>i.render()};var e,n,o;t.parameters={...t.parameters,docs:{...(e=t.parameters)==null?void 0:e.docs,source:{originalSource:`{
-  name: 'All variants & states',
-  render: () => section.render()
-}`,...(o=(n=t.parameters)==null?void 0:n.docs)==null?void 0:o.source}}};const g=["AllVariants"];export{t as AllVariants,g as __namedExportsOrder,f as default};

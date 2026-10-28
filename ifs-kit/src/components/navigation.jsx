@@ -1,6 +1,6 @@
 import React from 'react';
 import { IFS } from './registry.js';
-// Navigation family. Organisms (SideNav, Tabs, Breadcrumb, Stepper, Pager, CanvasHeader, NavBar, PageHeader)
+// Navigation family. Organisms (SideNav, Tabs, Breadcrumb, Stepper, Pager, CanvasHeader, NavBar, PageHeader, PageTop)
 // are what screens use; NavItem, Tab, Crumb, Step, CanvasColumn are the atoms they are built from.
 
 // Controlled-or-uncontrolled value helper (local to this family).
@@ -346,6 +346,42 @@ function PageHeader({ title, id, onBack, onTitleMenu, status, views, center, act
   );
 }
 
+// Figma: page-top (244:117279, key c5e4c474…) — component set in IFS Design System Patterns (KmmVU2D0kqWr0dC1xXNzWw); variant
+// Type=Default 244:117280 and the older standalone copy 95:18889 both carry key 771d8425…. Not found in the published IFS Design System library.
+// The page intro on a library / list page (a single object's page uses PageHeader instead). Column, gap 20:
+//   title row (gap 8, bottom-aligned): text column (gap 8) = eyebrow + title (Heading/H1/medium) + description (Body/M/medium),
+//   then the actions on the right (Figma "Show button": button Secondary M "New" with system-pencil-plus);
+//   tabs row (40 tall, space-between, bottom-aligned, gap 32): tab-organism (tabs with counts) + smart-search-organism (360) ("show search").
+// Props: title, description (one line; omit for a title-only page-top), eyebrow (Figma "cooper": true → "Cooper", or a string)
+// with the Cooper Insight mark, actions (node, e.g. <IFS.Button type="secondary" size="m" iconLeft="system-pencil-plus">New</IFS.Button>),
+// tabs (IFS.Tabs props, or a node), search (IFS.SmartSearch props, or a node), headingLevel (default 1).
+// With neither description nor eyebrow the title row is 32 tall and centred (the Build / Idea Pad page-top).
+function PageTop({ title, description, eyebrow, actions, tabs, search, headingLevel = 1, className, ...rest }) {
+  const H = `h${headingLevel}`;
+  const node = (v, C) => (v == null || v === false ? null : React.isValidElement(v) ? v : <C {...v} />);
+  const tabsNode = node(tabs, IFS.Tabs);
+  const searchNode = node(search, IFS.SmartSearch);
+  const single = !description && !eyebrow;
+  return (
+    <div className={IFS.cx('ifs-page-top', single && 'ifs-page-top--single', className)} {...rest}>
+      <div className="ifs-page-top__title">
+        <div className="ifs-page-top__text">
+          {eyebrow && <span className="ifs-page-top__eyebrow"><IFS.Icon name="cooper-system-icon" variant="Insight" size={16} />{eyebrow === true ? 'Cooper' : eyebrow}</span>}
+          <H className="ifs-page-top__heading">{title}</H>
+          {description && <p className="ifs-page-top__description">{description}</p>}
+        </div>
+        {actions && <div className="ifs-page-top__actions">{actions}</div>}
+      </div>
+      {(tabsNode || searchNode) && (
+        <div className="ifs-page-top__tabs">
+          {tabsNode || <span />}
+          {searchNode}
+        </div>
+      )}
+    </div>
+  );
+}
+
 // AppShell — NOT a Figma component. Reproduces the shell of pattern screen "Map - Overview - Default" (4484:116532):
 // 48px NavBar across the top, 240px SideNav below it on the left, then the content column with the PageHeader
 // (+ optional CanvasHeader) on top and a scrolling content area. Bar, sidebar and header stay put; only content scrolls.
@@ -366,6 +402,6 @@ function AppShell({ navBar, sideNav, header, bottom, children, height, className
 
 Object.assign(IFS, {
   NavItem, NavSubtitle, SideNav, Tab, Tabs, Crumb, Breadcrumb, Step, Stepper, Pager,
-  CanvasColumn, CanvasHeader, NavBarItem, NavBar, PageHeader, AppShell,
+  CanvasColumn, CanvasHeader, NavBarItem, NavBar, PageHeader, PageTop, AppShell,
 });
-export { NavItem, NavSubtitle, SideNav, Tab, Tabs, Crumb, Breadcrumb, Step, Stepper, Pager, CanvasColumn, CanvasHeader, NavBarItem, NavBar, PageHeader, AppShell };
+export { NavItem, NavSubtitle, SideNav, Tab, Tabs, Crumb, Breadcrumb, Step, Stepper, Pager, CanvasColumn, CanvasHeader, NavBarItem, NavBar, PageHeader, PageTop, AppShell };

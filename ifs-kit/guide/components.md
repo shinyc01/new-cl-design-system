@@ -19,7 +19,7 @@ The standard product screen (Navigation pattern page, screen "Map - Overview - D
 |---|---|---|---|
 | Level 1 nav bar | `global-header` (logo + stage tabs Home · Value · Explore · Build · Plan · Results + search/settings/notifications + avatar) | top, full width, 48px | pattern screen (inferred that this is the L1 bar; the canvas documents the L1 bar as `nav-bar-organism`, see Gaps) |
 | Level 2 sidebar | `sidebar-pattern` (built on `navigation-panel-organism`) | left, 240px, below nav bar | (Figma) "The 2nd tier of navigation … Level 1 picks the stage; Level 2 picks where you are within it." |
-| Level 3 page header | `page-header` / `page-header-pattern` / `header-pattern`; on map views add `canvas-header` underneath | top of content area | (Figma) "the page header frames the specific page … holding the controls and actions that act on the page's content." |
+| Level 3 page header | single object's page: `page-header` / `page-header-pattern` / `header-pattern` (kit `PageHeader`); on map views add `canvas-header` underneath. Library/list page: `page-top` (kit `PageTop`) | top of content area | (Figma) "the page header frames the specific page … holding the controls and actions that act on the page's content." |
 | Content | 12-column grid (dashboards, content pages) **or** `canvas-background` (map / node-graph views) | fills remaining space | (Figma, Layout) |
 | Bottom sheet | `base-bottom-sheet-organism` (Value tab: `value-bottom-sheet-organism`; Explore tab: `explore-bottom-sheet`) — Cooper FAB + prompt chips | bottom of content area, 40px | (Figma) "Baseline for all tabs. If a tab has no special bottom-sheet needs, it uses this." |
 | Optional right column | `panel-organism` | 380px expanded / 84px collapsed, full height, in the layout (no overlay) | (Figma) |
@@ -42,7 +42,7 @@ Overlay layers, lowest to highest (Surfaces, Figma): panel (in layout) → popov
 Each rule is quoted from a canvas note (Figma) and cited by page.
 
 1. **Buttons, not links.** "Inline text links are not used in the interface — any page-to-page move, opening an object, going back a level … is a button." Exceptions: links inside user-authored content and external resources. Use Ghost button where a text link would go. — Action
-1b. **One page header: PageHeader.** (designer decision, Oct 2026) Every page, library/list pages included, uses `PageHeader`. Don't use `page-top` (771d8425), the taller intro header with description, tabs and search seen in some pattern frames. Put tabs, search and the New action in the page content under PageHeader.
+1b. **Two page headers.** Use `PageTop` on library/list pages (title, description, New action, tabs with counts and smart search) and `PageHeader` on a single object's page (slim bar: back, name, status, actions). (designer decision, Oct 2026)
 2. **No table pagination.** "No hidden rows in tables. We don't paginate table content." Narrow with filters that carry counts: on a library/list page, **Tabs** with counts sit above the table card; inside a table card, a **SegmentedControl S** with counts sits in the card's bar (Idea Pad). The table scrolls with a sticky header. A fixed-height card (600px) may use "Show more". — Navigation, Data Display › Table; Patterns › Table (see guide/patterns/table.md)
 3. **Stepper is non-interactive.** "Users cannot click or tap a step to navigate between steps." A button or completion event advances it. — Navigation
 4. **Every visible field is required.** No asterisks or required markers; optional fields are not shown. — Inputs & Forms
@@ -987,6 +987,11 @@ key: a66c690107f3282fdb0d83674f46e62441794963 · node: 4485:119917 · variants: 
 ### page-header
 key: 9175f001185d8545d21a5915e5794992587351cc · node: 1588:1971
 **Use for** (inferred) The page header instance used in the Map overview screen (title + status + view toggles + recommendation). Overlaps with `page-header-pattern` (see Gaps).
+
+### page-top
+key: c5e4c47466b6a214434547fc54bd5678b6658fd1 (set; variant Type=Default 771d842501a13c89539875ae993aca11fbcbfa82) · node: 244:117279 (IFS Design System Patterns; not found in the published IFS Design System library) · variants: Type=[Default] · bool: cooper, show search, Show button
+**Use for** (designer decision) The intro of a library/list page: Cooper eyebrow (optional), H1 title, one-line description, a "New" (or other) Secondary M button on the right, then `Tabs` with counts and a 360px `SmartSearch`. Kit: `PageTop`; on a DataTable library page pass `pageTop` to `DataTable` so its tab filter and search sit in it. Also the Command home intro (cooper on, no button) and the Build page (title only, Tabs L, no search).
+**Don't use for** a single object's page (framework, investment, report): that's `PageHeader`. Don't stack `PageHeader` above `PageTop`.
 
 ### explore-header-pattern
 key: 0f49a18bdc8ebc72618b4449574b2cf88757dc00 · node: 7205:33581 · variants: show-cooper-badge=[no|yes] · bool: show-selected, show-action-buttons, show-back-button

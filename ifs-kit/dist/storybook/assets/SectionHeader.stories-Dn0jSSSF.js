@@ -1,4 +1,0 @@
-import{I as a}from"./patterns-cooper-C667F40c.js";import{I as n}from"./patterns-trace-BbbZlZ3a.js";import"./index-B0WjJBI_.js";import"./_commonjsHelpers-CqkleIqs.js";import"./index-x-G-dxfr.js";import"./index-CwPCC0ZT.js";const i=a.find(s=>s.name==="SectionHeader"),g={title:"More components/Cooper/SectionHeader",component:n.SectionHeader,tags:["autodocs"],parameters:{docs:{description:{component:"**Figma:** section-header [patterns] (12:264342)"}},design:{type:"figma",url:"https://www.figma.com/design/KmmVU2D0kqWr0dC1xXNzWw/IFS-Design-System-Patterns?node-id=12-264342"}}},e={name:"All variants & states",render:()=>i.render()};var r,t,o;e.parameters={...e.parameters,docs:{...(r=e.parameters)==null?void 0:r.docs,source:{originalSource:`{
-  name: 'All variants & states',
-  render: () => section.render()
-}`,...(o=(t=e.parameters)==null?void 0:t.docs)==null?void 0:o.source}}};const f=["AllVariants"];export{e as AllVariants,f as __namedExportsOrder,g as default};

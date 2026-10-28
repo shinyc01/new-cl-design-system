@@ -1,0 +1,4 @@
+import{I as o}from"./patterns-trace-_Jbo_0aE.js";import{I as n}from"./patterns-trace-DCNRvUMl.js";import"./index-B0WjJBI_.js";import"./_commonjsHelpers-CqkleIqs.js";import"./index-x-G-dxfr.js";import"./index-CwPCC0ZT.js";const c=o.find(s=>s.name==="TraceReport"),u={title:"Pattern helpers/Confidence, trace & readiness/TraceReport",component:n.TraceReport,tags:["autodocs"],parameters:{docs:{description:{component:"**Figma:** Trace report drawer / sidebar [patterns] (12:176606 / 12:176205)"}}}},r={name:"All variants & states",render:()=>c.render()};var e,t,a;r.parameters={...r.parameters,docs:{...(e=r.parameters)==null?void 0:e.docs,source:{originalSource:`{
+  name: 'All variants & states',
+  render: () => section.render()
+}`,...(a=(t=r.parameters)==null?void 0:t.docs)==null?void 0:a.source}}};const A=["AllVariants"];export{r as AllVariants,A as __namedExportsOrder,u as default};

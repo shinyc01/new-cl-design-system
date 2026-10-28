@@ -1,0 +1,4 @@
+import{I as o}from"./patterns-table-CPQy9KoS.js";import{I as n}from"./patterns-trace-DCNRvUMl.js";import"./index-B0WjJBI_.js";import"./_commonjsHelpers-CqkleIqs.js";import"./index-x-G-dxfr.js";import"./index-CwPCC0ZT.js";const i=o.find(a=>a.name==="RecordPreview"),w={title:"Pattern helpers/Table/RecordPreview",component:n.RecordPreview,tags:["autodocs"],parameters:{docs:{description:{component:"**Figma:** panel-organism preview [patterns] (95:128070)"}},design:{type:"figma",url:"https://www.figma.com/design/KmmVU2D0kqWr0dC1xXNzWw/IFS-Design-System-Patterns?node-id=95-128070"}}},e={name:"All variants & states",render:()=>i.render()};var r,t,s;e.parameters={...e.parameters,docs:{...(r=e.parameters)==null?void 0:r.docs,source:{originalSource:`{
+  name: 'All variants & states',
+  render: () => section.render()
+}`,...(s=(t=e.parameters)==null?void 0:t.docs)==null?void 0:s.source}}};const v=["AllVariants"];export{e as AllVariants,v as __namedExportsOrder,w as default};

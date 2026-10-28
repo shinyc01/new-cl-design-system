@@ -1,4 +1,0 @@
-import{I as s}from"./patterns-collaboration-BL_ya-qu.js";import{I as n}from"./patterns-trace-BbbZlZ3a.js";import"./index-B0WjJBI_.js";import"./_commonjsHelpers-CqkleIqs.js";import"./index-x-G-dxfr.js";import"./index-CwPCC0ZT.js";const l=s.find(e=>e.name==="CollaboratorsButton"),b={title:"Pattern helpers/Collaboration/CollaboratorsButton",component:n.CollaboratorsButton,tags:["autodocs"],parameters:{docs:{description:{component:"**Figma:** header-pattern / collaboration [patterns] (I12:8475;4485:119305)"}}}},t={name:"All variants & states",render:()=>l.render()};var r,o,a;t.parameters={...t.parameters,docs:{...(r=t.parameters)==null?void 0:r.docs,source:{originalSource:`{
-  name: 'All variants & states',
-  render: () => section.render()
-}`,...(a=(o=t.parameters)==null?void 0:o.docs)==null?void 0:a.source}}};const A=["AllVariants"];export{t as AllVariants,A as __namedExportsOrder,b as default};

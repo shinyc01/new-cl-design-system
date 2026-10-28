@@ -1,4 +1,0 @@
-import{I as a}from"./patterns-cooper-C667F40c.js";import{I as n}from"./patterns-trace-BbbZlZ3a.js";import"./index-B0WjJBI_.js";import"./_commonjsHelpers-CqkleIqs.js";import"./index-x-G-dxfr.js";import"./index-CwPCC0ZT.js";const m=a.find(s=>s.name==="FolderItem"),g={title:"More components/Cooper/FolderItem",component:n.FolderItem,tags:["autodocs"],parameters:{docs:{description:{component:"**Figma:** folder-item [patterns] (12:264108)"}},design:{type:"figma",url:"https://www.figma.com/design/KmmVU2D0kqWr0dC1xXNzWw/IFS-Design-System-Patterns?node-id=12-264108"}}},e={name:"All variants & states",render:()=>m.render()};var r,t,o;e.parameters={...e.parameters,docs:{...(r=e.parameters)==null?void 0:r.docs,source:{originalSource:`{
-  name: 'All variants & states',
-  render: () => section.render()
-}`,...(o=(t=e.parameters)==null?void 0:t.docs)==null?void 0:o.source}}};const F=["AllVariants"];export{e as AllVariants,F as __namedExportsOrder,g as default};

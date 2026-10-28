@@ -203,10 +203,11 @@ export default IFS_GALLERY;
     const open = r => IFS.toast({ title: `Opening ${r.name}` });
     return (
       <Screen>
-        <BuildShell header={<IFS.PageHeader title="Build" actions={<IFS.Button type="secondary" size="s" iconLeft="system-pencil-plus">New</IFS.Button>} />}
+        <BuildShell
           aside={preview && <RecordPreview id={`INV-2026-09${preview.id.slice(1).padStart(2, '0')}`} onDetails={() => open(preview)} onClose={() => setPreview(null)}>{PREVIEW_BODY(preview)}</RecordPreview>}>
-          <div><IFS.Tabs size="l" items={[{ value: 'ideas', label: 'Idea Pad' }, { value: 'inv', label: 'Investments' }]} value={page}
-            onChange={v => { setPage(v); setLoading(true); setTimeout(() => setLoading(false), 1200); }} /></div>
+          <IFS.PageTop title="Build" actions={<IFS.Button type="secondary" size="m" iconLeft="system-pencil-plus">New</IFS.Button>}
+            tabs={{ size: 'l', items: [{ value: 'ideas', label: 'Idea Pad' }, { value: 'inv', label: 'Investments' }], value: page,
+              onChange: v => { setPage(v); setLoading(true); setTimeout(() => setLoading(false), 1200); } }} />
           <DataTable variant="ranked" rows={rows} onRowsChange={setRows} columns={ideaCols(r => IFS.toast({ title: `Opening ${r.collab.label.toLowerCase()} on ${r.name}` }))}
             filterTabs={ideaTabs} search={{ placeholder: 'Ask anything about idea pad', suggestions: QUESTIONS, noResults: ['Cedar Park', 'Birchwood', 'Northgate Full Replacement'] }}
             onOpen={open} onPreview={setPreview} previewId={preview && preview.id} rowActions={ideaActions} loading={loading}
@@ -247,9 +248,10 @@ export default IFS_GALLERY;
             { type: 'section', label: 'Library', items: [{ id: 'sf', label: 'Strategy Framework' }, { id: 'vf', label: 'Value Framework' }, { id: 'vm', label: 'Value Models' }] },
             { id: 'hp', label: 'Human Performance' }]} />}
           bottom={<IFS.BottomSheet prompts={['Walk me through this framework', 'What hasn\'t been updated in a while?']} />}
-          header={<IFS.PageHeader title="Value Framework" actions={<IFS.Button type="secondary" size="s" iconLeft="system-pencil-plus">New</IFS.Button>} />}>
+>
           <div style={{ padding: 12, display: 'flex', flexDirection: 'column', gap: 20 }}>
-            <DataTable variant="standard" toolbarOutside rows={rows} onRowsChange={setRows} defaultSort={{ key: 'modified', dir: 'desc' }}
+            <DataTable variant="standard" rows={rows} onRowsChange={setRows} defaultSort={{ key: 'modified', dir: 'desc' }}
+              pageTop={{ title: 'Value Framework', description: 'Published, archived and draft value frameworks', actions: <IFS.Button type="secondary" size="m" iconLeft="system-pencil-plus">New</IFS.Button> }}
               filterTabs={{ variant: 'tabs', items: [{ value: 'all', label: 'All' }, ...['Active', 'Pending approval', 'Archived', 'Draft'].map(s => ({ value: s, label: s === 'Pending approval' ? 'Pending Approval' : s, match: r => r.status.label === s }))] }}
               search={{ placeholder: 'Ask anything about value frameworks', suggestions: ['Which frameworks are waiting on my approval?', 'What changed between v13 and v14?'], noResults: ['Value Framework v14', 'Reliability 2025'] }}
               onOpen={r => IFS.toast({ title: `Opening ${r.name}` })} onRename={() => {}} rowActions={fwActions}

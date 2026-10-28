@@ -5,7 +5,7 @@ import { Meta } from '@storybook/blocks';
 
 # Review queue
 
-64 items to check, on 44 stories. Each one is a place where Figma disagrees with itself, something was invented or approximated, or a legacy part was kept. When frames and notes disagreed, the notes won. Open the story, compare it with the Design tab, then remove the item from `guide/review.md`.
+69 items to check, on 45 stories. Each one is a place where Figma disagrees with itself, something was invented or approximated, or a legacy part was kept. When frames and notes disagreed, the notes won. Open the story, compare it with the Design tab, then remove the item from `guide/review.md`.
 
 ## <a href="./index.html?path=/docs/activity-collaboration-commentthread--docs" target="_top">Activity & Collaboration/CommentThread</a>
 
@@ -23,6 +23,14 @@ import { Meta } from '@storybook/blocks';
 ## <a href="./index.html?path=/docs/data-visualisation-linechart--docs" target="_top">Data Visualisation/LineChart</a>
 
 - The y-axis starts at 80; Figma's starts at 60.
+
+## <a href="./index.html?path=/docs/navigation-pagetop--docs" target="_top">Navigation/PageTop</a>
+
+- Two masters in Patterns: standalone `page-top` 95:18889 and component set 244:117279 (set key c5e4c474…). The set's variant and the standalone share key 771d8425…; the set only adds the `cooper` eyebrow and the `show search` / `Show button` booleans. Neither turned up in a search of the published IFS Design System library. The kit follows the set.
+- The Command instance (244:119970) overrides the row gap to 12 (master 20) and its title row has no button. The kit passes `style=&#123;&#123; gap: 12 &#125;&#125;`.
+- The Build / Idea Pad page-top (244:120196, 95:106508 and the other Idea Pad frames) is a detached frame, not an instance: title only, description hidden, tabs `Size=L (40)` squeezed to 36. The kit uses `Tabs size="l"` at 40, so the content sits 4px lower.
+- The Cooper eyebrow uses `cooper-icons State=Insight`; the kit draws `cooper-system-icon` Insight (same artwork). The eyebrow text is `text/tertiary`; the earlier hand-built intro used secondary.
+- Older instances still hold the legacy `tab` / `counter` / `ai smart search` parts; the set uses `tab` Size=M (36), `counter-atom` S and `smart-search-organism`.
 
 ## <a href="./index.html?path=/docs/more-components-activity-versions-comparedropdownlist--docs" target="_top">More components/Activity & versions/CompareDropdownList</a>
 

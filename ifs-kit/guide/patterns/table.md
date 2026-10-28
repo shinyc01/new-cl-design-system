@@ -8,7 +8,7 @@ How data tables behave in the product: filtering, search, sorting, pinning and m
 ## Anatomy
 - **Card**: `DataTable` (16px padding, 12px gap, radius 8, `surface/secondary-alpha`) around the kit `Table` (table-header-molecule, table-cell-atom, table-sort-atom, table-filter-atom, content-row-molecule).
 - **Toolbar** (`TableToolbar`, 40px):
-  - left: the row filter with counts. Inside the card this is a `SegmentedControl` S. On library pages it is `Tabs`, which sit above the card (`toolbarOutside`).
+  - left: the row filter with counts. Inside the card this is a `SegmentedControl` S. On library pages it is `Tabs`, which sit above the card inside `PageTop` (`pageTop`).
   - right: `SmartSearch` (smart-search-organism), a divider, and a Tertiary S `IconButton` `system-filter-settings` that opens the Columns drawer.
 - **Column filter**: the table-filter-atom opens a `ColumnFilter`, built from single-select-list-molecule with `Chip`s. Depending on the column it also holds `DatePicker` (custom period), `Search` (long vocabularies) or From/To range fields.
 - **Cells** (kit cell types):
@@ -57,7 +57,7 @@ How data tables behave in the product: filtering, search, sorting, pinning and m
 1. Tables are never paginated (kit rule). A table that is the only or last block on the page loads more rows as you scroll. When several tables or other blocks share the page, each table sits in a fixed 600px card with Show more / Show less. (Figma)
 2. The row filter has two forms, and the page shows both:
    - Inside a table card it is a **SegmentedControl S with counts**, for example the Build › Idea Pad card under the page Tabs.
-   - On library pages it is **Tabs with counts** above the card, next to the smart search.
+   - On library pages it is **Tabs with counts** in the `PageTop` above the card, next to the smart search.
    - The guide's "filter with tabs" and "the table card uses a segmented control" are therefore both true. Use the segmented control when the page already has tabs. (Figma frames; the reason is inferred)
 3. Only date and number columns sort, for example Last modified, Cost, BCR, Score and counters. Text columns (names, statuses, authors, owners, collaboration) are narrowed with the column filter instead. The header shows only the controls the column supports. (Figma)
 4. Empty date or number values always sort to the end, in both directions. (Figma)
@@ -135,6 +135,6 @@ How data tables behave in the product: filtering, search, sorting, pinning and m
 - **consolidated: `ai-search` (b419c093) → `Icon cooper-system-icon variant="Smart search"`.** Same artwork at 24px (the paths are the 16px icon scaled by 1.5). It only appears inside older smart-search instances.
 - **consolidated: "ai smart search" (cfb1a43e at an older version: `Property 1`, `input=text`) → `SmartSearch`.**
 - **consolidated: `table-filter-sort` (d0b0b2dd) = table-sort-atom.** Same key; this file caches it under its old name.
-- `page-top` → PageHeader (designer decision: no page-top)
+- `page-top` → `PageTop` (designer decision, Oct 2026: library pages use PageTop; a single object's page uses PageHeader). `DataTable pageTop={…}` puts the row tabs and search in it.
 - **UNSURE: the table card is a local "section" frame (16px padding, 12px gap) vs `table-card-organism` (kit `Table` title/tabs/search: 12px padding, 8px gap).** None of these screens instance table-card-organism. `DataTable` follows the screens.
 - **UNSURE: the Table view section's Gantt "Table view"** (`table-header-timeline`, `cell-base-atom-timeline`, `row-timeline`, `section-header-timeline`, `today-line-atom-timeline`, 190:229607) is IFS DS but not in the kit, and was not built here. It is a timeline view, not a data table.

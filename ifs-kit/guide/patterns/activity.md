@@ -18,7 +18,7 @@ The record's history: who did what (activity log), the saved versions of the rec
   - Four `StatCard`s with `className="ifs-compare-stat"`, each with a `CompareStatValue` (baseline → current).
   - `Sankey` with two source blocks: current and baseline.
 - **Page chrome**:
-  - Library: `AppShell`, `NavBar`, `SideNav`, a page title + `DataTable` (Tabs with counts, smart search, row ⋮).
+  - Library: `AppShell`, `NavBar`, `SideNav`, `PageTop` + `DataTable` (Tabs with counts, smart search, row ⋮).
   - Framework: `PageHeader` (title ⌄ menu, status `Indicator`, view `SegmentedControl` grid / map / compare, `CooperChip`), `CanvasHeader`, `CanvasBackground` + `NodeCard`s, `BottomSheet` type value.
 
 ## Flows and states
@@ -87,7 +87,7 @@ The record's history: who did what (activity log), the saved versions of the rec
   - Variant2 is not used on this page.
 - **consolidated: `sunkey-item` 3389a548 = sankey-atom → `SankeyNode`; `sunkey-item` 7b5c534e (an older copy without the `compare-data` boolean) → `SankeyNode` (leave out `change`); `sunkey-header` (ce04ed8a = IFS DS sunkey-canvas-header) → the column strip that `Sankey` draws.** All of these sit inside `Sankey` (52:84351).
 - **consolidated (as in table.md): `tableCell` / `tableHeader` legacy sets, `ai smart search` → `SmartSearch`, `overlay` → `Overlay`, `single-select-list-molecule` row menus → `ActionMenu`, `panel-organism` → `Panel`.**
-- `page-top` → PageHeader (designer decision: no page-top)
+- `page-top` → `PageTop` on the library screen (designer decision, Oct 2026); the framework screen keeps `PageHeader`.
 - **UNSURE: the Activity panel is `panel-organism` + `overlay`.**
   - The Panel guide says a panel lives in the layout with no scrim, but this panel is on demand with a scrim, which is how the guide describes a drawer.
   - Figma also replaces the panel's collapse toggle with ✕.

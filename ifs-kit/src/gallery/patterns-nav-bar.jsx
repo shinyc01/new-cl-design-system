@@ -102,20 +102,6 @@ export default IFS_GALLERY;
 
   /* ───────────────────────── pattern screens ───────────────────────── */
 
-  const PageTop = ({ eyebrow, title, description, action, aside, children }) => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: children ? 20 : 0 }}>
-      <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 8 }}>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 8, minWidth: 0 }}>
-          {eyebrow && <span className="t-heading-h3-uppercase" style={{ display: 'inline-flex', alignItems: 'center', gap: 4, color: 'var(--text-secondary)' }}>
-            <IFS.Icon name="cooper-system-icon" variant="Insight" size={16} />{eyebrow}</span>}
-          <h1 className="t-heading-h1-medium" style={{ margin: 0, color: 'var(--text-primary)' }}>{title}</h1>
-          {description && <span className="t-body-m-medium" style={{ color: 'var(--text-secondary)' }}>{description}</span>}
-        </div>
-        {action}{aside}
-      </div>
-      {children}
-    </div>
-  );
   const Upper = ({ children, style }) => <span className="t-heading-h3-uppercase" style={{ color: 'var(--text-secondary)', ...style }}>{children}</span>;
   const Panel = ({ children, style }) => <div style={{ background: 'var(--surface-secondary-alpha)', borderRadius: 8, padding: 12, boxSizing: 'border-box', ...style }}>{children}</div>;
   const RightRail = ({ dot }) => (
@@ -136,12 +122,10 @@ export default IFS_GALLERY;
     return (
       <div style={{ display: 'flex', minHeight: '100%' }}>
         <div style={{ flex: 1, minWidth: 0, padding: '12px 12px 0', display: 'flex', flexDirection: 'column', gap: 12 }}>
-          <PageTop eyebrow="Cooper" title="Welcome back, Jeff." description="2.8M simulations completed while you were away. Here are the items that require your input and attention right now.">
-            <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: 32 }}>
-              <IFS.Tabs items={tabs} value={tab} onChange={setTab} />
-              <IFS.SmartSearch placeholder="Ask anything about your work" suggestions={['Why is Northgate #1?', 'What changed since Friday?']} />
-            </div>
-          </PageTop>
+          {/* page-top instance 244:119970: cooper on, Show button off; the instance overrides the row gap to 12 */}
+          <IFS.PageTop eyebrow title="Welcome back, Jeff." description="2.8M simulations completed while you were away. Here are the items that require your input and attention right now."
+            style={{ gap: 12 }} tabs={{ items: tabs, value: tab, onChange: setTab }}
+            search={{ placeholder: 'Ask anything about your work', suggestions: ['Why is Northgate #1?', 'What changed since Friday?'] }} />
           <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16, height: 28 }}>
               <Upper>{tab === 'decisions' ? 'Decisions to review' : tabs.find(t => t.value === tab).label}</Upper>
@@ -209,17 +193,14 @@ export default IFS_GALLERY;
     return <IFS.SideNav title="Value" value={p} defaultCollapsed={narrow} onSelect={id => { valuePage = id; valueListeners.forEach(f => f(id)); }}
       items={[{ id: 'active', label: 'Active framework' }, { type: 'section', label: 'Library', items: [{ id: 'sf', label: 'Strategy Framework' }, { id: 'vf', label: 'Value Frameworks' }, { id: 'vm', label: 'Value Models' }] }, { id: 'hp', label: 'Human Performance' }]} />;
   };
-  const ValueHeader = () => {
-    const [title] = VALUE_PAGES[useValuePage()];
-    return <IFS.PageHeader title={title} actions={<IFS.Button type="secondary" size="s" iconLeft="system-pencil-plus" onClick={() => toast('New framework')}>New</IFS.Button>} />;
-  };
   const ValueContent = () => {
     const p = useValuePage();
     const [rows, setRows] = useState(FRAMEWORKS);
     const [title] = VALUE_PAGES[p];
     return (
       <div style={{ padding: 12, display: 'flex', flexDirection: 'column', gap: 20 }}>
-        <IFS.DataTable key={p} variant="standard" toolbarOutside rows={rows} onRowsChange={setRows} defaultSort={{ key: 'modified', dir: 'desc' }}
+        <IFS.DataTable key={p} variant="standard" rows={rows} onRowsChange={setRows} defaultSort={{ key: 'modified', dir: 'desc' }}
+          pageTop={{ title, description: VALUE_PAGES[p][1], actions: <IFS.Button type="secondary" size="m" iconLeft="system-pencil-plus" onClick={() => toast('New framework')}>New</IFS.Button> }}
           filterTabs={{ variant: 'tabs', items: [{ value: 'all', label: 'All' }, ...['Active', 'Pending approval', 'Archived', 'Draft'].map(s => ({ value: s, label: s === 'Pending approval' ? 'Pending Approval' : s, match: r => r.status.label === s }))] }}
           search={{ placeholder: `Ask anything about ${title.toLowerCase()}`, suggestions: ['Which frameworks are waiting on my approval?'] }}
           onOpen={r => toast(`Opening ${r.name}`)}
@@ -281,7 +262,8 @@ export default IFS_GALLERY;
     const [page, setPage] = useState('ideas');
     return (
       <div style={{ padding: 12, display: 'flex', flexDirection: 'column', gap: 20 }}>
-        <div><IFS.Tabs size="l" items={[{ value: 'ideas', label: 'Idea Pad' }, { value: 'inv', label: 'Investments' }]} value={page} onChange={setPage} /></div>
+        <IFS.PageTop title="Build" actions={<IFS.Button type="secondary" size="m" iconLeft="system-pencil-plus" onClick={() => toast('New idea')}>New</IFS.Button>}
+          tabs={{ size: 'l', items: [{ value: 'ideas', label: 'Idea Pad' }, { value: 'inv', label: 'Investments' }], value: page, onChange: setPage }} />
         {page === 'ideas'
           ? <IFS.DataTable variant="ranked" rows={rows} onRowsChange={setRows} onOpen={r => toast(`Opening ${r.name}`)}
               filterTabs={{ variant: 'segmented', items: [{ value: 'all', label: 'All ideas' }, { value: 'project', label: 'Project ideas', match: r => !r.program }, { value: 'program', label: 'Program ideas', match: r => r.program }] }}
@@ -364,9 +346,9 @@ export default IFS_GALLERY;
 
   const screens = () => ({
     command: { content: ({ setStage }) => <CommandContent setStage={setStage} />, bottom: <IFS.BottomSheet prompts={['Why is Northgate #1?', 'Brief me']} /> },
-    value: { sideNav: valueSide, header: <ValueHeader />, content: <ValueContent />, bottom: <IFS.BottomSheet prompts={['Walk me through this framework', 'What hasn\'t been updated in a while?']} /> },
+    value: { sideNav: valueSide, content: <ValueContent />, bottom: <IFS.BottomSheet prompts={['Walk me through this framework', 'What hasn\'t been updated in a while?']} /> },
     explore: { header: <ExploreHeader search={{ suggestions: ['Where are the oldest feeders?'] }} onComments={() => toast('Comments')} onCollaborators={() => toast('3 of 5 collaborators online')} />, content: <ExploreContent /> },
-    build: { header: <IFS.PageHeader title="Build" actions={<IFS.Button type="secondary" size="s" iconLeft="system-pencil-plus" onClick={() => toast('New idea')}>New</IFS.Button>} />, content: <BuildContent />, bottom: <IFS.BottomSheet prompts={['Brief me', 'What needs my input first?']} /> },
+    build: { content: <BuildContent />, bottom: <IFS.BottomSheet prompts={['Brief me', 'What needs my input first?']} /> },
     plan: { sideNav: ({ narrow }) => <PlanSide key={`p${narrow}`} narrow={narrow} />, content: <PlanContent />,
       bottom: <IFS.BottomSheet type="value" cooperContext documents={{ label: '16 Documents', icon: 'system-star-favourite', onClick: () => toast('Cooper’s context: 16 documents') }} onUpload={() => toast('Upload')} prompts={['What needs my attention?', 'Are we on track against strategy?']} /> },
     results: { content: <IFS.EmptyState size="full" cause="first-run" heading="No results to review yet" body="Results appear here once a plan is approved and its investments start delivering." /> },

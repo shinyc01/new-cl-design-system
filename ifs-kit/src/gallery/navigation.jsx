@@ -6,7 +6,7 @@ export default IFS_GALLERY;
 
 {
   const { NavItem, NavSubtitle, SideNav, Tab, Tabs, Crumb, Breadcrumb, Step, Stepper, Pager, CanvasColumn, CanvasHeader,
-    NavBarItem, NavBar, PageHeader, AppShell } = IFS;
+    NavBarItem, NavBar, PageHeader, PageTop, AppShell } = IFS;
   const Row = ({ label, children }) => <div className="g-row"><span className="g-label t-body-m-regular">{label}</span>{children}</div>;
   const Box = ({ w = 192, children }) => <div style={{ width: w }}>{children}</div>;
 
@@ -151,6 +151,32 @@ export default IFS_GALLERY;
         center={<Stepper current={1} steps={[{ label: 'Input' }, { label: 'Shape' }, { label: 'Review' }]} />}
         actions={<IFS.Button type="primary" size="s">Publish</IFS.Button>} />
     </div>
+  </> });
+
+  const FW_TABS = [{ value: 'all', label: 'All', count: 8 }, { value: 'active', label: 'Active', count: 1 }, { value: 'pending', label: 'Pending Approval', count: 1 },
+    { value: 'archived', label: 'Archived', count: 3 }, { value: 'draft', label: 'Draft', count: 3 }];
+  const NewBtn = () => <IFS.Button type="secondary" size="m" iconLeft="system-pencil-plus">New</IFS.Button>;
+  const SEARCH = { placeholder: 'Ask anything about strategy frameworks', suggestions: ['Which frameworks are waiting on my approval?'] };
+  const Frame = ({ label, children }) => <div style={{ width: 1176, marginBottom: 32 }}><div className="t-label-m-medium" style={{ color: 'var(--text-tertiary)', marginBottom: 12 }}>{label}</div>{children}</div>;
+  IFS_GALLERY.push({ name: 'PageTop', figma: 'page-top (244:117279, key c5e4c474…)', render: () => <>
+    <Frame label="Default — description, New, tabs with counts, smart search (library page)">
+      <PageTop title="Strategy Framework" description="Published, archived, and draft strategy frameworks" actions={<NewBtn />}
+        tabs={{ items: FW_TABS, defaultValue: 'all' }} search={SEARCH} />
+    </Frame>
+    <Frame label="cooper = true, Show button = false (Command home; the instance overrides the gap to 12)">
+      <PageTop eyebrow title="Welcome back, Jeff." description="2.8M simulations completed while you were away. Here are the items that require your input and attention right now."
+        style={{ gap: 12 }} tabs={{ items: [{ value: 'w', label: 'My works', count: 3 }, { value: 'd', label: 'Decisions', count: 6 }, { value: 'c', label: 'Conversations', count: 3 }, { value: 'f', label: 'Following', count: 3 }], defaultValue: 'd' }}
+        search={{ placeholder: 'Ask anything about your work' }} />
+    </Frame>
+    <Frame label="show search = false">
+      <PageTop title="Strategy Framework" description="Published, archived, and draft strategy frameworks" actions={<NewBtn />} tabs={{ items: FW_TABS, defaultValue: 'all' }} />
+    </Frame>
+    <Frame label="No description — title only, Tabs size L (Build / Idea Pad)">
+      <PageTop title="Build" actions={<NewBtn />} tabs={{ size: 'l', items: [{ value: 'ideas', label: 'Idea Pad' }, { value: 'inv', label: 'Investments' }], defaultValue: 'ideas' }} />
+    </Frame>
+    <Frame label="Title + description only (no tabs, no search, no button)">
+      <PageTop title="Value Models" description="Value models used across frameworks" />
+    </Frame>
   </> });
 
   IFS_GALLERY.push({ name: 'AppShell', figma: 'not a Figma component — layout of "Map - Overview - Default" (4484:116532)', render: () => {

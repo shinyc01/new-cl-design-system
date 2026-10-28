@@ -17,8 +17,8 @@ The Level-1 bar that switches between the product's stages, and what each stage 
   - Explore: no sidebar. It has `ExploreHeader` under the bar.
   - Plan and Explore also have a 48px collapsed right panel rail (sidebar-organism View=Collapsed).
 - Content:
-  - Command: Cooper intro (eyebrow, H1 greeting, description), `Tabs` with counts, `SmartSearch`, "Decisions to review" + `SegmentedControl` S + display-settings `IconButton`. Below that, the ranked `HomeRowCard` list (first = Primary, rest = Secondary). A right column holds Cooper's results, the milestone (`ProgressBar`) and `Calendar`.
-  - Value / Build: page intro (H1, description, "New" `Button`), then `DataTable` (Value: standard, tabs + search outside the card; Build: `Tabs` L Idea Pad / Investments, ranked table with segmented filter).
+  - Command: `PageTop` (Cooper eyebrow, H1 greeting, description, `Tabs` with counts, `SmartSearch`), then "Decisions to review" + `SegmentedControl` S + display-settings `IconButton`. Below that, the ranked `HomeRowCard` list (first = Primary, rest = Secondary). A right column holds Cooper's results, the milestone (`ProgressBar`) and `Calendar`.
+  - Value / Build: `PageTop` (H1, description, "New" `Button`; no `PageHeader`), then `DataTable` (Value: standard, tabs + search outside the card; Build: `Tabs` L Idea Pad / Investments, ranked table with segmented filter).
   - Explore: map with `MapPinDot` clusters, `MapToolbar` (top-left views, bottom-left default), `FtaButton`.
   - Plan: title, description and owner. Then planning-cycle cards, the cycle's `StatCardsRow`, and an affected-area map (`MapPinPole`, `MapPinDot`).
 - Bottom: `BottomSheet` with two prompts. Command and Build: base. Value: base under the content column only. Plan: `type="value"` with Cooper's Context "16 Documents" + upload. Explore: none.
@@ -56,7 +56,7 @@ The Level-1 bar that switches between the product's stages, and what each stage 
 - consolidated: `tableHeader` / `tableCell` (609b40c3… / 81b10bef…) → `DataTable`.
 - consolidated: `Evidence-strip-bar/all actions` (4512b2ec…, Plan) → `BottomSheet type="value"` (Cooper's Context + documents + upload + prompts + FAB).
 - consolidated: `ai smart search` → `SmartSearch`.
-- `page-top` → PageHeader (designer decision: no page-top)
+- `page-top` → `PageTop` (designer decision, Oct 2026). Command uses it with the Cooper eyebrow and no button; Value and Build use it as the page intro. Build's is a detached copy (title only, Tabs L).
 - **UNSURE: `explore-header` (ae9026ad…, used here) vs `explore-header-pattern` (0f49a18b…, IFS DS 7205:33581).** Same purpose. The one used here has no variants (search + filter left; collaborators + comments right), while the published set has show-cooper-badge / show-selected / show-action-buttons / show-back-button. Built as `ExploreHeader` from the instance used here.
 - **UNSURE: Plan sidebar tree.** Figma fills sidebar-organism's Content slot with detached `tableCell` frames (caret + folder + label, tree guide lines). There is no DS tree component. Built as the `SideNavTree` composite.
 - Not found on this page: `sidebar-value` (7d91409b…). The Value sidebar here is `sidebar-pattern` Page=Value = `SideNav`.

@@ -247,10 +247,10 @@ export default IFS_GALLERY;
       },
     };
     const library = (
-      <IFS.AppShell height={900} navBar={NAV} sideNav={SIDE} bottom={<IFS.BottomSheet prompts={PROMPTS} />}
-        header={<IFS.PageHeader title="Strategy Framework" actions={<IFS.Button type="secondary" size="s" iconLeft="system-pencil-plus">New</IFS.Button>} />}>
+      <IFS.AppShell height={900} navBar={NAV} sideNav={SIDE} bottom={<IFS.BottomSheet prompts={PROMPTS} />}>
         <div style={{ padding: 12, display: 'flex', flexDirection: 'column', gap: 20 }}>
-          <IFS.DataTable variant="standard" toolbarOutside rows={rows} onRowsChange={setRows} defaultSort={{ key: 'modified', dir: 'desc' }}
+          <IFS.DataTable variant="standard" rows={rows} onRowsChange={setRows} defaultSort={{ key: 'modified', dir: 'desc' }}
+            pageTop={{ title: 'Strategy Framework', description: 'Published, archived, and draft strategy frameworks', actions: <IFS.Button type="secondary" size="m" iconLeft="system-pencil-plus">New</IFS.Button> }}
             filterTabs={{ variant: 'tabs', items: [{ value: 'all', label: 'All' }, ...['Active', 'Pending Approval', 'Archived', 'Draft'].map(s => ({ value: s, label: s, match: r => r.status.label === s }))] }}
             search={{ placeholder: 'Ask anything about strategy frameworks', suggestions: ['Which frameworks are waiting on my approval?', 'What changed in the active framework?'] }}
             onOpen={r => setScreen({ kind: 'map', fw: r.id })} onRename={() => {}} rowActions={(r, api) => fwActions(r, api, go)}

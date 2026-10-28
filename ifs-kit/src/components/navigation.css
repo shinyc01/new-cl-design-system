@@ -2,7 +2,8 @@
    tab (1440:5039), tab-organism (3412:32038), breadcrumb-atom (3492:9413), breadcrumb-organism (67:4698),
    stepper-molecule (1219:169725), stepper-organism (3029:22750), pagination-organism (3497:9660),
    canvas-header (1440:5321), canvas-container-atom (1440:5305), global-header (69:3736),
-   nav-bar-page-atom (69:4012), page-header (1588:1971); AppShell = layout of screen "Map - Overview - Default" (4484:116532). */
+   nav-bar-page-atom (69:4012), page-header (1588:1971),
+   page-top (Patterns 244:117279, key c5e4c474…); AppShell = layout of screen "Map - Overview - Default" (4484:116532). */
 
 /* ---------- Shared: focus ring ---------- */
 .ifs-nav-item:focus-visible,.ifs-nav-item[data-state=focus],
@@ -208,6 +209,21 @@
   background:var(--element-button-tertiary-fill-default);color:var(--icon-secondary)}
 .ifs-page-header__menu:hover{background:var(--element-button-tertiary-fill-hover)}
 .ifs-page-header__menu:focus-visible{outline:none;box-shadow:0 0 0 1.5px var(--focus-focus-inner),0 0 0 3px var(--focus-focus-outer)}
+
+/* ---------- PageTop: page-top ---------- */
+.ifs-page-top{box-sizing:border-box;display:flex;flex-direction:column;gap:var(--gaps-gap-500);width:100%;min-width:0}
+.ifs-page-top__title{display:flex;align-items:flex-end;gap:var(--gaps-gap-200);min-width:0}
+.ifs-page-top--single .ifs-page-top__title{align-items:center;min-height:32px}
+.ifs-page-top__text{flex:1;min-width:0;display:flex;flex-direction:column;gap:var(--gaps-gap-200)}
+.ifs-page-top__eyebrow{display:inline-flex;align-items:center;gap:var(--gaps-gap-100);color:var(--text-tertiary);
+  font:500 14px/16px var(--font-family-text);letter-spacing:0.2px;text-transform:uppercase}
+.ifs-page-top__eyebrow .ifs-icon{flex:none}
+.ifs-page-top__heading{margin:0;color:var(--text-primary);font:500 20px/24px var(--font-family-text);letter-spacing:-0.5px}
+.ifs-page-top__description{margin:0;color:var(--text-secondary);font:500 12px/16px var(--font-family-text);letter-spacing:-0.1px}
+.ifs-page-top__actions{display:flex;align-items:center;gap:var(--gaps-gap-200);flex:none}
+.ifs-page-top__tabs{display:flex;align-items:flex-end;justify-content:space-between;gap:var(--gaps-gap-700);min-height:40px;min-width:0}
+.ifs-page-top__tabs > .ifs-tabs{flex:0 1 auto;min-width:0}
+.ifs-page-top__tabs > .ifs-smart-search{flex:none}
 
 /* ---------- AppShell (layout only — not a Figma component) ---------- */
 .ifs-app-shell{display:grid;grid-template-columns:auto 1fr;grid-template-rows:48px 1fr;width:100%;height:100vh;overflow:hidden;

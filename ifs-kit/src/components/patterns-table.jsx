@@ -439,10 +439,11 @@ const ptDayMs = 864e5;
 //   configurable { suggestions: [{ key, title, ...column, value(row) }] } → toolbar settings button + Columns drawer,
 //   title / collapsible / defaultCollapsed / headerAction (section header of a table card on a page with several tables),
 //   maxHeight (fixed-height card, default 600 when `fixedHeight`) + Show more / Show less, progressive { pageSize } (single-table pages),
-//   loading (skeleton rows), toolbarOutside (library pages: tabs + search sit above the card).
+//   loading (skeleton rows), toolbarOutside (library pages: tabs + search sit above the card),
+//   pageTop { title, description, eyebrow, actions } (library pages: render IFS.PageTop above the card with the table's tab filter and search in it).
 function DataTable({ columns: colsProp = [], rows, defaultRows = [], onRowsChange, rowKey = 'id', variant = 'standard', defaultSort,
   filterTabs, search, onOpen, onPreview, previewId, rowActions, follow, onRename, configurable, title, collapsible, defaultCollapsed = false,
-  headerAction, fixedHeight, maxHeight = 600, progressive, loading, toolbarOutside, emptyText, className, style }) {
+  headerAction, fixedHeight, maxHeight = 600, progressive, loading, toolbarOutside, pageTop, emptyText, className, style }) {
   const [data, setData] = usePtValue(rows, defaultRows, onRowsChange);
   const ranked = variant === 'ranked';
   const [cols, setCols] = React.useState(() => colsProp.map(c => ({ ...c })));
@@ -722,7 +723,7 @@ function DataTable({ columns: colsProp = [], rows, defaultRows = [], onRowsChang
         {headerAction}
       </div>}
       {!collapsed && <>
-        {!toolbarOutside && toolbar}
+        {!toolbarOutside && !pageTop && toolbar}
         <div className="ifs-data-table__scroll">{body}</div>
         {drag && drag.y != null && <IFS.DropIndicator style={{ position: 'absolute', left: 16, right: 16, top: drag.y }} />}        {fixedHeight && ordered.length > 0 && !searching && <div className="ifs-data-table__more">
           <IFS.Button type="ghost" size="s" iconRight={expanded ? 'arrow-caret-up-filled' : 'arrow-caret-down-filled'} onClick={() => setExpanded(!expanded)}>{expanded ? 'Show less' : 'Show more'}</IFS.Button>
@@ -738,6 +739,11 @@ function DataTable({ columns: colsProp = [], rows, defaultRows = [], onRowsChang
         onAdd={s => { setCols(cs => [...cs, { ...s }]); setAdded(a => ({ ...a, [s.key]: true })); setTimeout(() => setAdded(a => ({ ...a, [s.key]: false })), 1400); }} />
     </IFS.Drawer>
   );
+  if (pageTop) {
+    const configureNode = configurable && <IFS.IconButton icon="system-filter-settings" type="tertiary" size="s" label="Table configuration" onClick={() => setSettingsOpen(true)} />;
+    return <div className="ifs-data-table-page"><IFS.PageTop {...pageTop} tabs={tabsNode || undefined}
+      search={configureNode ? <div className="ifs-table-toolbar__stack">{searchNode}<span className="ifs-table-toolbar__divider" role="separator" aria-orientation="vertical" />{configureNode}</div> : searchNode || undefined} />{card}{settings}</div>;
+  }
   if (toolbarOutside) return <div className="ifs-data-table-page">{toolbar && React.cloneElement(toolbar, { onConfigure: configurable ? () => setSettingsOpen(true) : undefined })}{card}{settings}</div>;
   return <>{card}{settings}</>;
 }

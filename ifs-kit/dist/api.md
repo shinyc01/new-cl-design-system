@@ -969,6 +969,20 @@ center (node, centred between left and right: e.g. the Stepper), actions (node, 
 The blur sits on a ::before layer, so fixed popovers/modals opened from header actions aren't trapped by it.
 `function PageHeader({ title, id, onBack, onTitleMenu, status, views, center, actions, className, ...rest })`
 
+### PageTop
+**Tier:** Component
+Figma: page-top (244:117279, key c5e4c474…) — component set in IFS Design System Patterns (KmmVU2D0kqWr0dC1xXNzWw); variant
+Type=Default 244:117280 and the older standalone copy 95:18889 both carry key 771d8425…. Not found in the published IFS Design System library.
+The page intro on a library / list page (a single object's page uses PageHeader instead). Column, gap 20:
+  title row (gap 8, bottom-aligned): text column (gap 8) = eyebrow + title (Heading/H1/medium) + description (Body/M/medium),
+  then the actions on the right (Figma "Show button": button Secondary M "New" with system-pencil-plus);
+  tabs row (40 tall, space-between, bottom-aligned, gap 32): tab-organism (tabs with counts) + smart-search-organism (360) ("show search").
+Props: title, description (one line; omit for a title-only page-top), eyebrow (Figma "cooper": true → "Cooper", or a string)
+with the Cooper Insight mark, actions (node, e.g. <IFS.Button type="secondary" size="m" iconLeft="system-pencil-plus">New</IFS.Button>),
+tabs (IFS.Tabs props, or a node), search (IFS.SmartSearch props, or a node), headingLevel (default 1).
+With neither description nor eyebrow the title row is 32 tall and centred (the Build / Idea Pad page-top).
+`function PageTop({ title, description, eyebrow, actions, tabs, search, headingLevel = 1, className, ...rest })`
+
 ### AppShell
 **Tier:** Component
 AppShell — NOT a Figma component. Reproduces the shell of pattern screen "Map - Overview - Default" (4484:116532):
@@ -1953,8 +1967,9 @@ Props:
   configurable { suggestions: [{ key, title, ...column, value(row) }] } → toolbar settings button + Columns drawer,
   title / collapsible / defaultCollapsed / headerAction (section header of a table card on a page with several tables),
   maxHeight (fixed-height card, default 600 when `fixedHeight`) + Show more / Show less, progressive { pageSize } (single-table pages),
-  loading (skeleton rows), toolbarOutside (library pages: tabs + search sit above the card).
-`function DataTable({ columns: colsProp = [], rows, defaultRows = [], onRowsChange, rowKey = 'id', variant = 'standard', defaultSort, filterTabs, search, onOpen, onPreview, previewId, rowActions, follow, onRename, configurable, title, collapsible, defaultCollapsed = false, headerAction, fixedHeight, maxHeight = 600, progressive, loading, toolbarOutside, emptyText, className, style })`
+  loading (skeleton rows), toolbarOutside (library pages: tabs + search sit above the card),
+  pageTop { title, description, eyebrow, actions } (library pages: render IFS.PageTop above the card with the table's tab filter and search in it).
+`function DataTable({ columns: colsProp = [], rows, defaultRows = [], onRowsChange, rowKey = 'id', variant = 'standard', defaultSort, filterTabs, search, onOpen, onPreview, previewId, rowActions, follow, onRename, configurable, title, collapsible, defaultCollapsed = false, headerAction, fixedHeight, maxHeight = 600, progressive, loading, toolbarOutside, pageTop, emptyText, className, style })`
 
 ## patterns-trace
 

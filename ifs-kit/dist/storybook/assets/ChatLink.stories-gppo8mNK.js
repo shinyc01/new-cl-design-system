@@ -1,0 +1,4 @@
+import{I as s}from"./patterns-cooper-CK7cwVWf.js";import{I as o}from"./patterns-trace-DCNRvUMl.js";import"./index-B0WjJBI_.js";import"./_commonjsHelpers-CqkleIqs.js";import"./index-x-G-dxfr.js";import"./index-CwPCC0ZT.js";const i=s.find(n=>n.name==="ChatLink"),h={title:"More components/Cooper/ChatLink",component:o.ChatLink,tags:["autodocs"],parameters:{docs:{description:{component:'**Figma:** chat-link-molecule "chat-link-item" [patterns] (12:265109)'}},design:{type:"figma",url:"https://www.figma.com/design/KmmVU2D0kqWr0dC1xXNzWw/IFS-Design-System-Patterns?node-id=12-265109"}}},t={name:"All variants & states",render:()=>i.render()};var e,r,a;t.parameters={...t.parameters,docs:{...(e=t.parameters)==null?void 0:e.docs,source:{originalSource:`{
+  name: 'All variants & states',
+  render: () => section.render()
+}`,...(a=(r=t.parameters)==null?void 0:r.docs)==null?void 0:a.source}}};const k=["AllVariants"];export{t as AllVariants,k as __namedExportsOrder,h as default};

@@ -4,6 +4,15 @@ Things to check in Storybook, one entry per story. Each one is a place where Fig
 
 Format (read by tools/gen-stories.mjs): `### <story section name>`, then one bullet per item. Each item says what Figma shows, what the kit does, and the node ids. Delete an item once it's checked; a story with no items left loses its warning.
 
+## Navigation
+
+### PageTop
+- Two masters in Patterns: standalone `page-top` 95:18889 and component set 244:117279 (set key c5e4c474…). The set's variant and the standalone share key 771d8425…; the set only adds the `cooper` eyebrow and the `show search` / `Show button` booleans. Neither turned up in a search of the published IFS Design System library. The kit follows the set.
+- The Command instance (244:119970) overrides the row gap to 12 (master 20) and its title row has no button. The kit passes `style={{ gap: 12 }}`.
+- The Build / Idea Pad page-top (244:120196, 95:106508 and the other Idea Pad frames) is a detached frame, not an instance: title only, description hidden, tabs `Size=L (40)` squeezed to 36. The kit uses `Tabs size="l"` at 40, so the content sits 4px lower.
+- The Cooper eyebrow uses `cooper-icons State=Insight`; the kit draws `cooper-system-icon` Insight (same artwork). The eyebrow text is `text/tertiary`; the earlier hand-built intro used secondary.
+- Older instances still hold the legacy `tab` / `counter` / `ai smart search` parts; the set uses `tab` Size=M (36), `counter-atom` S and `smart-search-organism`.
+
 ## Patterns — Widget builder
 
 ### Pattern: Widget builder — Investment overview
