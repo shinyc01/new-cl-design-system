@@ -207,3 +207,5 @@
 .ifs-datepicker__popover{position:absolute;left:0;z-index:var(--z-index-z-popover)}
 .ifs-datepicker__popover--down{top:calc(100% + var(--gaps-gap-100))}
 .ifs-datepicker__popover--up{bottom:calc(100% + var(--gaps-gap-100))}
+/* Inside the body-level Floating wrapper the wrapper does the positioning (see Floating in selection.jsx). */
+.ifs-floating>.ifs-select__list,.ifs-floating>.ifs-datepicker__popover{position:static}

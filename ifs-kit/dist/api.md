@@ -380,7 +380,9 @@ showValue (Figma show-value), variant chart (320 wide) | modal (256). children a
 ### ColumnChart
 Figma: chart-column (9862:12468) — one measure across few or time-ordered categories; zero-based, one hue.
 Props: data = [{ label, value, reference?, delta?, details? }], valueLabel (legend + table), referenceLabel (white peer-median tick),
-color (data-viz group, default muted-purple), format(v) for values/axis, tooltip(datum, i) → DataVizTooltip props. + shell props.
+color (data-viz group, default muted-purple), format(v) for values/axis, tooltip(datum, i) → DataVizTooltip props.
+Shell props (every chart): title, state default|hover|cooper|empty|loading, view chart|table / defaultView / onViewChange,
+onCooper, onEditWithCooper, emptyTitle, emptyText, height (default 328), className, style.
 `function ColumnChart(props)`
 
 ### HistogramChart

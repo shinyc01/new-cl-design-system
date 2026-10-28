@@ -1,4 +1,5 @@
 import React from 'react';
+import { createPortal } from 'react-dom';
 import { IFS } from './registry.js';
 // Selection family.
 const { useState, useRef, useEffect, useLayoutEffect, useMemo } = React;
@@ -13,6 +14,28 @@ function useControlled(prop, def, onChange) {
   const set = (v, ...more) => { if (!controlled) setInner(v); if (onChange) onChange(v, ...more); };
   return [controlled ? prop : inner, set];
 }
+// Open lists and the date popover render at the end of <body>, fixed to their field, so a scrolling parent
+// (a modal body, a drawer, a table card) can't clip them. `floatRef` must be passed to useOutside with the root.
+// z-index: the toast layer, because a list opened inside a modal (z-modal 600) must sit above it.
+function Floating({ anchorRef, floatRef, position = 'down', matchWidth = true, children }) {
+  const [pos, setPos] = useState(null);
+  useLayoutEffect(() => {
+    const calc = () => {
+      const a = anchorRef.current; if (!a) return;
+      const r = a.getBoundingClientRect(), gap = 4; // --gaps-gap-100
+      setPos({ left: r.left, ...(matchWidth ? { width: r.width } : {}),
+        ...(position === 'up' ? { bottom: window.innerHeight - r.top + gap } : { top: r.bottom + gap }) });
+    };
+    calc();
+    window.addEventListener('scroll', calc, true); window.addEventListener('resize', calc);
+    return () => { window.removeEventListener('scroll', calc, true); window.removeEventListener('resize', calc); };
+  }, [position, matchWidth]);
+  return createPortal(
+    <div ref={floatRef} className="ifs-floating" style={{ position: 'fixed', zIndex: 'var(--z-index-z-toast)', ...(pos || { visibility: 'hidden' }) }}>
+      {children}
+    </div>, document.body);
+}
+
 // Close when clicking outside any of `refs`.
 function useOutside(active, refs, onOutside) {
   useEffect(() => {
@@ -139,10 +162,10 @@ function SelectBase({ multi, options = [], value, defaultValue, onChange, open, 
   const values = multi ? (val || []) : (val == null ? [] : [val]);
   const isSelected = o => values.includes(o.value);
   const listId = useUid('ifs-select-list');
-  const rootRef = useRef(null), trigRef = useRef(null), listRef = useRef(null);
+  const rootRef = useRef(null), trigRef = useRef(null), listRef = useRef(null), floatRef = useRef(null);
   const dd = useDropdown({ open, defaultOpen, onOpenChange, disabled, opts,
     firstIndex: () => { const i = opts.findIndex(o => isSelected(o) && !o.disabled); return i >= 0 ? i : opts.findIndex(o => !o.disabled); } });
-  useOutside(dd.isOpen, [rootRef], () => dd.setOpen(false));
+  useOutside(dd.isOpen, [rootRef, floatRef], () => dd.setOpen(false));
   scrollActive(listRef, dd.active);
 
   const pick = o => {
@@ -179,8 +202,10 @@ function SelectBase({ multi, options = [], value, defaultValue, onChange, open, 
         onClick={() => { if (!disabled) dd.isOpen ? dd.setOpen(false) : dd.open(); }} onKeyDown={onKeyDown} {...rest}>
         {content}
       </Trigger>
-      {dd.isOpen && <OptionList id={listId} opts={opts} isSelected={isSelected} active={dd.active} onPick={pick} multi={multi}
-        listPosition={listPosition} listSize={listSize} listTitle={listTitle} listRef={listRef} />}
+      {dd.isOpen && <Floating anchorRef={rootRef} floatRef={floatRef} position={listPosition}>
+        <OptionList id={listId} opts={opts} isSelected={isSelected} active={dd.active} onPick={pick} multi={multi}
+          listPosition={listPosition} listSize={listSize} listTitle={listTitle} listRef={listRef} />
+      </Floating>}
     </div>
   );
 }
@@ -210,11 +235,11 @@ function Combobox({ options = [], value, defaultValue = null, onChange, defaultO
   const [query, setQuery] = useState(defaultQuery); // null = not typing, show the selected label
   const opts = query ? all.filter(o => filter(o, query)) : all;
   const listId = useUid('ifs-combo-list');
-  const rootRef = useRef(null), listRef = useRef(null), inputRef = useRef(null);
+  const rootRef = useRef(null), listRef = useRef(null), inputRef = useRef(null), floatRef = useRef(null);
   const dd = useDropdown({ disabled, opts, defaultOpen,
     firstIndex: () => { const i = opts.findIndex(o => o.value === val && !o.disabled); return i >= 0 ? i : opts.findIndex(o => !o.disabled); } });
   const close = () => { dd.setOpen(false); setQuery(null); };
-  useOutside(dd.isOpen, [rootRef], close);
+  useOutside(dd.isOpen, [rootRef, floatRef], close);
   scrollActive(listRef, dd.active);
   const pick = o => { setVal(o.value, o); close(); };
   const onKeyDown = e => {
@@ -235,7 +260,7 @@ function Combobox({ options = [], value, defaultValue = null, onChange, defaultO
           aria-invalid={error || undefined} aria-activedescendant={dd.isOpen && dd.active >= 0 ? `${listId}-${dd.active}` : undefined}
           onChange={e => { setQuery(e.target.value); dd.setOpen(true); dd.setActive(-1); }}
           onKeyDown={onKeyDown} {...rest} />} />
-      {dd.isOpen && (loading
+      {dd.isOpen && <Floating anchorRef={rootRef} floatRef={floatRef} position={listPosition}>{loading
         ? <div className={cx('ifs-select__list', `ifs-select__list--${listPosition}`)} role="status"><div className="ifs-select__searching">Searching...</div></div>
         : <OptionList id={listId} opts={opts} isSelected={o => o.value === val} active={dd.active} onPick={pick}
           listPosition={listPosition} listSize={listSize} listTitle={opts.length ? (query ? resultsTitle : listTitle) : null} listRef={listRef}
@@ -245,7 +270,7 @@ function Combobox({ options = [], value, defaultValue = null, onChange, defaultO
               <div className="ifs-select__empty-text">{emptyText}</div>
               <div className="ifs-select__empty-chips">{suggestions.map(t => <Chip key={t} tabIndex={-1} onClick={e => { e.preventDefault(); setQuery(t); dd.setActive(-1); }}>{t}</Chip>)}</div>
             </div>}
-          </div>} />)}
+          </div>} />}</Floating>}
     </div>
   );
 }
@@ -413,9 +438,9 @@ function DatePicker({ value, defaultValue = null, onChange, open, defaultOpen = 
   const [val, setVal] = useControlled(value, defaultValue, onChange);
   const [isOpen, setOpenRaw] = useControlled(open, defaultOpen, onOpenChange);
   const setOpen = v => { if (disabled && v) return; if (v !== isOpen) setOpenRaw(v); };
-  const rootRef = useRef(null), trigRef = useRef(null);
+  const rootRef = useRef(null), trigRef = useRef(null), floatRef = useRef(null);
   const popId = useUid('ifs-datepicker');
-  useOutside(isOpen, [rootRef], () => setOpen(false));
+  useOutside(isOpen, [rootRef, floatRef], () => setOpen(false));
   const filled = range ? !!(val && val.start) : !!val;
   const text = !filled ? null : range ? `${format(val.start)} – ${val.end ? format(val.end) : '…'}` : format(val);
   const onPick = v => { setVal(v); if (!range || (v && v.end)) { setOpen(false); trigRef.current && trigRef.current.focus(); } };
@@ -431,10 +456,12 @@ function DatePicker({ value, defaultValue = null, onChange, open, defaultOpen = 
           else if ((e.key === 'Backspace' || e.key === 'Delete') && clearable && filled) { e.preventDefault(); setVal(null); }
         }} {...rest}>{text}</Trigger>
       {isOpen && (
+        <Floating anchorRef={rootRef} floatRef={floatRef} position={listPosition} matchWidth={false}>
         <div id={popId} role="dialog" aria-label={ariaLabel || label || 'Choose date'} className={cx('ifs-datepicker__popover', `ifs-datepicker__popover--${listPosition}`)}
           onKeyDown={e => { if (e.key === 'Escape') { e.stopPropagation(); setOpen(false); trigRef.current && trigRef.current.focus(); } }}>
           <Calendar value={val} onChange={onPick} range={range} today={today} events={events} min={min} max={max} autoFocus={!state} />
         </div>
+        </Floating>
       )}
     </div>
   );

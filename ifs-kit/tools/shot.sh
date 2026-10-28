@@ -4,6 +4,7 @@
 # Copies the page to its own temp folder (the app's helpers can't always read ~/Documents; safe to run in parallel)
 # and kills Chrome once the PNG appears because headless Chrome sometimes never exits.
 IN="$1"; OUT="$2"; W="${3:-1280}"; H="${4:-900}"; HASH="${5:-}"
+[ -s "$IN" ] || { echo "No such file: $IN"; exit 1; }
 TMP="$(mktemp -d "${TMPDIR:-/tmp}/ifs-shot.XXXXXX")"
 cp "$IN" "$TMP/page.html"
 "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --disable-gpu --no-first-run \

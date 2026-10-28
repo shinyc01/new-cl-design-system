@@ -417,7 +417,9 @@ const tipFrom = (d, base, tooltip, i) => (tooltip ? tooltip(d, i) : { ...base, .
 
 // Figma: chart-column (9862:12468) — one measure across few or time-ordered categories; zero-based, one hue.
 // Props: data = [{ label, value, reference?, delta?, details? }], valueLabel (legend + table), referenceLabel (white peer-median tick),
-// color (data-viz group, default muted-purple), format(v) for values/axis, tooltip(datum, i) → DataVizTooltip props. + shell props.
+// color (data-viz group, default muted-purple), format(v) for values/axis, tooltip(datum, i) → DataVizTooltip props.
+// Shell props (every chart): title, state default|hover|cooper|empty|loading, view chart|table / defaultView / onViewChange,
+// onCooper, onEditWithCooper, emptyTitle, emptyText, height (default 328), className, style.
 function ColumnChart(props) {
   const { data = [], valueLabel = 'Value', referenceLabel = 'Peer median', color = 'muted-purple', format = defaultFormat, tooltip, contiguous } = props;
   const p = usePlot(props.height || 328, props.defaultActive);
