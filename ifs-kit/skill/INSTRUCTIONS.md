@@ -1,14 +1,7 @@
----
-name: ifs-prototype
-description: >
-  Builds interactive, coded HTML prototypes of IFS Copperleaf screens and flows using the real IFS Design System code kit
-  (components rebuilt 1:1 from the Figma library). Use whenever the user wants a clickable prototype, coded mock, demo,
-  or interactive screen in the IFS / Copperleaf design system — even if they just say "prototype this", "make this clickable",
-  or describe a screen idea. Runs a fixed conversation: clarifying questions → plain-language layout for approval → build.
-  Not for Figma wireframes and not for production code.
----
+# IFS prototype — instructions
 
-# IFS prototype
+<!-- Hosted at https://shinyc01.github.io/new-cl-design-system/ifs-kit/skill/INSTRUCTIONS.md and fetched by the
+     ifs-prototype loader skill on every run, so edits here reach every user on their next prototype. -->
 
 You turn the user's idea into a clickable prototype built **only** from the IFS DS code kit. The kit's components are exact code twins of the Figma library. The whole value of this skill is that prototypes look like the real design system, so never draw a component yourself.
 
@@ -25,9 +18,9 @@ You turn the user's idea into a clickable prototype built **only** from the IFS 
 | Prototype starter | `$BASE/template.html` |
 | Storybook, for the user to browse | `$BASE/dist/storybook/` |
 
-At the start, make a work folder and download the guide, API, icon list, token list and template with `curl -fsSL` (e.g. into `<output folder>/.ifs/`), then read them from disk. **Before using a component, read its family's gallery file:** api.md lists prop names, while the gallery shows the data shapes they take (table columns and cells, nav items, chart data). Never guess a prop or a token name; check api.md and tokens.txt.
+At the start, make a work folder `<output folder>/.ifs/` and download into it with `curl -fsSL`: the guide, API, icon list, token list and template, plus the two helper scripts `$BASE/skill/scripts/inline.sh` and `$BASE/skill/scripts/shot.sh`. Then read the files from disk. **Before using a component, read its family's gallery file:** api.md lists prop names, while the gallery shows the data shapes they take (table columns and cells, nav items, chart data). Never guess a prop or a token name; check api.md and tokens.txt.
 
-Scripts shipped with this skill, in `scripts/` next to this file:
+Helper scripts (downloaded into `.ifs/`; run them with `bash`):
 - `inline.sh <in.src.html> <out.html>`: snapshots the published kit into one standalone file.
 - `shot.sh <file.html> <out.png> [w] [h] ['#hash']`: headless-Chrome screenshot, used for self-checks. It needs Google Chrome. Without Chrome, use the browser pane, or skip it and say so.
 
@@ -76,10 +69,10 @@ End with: "Anything to change before I build it?" **Do not build until the user 
    - Table filters go in Table's `tabs` slot. The Figma table card puts a SegmentedControl there, with counts in the labels.
    - Put realistic sample data in plain arrays at the top of the script. Use the Copperleaf domain (investments, assets, portfolios, value frameworks, scenarios, approvals), and the user's examples first.
    - Everything marked clickable in the plan works: navigation, tabs, filters, modals, and form submit with a visible result.
-3. Make the shareable single file: `bash <skill dir>/scripts/inline.sh <name>.src.html <name>.html`. It copies the current published kit into the file, so the prototype keeps looking the same even after the kit changes.
+3. Make the shareable single file: `bash .ifs/inline.sh <name>.src.html <name>.html`. It copies the current published kit into the file, so the prototype keeps looking the same even after the kit changes.
 
 ### 5. Check your own work before showing it
-- **Screenshot every screen and state hash:** `bash <skill dir>/scripts/shot.sh <name>.html <tmp>/s1.png 1440 900 '#list'`, then Read each PNG.
+- **Screenshot every screen and state hash:** `bash .ifs/shot.sh <name>.html <tmp>/s1.png 1440 900 '#list'`, then Read each PNG.
 - **Check against the approved plan:**
   - Every item is present, and nothing extra.
   - No clipped text and no overlaps.
@@ -97,4 +90,4 @@ Tell the user where the file is (link the `.html`), what's clickable, and any as
 - Dark theme is the default, because it's the product default and light mode is still a work in progress in Figma.
 
 ## Maintaining the kit
-Only for kit maintainers (it needs the repo and Figma access): see `references/maintenance.md`.
+Only for kit maintainers (it needs the repo and Figma access): see `$BASE/skill/maintenance.md`.

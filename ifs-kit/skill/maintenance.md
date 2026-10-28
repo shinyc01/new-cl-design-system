@@ -23,5 +23,8 @@ Replace the matching blocks in `src/tokens.css` and update the date in its heade
 ## Icons changed
 Re-export the Icons page (1399:9134) to `src/icons.js` in batches of about 20 sets per call. Store the inner SVG markup per size, with single colours replaced by `currentColor`.
 
+## Changing how the skill behaves
+Edit `ifs-kit/skill/INSTRUCTIONS.md`, not the loader. Everyone gets the change on their next run once it's pushed. Only change `skill/loader/ifs-prototype/SKILL.md` if the loader itself must change; that means sending people a new zip.
+
 ## Publishing a change
-Run `npm run release` in `ifs-kit/`, then commit everything, including `dist/`, and push to `master`. GitHub Pages serves straight from the branch. Within a minute or two every user of the skill gets the change in their next prototype, and Storybook updates at `https://shinyc01.github.io/new-cl-design-system/ifs-kit/dist/storybook/`. Ask the user before pushing.
+Run `npm run release` in `ifs-kit/` (it also copies `tools/inline.sh` and `tools/shot.sh` into `skill/scripts/` and rebuilds the loader zip), then commit everything, including `dist/`, and push to `master`. GitHub Pages serves straight from the branch. Within a minute or two every user of the skill gets the change in their next prototype, and Storybook updates at `https://shinyc01.github.io/new-cl-design-system/ifs-kit/dist/storybook/`. Ask the user before pushing.

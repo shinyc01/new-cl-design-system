@@ -1,8 +1,0 @@
-{
-  "name": "ifs-design-system",
-  "version": "0.1.0",
-  "description": "IFS Copperleaf design system tools. ifs-prototype builds clickable HTML prototypes from the Figma-matched IFS DS code kit: it asks clarifying questions, writes a plain-language layout for approval, then builds.",
-  "author": { "name": "IFS Copperleaf Design" },
-  "homepage": "https://shinyc01.github.io/new-cl-design-system/ifs-kit/dist/storybook/",
-  "repository": "https://github.com/shinyc01/new-cl-design-system"
-}

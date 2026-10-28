@@ -15,6 +15,8 @@ Base: `https://shinyc01.github.io/new-cl-design-system/ifs-kit/`
 | Usage guide | `guide/components.md` |
 | Variant examples | `src/gallery/<family>.jsx` |
 | Prototype starter | `template.html` |
+| Skill instructions (fetched by the loader on every run) | `skill/INSTRUCTIONS.md`, `skill/scripts/` |
+| Loader skill to send people | `dist/ifs-prototype-skill.zip` |
 
 ## Working on it
 ```bash
