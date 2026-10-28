@@ -1,0 +1,126 @@
+/* Patterns › Documents — map pins, bar-chart items and the Documents (Cooper's context) composites.
+   Tokens only; raw values carry a "raw in Figma" note. */
+
+/* ================= map-pin-dot (d2686af3…) ================= */
+.ifs-pin-dot{--pd-fill:var(--element-map-pin-fill-error);--pd-size:24px;--pd-in:22px;
+  position:relative;display:inline-flex;align-items:center;justify-content:center;flex:none;box-sizing:border-box;
+  width:var(--pd-size);height:var(--pd-size);margin:0;padding:0;border:0;border-radius:50%;cursor:pointer;
+  background:var(--background-solid-white);box-shadow:0 0 0 1px var(--border-base),var(--drop-shadow-pin)}
+.ifs-pin-dot--warning{--pd-fill:var(--element-map-pin-fill-warning)}
+.ifs-pin-dot--success{--pd-fill:var(--element-map-pin-fill-default)} /* Figma: status=Success is bound to map-pin/fill/default */
+.ifs-pin-dot--l{--pd-size:32px;--pd-in:30px}
+.ifs-pin-dot--s{--pd-size:16px;--pd-in:14px}
+.ifs-pin-dot--xs{--pd-size:8px;--pd-in:7px;box-shadow:0 0 0 0.5px var(--border-base),0 0 5px 0 rgba(10,14,21,.2) /* raw in Figma */}
+.ifs-pin-dot__fill{display:flex;align-items:center;justify-content:center;width:var(--pd-in);height:var(--pd-in);border-radius:50%;
+  background:var(--pd-fill);color:var(--text-primary);overflow:hidden}
+.ifs-pin-dot__text{font:600 10px/12px var(--font-family-text);letter-spacing:0.2px;text-transform:uppercase} /* Caption/semibold-UPPER */
+.ifs-pin-dot--l .ifs-pin-dot__text{font:600 12px/16px var(--font-family-text);letter-spacing:0.2px} /* Label/M/UPPER */
+.ifs-pin-dot--s .ifs-pin-dot__text,.ifs-pin-dot--xs .ifs-pin-dot__text{display:none}
+.ifs-pin-dot--selected{box-shadow:0 0 0 2px var(--element-map-pin-border-active),var(--drop-shadow-pin)}
+.ifs-pin-dot--xs.ifs-pin-dot--selected{box-shadow:0 0 0 1px var(--element-map-pin-border-active),0 0 5px 0 rgba(10,14,21,.2) /* raw in Figma */}
+.ifs-pin-dot--dimmed{background:var(--background-color-alpha-white-base);backdrop-filter:blur(20px) /* raw in Figma: background blur 40 */;
+  box-shadow:0 0 0 1px var(--border-base),0 0 10px 0 rgba(10,14,21,.2) /* raw in Figma */}
+.ifs-pin-dot--dimmed .ifs-pin-dot__fill{opacity:.4}
+/* higlight=yes: a ring twice the pin's size behind it (overlay fill + status hairline, 40 %) with the map-highlight glow. */
+.ifs-pin-dot--highlight::before{content:"";position:absolute;left:50%;top:50%;width:calc(var(--pd-size) * 2);height:calc(var(--pd-size) * 2);
+  transform:translate(-50%,-50%);border-radius:50%;box-sizing:border-box;z-index:-1;opacity:.4;
+  background:var(--element-map-pin-overlay-error);border:1px solid var(--element-map-pin-border-error);box-shadow:var(--inner-shadow-map-highlight-critical)}
+.ifs-pin-dot--highlight.ifs-pin-dot--warning::before{background:var(--element-map-pin-overlay-warning);border-color:var(--element-map-pin-border-warning);
+  box-shadow:var(--inner-shadow-map-highlight-moderate)}
+.ifs-pin-dot--highlight{isolation:isolate}
+.ifs-pin-dot:focus-visible,.ifs-pin-defect:focus-visible,.ifs-pin-pole:focus-visible{outline:none;box-shadow:0 0 0 1.5px var(--focus-focus-inner),0 0 0 3px var(--focus-focus-outer)}
+
+/* ================= map-pin-defect (91cf9e42…) ================= */
+.ifs-pin-defect{--pd-fill:var(--element-map-pin-fill-error);display:inline-flex;align-items:center;justify-content:center;flex:none;box-sizing:border-box;
+  width:24px;height:24px;margin:0;padding:0;border:0;border-radius:50%;background:var(--background-solid-white);
+  box-shadow:0 0 0 1px var(--border-base),var(--drop-shadow-pin);color:var(--icon-primary)}
+.ifs-pin-defect--unconfirmed{--pd-fill:var(--element-map-pin-fill-warning)}
+.ifs-pin-defect--monitoring{--pd-fill:var(--element-map-pin-fill-success)}
+.ifs-pin-defect__fill{display:flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:var(--pd-fill)}
+button.ifs-pin-defect{cursor:pointer}
+
+/* ================= Electric Flow Direction Indicator (a6c2010c…) ================= */
+.ifs-pin-flow{display:inline-block;flex:none;width:5px;height:7px;background:var(--icon-disabled);clip-path:polygon(0 0,100% 50%,0 100%)}
+.ifs-pin-flow--error{background:var(--icon-danger)}
+
+/* ================= map-pin-pole "Pole" (b548a660…) ================= */
+.ifs-pin-pole{display:inline-flex;flex-direction:column;align-items:center;gap:var(--gaps-gap-200);width:32px;margin:0;padding:0;border:0;background:none;
+  cursor:pointer;border-radius:var(--radius-radius-100)}
+.ifs-pin-pole--dot{gap:var(--gaps-gap-100);justify-content:center}
+.ifs-pin-pole__label{font:500 14px/1 var(--font-family-text);color:var(--text-primary);white-space:nowrap;
+  -webkit-text-stroke:2px #2d3238 /* raw in Figma: 1px OUTSIDE text stroke */;paint-order:stroke fill;text-shadow:0 0 4px rgba(0,0,0,.7) /* raw in Figma */}
+.ifs-pin-pole--dot .ifs-pin-pole__label{color:var(--background-solid-white)}
+/* "Pin" / "Hierarchy Pin": teardrop (circle + tail) in white with a status circle and a white asset icon. */
+.ifs-pin-pole__pin{--pp-size:32px;--pp-in:29.5px;--pp-fill:var(--element-map-pin-fill-default);--pp-border:var(--element-map-pin-border-default);--pp-bw:1px;
+  position:relative;flex:none;width:var(--pp-size);height:calc(var(--pp-size) * 1.22);filter:drop-shadow(var(--drop-shadow-pin))}
+.ifs-pin-pole__pin--hierarchy{--pp-size:26px;--pp-in:24px}
+.ifs-pin-pole__pin--error{--pp-fill:var(--element-map-pin-fill-error);--pp-border:var(--element-map-pin-border-error)}
+.ifs-pin-pole__pin--warning{--pp-fill:var(--element-map-pin-fill-warning);--pp-border:var(--element-map-pin-border-warning)}
+.ifs-pin-pole__pin--evaluated{--pp-fill:var(--element-map-pin-fill-info)}
+.ifs-pin-pole--selected .ifs-pin-pole__pin{--pp-border:var(--element-map-pin-border-active);--pp-bw:2px}
+.ifs-pin-pole__shape{position:absolute;left:0;top:0;width:var(--pp-size);height:var(--pp-size);box-sizing:border-box;background:var(--background-solid-white);
+  border-radius:50% 50% 0 50%;transform:rotate(45deg);box-shadow:0 0 0 var(--pp-bw) var(--pp-border)}
+.ifs-pin-pole__circle{position:absolute;left:calc((var(--pp-size) - var(--pp-in)) / 2);top:calc((var(--pp-size) - var(--pp-in)) / 2);
+  display:flex;align-items:center;justify-content:center;width:var(--pp-in);height:var(--pp-in);border-radius:50%;background:var(--pp-fill);color:var(--background-solid-white)}
+.ifs-pin-pole__dot{position:relative;flex:none;width:16px;height:16px;box-sizing:border-box;border-radius:50%;background:var(--background-solid-white);
+  box-shadow:0 0 0 1px var(--element-map-pin-border-default),0 0 10px rgba(0,0,0,.15),0 0 4px rgba(0,0,0,.15) /* raw in Figma */}
+.ifs-pin-pole__dot::after{content:"";position:absolute;inset:1px;border-radius:50%;background:var(--element-map-pin-fill-info)}
+.ifs-pin-pole--selected .ifs-pin-pole__dot{box-shadow:0 0 0 2px var(--element-map-pin-border-active),0 0 10px rgba(0,0,0,.15) /* raw in Figma */}
+.ifs-pin-pole--selected .ifs-pin-defect{box-shadow:0 0 0 2px var(--element-map-pin-border-active),var(--drop-shadow-pin)}
+
+/* ================= bar-chart-item (44fcce06…) / vertical-bar-chart-item (c06b1d19…) ================= */
+.ifs-bar-item{--bar-fill:var(--data-viz-data-1);display:flex;align-items:center;justify-content:center;box-sizing:border-box;
+  min-width:0;min-height:0;height:32px;padding:0 var(--paddings-padding-200);border-radius:var(--radius-radius-100);background:var(--bar-fill);
+  color:var(--text-primary);font:500 12px/14px var(--font-family-text);letter-spacing:0.1px;text-transform:uppercase /* Heading/H4/UPPER */;
+  overflow:hidden;white-space:nowrap}
+/* Figma colour index → data-viz/data-N (the set skips N=8: 9→6, 6→7, 7→9, 8→10). Missing variables: fallbacks are the Figma values. */
+.ifs-bar-item--c1{--bar-fill:var(--data-viz-data-1)}
+.ifs-bar-item--c2{--bar-fill:var(--data-viz-data-2)}
+.ifs-bar-item--c3{--bar-fill:var(--data-viz-data-3)}
+.ifs-bar-item--c4{--bar-fill:var(--data-viz-data-4)}
+.ifs-bar-item--c5{--bar-fill:var(--data-viz-data-5)}
+.ifs-bar-item--c9{--bar-fill:var(--data-viz-data-6)}
+.ifs-bar-item--c6{--bar-fill:var(--data-viz-data-7)}
+.ifs-bar-item--c7{--bar-fill:var(--data-viz-data-9)}
+.ifs-bar-item--c8{--bar-fill:var(--data-viz-data-10)}
+.ifs-vbar{display:inline-flex;flex-direction:column;justify-content:flex-end;gap:var(--gaps-gap-50);box-sizing:border-box;width:104px;height:200px;
+  padding:var(--paddings-padding-50);border-radius:var(--radius-radius-100);margin:0;border:0;background:none;outline:none}
+.ifs-vbar > .ifs-bar-item{height:auto;flex:var(--seg) 1 0;min-height:4px}
+button.ifs-vbar{cursor:pointer}
+.ifs-vbar--active,.ifs-vbar[data-state=active]{box-shadow:0 0 0 1.5px var(--focus-focus-outer)}
+.ifs-vbar:focus-visible{box-shadow:0 0 0 1.5px var(--focus-focus-inner),0 0 0 3px var(--focus-focus-outer)}
+
+/* ================= Documents pattern ================= */
+/* Row = FileCard + Menu (DocumentRow); the list is full width. */
+.ifs-doc-row{width:100%}
+
+/* Popover: the list rows sit with no gap; max height 360 (Figma note). Padding 12/8/8/8 is the kit Popover's own. */
+.ifs-docs-popover{max-height:360px}
+.ifs-docs-popover .ifs-popover__content{gap:0}
+.ifs-docs-popover__empty{display:flex;align-items:center;justify-content:center;min-height:120px;color:var(--text-primary);
+  font:500 14px/16px var(--font-family-text);letter-spacing:0.2px;text-transform:uppercase /* Heading/H3/UPPERCASE */}
+
+/* Cooper's context (left side of the value bottom sheet) with the popover anchored above the bar. */
+.ifs-docs-context{position:static;display:flex;align-items:center}
+.ifs-docs-context__pop{position:fixed;z-index:var(--z-index-z-popover)}
+.ifs-docs-context__file{display:none}
+.ifs-docs-context .ifs-coverage{min-width:180px}
+
+/* Drop area: the content region; the purple dashed overlay (move-and-drop-background, change-position-overlay) while files are dragged over it. */
+.ifs-docs-drop{position:relative;min-height:0}
+.ifs-docs-drop__overlay{position:absolute;inset:0;z-index:var(--z-index-z-floating);min-height:0;border-radius:0;pointer-events:none}
+.ifs-docs-drop__ghosts{position:absolute;z-index:var(--z-index-z-floating);display:grid;grid-template-columns:repeat(2,auto);gap:var(--gaps-gap-200);pointer-events:none}
+.ifs-docs-drop__ghosts .ifs-node-card{width:230px}
+.ifs-docs-drop__count{position:absolute;left:62px;top:42px}
+
+/* Feedback stack (alerts + snackbars), top-right under the page header. */
+.ifs-docs-feedback{position:absolute;top:var(--docs-feedback-top,88px);right:var(--paddings-padding-300);z-index:var(--z-index-z-toast);
+  display:flex;flex-direction:column;align-items:flex-end;gap:var(--gaps-gap-200);pointer-events:none}
+.ifs-docs-feedback > *{pointer-events:auto;animation:ifs-toast-in .2s ease-out}
+.ifs-docs-feedback .ifs-alert{width:303px}
+.ifs-docs-details{display:flex;flex-direction:column;gap:var(--gaps-gap-200);margin:0;padding:0;list-style:none}
+.ifs-docs-details li{display:flex;flex-direction:column;gap:var(--gaps-gap-50)}
+.ifs-docs-details__name{color:var(--text-primary);font:500 12px/14px var(--font-family-text)}
+.ifs-docs-details__why{color:var(--text-tertiary);font:400 12px/16px var(--font-family-text)}
+.ifs-docs-context__loading .ifs-icon{animation:ifs-docs-spin 1s linear infinite}
+@keyframes ifs-docs-spin{to{transform:rotate(360deg)}}

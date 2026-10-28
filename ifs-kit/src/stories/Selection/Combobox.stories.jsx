@@ -7,7 +7,7 @@ const section = sections.find(s => s.name === "Combobox");
 export default {
   title: "Selection/Combobox",
   component: IFS["Combobox"],
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   parameters: {
     docs: { description: { component: "**Figma:** signle-combobox-organism (3375:5415)\n\n\n**Use for** (Figma) Single choice where the user types to filter the list (marked \"use this\").\n\n**Notes** (Figma) \"No results\" shows the headline with the query; suggestions only when real fallbacks exist. Popup sizes to content. Name is a typo (see Gaps)." } },
     design: {"type":"figma","url":"https://www.figma.com/design/atgUmwcA1AE5sjFoWBT7ar/IFS-Design-System?node-id=3375-5415"},

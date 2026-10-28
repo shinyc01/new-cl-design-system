@@ -215,6 +215,8 @@ const DEFAULT_MAP_TOOLS = [
 //   documents = { label, icon, onClick } (show-documents-button, tertiary M), onUpload (show-upload-button; omit on an Active framework = read-only).
 // type="explore": fields [{ key, label, options, value, zoom }], values/onFieldChange(key, value), zoom/onZoomChange, lastSync,
 //   tools [{ icon, label, onClick }] (ghost S icon buttons). `left` replaces the whole left side for any type.
+// Narrow widths (e.g. 600px): the left side shrinks first (coverage bar, then the map fields scroll sideways), then the
+// prompts scroll sideways; the FAB, buttons and map tools never get cut.
 function BottomSheet({ type = 'base', prompts = [], onPrompt, showPrompts = true, showCooper = true, onCooper, cooperIndicator = false,
   inProgress = false, coverage = 0, cooperContext = true, documents, onUpload,
   fields = DEFAULT_MAP_FIELDS, values, onFieldChange, zoom, defaultZoom = 20, onZoomChange, lastSync = '{label}', tools = DEFAULT_MAP_TOOLS,
@@ -242,6 +244,7 @@ function BottomSheet({ type = 'base', prompts = [], onPrompt, showPrompts = true
   if (leftSide === undefined && type === 'explore') {
     leftSide = (
       <div className="ifs-bottom-sheet__map">
+        <div className="ifs-bottom-sheet__fields ifs-bottom-sheet__scroller">
         {fields.map(f => (
           <div key={f.key} className="ifs-map-field">
             <span className="ifs-map-field__label">{f.label}</span>
@@ -257,6 +260,7 @@ function BottomSheet({ type = 'base', prompts = [], onPrompt, showPrompts = true
           <span className="ifs-map-field__label">Last sync</span>
           <div className="ifs-map-field__row"><span className="ifs-map-field__value">{lastSync}</span></div>
         </div>
+        </div>
         <span className="ifs-bottom-sheet__divider" aria-hidden="true" />
         <div className="ifs-bottom-sheet__tools">
           {tools.map(t => <IFS.Tooltip key={t.icon} content={t.label}><IFS.IconButton size="s" icon={t.icon} label={t.label} onClick={t.onClick} /></IFS.Tooltip>)}
@@ -270,7 +274,7 @@ function BottomSheet({ type = 'base', prompts = [], onPrompt, showPrompts = true
       {showCooper && (
         <div className="ifs-bottom-sheet__agent">
           {showPrompts && prompts.length > 0 && (
-            <div className="ifs-bottom-sheet__prompts">
+            <div className="ifs-bottom-sheet__prompts ifs-bottom-sheet__scroller">
               {prompts.map(p => <PromptButton key={p} size="m" onClick={() => onPrompt && onPrompt(p)}>{p}</PromptButton>)}
             </div>
           )}

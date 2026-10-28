@@ -209,3 +209,52 @@
 .ifs-datepicker__popover--up{bottom:calc(100% + var(--gaps-gap-100))}
 /* Inside the body-level Floating wrapper the wrapper does the positioning (see Floating in selection.jsx). */
 .ifs-floating>.ifs-select__list,.ifs-floating>.ifs-datepicker__popover{position:static}
+
+/* DatePicker showApply (date-picker-molecule show-apply-button): the popover becomes the surface; Apply = Secondary M, full width */
+.ifs-datepicker__popover--apply{display:flex;flex-direction:column;gap:var(--gaps-gap-200);box-sizing:border-box;width:284px;padding:var(--paddings-padding-300);
+  border-radius:var(--radius-radius-100);background:var(--background-elevation-2-primary-base);box-shadow:0 0 0 1px var(--border-base);
+  backdrop-filter:blur(var(--blur-strong));-webkit-backdrop-filter:blur(var(--blur-strong))}
+.ifs-datepicker__popover--apply .ifs-calendar{width:auto;padding:0;background:none;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none}
+.ifs-datepicker__apply{width:100%}
+
+/* SegmentedControl fullWidth */
+.ifs-segmented--full{display:flex;width:100%;box-sizing:border-box}
+.ifs-segmented--full .ifs-segmented__item{flex:1 1 0;min-width:0;justify-content:center}
+
+/* Select divider + action rows ("Remove" etc.) */
+.ifs-select__divider{flex:none;height:1px;margin:var(--paddings-padding-100) 0;background:var(--border-base)}
+.ifs-select__option.is-danger,.ifs-select__option.is-danger .ifs-icon{color:var(--text-danger)}
+.ifs-select__option.is-danger:hover{color:var(--text-danger)}
+
+/* ---------- Menu (single-select-list-molecule 153:62054 + single-select-list-atom 153:61939, Size S) ---------- */
+.ifs-menu{position:relative;display:inline-flex}
+.ifs-menu__panel{display:flex;align-items:flex-start;gap:var(--gaps-gap-100)}
+.ifs-menu__panel--left{flex-direction:row-reverse}
+.ifs-menu__list{
+  display:flex;flex-direction:column;box-sizing:border-box;min-width:120px;max-height:min(400px, calc(100vh - 16px));overflow-y:auto;overscroll-behavior:contain;
+  padding:var(--paddings-padding-100);border-radius:var(--radius-radius-100);
+  background:var(--background-elevation-2-primary-base);box-shadow:inset 0 0 0 1px var(--border-base);
+  backdrop-filter:blur(var(--blur-strong));-webkit-backdrop-filter:blur(var(--blur-strong)); /* effect blur/strong */
+  scrollbar-width:thin;scrollbar-color:var(--background-elevation-1-tertiary) transparent;
+}
+.ifs-menu__title{flex:none;padding:var(--paddings-padding-100) var(--paddings-padding-200);color:var(--text-secondary);
+  font:400 10px/12px var(--font-family-text);letter-spacing:0.1px;text-transform:uppercase} /* Caption/regular-UPPER */
+.ifs-menu__divider{flex:none;height:1px;margin:var(--paddings-padding-100) 0;background:var(--border-base)}
+.ifs-menu__wrap{display:flex;flex-direction:column}
+.ifs-menu__item{
+  all:unset;flex:none;display:flex;align-items:center;gap:var(--gaps-gap-100);box-sizing:border-box;min-height:28px;
+  padding:var(--paddings-padding-100) var(--paddings-padding-200);border-radius:var(--radius-radius-100);cursor:pointer;
+  color:var(--text-secondary);font:500 12px/16px var(--font-family-text);letter-spacing:-0.1px; /* Body/M/medium */
+}
+.ifs-menu__icon{flex:none;color:var(--icon-secondary)}
+.ifs-menu__text{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;gap:var(--gaps-gap-100)}
+.ifs-menu__label{overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.ifs-menu__description{color:var(--text-tertiary);font:400 12px/16px var(--font-family-text);letter-spacing:0;white-space:normal} /* Body/M/regular */
+.ifs-menu__shortcut{flex:none;color:var(--white-alpha-50);font:500 12px/16px var(--font-family-text);letter-spacing:-0.15px} /* Label/M/medium */
+.ifs-menu__caret,.ifs-menu__check{flex:none;color:var(--icon-primary)}
+.ifs-menu__item:hover,.ifs-menu__item.is-open,.ifs-menu__item[data-state=hover]{background:var(--element-button-secondary-fill-hover);color:var(--text-primary)}
+.ifs-menu__item:focus-visible{background:var(--element-button-secondary-fill-hover);color:var(--text-primary);outline:none}
+.ifs-menu__item.is-selected{color:var(--text-primary)}
+.ifs-menu__item.is-danger,.ifs-menu__item.is-danger .ifs-menu__icon{color:var(--text-danger)}
+.ifs-menu__item:disabled{color:var(--text-disabled);cursor:not-allowed;background:none}
+.ifs-menu__item:disabled .ifs-menu__icon{color:var(--icon-disabled)}

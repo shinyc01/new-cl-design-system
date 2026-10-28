@@ -538,7 +538,7 @@ function TimelinePhase({ title, subtitle, badge, color = 'teal', start = 0, end 
   const [open, setOpen] = useCanvasValue(expanded, defaultExpanded, onExpandedChange);
   const bar = `var(--data-viz-${color}-data-4)`;
   const pct = x => `${(x / slots) * 100}%`;
-  const grid = <span className="ifs-timeline__grid" style={{ '--groups': groups }}>{Array.from({ length: groups }, (_, i) => <i key={i} />)}</span>;
+  const grid = <span className="ifs-timeline-chart__grid" style={{ '--groups': groups }}>{Array.from({ length: groups }, (_, i) => <i key={i} />)}</span>;
   return (
     <div data-state={state} className={IFS.cx('ifs-timeline-phase', open && 'ifs-timeline-phase--open', className)} style={{ '--bar': bar }} {...rest}>
       <div className="ifs-timeline-phase__row">
@@ -582,13 +582,13 @@ function TimelinePhase({ title, subtitle, badge, color = 'teal', start = 0, end 
 function TimelineChart({ groups = [], phases = [], title = 'Phase', onAddPhase, state, className, ...rest }) {
   const slots = groups.reduce((a, g) => a + g.slots.length, 0) || 1;
   return (
-    <div data-state={state} className={IFS.cx('ifs-timeline', className)} role="table" aria-label={rest['aria-label'] || 'Timeline'} {...rest}>
-      <div className="ifs-timeline__head" role="row">
-        <div className="ifs-timeline__phase-head" role="columnheader"><span>{title}</span>
-          {onAddPhase && <IFS.IconButton size="s" icon="system-plus" label="Add phase" className="ifs-timeline__add" onClick={onAddPhase} />}</div>
-        <div className="ifs-timeline__axis">
-          <div className="ifs-timeline__years">{groups.map(g => <span key={g.label} style={{ flex: g.slots.length }}>{g.label}</span>)}</div>
-          <div className="ifs-timeline__slots">{groups.map(g => g.slots.map(s => <span key={g.label + s}>{s}</span>))}</div>
+    <div data-state={state} className={IFS.cx('ifs-timeline-chart', className)} role="table" aria-label={rest['aria-label'] || 'Timeline'} {...rest}>
+      <div className="ifs-timeline-chart__head" role="row">
+        <div className="ifs-timeline-chart__phase-head" role="columnheader"><span>{title}</span>
+          {onAddPhase && <IFS.IconButton size="s" icon="system-plus" label="Add phase" className="ifs-timeline-chart__add" onClick={onAddPhase} />}</div>
+        <div className="ifs-timeline-chart__axis">
+          <div className="ifs-timeline-chart__years">{groups.map(g => <span key={g.label} style={{ flex: g.slots.length }}>{g.label}</span>)}</div>
+          <div className="ifs-timeline-chart__slots">{groups.map(g => g.slots.map(s => <span key={g.label + s}>{s}</span>))}</div>
         </div>
       </div>
       {phases.map((p, i) => <TimelinePhase key={p.id || i} slots={slots} groups={groups.length} {...p} />)}

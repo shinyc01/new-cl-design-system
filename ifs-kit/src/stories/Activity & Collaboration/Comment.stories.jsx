@@ -7,7 +7,7 @@ const section = sections.find(s => s.name === "Comment");
 export default {
   title: "Activity & Collaboration/Comment",
   component: IFS["Comment"],
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   parameters: {
     docs: { description: { component: "**Figma:** comment-content-card (260:86722)\n\n\n**Use for** (inferred) One reply inside a thread." } },
     design: {"type":"figma","url":"https://www.figma.com/design/atgUmwcA1AE5sjFoWBT7ar/IFS-Design-System?node-id=260-86722"},

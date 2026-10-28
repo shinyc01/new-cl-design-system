@@ -7,7 +7,7 @@ const section = sections.find(s => s.name === "Radio");
 export default {
   title: "Inputs & Forms/Radio",
   component: IFS["Radio"],
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   parameters: {
     docs: { description: { component: "**Figma:** radio-button-molecule (1387:222956), radio-button-atom (210:113374)\n\n\n**Use for** (inferred) Labelled exclusive choice among a few options in a form.\n\n\n**Use for** (inferred) Bare radio inside list rows (e.g. single-select filter categories)." } },
     design: [{"name":"radio-button-molecule","type":"figma","url":"https://www.figma.com/design/atgUmwcA1AE5sjFoWBT7ar/IFS-Design-System?node-id=1387-222956"},{"name":"radio-button-atom","type":"figma","url":"https://www.figma.com/design/atgUmwcA1AE5sjFoWBT7ar/IFS-Design-System?node-id=210-113374"}],

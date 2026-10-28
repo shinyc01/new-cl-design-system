@@ -74,8 +74,14 @@
 .ifs-version__meta{display:flex;align-items:center;justify-content:space-between;gap:var(--gaps-gap-100)}
 .ifs-version__author{display:flex;align-items:center;gap:var(--gaps-gap-100);color:var(--text-secondary);font:400 12px/16px var(--font-family-text)}
 .ifs-version__time{color:var(--text-secondary);font:500 12px/16px var(--font-family-text);letter-spacing:-0.15px;white-space:nowrap}
-.ifs-version__menu{position:absolute;top:var(--paddings-padding-200);right:var(--paddings-padding-200);opacity:0}
-.ifs-version__card:hover .ifs-version__menu,.ifs-version__card:focus-within .ifs-version__menu,.ifs-version__card[data-state=hover] .ifs-version__menu{opacity:1}
+.ifs-version__card--link{cursor:pointer}
+.ifs-version__open{padding:0;border:0;background:none;cursor:pointer;text-align:left;border-radius:var(--radius-radius-100)}
+.ifs-version__open:focus-visible{outline:none;box-shadow:0 0 0 1.5px var(--focus-focus-inner),0 0 0 3px var(--focus-focus-outer)}
+/* top-right slot: default ⋯ or a passed menu (e.g. ActionMenu ⋮); shown on hover/focus and while its menu is open */
+.ifs-version__menu{position:absolute;top:var(--paddings-padding-200);right:var(--paddings-padding-200);display:flex;opacity:0;z-index:2}
+.ifs-version__card:hover .ifs-version__menu,.ifs-version__card:focus-within .ifs-version__menu,.ifs-version__card[data-state=hover] .ifs-version__menu,
+.ifs-version__menu:has([aria-expanded=true]){opacity:1}
+.ifs-version__apply{display:inline-flex}
 .ifs-version__rename{width:100%}
 .ifs-version__rename-tools{display:flex;align-items:center;gap:var(--gaps-gap-50);margin-right:calc(-1 * var(--paddings-padding-100))}
 .ifs-version__activity{padding:0 var(--paddings-padding-300)}
@@ -87,9 +93,13 @@
 .ifs-comment__name{color:var(--text-primary);font:500 14px/16px var(--font-family-text);letter-spacing:-0.2px} /* Heading/H3/medium */
 .ifs-comment__time{color:var(--text-secondary);font:400 14px/20px var(--font-family-text);letter-spacing:-0.1px} /* Body/L/regular */
 .ifs-comment__text{color:var(--text-primary);font:400 14px/20px var(--font-family-text);letter-spacing:-0.1px;white-space:pre-wrap;overflow-wrap:anywhere}
-.ifs-comment__mention{color:var(--text-info)} /* Tagged user = text/info, never Cooper orange */
+.ifs-comment__text > .ifs-comment__mention{vertical-align:middle;margin:-2px 0 0;white-space:nowrap;
+  background:var(--background-color-alpha-white-base);color:var(--text-info)} /* Tagged user (Patterns 12:46575): badge White XS — white-base fill, text/info */
+.ifs-comment__mention .ifs-icon{color:var(--icon-info)}
 .ifs-comment__menu{opacity:0;flex:none}
-.ifs-comment:hover .ifs-comment__menu,.ifs-comment:focus-within .ifs-comment__menu,.ifs-comment[data-state=hover] .ifs-comment__menu{opacity:1}
+.ifs-comment:hover .ifs-comment__menu,.ifs-comment:focus-within .ifs-comment__menu,.ifs-comment[data-state=hover] .ifs-comment__menu,.ifs-comment--menu .ifs-comment__menu{opacity:1}
+
+/* ⋯ menu list (single-select-list-molecule, 160 wide), portalled to <body> */
 
 /* ================= CommentComposer — comment-input-atom (2290:15642) / -molecule (1660:10933) ================= */
 .ifs-composer{position:relative;flex:1;min-width:0;box-sizing:border-box;border-radius:var(--radius-radius-full);background:var(--background-elevation-1-secondary);cursor:text}
@@ -121,6 +131,10 @@
 .ifs-composer-molecule{display:flex;gap:var(--gaps-gap-200);min-width:0}
 .ifs-composer-molecule__avatar{display:flex;align-items:flex-start;padding:var(--paddings-padding-100) 0;flex:none}
 .ifs-composer-molecule .ifs-composer{backdrop-filter:blur(var(--blur-strong))}
+/* @-mention picker (Patterns › Mention 12:45593), portalled under the field */
+.ifs-composer__mention-pop{position:fixed;z-index:var(--z-index-z-popover)}
+.ifs-composer-mention .ifs-popover__content{padding:0 var(--paddings-padding-100) var(--paddings-padding-100)}
+.ifs-composer-mention__list{display:flex;flex-direction:column;padding-top:var(--paddings-padding-100)}
 
 /* ================= CommentThread — comment-popover-organism (260:88500) ================= */
 .ifs-thread{display:flex;flex-direction:column;width:393px;max-width:100%;max-height:100%;box-sizing:border-box;border-radius:var(--radius-radius-300);
@@ -131,20 +145,19 @@
   font:500 14px/16px var(--font-family-text);letter-spacing:0.2px;text-transform:uppercase} /* Heading/H3/UPPERCASE */
 .ifs-thread__number{color:var(--text-tertiary)}
 .ifs-thread__buttons{display:flex;align-items:center;gap:var(--gaps-gap-150)}
-.ifs-thread__resolve[aria-pressed=true]{color:var(--icon-success, var(--icon-primary))}
 .ifs-thread__body{display:flex;flex-direction:column;gap:var(--gaps-gap-400);padding:var(--paddings-padding-400);overflow:auto;min-height:0}
 .ifs-thread__comments{display:flex;flex-direction:column;gap:var(--gaps-gap-400)}
 .ifs-thread__cooper{width:100%}
-.ifs-thread--resolved .ifs-thread__comments{opacity:.6} /* inferred: resolved = dimmed (Figma note "dims/removes the pin") */
-.ifs-thread__resolved{display:flex;align-items:center;gap:var(--gaps-gap-200);color:var(--text-secondary);font:500 12px/16px var(--font-family-text);letter-spacing:-0.1px}
 /* Type=Edit — input/keyboard state=Edit */
-.ifs-comment-edit{display:flex;flex-direction:column;border-radius:var(--radius-radius-300);background:var(--element-input-fill-typing)}
-.ifs-comment-edit__field{padding:var(--paddings-padding-100) var(--paddings-padding-100) 0}
-.ifs-comment-edit__input{display:block;box-sizing:border-box;width:100%;min-height:72px;padding:var(--paddings-padding-150) var(--paddings-padding-200);border:0;outline:0;resize:none;
-  background:transparent;color:var(--text-primary);caret-color:var(--text-primary);font:500 14px/20px var(--font-family-text);letter-spacing:-0.15px}
-.ifs-comment-edit__actions{display:flex;align-items:center;justify-content:space-between;gap:var(--gaps-gap-100);padding:0 var(--paddings-padding-100) var(--paddings-padding-100)}
+/* Edit own reply (Patterns 12:47187: comment-input-molecule state=Edit) — avatar + field radius 12, background/color-alpha/white-base,
+   blur/strong; text padding 14/16 Body/L/medium; buttons row padding 0/8/8/8, right group padding 4 gap 4: Cancel Secondary S + Send Primary S */
+.ifs-comment-edit{display:flex;flex-direction:column;flex:1;min-width:0;border-radius:var(--radius-radius-300);background:var(--background-color-alpha-white-base);
+  backdrop-filter:blur(var(--blur-strong));-webkit-backdrop-filter:blur(var(--blur-strong))}
+.ifs-comment-edit__field{padding:14px var(--paddings-padding-400)} /* raw in Figma: 14 */
+.ifs-comment-edit__input{display:block;box-sizing:border-box;width:100%;min-height:20px;padding:0;border:0;outline:0;resize:none;overflow:hidden;
+  background:transparent;color:var(--text-primary);caret-color:var(--text-primary);font:500 14px/20px var(--font-family-text);letter-spacing:-0.15px} /* Body/L/medium */
+.ifs-comment-edit__actions{display:flex;justify-content:flex-end;padding:0 var(--paddings-padding-200) var(--paddings-padding-200)}
 .ifs-comment-edit__buttons{display:flex;gap:var(--gaps-gap-100);padding:var(--paddings-padding-100)}
-.ifs-comment-edit:focus-within{box-shadow:0 0 0 1.5px var(--focus-focus-inner),0 0 0 3px var(--focus-focus-outer)}
 
 /* ================= UserCard — user-card (1440:5059), legacy ================= */
 .ifs-user-card{display:flex;align-items:center;justify-content:space-between;gap:var(--gaps-gap-200);box-sizing:border-box;min-height:56px;
@@ -187,7 +200,7 @@
 /* ================= FileCard — file-card (1440:5465), legacy ================= */
 .ifs-file-card{display:flex;align-items:center;gap:var(--gaps-gap-200);box-sizing:border-box;min-height:40px;padding:var(--paddings-padding-100);border-radius:var(--radius-radius-200);outline:none}
 .ifs-file-card[role=button]{cursor:pointer}
-.ifs-file-card:not(.ifs-file-card--error):hover,.ifs-file-card:not(.ifs-file-card--error):focus-within,.ifs-file-card[data-state=hover]{
+.ifs-file-card:not(.ifs-file-card--error):hover,.ifs-file-card:not(.ifs-file-card--error):focus-within,.ifs-file-card[data-state=hover],.ifs-file-card--active{
   background:var(--surface-secondary-alpha);padding-right:var(--paddings-padding-200)}
 .ifs-file-card:focus-visible{box-shadow:0 0 0 1.5px var(--focus-focus-inner),0 0 0 3px var(--focus-focus-outer)}
 .ifs-file-card--loading{height:40px}
@@ -196,11 +209,15 @@
   color:var(--icon-primary);backdrop-filter:blur(var(--blur-medium));box-shadow:inset 0 0 0 1px var(--element-button-primary-border-hover);
   background:radial-gradient(circle at 30% 20%,rgba(128,120,255,.25),transparent 70%) /* raw in Figma: blurred "Lights" group */,var(--element-button-secondary-fill-hover)}
 .ifs-file-card--error .ifs-file-card__tile{background:var(--background-color-alpha-red-base)}
-.ifs-file-card__text{display:flex;flex-direction:column;gap:var(--gaps-gap-50);min-width:0}
-.ifs-file-card__name{color:var(--text-primary);font:500 12px/14px var(--font-family-text);letter-spacing:-0.1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ifs-file-card__text{display:flex;flex-direction:column;gap:var(--gaps-gap-50);flex:1;min-width:0}
+/* middle truncation: the head ellipsizes, the tail (extension) stays */
+.ifs-file-card__name{display:flex;min-width:0;color:var(--text-primary);font:500 12px/14px var(--font-family-text);letter-spacing:-0.1px;white-space:nowrap}
+.ifs-file-card__head{flex:0 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:pre}
+.ifs-file-card__tail{flex:none;white-space:pre}
+.ifs-file-card__text .ifs-tooltip-anchor{display:flex;min-width:0}
 .ifs-file-card__date{color:var(--text-tertiary);font:400 10px/12px var(--font-family-text);letter-spacing:0.1px;text-transform:uppercase} /* Caption/regular-UPPER */
 .ifs-file-card__actions{display:none;align-items:center;gap:var(--gaps-gap-50);flex:none}
-.ifs-file-card:hover .ifs-file-card__actions,.ifs-file-card:focus-within .ifs-file-card__actions,.ifs-file-card[data-state=hover] .ifs-file-card__actions,
+.ifs-file-card:hover .ifs-file-card__actions,.ifs-file-card:focus-within .ifs-file-card__actions,.ifs-file-card[data-state=hover] .ifs-file-card__actions,.ifs-file-card--active .ifs-file-card__actions,
 .ifs-file-card__actions--error{display:flex}
 
 /* ================= VersionCard — version-card (2104:4022), legacy ================= */

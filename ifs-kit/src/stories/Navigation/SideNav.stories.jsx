@@ -7,7 +7,7 @@ const section = sections.find(s => s.name === "SideNav");
 export default {
   title: "Navigation/SideNav",
   component: IFS["SideNav"],
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   parameters: {
     docs: { description: { component: "**Figma:** navigation-panel-organism (1545:2808)\n\n\n**Use for** (Figma) Level 2 navigation: the persistent sidebar listing sections of the active nav-bar stage. Sticky; collapses to an icon rail.\n\n**Notes** (Figma, Navigation pattern) One sidebar for all stages; only the list changes. Only the header (stage title + collapse) is sticky if the list scrolls. Exactly one item is current." } },
     design: {"type":"figma","url":"https://www.figma.com/design/atgUmwcA1AE5sjFoWBT7ar/IFS-Design-System?node-id=1545-2808"},

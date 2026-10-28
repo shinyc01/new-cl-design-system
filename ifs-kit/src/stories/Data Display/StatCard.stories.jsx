@@ -7,7 +7,7 @@ const section = sections.find(s => s.name === "StatCard");
 export default {
   title: "Data Display/StatCard",
   component: IFS["StatCard"],
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   parameters: {
     docs: { description: { component: "**Figma:** stat-card-organism (3643:35055)\n\n\n**Use for** (Figma) Displaying one key metric (title + value + optional trend/badge).\n\n**Notes** (Figma) Read-only: no hover/focus/selected/disabled; only a loading skeleton." } },
     design: {"type":"figma","url":"https://www.figma.com/design/atgUmwcA1AE5sjFoWBT7ar/IFS-Design-System?node-id=3643-35055"},

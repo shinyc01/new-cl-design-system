@@ -7,7 +7,7 @@ const section = sections.find(s => s.name === "RiskStatus");
 export default {
   title: "Data Display/RiskStatus",
   component: IFS["RiskStatus"],
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   parameters: {
     docs: { description: { component: "**Figma:** status-risk-molecule (69:1729)\n\n\n**Use for** (inferred) Interactive risk status chip on cards, rows, assets." } },
     design: {"type":"figma","url":"https://www.figma.com/design/atgUmwcA1AE5sjFoWBT7ar/IFS-Design-System?node-id=69-1729"},

@@ -1,0 +1,77 @@
+/* ================= Comments pattern (Patterns › Comments 12:30065) ================= */
+
+/* ---------- CommentPin — comment-pin-organism (260:47160) ----------
+   Default: hug, padding 4, avatars gap -8, radius 30/100/100/2 (TL/TR/BR/BL), border/base 1px OUTSIDE.
+   Hover: vertical card 347 wide, padding 12, gap 12, radius 20/20/20/2, avatars gap 6. */
+.ifs-cpin{--pin-fill:var(--background-solid-blue);all:unset;box-sizing:border-box;display:inline-flex;flex-direction:column;align-items:flex-start;
+  gap:var(--gaps-gap-300);padding:var(--paddings-padding-100);
+  border-radius:20px 20px 20px 2px /* raw in Figma: 30/100/100/2, which Figma clamps to half the 40px height */;background:var(--pin-fill);
+  box-shadow:0 0 0 1px var(--border-base);cursor:pointer;color:var(--text-primary);transition:border-radius .12s}
+.ifs-cpin--read{--pin-fill:var(--background-elevation-1-primary-base);backdrop-filter:blur(var(--blur-strong));-webkit-backdrop-filter:blur(var(--blur-strong))}
+.ifs-cpin--cooper{--pin-fill:var(--background-solid-accent-cooper)}
+.ifs-cpin{pointer-events:auto}
+.ifs-cpin:focus-visible{box-shadow:0 0 0 1px var(--border-base),0 0 0 2.5px var(--focus-focus-inner),0 0 0 4px var(--focus-focus-outer)}
+.ifs-cpin__avatars{display:flex;align-items:center}
+.ifs-cpin__avatars > * + *{margin-left:-8px}
+.ifs-cpin--open{width:347px;padding:var(--paddings-padding-300);border-radius:20px 20px 20px 2px /* raw in Figma */;z-index:1}
+.ifs-cpin--open .ifs-cpin__avatars{gap:6px /* raw in Figma */}
+.ifs-cpin--open .ifs-cpin__avatars > * + *{margin-left:0}
+.ifs-cpin__body{display:flex;flex-direction:column;gap:6px /* raw in Figma */;width:100%;min-width:0}
+.ifs-cpin__title{display:flex;align-items:center;gap:var(--gaps-gap-200);min-height:20px}
+.ifs-cpin__name{color:var(--text-primary);font:500 14px/16px var(--font-family-text);letter-spacing:-0.2px} /* Heading/H3/medium */
+.ifs-cpin__time,.ifs-cpin__replies{color:var(--text-secondary);font:400 14px/20px var(--font-family-text);letter-spacing:-0.1px} /* Body/L/regular */
+.ifs-cpin__text{color:var(--text-primary);font:400 14px/20px var(--font-family-text);letter-spacing:-0.1px;
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+
+/* ---------- CommentMenu (⋯ + single-select-list-molecule, 160 wide) ---------- */
+.ifs-cmenu{position:relative;display:inline-flex}
+.ifs-cmenu__pop{position:absolute;top:calc(100% + var(--gaps-gap-100));right:0;z-index:var(--z-index-z-popover)}
+.ifs-cmenu__pop .ifs-action-menu__list{width:160px;min-width:0}
+
+/* ---------- CommentDrawerCard — comment-drawer-card (1231:170874) ----------
+   380 wide, padding 12/16, gap 8. Hover: background/elevation-1/secondary. Selected: padding 4/8 around an 8px-radius box
+   (background/elevation-1/secondary, border/base inside, padding 8). Focus: focus ring. */
+.ifs-cdcard{position:relative;box-sizing:border-box;padding:0;cursor:pointer;outline:none;color:var(--text-primary)}
+.ifs-cdcard__box{display:flex;flex-direction:column;gap:var(--gaps-gap-200);padding:var(--paddings-padding-300) var(--paddings-padding-400)}
+.ifs-cdcard:hover,.ifs-cdcard[data-state=hover],.ifs-cdcard--menu{background:var(--background-elevation-1-secondary)}
+.ifs-cdcard--selected,.ifs-cdcard--selected:hover{background:none;padding:var(--paddings-padding-100) var(--paddings-padding-200)}
+.ifs-cdcard--selected .ifs-cdcard__box{padding:var(--paddings-padding-200);border-radius:var(--radius-radius-200);
+  background:var(--background-elevation-1-secondary);box-shadow:inset 0 0 0 1px var(--border-base)}
+.ifs-cdcard:focus-visible,.ifs-cdcard[data-state=focus]{border-radius:var(--radius-radius-100);box-shadow:inset 0 0 0 1.5px var(--focus-focus-inner),inset 0 0 0 3px var(--focus-focus-outer)}
+.ifs-cdcard__head{display:flex;align-items:center;justify-content:space-between;gap:var(--gaps-gap-200);height:32px}
+.ifs-cdcard__avatars{display:flex;align-items:center}
+.ifs-cdcard__avatars > * + *{margin-left:-8px}
+.ifs-cdcard__meta{display:flex;align-items:center;gap:var(--gaps-gap-300)}
+.ifs-cdcard__dot{width:8px;height:8px;border-radius:50%;background:var(--background-solid-blue);flex:none}
+.ifs-cdcard__buttons{display:none;align-items:center;gap:6px /* raw in Figma */;align-self:flex-start}
+.ifs-cdcard:hover .ifs-cdcard__buttons,.ifs-cdcard:focus-within .ifs-cdcard__buttons,.ifs-cdcard[data-state] .ifs-cdcard__buttons,
+.ifs-cdcard--selected .ifs-cdcard__buttons,.ifs-cdcard--menu .ifs-cdcard__buttons{display:flex}
+.ifs-cdcard:hover .ifs-cdcard__meta,.ifs-cdcard:focus-within .ifs-cdcard__meta,.ifs-cdcard[data-state=hover] .ifs-cdcard__meta,.ifs-cdcard[data-state=selected] .ifs-cdcard__meta,
+.ifs-cdcard--selected .ifs-cdcard__meta,.ifs-cdcard--menu .ifs-cdcard__meta{display:none}
+.ifs-cdcard[data-state=focus] .ifs-cdcard__buttons{display:none}
+.ifs-cdcard__comment{display:flex;flex-direction:column;gap:6px /* raw in Figma */;min-width:0}
+.ifs-cdcard__where{display:flex;align-items:center;gap:6px /* raw in Figma */;color:var(--text-secondary);font:500 12px/16px var(--font-family-text);letter-spacing:-0.1px} /* Body/M/medium */
+.ifs-cdcard__bullet{width:4px;height:4px;border-radius:50%;background:var(--icon-disabled);flex:none}
+.ifs-cdcard__title{display:flex;align-items:center;gap:var(--gaps-gap-200);min-height:20px}
+.ifs-cdcard__name{color:var(--text-primary);font:500 14px/16px var(--font-family-text);letter-spacing:-0.2px} /* Heading/H3/medium */
+.ifs-cdcard__time{color:var(--text-secondary);font:400 14px/20px var(--font-family-text);letter-spacing:-0.1px} /* Body/L/regular */
+.ifs-cdcard__text{color:var(--text-primary);font:400 14px/20px var(--font-family-text);letter-spacing:-0.1px;
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;overflow-wrap:anywhere}
+
+/* ---------- Mention picker (popover-organism + content-card-organism S rows) ---------- */
+.ifs-cmention__list{display:flex;flex-direction:column;gap:0;padding-top:var(--paddings-padding-300)}
+.ifs-cmention .ifs-popover__content{padding:0 var(--paddings-padding-100) var(--paddings-padding-100)}
+.ifs-cmention__list{padding-top:var(--paddings-padding-100)}
+
+/* ---------- CommentCallout (kit CommentThread: resolved look, menus and @ picker are the kit's) ---------- */
+.ifs-ccallout{position:relative;display:flex;flex-direction:column;width:393px;max-width:100%}
+.ifs-ccallout > .ifs-thread{max-height:inherit}
+
+/* ---------- CommentsPanel (Drawer) ---------- */
+.ifs-cpanel{height:100%}
+.ifs-cpanel .ifs-drawer__content{gap:0}
+.ifs-cpanel .ifs-segmented{width:100%;box-sizing:border-box}
+.ifs-cpanel .ifs-segmented > *{flex:1 1 0}
+.ifs-cpanel__search{flex:none;padding:var(--paddings-padding-300)}
+.ifs-cpanel__list{display:flex;flex-direction:column}
+.ifs-cpanel__empty{padding:var(--paddings-padding-300)}

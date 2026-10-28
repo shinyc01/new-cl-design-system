@@ -1,0 +1,63 @@
+/* Patterns › Evidence Chain — source card, evidence sections, peer benchmark and the Evidence chain drawer.
+   Tokens only; raw values carry a "raw in Figma" note. */
+
+/* ================= source-card (fafdbabd…; Patterns copies 12:192927, 31:74307, 31:74839) ================= */
+.ifs-source-card{display:flex;flex-direction:column;align-items:flex-start;gap:var(--gaps-gap-200);box-sizing:border-box;width:100%;
+  padding:var(--paddings-padding-200);border-radius:var(--radius-radius-100);background:var(--surface-secondary-alpha);color:var(--text-primary)}
+.ifs-source-card__head{display:flex;align-items:center;gap:var(--gaps-gap-200);max-width:100%;min-width:0}
+.ifs-source-card__head > .ifs-button{max-width:100%;min-width:0}
+.ifs-source-card__name{font:500 14px/16px var(--font-family-text);letter-spacing:-0.2px;color:var(--text-primary); /* Heading/H3/medium */
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ifs-source-card__text{align-self:stretch;margin:0;color:var(--text-primary);font:400 12px/16px var(--font-family-text);letter-spacing:0} /* Body/M/regular */
+.ifs-source-card__text--quote{padding:var(--paddings-padding-100) var(--paddings-padding-200);box-shadow:inset 1px 0 0 var(--border-strong)}
+.ifs-source-card--loading .ifs-skeleton-bar{display:block}
+
+/* ================= evidence section ("Why it's flagged" / "Decisions" / "Considered but not included") ================= */
+.ifs-evidence-section{display:flex;flex-direction:column;gap:var(--gaps-gap-300);padding-top:var(--paddings-padding-300);box-shadow:inset 0 1px 0 var(--border-base)}
+.ifs-evidence-section__title{margin:0;color:var(--text-secondary);font:400 10px/12px var(--font-family-text);letter-spacing:0.1px;text-transform:uppercase} /* Caption/regular-UPPER */
+.ifs-evidence-section__list{display:flex;flex-direction:column;gap:var(--gaps-gap-200);margin:0;padding:0;list-style:none}
+
+/* ================= peer benchmark ================= */
+.ifs-peer-benchmark{display:flex;flex-direction:column;gap:var(--gaps-gap-150);padding-top:var(--paddings-padding-300);box-shadow:inset 0 1px 0 var(--border-base)}
+.ifs-peer-benchmark__desc{margin:0;color:var(--text-secondary);font:400 12px/16px var(--font-family-text)} /* Body/M/regular */
+.ifs-peer-benchmark__label{display:flex;align-items:center;height:28px;color:var(--text-secondary);
+  font:400 10px/12px var(--font-family-text);letter-spacing:0.1px;text-transform:uppercase} /* Caption/regular-UPPER */
+.ifs-peer-benchmark__rows{display:flex;flex-direction:column;gap:var(--gaps-gap-100);margin:0}
+.ifs-peer-benchmark__row{display:flex;align-items:center;min-height:40px;border-radius:var(--radius-radius-100);background:var(--surface-secondary-alpha)}
+.ifs-peer-benchmark__key{flex:1 1 auto;margin:0;padding:var(--paddings-padding-200) var(--paddings-padding-300);color:var(--text-tertiary);
+  font:500 12px/14px var(--font-family-text);letter-spacing:0.1px;text-transform:uppercase} /* Heading/H4/UPPER */
+.ifs-peer-benchmark__value{margin:0;padding:var(--paddings-padding-300);color:var(--text-primary);text-align:right;white-space:nowrap;
+  font:500 12px/16px var(--font-family-text);letter-spacing:-0.1px} /* Body/M/medium */
+.ifs-peer-benchmark__scope{display:flex;flex-direction:column;gap:var(--gaps-gap-400);padding:var(--paddings-padding-300);
+  border-radius:var(--radius-radius-100);background:var(--surface-secondary-alpha)}
+.ifs-peer-benchmark__scope .ifs-peer-benchmark__row{min-height:0;background:none}
+.ifs-peer-benchmark__scope .ifs-peer-benchmark__key,.ifs-peer-benchmark__scope .ifs-peer-benchmark__value{padding:0}
+.ifs-peer-benchmark__legend{display:flex;flex-wrap:wrap;gap:0 var(--gaps-gap-300)}
+.ifs-peer-benchmark__legend > *{padding:var(--paddings-padding-150) 0}
+.ifs-peer-benchmark__chart{display:grid;grid-template-columns:16px 21px 1fr;column-gap:var(--gaps-gap-100);height:208px}
+.ifs-peer-benchmark__ytitle{display:flex;align-items:center;justify-content:center;padding-bottom:24px;color:var(--text-secondary);white-space:nowrap;
+  font:500 12px/16px var(--font-family-text);letter-spacing:-0.15px} /* Label/M/medium; Figma fill raw #ffffff@0.55 */
+.ifs-peer-benchmark__ytitle span{transform:rotate(-90deg)}
+.ifs-peer-benchmark__ticks{display:flex;flex-direction:column;justify-content:space-between;height:160px;color:var(--text-tertiary);
+  font:500 12px/16px var(--font-family-text);letter-spacing:-0.15px;text-align:right} /* Label/M/medium */
+.ifs-peer-benchmark__plot{display:flex;flex-direction:column;gap:var(--gaps-gap-300);padding-top:var(--paddings-padding-200);min-width:0}
+.ifs-peer-benchmark__bars{position:relative;display:flex;align-items:flex-end;justify-content:space-between;gap:var(--gaps-gap-50);height:156px;
+  box-sizing:border-box;padding:var(--paddings-padding-100)}
+.ifs-peer-benchmark__grid{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:space-between;pointer-events:none}
+.ifs-peer-benchmark__grid span{border-top:1px dashed var(--border-base)}
+.ifs-peer-benchmark__bars > .ifs-vbar{position:relative;flex:1 1 0;min-width:0}
+.ifs-peer-benchmark__x{display:flex;justify-content:space-between;color:var(--text-tertiary);text-align:center;
+  font:500 12px/16px var(--font-family-text);letter-spacing:-0.15px} /* Label/M/medium */
+.ifs-peer-benchmark__x span{flex:1 1 0}
+.ifs-peer-benchmark__xtitle{text-align:center;color:var(--text-tertiary);font:500 12px/16px var(--font-family-text);letter-spacing:-0.15px;margin-top:-12px}
+.ifs-peer-benchmark--empty{flex:1 1 auto;justify-content:center;min-height:360px}
+
+/* ================= Evidence chain drawer ================= */
+.ifs-evidence-chain.ifs-drawer{height:100%}
+.ifs-evidence-chain .ifs-drawer__content{gap:var(--gaps-gap-300);padding:var(--paddings-padding-300)}
+.ifs-evidence-chain .ifs-evidence__title{display:none} /* Figma draws the strength bar without its title in the drawer */
+.ifs-evidence-chain__panel{display:flex;flex-direction:column;gap:var(--gaps-gap-300);flex:1 1 auto}
+.ifs-evidence-chain__panel[hidden]{display:none}
+.ifs-evidence-chain--floating{animation:ifs-evidence-chain-in .2s ease-out}
+@keyframes ifs-evidence-chain-in{from{opacity:0;transform:translateX(16px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.ifs-evidence-chain--floating{animation:none}}

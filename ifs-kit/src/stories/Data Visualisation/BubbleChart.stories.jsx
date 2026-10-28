@@ -7,7 +7,7 @@ const section = sections.find(s => s.name === "BubbleChart");
 export default {
   title: "Data Visualisation/BubbleChart",
   component: IFS["BubbleChart"],
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   parameters: {
     docs: { description: { component: "**Figma:** chart-bubble (9866:13788)\n\n\n**Use for** (inferred) Scatter with a third measure as size." } },
     design: {"type":"figma","url":"https://www.figma.com/design/atgUmwcA1AE5sjFoWBT7ar/IFS-Design-System?node-id=9866-13788"},

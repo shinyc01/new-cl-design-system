@@ -7,7 +7,7 @@ const section = sections.find(s => s.name === "DataVizHeader");
 export default {
   title: "Data Visualisation/DataVizHeader",
   component: IFS["DataVizHeader"],
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   parameters: {
     docs: { description: { component: "**Figma:** data-viz-header-molecule (2154:2068)\n\n\n**Use for** (inferred) Chart title row with optional view toggle or button." } },
     design: {"type":"figma","url":"https://www.figma.com/design/atgUmwcA1AE5sjFoWBT7ar/IFS-Design-System?node-id=2154-2068"},

@@ -7,7 +7,7 @@ const section = sections.find(s => s.name === "DropZone");
 export default {
   title: "Map & Canvas/DropZone",
   component: IFS["DropZone"],
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   parameters: {
     docs: { description: { component: "**Figma:** move-and-drop-background (4509:30446)\n\n\n**Use for** (Figma) Dashboard edit mode: widgets become draggable tiles and the background shows the dashed drop zone.\n\n\n---" } },
     design: {"type":"figma","url":"https://www.figma.com/design/atgUmwcA1AE5sjFoWBT7ar/IFS-Design-System?node-id=4509-30446"},

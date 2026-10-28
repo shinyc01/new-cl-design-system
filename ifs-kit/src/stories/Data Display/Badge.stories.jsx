@@ -7,7 +7,7 @@ const section = sections.find(s => s.name === "Badge");
 export default {
   title: "Data Display/Badge",
   component: IFS["Badge"],
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   parameters: {
     docs: { description: { component: "**Figma:** badge-atom (83:52162)\n\n\n**Use for** (Figma) A small read-only marker of status or category attached to another object (Passed / At risk / Failed; Active / Draft / Archived; Critical / Recommended).\n\n**Don't use for** (Figma) Anything clickable, removable or selectable (→ chip), the primary content (→ text), or triggering an action (→ button). Don't badge everything." } },
     design: {"type":"figma","url":"https://www.figma.com/design/atgUmwcA1AE5sjFoWBT7ar/IFS-Design-System?node-id=83-52162"},

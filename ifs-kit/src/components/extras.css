@@ -88,6 +88,12 @@
 .ifs-dot-button--comment .ifs-dot-button__dot,.ifs-dot-button--filter .ifs-dot-button__dot,.ifs-dot-button--arrow .ifs-dot-button__dot{
   width:6px;height:6px;left:15px;top:3px;background:var(--background-system-danger);box-shadow:0 0 0 1.5px var(--surface-primary)}
 .ifs-dot-button--comment .ifs-dot-button__dot{top:5px}
+/* dot warning: background/system/warning (orange = warnings only) */
+.ifs-dot-button--warning .ifs-dot-button__dot{background:var(--background-system-warning)}
+/* shape round: 28px circle, element/search/border/default 1px OUTSIDE stroke (icon-button-filter in explore-header) */
+.ifs-dot-button--round .ifs-icon-button{width:28px;height:28px;border-radius:var(--radius-radius-full);
+  box-shadow:var(--stroke-shadow),0 0 0 1px var(--element-search-border-default),var(--ring)}
+.ifs-dot-button--round .ifs-dot-button__dot{left:17px;top:4px}
 
 /* ================= PhoneField — mobile-number-field-organism (8947:11306) ================= */
 /* Reuses the text-field shell (.ifs-field*, forms.css) for title, control states and description. */

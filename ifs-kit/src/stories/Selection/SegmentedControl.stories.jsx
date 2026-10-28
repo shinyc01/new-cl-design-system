@@ -7,7 +7,7 @@ const section = sections.find(s => s.name === "SegmentedControl");
 export default {
   title: "Selection/SegmentedControl",
   component: IFS["SegmentedControl"],
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   parameters: {
     docs: { description: { component: "**Figma:** segmented-control-organism (1387:244501) · segmented-control-atom (1387:244511)\n\n\n**Use for** (inferred) Picking one of 2–5 always-visible options, usually switching a view mode in a card, drawer or chart header.\n\n**Notes** (Figma) S for dense surfaces (modals, lists, compact toolbars); M for roomier surfaces (drawers, side panels).\n\n**Don't use for** (inferred) More than 5 options — use `single-select-organism`.\n\n\n**Use for** (inferred) One segment; building block." } },
     design: [{"name":"segmented-control-organism","type":"figma","url":"https://www.figma.com/design/atgUmwcA1AE5sjFoWBT7ar/IFS-Design-System?node-id=1387-244501"},{"name":"segmented-control-atom","type":"figma","url":"https://www.figma.com/design/atgUmwcA1AE5sjFoWBT7ar/IFS-Design-System?node-id=1387-244511"}],

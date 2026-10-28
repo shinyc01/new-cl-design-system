@@ -12,6 +12,8 @@ export default IFS_GALLERY;
     {['white', 'black', 'red', 'green', 'orange'].map(c => (
       <Row key={c} label={c}>{['l', 'm', 's'].map(z => <Badge key={z} color={c} size={z} iconLeft="system-star-favourite">{'{label}'}</Badge>)}</Row>
     ))}
+    <Row label="info">{['l', 'm', 's'].map(z => <Badge key={z} color="info" size={z} iconLeft="system-access-point">{'{label}'}</Badge>)}</Row>
+    <Row label="black borderless">{['l', 'm', 's'].map(z => <Badge key={z} color="black" borderless size={z} iconLeft="system-star-favourite">{'{label}'}</Badge>)}</Row>
     <Row label="false"><Badge color="false" iconLeft="system-star-favourite">{'{label}'}</Badge></Row>
     <Row label="loading">{['l', 'm', 's'].map(z => <Badge key={z} color="loading" size={z} />)}</Row>
     <Row label="extras">
@@ -54,7 +56,7 @@ export default IFS_GALLERY;
   </> });
 
   IFS_GALLERY.push({ name: 'ReadinessStatus', figma: 'status-readiness-molecule (1440:5273)', render: () => <>
-    {['done', 'warning', 'in-progress', 'active', 'loading'].map(t => (
+    {['done', 'warning', 'error', 'in-progress', 'active', 'loading'].map(t => (
       <Row key={t} label={t} style={{ gap: 20 }}>
         <div style={{ width: 164 }}><ReadinessStatus type={t} right="Text">Text</ReadinessStatus></div>
         {t !== 'done' && <div style={{ width: 164 }}><ReadinessStatus type={t} indicators={[{ type: 'red', label: 'text' }, { type: 'orange', label: 'text' }]}>Text</ReadinessStatus></div>}
@@ -79,6 +81,10 @@ export default IFS_GALLERY;
     <Row label="loading">
       <StatCard style={{ width: 286 }} loading trend="3 %" />
       <StatCard style={{ width: 286 }} size="s" loading trend="3 %" />
+    </Row>
+    <Row label="description inline">
+      <StatCard style={{ width: 286 }} descriptionPosition="inline" title="Title" value="Value" description="Description" trend="3 %" />
+      <StatCard style={{ width: 286 }} descriptionPosition="inline" size="s" title="Title" value="Value" description="Description" trend="3 %" />
     </Row>
     <Row label="badge / down">
       <StatCard style={{ width: 286 }} title="Budget" value="$4.2M" description="of $5M" trend="12 %" trendDirection="down" badge={{ children: 'Over' }} />
@@ -106,6 +112,12 @@ export default IFS_GALLERY;
     </Row>
     <Row label="avatar + icon" style={{ alignItems: 'flex-start' }}>
       <ContentCard style={{ width: 332 }} avatar={{ name: 'Tom Nguyen', type: 'blue' }} iconRight="arrow-right" title="Tom Nguyen" description="Neighbouring Asset Manager" />
+    </Row>
+    <Row label="icon left / slots only" style={{ alignItems: 'flex-start' }}>
+      <ContentCard style={{ width: 332 }} iconLeft="arrow-caret-right-filled" title="{card-title}" description="{description}" />
+      <ContentCard style={{ width: 332 }} size="s" iconLeft="arrow-caret-right-filled" title="{card-title}" description="{description}" />
+      <ContentCard style={{ width: 332 }} top={<span className="t-body-m-regular" style={{ color: 'var(--text-secondary)' }}>Top slot only</span>}
+        bottom={<IFS.ProgressBar value={60} label="Progress" />} />
     </Row>
     <CardDemo />
   </> });
@@ -141,6 +153,9 @@ export default IFS_GALLERY;
       { key: 'a', title: 'Check', type: 'check' }, { key: 'b', title: 'User description', type: 'user-description', width: '1.5fr' },
       { key: 'c', title: 'Counter', render: r => <IFS.Icon name="system-more" size={16} /> }]}
       rows={[{ id: 1, a: 'Text', b: { name: 'Tom Nguyen', description: 'Neighbouring Asset Manager', type: 'blue' } }]} />
+    <div style={{ height: 24 }} />
+    <Table columns={columns.slice(0, 3)} rows={rows.slice(0, 3)} rowHeight={60}
+      rowProps={r => (r.id === 2 ? { className: 'g-dim', style: { opacity: 0.4 }, 'data-row-id': r.id } : { 'data-row-id': r.id })} />
   </> });
 
   IFS_GALLERY.push({ name: 'NotificationCard', figma: 'notification-card (9943:5373)', render: () => <>

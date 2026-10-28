@@ -7,7 +7,7 @@ const section = sections.find(s => s.name === "Weekday");
 export default {
   title: "Action & Input Extras/Weekday",
   component: IFS["Weekday"],
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   parameters: {
     docs: { description: { component: "**Figma:** weekday-atom (2704:74414)\n\n\n**Use for** (inferred) Weekday header cell in the calendar." } },
     design: {"type":"figma","url":"https://www.figma.com/design/atgUmwcA1AE5sjFoWBT7ar/IFS-Design-System?node-id=2704-74414"},

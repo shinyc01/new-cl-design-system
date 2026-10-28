@@ -7,7 +7,7 @@ const section = sections.find(s => s.name === "DataVizLine");
 export default {
   title: "Data Visualisation/DataVizLine",
   component: IFS["DataVizLine"],
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   parameters: {
     docs: { description: { component: "**Figma:** line-atom (4440:32650)\n\n\n**Use for** (inferred) Gridline / reference line; dashed for planned or median." } },
     design: {"type":"figma","url":"https://www.figma.com/design/atgUmwcA1AE5sjFoWBT7ar/IFS-Design-System?node-id=4440-32650"},

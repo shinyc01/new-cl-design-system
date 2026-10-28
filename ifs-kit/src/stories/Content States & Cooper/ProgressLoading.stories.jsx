@@ -7,7 +7,7 @@ const section = sections.find(s => s.name === "ProgressLoading");
 export default {
   title: "Content States & Cooper/ProgressLoading",
   component: IFS["ProgressLoading"],
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   parameters: {
     docs: { description: { component: "**Figma:** progress-bar-loading (5530:11867)\n\n\n**Use for** (Figma — mapping inferred) Measurable work (uploads, steps, known duration).\n\n\n#### Comments (page 1399:9455)" } },
     design: {"type":"figma","url":"https://www.figma.com/design/atgUmwcA1AE5sjFoWBT7ar/IFS-Design-System?node-id=5530-11867"},

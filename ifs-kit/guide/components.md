@@ -42,7 +42,8 @@ Overlay layers, lowest to highest (Surfaces, Figma): panel (in layout) → popov
 Each rule is quoted from a canvas note (Figma) and cited by page.
 
 1. **Buttons, not links.** "Inline text links are not used in the interface — any page-to-page move, opening an object, going back a level … is a button." Exceptions: links inside user-authored content and external resources. Use Ghost button where a text link would go. — Action
-2. **No table pagination.** "No hidden rows in tables. We don't paginate table content." Narrow with tabs that carry counts (All 8 · Active 1 …); the table scrolls with a sticky header. — Navigation, Data Display › Table
+1b. **One page header: PageHeader.** (designer decision, Oct 2026) Every page, library/list pages included, uses `PageHeader`. Don't use `page-top` (771d8425), the taller intro header with description, tabs and search seen in some pattern frames. Put tabs, search and the New action in the page content under PageHeader.
+2. **No table pagination.** "No hidden rows in tables. We don't paginate table content." Narrow with filters that carry counts: on a library/list page, **Tabs** with counts sit above the table card; inside a table card, a **SegmentedControl S** with counts sits in the card's bar (Idea Pad). The table scrolls with a sticky header. A fixed-height card (600px) may use "Show more". — Navigation, Data Display › Table; Patterns › Table (see guide/patterns/table.md)
 3. **Stepper is non-interactive.** "Users cannot click or tap a step to navigate between steps." A button or completion event advances it. — Navigation
 4. **Every visible field is required.** No asterisks or required markers; optional fields are not shown. — Inputs & Forms
 5. **Never disable the primary action to signal an incomplete form.** Let the user submit, then validate all fields, focus the first error; show a form-level summary if more than three fields are invalid. — Inputs & Forms › Form
@@ -269,6 +270,7 @@ key: 1e822b0788d92859ccef310dc14e833c0d4f7d4c · node: 153:61939 · variants: Si
 ### single-select-list-molecule
 key: 445715ffc4f2e6d072e576b8ceb05991fb5d72b2 · node: 153:62054 · variants: State=[Default] · swap: Slot
 **Use for** (Figma) The option popup. Group headers appear only when the list mixes kinds/sources (e.g. Recent / Suggested / Results); a plain or short list has no header.
+**Code** `Select`'s option list, and **`Menu`**: the same list used as a command menu anchored to a trigger (⋮ row menus, split-button menus, "more actions"). Items take an icon, shortcut, description, danger, disabled with reason, a selected check, dividers, section titles and submenus. (inferred) Use `Menu` for every ⋮ / overflow menu rather than a one-off list; pattern helpers such as ActionMenu, CooperMenu and SplitButton are built on it.
 
 ### single-select-organism
 key: a75ef0a0942e69679ba6f4dd043aabdc29d3856a · node: 3273:26820 · variants: List position=[Down|Up]
@@ -1139,7 +1141,27 @@ nodes: 3938:1011 (Home), 2757:9205, 2757:9283, 4850:46005 (Review) — **Use for
 
 ---
 
-## 5. Gaps
+## 5. Patterns — how things work together
+
+Patterns come from the Figma file **IFS Design System Patterns** (`KmmVU2D0kqWr0dC1xXNzWw`). Each one has a write-up in `guide/patterns/<slug>.md`: what it's for, its anatomy in kit components, flows and states, and its rules from the canvas notes. When an idea touches a pattern, read its file and follow its rules. When a pattern's frames and its written notes disagree, **the notes win**; every such case is listed in `guide/review.md` for the designer to check.
+
+| Pattern (slug) | Use when the screen involves… | Main pieces |
+|---|---|---|
+| Nav bar (`nav-bar`) | the app shell: stage switching (Command · Value · Explore · Build · Plan · Results), sidebars per stage, collapsed/responsive nav | NavBar, NavBarCollapsed, ResponsiveNavBar, SideNav, SideNavTree, ExploreHeader |
+| Cooper (`cooper`) | the AI assistant: chat bar → compact → full panel, conversations, sources, follow-ups, chat history and folders, recommendations | CooperChat, ChatCompactPanel, ChatFullPanel, CooperMessage, HistoryPanel, CooperRecommendations |
+| Documents (`documents`) | Cooper's document context in the bottom sheet: upload, drag & drop, remove with undo, read-only, empty and error states | DocumentsContext, DocumentsPopover, DocumentRow, BottomSheet |
+| Table (`table`) | any list of records: filter counts, column filters, search, sort, ranked vs standard, rename, preview, column settings, table states | DataTable (on Table), ColumnFilter, TableToolbar, SmartSearch |
+| Widget builder (`widget-builder`) | dashboards and reports made of widgets: add from a drawer, drag to reorder, resize with limits, undo | WidgetBoard, WidgetFrame, WidgetsDrawer, StatCardsRow, WidgetCard |
+| Collaboration (`collaboration`) | people on a record: invite by name or role, roles, remove, push reminders, collaborator panel | CollaboratorsMenu, CollaboratorsPanel, InviteCollaboratorModal |
+| Comments (`comments`) | commenting on canvas nodes: pins, threads, mentions, resolve, the comments drawer, search | CommentPin, CommentDrawerCard, CommentsPanel, CommentThread |
+| Approval chain (`approval`) | review and approval: reviewer approve / request info, owner push and publish, readiness | ApprovalChainTable, ApprovalChainPanel, ReadinessEvaluation, SplitButton |
+| Confidence · Trace · Readiness (`trace`) | system confidence gates, the trace report (item-by-item issues with apply/answer/upload), readiness evaluation | SystemConfidence, TraceReport, useIssueReport, Pager |
+| Evidence chain (`evidence`) | why a value is trusted: confidence zones, rationale with sources, peer benchmark | EvidenceChainDrawer, SourceCard, PeerBenchmark, EvidenceStrength |
+| Activity & versions (`activity`) | the activity log, version history (open, rename, duplicate, restore) and comparing two versions | ActivityPanel, VersionHistory, CompareHeader, CompareView |
+
+Tiers: Components are published Figma components; pattern helpers (DataTable, CooperChat, WidgetBoard…) implement a pattern's rules and are allowed, but say so in the plan; Examples are demo screens to learn from, never to copy wholesale.
+
+## 6. Gaps
 
 No canvas guidance at all (usage is inferred only):
 - Avatar (`avatar-atom`, `avatar-organism`), `hotkey-atom`, `counter-atom`, `scroll-bar-atom`, `indicator-molecule`, `status-readiness-molecule`, `status-risk-molecule`.

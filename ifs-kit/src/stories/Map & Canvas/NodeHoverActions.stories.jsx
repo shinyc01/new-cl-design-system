@@ -7,7 +7,7 @@ const section = sections.find(s => s.name === "NodeHoverActions");
 export default {
   title: "Map & Canvas/NodeHoverActions",
   component: IFS["NodeHoverActions"],
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   parameters: {
     docs: { description: { component: "**Figma:** node-button (1851:191153)\n\n\n**Use for** (Figma) Contextual control shown on hover over a framework node; the action depends on node type/state (collapsed → Expand, expanded → Collapse). Acts on that node only.\n\n**Don't use for** (Figma) Global toolbar actions." } },
     design: {"type":"figma","url":"https://www.figma.com/design/atgUmwcA1AE5sjFoWBT7ar/IFS-Design-System?node-id=1851-191153"},

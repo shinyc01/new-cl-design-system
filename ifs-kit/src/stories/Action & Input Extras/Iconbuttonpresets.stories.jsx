@@ -7,7 +7,7 @@ const section = sections.find(s => s.name === "Icon-button presets");
 export default {
   title: "Action & Input Extras/Icon-button presets",
   component: IFS["Icon-button presets"],
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   parameters: {
     docs: { description: { component: "**Figma:** icon-button-notification (357:53417), -comment (2563:8153), -filter (6955:768), -arrow (6349:61950)\n\n\n**Use for** (inferred) The bell in `global-header`; True shows the unread dot.\n\n\n**Use for** (Figma) The comment input pill; modes switch without clearing the draft; Cooper mode has an orange border (attribution)." } },
     design: [{"name":"icon-button-notification","type":"figma","url":"https://www.figma.com/design/atgUmwcA1AE5sjFoWBT7ar/IFS-Design-System?node-id=357-53417"},{"name":"comment","type":"figma","url":"https://www.figma.com/design/atgUmwcA1AE5sjFoWBT7ar/IFS-Design-System?node-id=2563-8153"},{"name":"filter","type":"figma","url":"https://www.figma.com/design/atgUmwcA1AE5sjFoWBT7ar/IFS-Design-System?node-id=6955-768"},{"name":"arrow","type":"figma","url":"https://www.figma.com/design/atgUmwcA1AE5sjFoWBT7ar/IFS-Design-System?node-id=6349-61950"}],

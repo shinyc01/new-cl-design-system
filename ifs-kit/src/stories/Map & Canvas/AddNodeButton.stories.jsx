@@ -7,7 +7,7 @@ const section = sections.find(s => s.name === "AddNodeButton");
 export default {
   title: "Map & Canvas/AddNodeButton",
   component: IFS["AddNodeButton"],
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   parameters: {
     docs: { description: { component: "**Figma:** add-node-button (2879:7311)\n\n\n**Use for** (Figma) Creating a new (grey, provisional) subnode on the framework canvas; confirmed via its check icon.\n\n\n---" } },
     design: {"type":"figma","url":"https://www.figma.com/design/atgUmwcA1AE5sjFoWBT7ar/IFS-Design-System?node-id=2879-7311"},

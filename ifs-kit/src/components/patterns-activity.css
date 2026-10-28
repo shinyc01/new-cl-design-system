@@ -1,0 +1,88 @@
+/* Activity, Versions pattern family — Patterns file page "Activity, Versions" (12:339984).
+   compare-dropdown (59571d4d…), its drop-down list (c5186fed…), compare-header (0c79e831…), the compare stat value,
+   CompareView and ActivityPanel. Timeline / version entries come from activity.css (kit), reused as is. */
+
+/* ================= drop-down list (Patterns 52:82683) ================= */
+/* V gap 8, padding 4, radius 4, surface/secondary-alpha + border/base inside, blur/strong */
+.ifs-compare-list{position:absolute;top:calc(100% + var(--gaps-gap-200));left:0;z-index:var(--z-index-z-popover);width:100%;box-sizing:border-box;
+  display:flex;flex-direction:column;gap:var(--gaps-gap-200);padding:var(--paddings-padding-100);max-height:352px;overflow:auto;
+  border-radius:var(--radius-radius-100);background:var(--surface-secondary-alpha);box-shadow:inset 0 0 0 1px var(--border-base);
+  backdrop-filter:blur(var(--blur-strong));-webkit-backdrop-filter:blur(var(--blur-strong))}
+.ifs-compare-list--inline{position:relative;top:auto;width:319px} /* Figma list width */
+.ifs-compare-list__group{display:flex;flex-direction:column}
+.ifs-compare-list__title{padding:var(--paddings-padding-100) var(--paddings-padding-200);color:var(--text-tertiary);
+  font:400 10px/12px var(--font-family-text);letter-spacing:0.1px;text-transform:uppercase} /* Caption/regular-UPPER */
+.ifs-compare-list__divider{flex:none;height:1px;background:var(--border-base)}
+.ifs-compare-list__item{display:flex;align-items:center;gap:var(--gaps-gap-200);min-height:32px;box-sizing:border-box;
+  padding:var(--paddings-padding-100) var(--paddings-padding-200);border-radius:var(--radius-radius-100);cursor:pointer;color:var(--text-secondary)}
+.ifs-compare-list__label{flex:1 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+  font:500 14px/20px var(--font-family-text);letter-spacing:-0.15px} /* Label/L/medium */
+.ifs-compare-list__item.is-active,.ifs-compare-list__item:hover{background:var(--background-elevation-1-primary-base)}
+.ifs-compare-list__item.is-selected{color:var(--text-primary)} /* inferred: Figma draws no selected row */
+.ifs-compare-list__item.is-disabled{cursor:default;color:var(--text-disabled);background:none}
+
+/* ================= compare-dropdown (Patterns 52:82756) ================= */
+.ifs-compare-dd{position:relative;display:flex;flex-direction:column;flex:none;max-width:100%;min-width:0}
+/* Background+Border: H space-between, padding 8/10, radius 6, surface/primary-alpha, 1px inside stroke */
+.ifs-compare-dd__field{display:flex;align-items:center;justify-content:space-between;gap:var(--gaps-gap-200);height:34px;box-sizing:border-box;
+  padding:var(--paddings-padding-200) var(--paddings-padding-250);border-radius:var(--radius-radius-150);cursor:pointer;outline:none;
+  background:var(--surface-primary-alpha);box-shadow:inset 0 0 0 1px #1f1f1f /* raw in Figma */}
+.ifs-compare-dd__field:focus-visible{box-shadow:inset 0 0 0 1px #1f1f1f,0 0 0 1.5px var(--focus-focus-inner),0 0 0 3px var(--focus-focus-outer)}
+.ifs-compare-dd--disabled .ifs-compare-dd__field{cursor:default;opacity:0.5} /* inferred: Figma has no disabled variant */
+.ifs-compare-dd__value{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--text-primary);
+  font:500 12px/16px var(--font-family-text);letter-spacing:-0.15px} /* Label/M/medium */
+.ifs-compare-dd__value--empty{color:var(--text-disabled)}
+.ifs-compare-dd__right{display:flex;align-items:center;gap:var(--gaps-gap-200);flex:none;color:var(--icon-primary)}
+.ifs-compare-dd__clear{display:flex;padding:0;border:0;background:none;color:var(--icon-secondary);cursor:pointer;border-radius:var(--radius-radius-100)}
+.ifs-compare-dd__clear:hover{color:var(--icon-primary)}
+.ifs-compare-dd__clear:focus-visible{outline:none;box-shadow:0 0 0 1.5px var(--focus-focus-inner),0 0 0 3px var(--focus-focus-outer)}
+
+/* ================= compare-header (Patterns 52:82780) ================= */
+/* row: H gap 12, padding 0/12, 42px; box: 440px, H gap 8, padding 4/4/4/8, radius 8, elevation-1/secondary + blur/strong */
+.ifs-compare-header{display:flex;align-items:center;gap:var(--gaps-gap-300);height:42px;padding:0 var(--paddings-padding-300);box-sizing:border-box;min-width:0}
+.ifs-compare-header__box{display:flex;align-items:center;gap:var(--gaps-gap-200);width:440px;max-width:100%;height:42px;box-sizing:border-box;flex:none;
+  padding:var(--paddings-padding-100) var(--paddings-padding-100) var(--paddings-padding-100) var(--paddings-padding-200);border-radius:var(--radius-radius-200);
+  background:var(--background-elevation-1-secondary);backdrop-filter:blur(var(--blur-strong));-webkit-backdrop-filter:blur(var(--blur-strong))}
+.ifs-compare-header__label{flex:none;padding:0 var(--paddings-padding-100);white-space:nowrap;text-transform:uppercase;
+  color:rgba(255,255,255,0.75) /* raw in Figma (#ffffff @ 75%) */;font:500 14px/20px var(--font-family-text);letter-spacing:-0.15px}
+.ifs-compare-header__dd{flex:1 1 auto}
+.ifs-compare-header__banner{display:flex;align-items:center;width:398px;height:42px;flex:none}
+
+/* ================= compare stat card (compare-quick-stat-card 52:82588 on StatCard) ================= */
+.ifs-compare-stat .ifs-stat-card__title{color:var(--text-secondary)}
+.ifs-compare-stat .ifs-stat-card__value-row{align-items:flex-end;gap:var(--gaps-gap-150)}
+.ifs-compare-stat .ifs-stat-card__value{font:inherit;letter-spacing:normal}
+.ifs-compare-stat__value{display:inline-flex;align-items:center;gap:var(--gaps-gap-150);color:var(--icon-tertiary)}
+.ifs-compare-stat__col{display:inline-flex;flex-direction:column;gap:var(--gaps-gap-50)}
+.ifs-compare-stat__cap{color:var(--text-secondary);font:400 10px/12px var(--font-family-text);letter-spacing:0.1px;text-transform:uppercase} /* Caption/regular-UPPER */
+.ifs-compare-stat__num{color:var(--text-primary);font:500 20px/24px var(--font-family-text);letter-spacing:-0.5px} /* Heading/H1/medium */
+.ifs-compare-stat__col--from .ifs-compare-stat__num{color:var(--text-tertiary)}
+
+/* ================= CompareView ================= */
+.ifs-compare-view{display:flex;flex-direction:column;gap:var(--gaps-gap-300);min-width:0}
+.ifs-compare-view__stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--gaps-gap-300)}
+
+/* ================= ActivityPanel (panel-organism over overlay Type=Base) ================= */
+.ifs-activity-panel{display:flex;height:100%;width:380px;flex:none}
+.ifs-activity-panel--overlay,.ifs-activity-panel--contained{top:0;right:0;bottom:0;height:auto;z-index:var(--z-index-z-modal)}
+.ifs-activity-panel--overlay{position:fixed}
+.ifs-activity-panel--contained{position:absolute}
+.ifs-activity-panel--static{position:relative}
+.ifs-activity-panel > .ifs-panel{flex:1 1 auto;height:auto}
+.ifs-activity-panel .ifs-panel__content{padding:var(--paddings-padding-300)}
+/* Figma's activity panel header carries only ✕ (no collapse toggle); see the kit-change note in guide/patterns/activity.md */
+.ifs-activity-panel .ifs-panel__toggle{visibility:hidden}
+.ifs-activity-panel__close{position:absolute;top:var(--paddings-padding-300);right:var(--paddings-padding-300)}
+.ifs-activity-panel__search{flex:none}
+.ifs-activity-panel__list{padding-top:var(--paddings-padding-100)}
+.ifs-activity-panel .ifs-empty{flex:none}
+.ifs-activity-panel__restore p{margin:0 0 var(--gaps-gap-200);color:var(--text-primary);font:400 14px/20px var(--font-family-text)}
+.ifs-activity-panel__restore p:last-child{margin-bottom:0}
+.ifs-activity-panel__restore b{font-weight:600}
+
+
+/* The segmented control spans the panel (Figma segmented-control-organism Number=2, Size=S, 355px): SegmentedControl fullWidth. */
+.ifs-activity-panel .ifs-segmented{flex:none}
+/* Figma: header and stat cards sit 12px in from the content edge; the Sankey runs full width. */
+.ifs-compare-view{padding-top:var(--paddings-padding-300)}
+.ifs-compare-view__stats{padding:0 var(--paddings-padding-300)}

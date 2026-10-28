@@ -7,9 +7,9 @@ const section = sections.find(s => s.name === "ColumnChart");
 export default {
   title: "Data Visualisation/ColumnChart",
   component: IFS["ColumnChart"],
-  tags: ['autodocs'],
+  tags: ["autodocs","needs-review"],
   parameters: {
-    docs: { description: { component: "**Figma:** chart-column (9862:12468)\n\n\n**Use for** (Figma, Bar Chart) One measure across few or time-ordered categories (\"which is biggest\"); zero-based, one hue." } },
+    docs: { description: { component: "> ⚠️ **Needs review** — check these against Figma:\n>\n> - The \"view as table\" toggle reuses the hover ⋮ button; Figma shows no table control.\n\n**Figma:** chart-column (9862:12468)\n\n\n**Use for** (Figma, Bar Chart) One measure across few or time-ordered categories (\"which is biggest\"); zero-based, one hue." } },
     design: {"type":"figma","url":"https://www.figma.com/design/atgUmwcA1AE5sjFoWBT7ar/IFS-Design-System?node-id=9862-12468"},
   },
 };

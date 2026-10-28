@@ -1,0 +1,4 @@
+import{I as s}from"./patterns-cooper-C667F40c.js";import{I as a}from"./patterns-trace-BbbZlZ3a.js";import"./index-B0WjJBI_.js";import"./_commonjsHelpers-CqkleIqs.js";import"./index-x-G-dxfr.js";import"./index-CwPCC0ZT.js";const i=s.find(o=>o.name==="AgentWindow"),w={title:"More components/Cooper/AgentWindow",component:a.AgentWindow,tags:["autodocs"],parameters:{docs:{description:{component:"**Figma:** agent-window-organism [patterns] (12:264637)"}},design:{type:"figma",url:"https://www.figma.com/design/KmmVU2D0kqWr0dC1xXNzWw/IFS-Design-System-Patterns?node-id=12-264637"}}},e={name:"All variants & states",render:()=>i.render()};var t,n,r;e.parameters={...e.parameters,docs:{...(t=e.parameters)==null?void 0:t.docs,source:{originalSource:`{
+  name: 'All variants & states',
+  render: () => section.render()
+}`,...(r=(n=e.parameters)==null?void 0:n.docs)==null?void 0:r.source}}};const A=["AllVariants"];export{e as AllVariants,A as __namedExportsOrder,w as default};

@@ -14,6 +14,7 @@ arrow-chevron-right
 arrow-chevron-up
 arrow-diagonal-collapse
 arrow-diagonal-expand
+arrow-diagonal-minimize-collapse
 arrow-down
 arrow-horizontal-collapse
 arrow-horizontal-expand
@@ -107,6 +108,7 @@ ecosystem-remove
 evidence
 exit-arrow-back
 eye-closed
+eye-opened
 flag
 flag-2
 formula

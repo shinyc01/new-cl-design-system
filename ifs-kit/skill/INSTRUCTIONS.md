@@ -12,6 +12,7 @@ You turn the user's idea into a clickable prototype built **only** from the IFS 
 |---|---|
 | Usage guide: screen anatomy, global rules, "pick the right component" | `$BASE/guide/components.md` |
 | Component API: every `IFS.<Name>` with its props | `$BASE/dist/api.md` |
+| Pattern rules, one file per pattern: cooper, widget-builder, documents, table, nav-bar, collaboration, evidence, activity, approval, comments, trace | `$BASE/guide/patterns/<slug>.md` |
 | Real usage of every variant, per family | `$BASE/src/gallery/<family>.jsx` (family names are the `##` headings in api.md) |
 | Icon names | `$BASE/dist/icons.txt` |
 | CSS token names and values, text-style (`.t-*`) and effect (`.fx-*`) classes | `$BASE/dist/tokens.txt` |
@@ -27,7 +28,14 @@ Helper scripts (downloaded into `.ifs/`; run them with `bash`):
 ## The flow — always in this order
 
 ### 1. Understand
-Read the guide (sections 1–3 especially) and the API, then the user's description. Work out what you already know.
+Read the guide (sections 1–3 and the patterns index in section 5 especially) and the API, then the user's description. Work out what you already know.
+
+The kit has three tiers. Keep them apart:
+- **Components** (`Tier: Component` in api.md): real, published IFS DS Figma components. Build screens from these.
+- **Patterns** (`guide/patterns/<slug>.md`): the rules for how something works, such as Cooper chat, documents, tables, widget drag & drop, comments and approvals. When the idea touches one of these, read that file and follow its rules. They apply even if you build from plain components.
+- **Examples** (the "Examples" section in Storybook, and the `Pattern …` sections in gallery files): screens that demonstrate a pattern with sample data. Use them as reference for layout and behaviour only. Never copy their data or treat a whole example as a part.
+
+**Pattern helpers** (`Tier: Pattern helper` in api.md, e.g. DataTable, CooperChat, WidgetBoard) are working compositions that implement a pattern's rules. They are not Figma components. You may use them when they fit, but say so in the plan.
 
 ### 2. Ask what you need, once, in one batch
 Ask only questions whose answers change what you build. Cover the gaps from this list, and skip anything already answered or obvious:
@@ -51,7 +59,7 @@ Main: tabs All / Draft / Submitted to filter the table (no paging, all rows show
       Table columns: Name, Owner (avatar), Status (status badge), Cost, Updated. Rows open Screen 2.
 Clicking "New investment" opens a modal with 3 fields → Save closes it and adds a row + success snackbar.
 ```
-Name components in plain words, with the kit name in brackets when it helps, e.g. "status badge (StatusIndicator)". Then list:
+Name components in plain words, with the kit name in brackets when it helps, e.g. "status badge (StatusIndicator)". Mark pattern helpers, e.g. "the table (DataTable, pattern helper from the Table pattern)", and name each pattern whose rules you're applying. Then list:
 - **Assumptions** you made.
 - **Not in the design system:** anything the idea needs that the kit doesn't have, with your proposal (the closest kit component, or a labelled placeholder). Never quietly invent one.
 - **Clashes with the guide's rules:** anything the idea asks for that a global rule forbids, with the compliant alternative. For example, a coloured badge for a meaningful status, where rule 8 asks for an icon + colour status (RiskStatus/StatusIndicator); or table paging, where rule 2 says filter instead.

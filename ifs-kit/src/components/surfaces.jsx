@@ -98,7 +98,7 @@ function Alert({ type = 'error', title, children, showIcon = false, action, onAc
 
 // Figma: snackbar-organism (3795:29459)
 // Props: title, children = description (Content slot), secondaryAction / primaryAction = { label, onClick }
-// (Secondary S + Primary S), onClose (close icon-button; showClose=false hides it).
+// (Secondary S + Primary S; add iconLeft, e.g. Undo → 'arrow-back-up'), onClose (close icon-button; showClose=false hides it).
 // Use IFS.toast({...same props, duration}) to show one top-right that auto-dismisses.
 function Snackbar({ title, children, secondaryAction, primaryAction, onClose, showClose = true, className, ...rest }) {
   const hasActions = secondaryAction || primaryAction || showClose;
@@ -109,8 +109,8 @@ function Snackbar({ title, children, secondaryAction, primaryAction, onClose, sh
         {children != null && <div className="ifs-snackbar__desc">{children}</div>}
       </div>
       {hasActions && <div className="ifs-snackbar__actions">
-        {secondaryAction && <IFS.Button type="secondary" size="s" onClick={secondaryAction.onClick}>{secondaryAction.label}</IFS.Button>}
-        {primaryAction && <IFS.Button type="primary" size="s" onClick={primaryAction.onClick}>{primaryAction.label}</IFS.Button>}
+        {secondaryAction && <IFS.Button type="secondary" size="s" iconLeft={secondaryAction.iconLeft} disabled={secondaryAction.disabled} onClick={secondaryAction.onClick}>{secondaryAction.label}</IFS.Button>}
+        {primaryAction && <IFS.Button type="primary" size="s" iconLeft={primaryAction.iconLeft} disabled={primaryAction.disabled} onClick={primaryAction.onClick}>{primaryAction.label}</IFS.Button>}
         {showClose && <IFS.IconButton icon="system-close" label="Dismiss" type="ghost" size="s" onClick={onClose} />}
       </div>}
     </div>
@@ -166,7 +166,7 @@ function Overlay({ type = 'strong', inline, className, ...rest }) {
 
 // Figma: modal-organism (4169:208596)
 // Props: open / defaultOpen / onOpenChange, title (Header Slot), children (Content slot),
-// secondaryAction / primaryAction = { label, onClick } (Tertiary L + Primary L, split footer),
+// secondaryAction / primaryAction = { label, onClick, disabled, iconLeft } (Tertiary L + Primary L, split footer),
 // footer (custom footer node, replaces the two buttons), dismissible=false hides ✕ and blocks Esc/overlay close,
 // overlay strong|base|none, width, inline (renders the card in place without overlay — gallery).
 function Modal({ open, defaultOpen, onOpenChange, title, children, secondaryAction, primaryAction, footer, dismissible = true, overlay = 'strong', width, inline, className, style }) {
@@ -186,8 +186,8 @@ function Modal({ open, defaultOpen, onOpenChange, title, children, secondaryActi
       <div className="ifs-modal__body ifs-scroll">{children}</div>
       {(footer || secondaryAction || primaryAction) && <div className="ifs-modal__footer">
         {footer || <>
-          {secondaryAction && <IFS.Button type="tertiary" size="l" onClick={secondaryAction.onClick}>{secondaryAction.label}</IFS.Button>}
-          {primaryAction && <IFS.Button type="primary" size="l" onClick={primaryAction.onClick}>{primaryAction.label}</IFS.Button>}
+          {secondaryAction && <IFS.Button type="tertiary" size="l" iconLeft={secondaryAction.iconLeft} disabled={secondaryAction.disabled} onClick={secondaryAction.onClick}>{secondaryAction.label}</IFS.Button>}
+          {primaryAction && <IFS.Button type="primary" size="l" iconLeft={primaryAction.iconLeft} disabled={primaryAction.disabled} onClick={primaryAction.onClick}>{primaryAction.label}</IFS.Button>}
         </>}
       </div>}
     </div>
@@ -237,23 +237,34 @@ function Drawer({ open, defaultOpen, onOpenChange, title, expanded, defaultExpan
   return <><Overlay type={overlay} onClick={() => setOpen(false)} />{panel}</>;
 }
 
-// Figma: panel-organism (4305:365421)
-// Props: title, expanded / defaultExpanded=true / onExpandedChange (Figma Expanded: 380px ↔ 84px rail),
-// showEvidence (show-evidence-chain, circle Tertiary S icon-button), onEvidence, full (fills the content area),
+// Figma: panel-organism (4305:365421); collapsed rail = sidebar-organism View=Collapsed as the pattern screens draw it.
+// Props: title, actions (node, header right, before the buttons), expanded / defaultExpanded=true / onExpandedChange
+// (Figma Expanded: 380px ↔ 48px rail holding only the ←| expand button), dot error|warning (status dot on the rail's button:
+// red = errors / open questions, orange = warnings only), showEvidence (show-evidence-chain, circle Tertiary S icon-button),
+// onEvidence, onClose (shows ✕ instead of the collapse toggle; the panel then never collapses), full (fills the content area),
 // children (Content slot). Lives in the page layout: no scrim, no focus trap.
-function Panel({ title, expanded, defaultExpanded = true, onExpandedChange, showEvidence = true, onEvidence, full, children, className, style }) {
+function Panel({ title, actions, expanded, defaultExpanded = true, onExpandedChange, dot, showEvidence = true, onEvidence, onClose, full, children, className, style }) {
   const [isExp, setExp] = useSurfaceState(expanded, expanded === undefined ? defaultExpanded : undefined, onExpandedChange);
-  const buttons = (
-    <div className="ifs-panel__buttons">
-      {showEvidence && <IFS.IconButton icon="cooper-evidence-icon" label="Evidence chain" type="tertiary" size="s" shape="circle" onClick={onEvidence} />}
-      <IFS.IconButton className="ifs-panel__toggle" icon="arrow-bar-right" label={isExp ? 'Collapse panel' : 'Expand panel'} aria-expanded={isExp}
-        type="ghost" size="s" onClick={() => setExp(!isExp)} />
-    </div>
+  const label = typeof title === 'string' ? title : undefined;
+  if (!isExp && !onClose) return (
+    <aside className={IFS.cx('ifs-panel', 'ifs-panel--collapsed', className)} style={style} aria-label={label}>
+      <IFS.ArrowButton direction="left" type="ghost" dot={dot} label={label ? `Expand ${label.toLowerCase()}` : 'Expand panel'}
+        aria-expanded={false} onClick={() => setExp(true)} />
+    </aside>
   );
-  if (!isExp) return <aside className={IFS.cx('ifs-panel', 'ifs-panel--collapsed', className)} style={style} aria-label={typeof title === 'string' ? title : undefined}>{buttons}</aside>;
   return (
-    <aside className={IFS.cx('ifs-panel', full && 'ifs-panel--full', className)} style={style} aria-label={typeof title === 'string' ? title : undefined}>
-      <div className="ifs-panel__header"><h2 className="ifs-surface__title">{title}</h2>{buttons}</div>
+    <aside className={IFS.cx('ifs-panel', full && 'ifs-panel--full', className)} style={style} aria-label={label}>
+      <div className="ifs-panel__header">
+        <h2 className="ifs-surface__title">{title}</h2>
+        <div className="ifs-panel__buttons">
+          {actions}
+          {showEvidence && <IFS.IconButton icon="cooper-evidence-icon" label="Evidence chain" type="tertiary" size="s" shape="circle" onClick={onEvidence} />}
+          {onClose
+            ? <IFS.IconButton icon="system-close" label="Close" type="ghost" size="s" onClick={onClose} />
+            : <IFS.IconButton className="ifs-panel__toggle" icon="arrow-bar-right" label="Collapse panel" aria-expanded
+                type="ghost" size="s" onClick={() => setExp(false)} />}
+        </div>
+      </div>
       <div className="ifs-panel__content ifs-scroll">{children}</div>
     </aside>
   );
@@ -262,10 +273,15 @@ function Panel({ title, expanded, defaultExpanded = true, onExpandedChange, show
 // Figma: popover-organism (4394:56471)
 // Props: trigger (element; click toggles), open / defaultOpen / onOpenChange, align start|end,
 // title (Title slot; absent = show-title off), count (counter-atom), showClose,
-// search (show-search: true or placeholder string), onSearch(value), onFilter (show-filter: Secondary M icon-button),
+// search (show-search: true or placeholder string), searchValue / onSearchChange(value) to control it (onSearch = alias),
+// the field shows ✕ to clear once it has text, onFilter (show-filter: Secondary M icon-button),
 // children (Content slot), width, inline (renders the card alone — gallery). Esc / outside click / ✕ close.
-function Popover({ trigger, open, defaultOpen, onOpenChange, align = 'start', title, count, showClose = true, search, onSearch, onFilter, children, width, inline, className, style }) {
+function Popover({ trigger, open, defaultOpen, onOpenChange, align = 'start', title, count, showClose = true, search, searchValue, onSearchChange, onSearch, onFilter, children, width, inline, className, style }) {
   const [isOpen, setOpen] = useSurfaceState(open, defaultOpen, onOpenChange);
+  const [innerQ, setInnerQ] = React.useState('');
+  const q = searchValue !== undefined ? searchValue : innerQ;
+  const setQ = v => { if (searchValue === undefined) setInnerQ(v); onSearchChange && onSearchChange(v); onSearch && onSearch(v); };
+  const searchInput = React.useRef();
   const ref = React.useRef();
   const anchor = React.useRef();
   const id = useSurfaceId('ifs-popover');
@@ -289,7 +305,11 @@ function Popover({ trigger, open, defaultOpen, onOpenChange, align = 'start', ti
       {(search || onFilter) && <div className="ifs-popover__tools">
         {search && <label className="ifs-popover__search">
           <IFS.Icon name="system-search" size={12} />
-          <input type="search" placeholder={typeof search === 'string' ? search : 'Search for...'} onChange={e => onSearch && onSearch(e.target.value)} />
+          <input ref={searchInput} type="search" value={q} placeholder={typeof search === 'string' ? search : 'Search for...'}
+            aria-label={typeof search === 'string' ? search : 'Search'} onChange={e => setQ(e.target.value)}
+            onKeyDown={e => { if (e.key === 'Escape' && q) { e.stopPropagation(); setQ(''); } }} />
+          {q && <button type="button" className="ifs-popover__clear" aria-label="Clear search"
+            onClick={() => { setQ(''); searchInput.current && searchInput.current.focus(); }}><IFS.Icon name="system-close" size={12} /></button>}
         </label>}
         {onFilter && <IFS.IconButton icon="system-filter" label="Filter" type="secondary" size="m" onClick={onFilter} />}
       </div>}

@@ -66,6 +66,12 @@ export default IFS_GALLERY;
       <Col w={348}><VersionHistory versions={[{ ...VER, title: 'Version 3', time: '2:40 PM · May 10', state: 'hover' }]} /></Col>
       <Col w={348}><VersionHistory versions={[{ ...VER, title: 'Version 3', time: '2:40 PM · May 10', state: 'rename' }]} /></Col>
     </Row>
+    <Row label="⋮ menu slot / open / rename error (duplicate name)">
+      <Col w={348}><div role="list" className="ifs-timeline"><VersionEntry {...VER} title="Version 3" badge="Current" time="2:40 PM · May 10" last state="hover"
+        onOpen={() => {}} menu={<IFS.ActionMenu label="Version 3 actions" items={[{ label: 'Compare', icon: 'compare' }, { label: 'Rename', icon: 'system-edit-rename' }]} />} /></div></Col>
+      <Col w={348}><div role="list" className="ifs-timeline"><VersionEntry {...VER} title="Version 3" time="2:40 PM · May 10" last
+        renaming renameValue="Version 2" renameError="A version with this name already exists" onRenameChange={() => {}} /></div></Col>
+    </Row>
     <Row label="expanded (click marker)">
       <Col w={348}><VersionHistory versions={[
         { ...VER, title: 'Version 3', time: '2:40 PM · May 10', badge: 'Active', defaultExpanded: true, activity: ACTIVITY },
@@ -81,7 +87,8 @@ export default IFS_GALLERY;
     </Row>
     <Row label="tagged user">
       <Col w={363}><Comment name="{Name}" time="{time ago}" avatar={{ initials: 'UN', type: 'yellow' }} mentions={['Tagged user']}>{'@Tagged user ' + LOREM}</Comment></Col>
-      <Col w={363}><Comment name="Aubrey Larkin" time="Just now" you avatar={{ initials: 'AL', type: 'black' }} onMenu={() => {}} state="hover">{'Thanks @Everett, updating the scenario now.'}</Comment></Col>
+      <Col w={363}><Comment name="Aubrey Larkin" time="Just now" you avatar={{ initials: 'AL', type: 'black' }} state="hover"
+        menuItems={[{ label: 'Edit', icon: 'system-edit-rename' }, { label: 'Delete', icon: 'system-trash-delete' }]}>{'Thanks @Everett, updating the scenario now.'}</Comment></Col>
     </Row>
   </> });
 
@@ -100,6 +107,10 @@ export default IFS_GALLERY;
       <Col w={361}><CommentComposer avatar={{ initials: 'AL', type: 'black' }} /></Col>
       <Col w={361}><CommentComposer disabled /></Col>
     </Row>
+    <Row label="@ mention picker (type @)">
+      <Col w={361}><CommentComposer avatar={{ initials: 'AL', type: 'black' }} defaultValue="Thanks @"
+        mentionables={[{ name: 'Lara Green', role: 'Planning Engineer', avatar: { type: 'green' } }, { name: 'Maria Chen', role: 'Finance Lead', avatar: { type: 'purple' } }]} /></Col>
+    </Row>
   </> });
 
   const THREAD = [
@@ -114,7 +125,7 @@ export default IFS_GALLERY;
       <CommentThread defaultComments={THREAD.slice(0, 2)} currentUser={ME} cooperSuggestion={{ label: 'Let’s do it with Cooper' }} />
       <CommentThread number="#55" defaultComments={THREAD} currentUser={ME} editingId={3} />
     </Row>
-    <Row label="resolved"><CommentThread number="#52" defaultComments={THREAD.slice(0, 2)} currentUser={ME} defaultResolved /></Row>
+    <Row label="resolved (⋯ = Unresolve / Copy link)"><CommentThread number="#52" defaultComments={THREAD} currentUser={ME} defaultResolved /></Row>
   </> });
 
   IFS_GALLERY.push({ name: 'UserCard', figma: 'user-card (1440:5059) (legacy)', render: () => <>
@@ -147,12 +158,17 @@ export default IFS_GALLERY;
   </> });
 
   IFS_GALLERY.push({ name: 'FileCard', figma: 'file-card (1440:5465) (legacy)', render: () => <>
-    <Row label="states">
+    <Row label="states / long name (middle truncation) + actions slot">
       <Col w={300}>
         <FileCard name="2025 Board Planning Present.pdf" date="Jan 15, 2025" onDownload={() => {}} />
         <FileCard name="2025 Board Planning Present.pdf" date="Jan 15, 2025" onDownload={() => {}} state="hover" />
         <FileCard loading />
         <FileCard name="2025 Board Planning Present.pdf" date="Jan 15, 2025" error onDelete={() => {}} onRetry={() => {}} />
+      </Col>
+      <Col w={300}>
+        <FileCard name="2025 Board Planning Presentation — Strategic Business Case.pdf" date="Jan 15, 2025" onDownload={() => {}} />
+        <FileCard name="2025 Board Planning Presentation — Strategic Business Case.pdf" date="Jan 15, 2025" active
+          actions={<IFS.ActionMenu label="More actions" items={[{ label: 'Download', icon: 'system-download' }, { label: 'Remove', icon: 'system-trash-delete', destructive: true }]} />} />
       </Col>
     </Row>
   </> });

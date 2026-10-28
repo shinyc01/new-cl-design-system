@@ -87,6 +87,9 @@
 .ifs-dv-card--chart:hover .ifs-dv-header,.ifs-dv-card--chart[data-state=hover] .ifs-dv-header{padding-left:var(--paddings-padding-100)}
 .ifs-dv-card--chart.ifs-dv-card--cooper::before{inset:-1px;padding:1px;border-radius:var(--radius-radius-100)}
 .ifs-dv-card__body{position:relative;min-width:0;padding:var(--paddings-padding-200)}
+/* bare: the content without the card frame (used inside a frame that already draws the header, e.g. a dashboard widget) */
+.ifs-dv-card.ifs-dv-card--bare{padding:0;background:none;box-shadow:none}
+.ifs-dv-card.ifs-dv-card--bare::before{display:none}
 .ifs-dv-card__legend{display:flex;flex-wrap:wrap;justify-content:center;column-gap:var(--gaps-gap-500);padding:var(--paddings-padding-200)}
 .ifs-dv-card:not(.ifs-dv-card--chart) .ifs-dv-card__legend{padding:0}
 
@@ -151,6 +154,7 @@
 .ifs-progress-ring{display:inline-block;flex:none;vertical-align:middle}
 .ifs-progress-ring__track{stroke:var(--background-elevation-2-primary-base)}
 .ifs-progress-ring__bar{stroke:var(--icon-primary)}
+.ifs-progress-ring--complete .ifs-progress-ring__bar{stroke:var(--icon-success)} /* Figma: 100% instances use icon/success */
 
 /* ================= evidence-strength-bar-molecule (67:6634) ================= */
 .ifs-evidence{display:flex;flex-direction:column;gap:var(--gaps-gap-150);min-width:0;width:100%}

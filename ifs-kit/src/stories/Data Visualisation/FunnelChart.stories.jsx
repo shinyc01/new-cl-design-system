@@ -7,7 +7,7 @@ const section = sections.find(s => s.name === "FunnelChart");
 export default {
   title: "Data Visualisation/FunnelChart",
   component: IFS["FunnelChart"],
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   parameters: {
     docs: { description: { component: "**Figma:** chart-funnel (9867:1065)\n\n\n**Use for** (inferred) Drop-off across ordered stages.\n\n\nLegacy / domain charts (Chart List frame). (Figma) Built before the base; kept because handover references them. Use only to match an existing screen; build new charts from Base + core types. All entries below: **Use for** (inferred) the metric in the name." } },
     design: {"type":"figma","url":"https://www.figma.com/design/atgUmwcA1AE5sjFoWBT7ar/IFS-Design-System?node-id=9867-1065"},

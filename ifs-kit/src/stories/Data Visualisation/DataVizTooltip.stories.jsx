@@ -7,7 +7,7 @@ const section = sections.find(s => s.name === "DataVizTooltip");
 export default {
   title: "Data Visualisation/DataVizTooltip",
   component: IFS["DataVizTooltip"],
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   parameters: {
     docs: { description: { component: "**Figma:** data-viz-modal-organism (4440:32681)\n\n\n**Use for** (inferred) Chart tooltip / info pop-up showing exact values on hover." } },
     design: {"type":"figma","url":"https://www.figma.com/design/atgUmwcA1AE5sjFoWBT7ar/IFS-Design-System?node-id=4440-32681"},

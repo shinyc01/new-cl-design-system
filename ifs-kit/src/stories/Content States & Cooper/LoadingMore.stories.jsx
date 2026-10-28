@@ -7,7 +7,7 @@ const section = sections.find(s => s.name === "LoadingMore");
 export default {
   title: "Content States & Cooper/LoadingMore",
   component: IFS["LoadingMore"],
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   parameters: {
     docs: { description: { component: "**Figma:** empty-state-loading-more-molecule (3782:24082)\n\n\n**Use for** (Figma — mapping inferred) Appending items to an already visible list." } },
     design: {"type":"figma","url":"https://www.figma.com/design/atgUmwcA1AE5sjFoWBT7ar/IFS-Design-System?node-id=3782-24082"},

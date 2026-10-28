@@ -7,7 +7,7 @@ const section = sections.find(s => s.name === "DataVizCard");
 export default {
   title: "Data Visualisation/DataVizCard",
   component: IFS["DataVizCard"],
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   parameters: {
     docs: { description: { component: "**Figma:** data-viz-card-organism (4457:33030)\n\n\n**Use for** (inferred) The card that holds any chart on a dashboard; Drag for dashboard edit mode." } },
     design: {"type":"figma","url":"https://www.figma.com/design/atgUmwcA1AE5sjFoWBT7ar/IFS-Design-System?node-id=4457-33030"},

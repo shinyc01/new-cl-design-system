@@ -7,9 +7,9 @@ const section = sections.find(s => s.name === "Canvas demo");
 export default {
   title: "Map & Canvas/Canvas demo",
   component: IFS["Canvas demo"],
-  tags: ['autodocs'],
+  tags: ["autodocs","needs-review"],
   parameters: {
-    docs: { description: { component: "**Figma:** canvas-background (1395:196712) + node-card + value-map-button + explore-map-button\n\n\n**Use for** (Figma) The infinite, pannable, zoomable ground plane for map-first and node-graph views (Value framework, Explore map).\n\n**Don't use for** (Figma) Document-flow pages — those use the 12-column grid." } },
+    docs: { description: { component: "> ⚠️ **Needs review** — check these against Figma:\n>\n> - **Invented.** The mini-map is a stand-in. Figma describes a navigator but has no component for it.\n\n**Figma:** canvas-background (1395:196712) + node-card + value-map-button + explore-map-button\n\n\n**Use for** (Figma) The infinite, pannable, zoomable ground plane for map-first and node-graph views (Value framework, Explore map).\n\n**Don't use for** (Figma) Document-flow pages — those use the 12-column grid." } },
     design: {"type":"figma","url":"https://www.figma.com/design/atgUmwcA1AE5sjFoWBT7ar/IFS-Design-System?node-id=1395-196712"},
   },
 };

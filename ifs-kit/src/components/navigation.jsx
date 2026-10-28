@@ -62,7 +62,8 @@ function NavSubtitle({ children, action, className }) {
 //   { type:'section', label, action, items:[{ id, label, ... }] }   → Subtitle + Child rows
 //   { type:'submenu', id, label, defaultOpen, items:[...] }          → Submenu toggle + Child rows
 // value / defaultValue / onSelect(id, item) for the active row; collapsed / defaultCollapsed / onCollapsedChange (View=Collapsed).
-function SideNav({ title, items = [], value, defaultValue, onSelect, collapsed, defaultCollapsed = false, onCollapsedChange, className, ...rest }) {
+// children = Figma Content slot: custom content (e.g. a tree) shown under the title instead of / after the `items` rows.
+function SideNav({ title, items = [], value, defaultValue, onSelect, collapsed, defaultCollapsed = false, onCollapsedChange, children, className, ...rest }) {
   const [active, setActive] = useNavControlled(value, defaultValue, onSelect);
   const [isCollapsed, setCollapsed] = useNavControlled(collapsed, defaultCollapsed, onCollapsedChange);
   const [open, setOpen] = React.useState(() => Object.fromEntries(items.filter(i => i.type === 'submenu').map(i => [i.id, !!i.defaultOpen])));
@@ -83,7 +84,7 @@ function SideNav({ title, items = [], value, defaultValue, onSelect, collapsed, 
           <IFS.IconButton icon={isCollapsed ? 'arrow-bar-right' : 'arrow-bar-left'} label={toggleLabel} size="s"
             aria-expanded={!isCollapsed} onClick={() => setCollapsed(!isCollapsed)} />
         </div>
-        {!isCollapsed && (
+        {!isCollapsed && items.length > 0 && (
           <ul className="ifs-sidenav__content">
             {items.map((it, i) => {
               if (it.type === 'section') return (
@@ -103,6 +104,7 @@ function SideNav({ title, items = [], value, defaultValue, onSelect, collapsed, 
             })}
           </ul>
         )}
+        {!isCollapsed && children != null && <div className="ifs-sidenav__slot">{children}</div>}
       </div>
     </nav>
   );
@@ -222,15 +224,16 @@ function Stepper({ steps = [], current = 0, active, className, ...rest }) {
 
 // Figma: pagination-organism (3497:9660) — record pager for item-by-item content. Never for tables (Figma rule).
 // Props: page (1-based) / defaultPage / onChange(page), total, percent (Figma show-%; omit to hide),
+// progress (word after the percent, e.g. "resolved" → "(0% resolved)"; Figma's text override),
 // complete (Figma "show left icon": success icon before the count), onShowAll (Figma show-all-button; omit to hide), showAllLabel.
-function Pager({ page, defaultPage = 1, onChange, total = 1, percent, complete, onShowAll, showAllLabel = 'Show all', className, ...rest }) {
+function Pager({ page, defaultPage = 1, onChange, total = 1, percent, progress, complete, onShowAll, showAllLabel = 'Show all', className, ...rest }) {
   const [p, setP] = useNavControlled(page, defaultPage, onChange);
   return (
     <div className={IFS.cx('ifs-pager', className)} {...rest}>
       <div className="ifs-pager__status" aria-live="polite">
         {complete && <IFS.Icon name="status-success-filled" size={12} />}
         <span className="ifs-pager__count">{p}<span className="ifs-pager__total"> / {total}</span></span>
-        {percent != null && <span className="ifs-pager__pct">({percent}%)</span>}
+        {percent != null && <span className="ifs-pager__pct">({percent}%{progress ? ` ${progress}` : ''})</span>}
       </div>
       <div className="ifs-pager__actions">
         {onShowAll && <IFS.Button type="tertiary" size="s" iconLeft="list" onClick={onShowAll}>{showAllLabel}</IFS.Button>}
@@ -277,15 +280,17 @@ function NavBarItem({ active, disabled, state, children, className, ...rest }) {
   );
 }
 
-// Stage values: home | value | explore | build | plan | results.
+// Stage values: command | value | explore | build | plan | results ('home' is accepted as an alias of 'command').
 // Figma: global-header (69:3736) — the Level-1 bar the pattern screens instance (nav-bar-organism 3412:29453 is the
 // canvas-documented twin with the same 48px layout). Props: stages [{ value, label, disabled }], value / defaultValue / onChange,
 // logo (node; defaults to IFS.Logo), onSearch, onSettings, onNotifications, hasNotifications,
 // user = { initials, name } or avatar (node), actions (node: replaces the default search/settings/bell buttons).
-const DEFAULT_STAGES = ['Home', 'Value', 'Explore', 'Build', 'Plan', 'Results'].map(l => ({ value: l.toLowerCase(), label: l }));
+const DEFAULT_STAGES = ['Command', 'Value', 'Explore', 'Build', 'Plan', 'Results'].map(l => ({ value: l.toLowerCase(), label: l }));
+const navStage = v => (v === 'home' ? 'command' : v);
 function NavBar({ stages = DEFAULT_STAGES, value, defaultValue, onChange, logo, onSearch, onSettings, onNotifications, hasNotifications,
   user, avatar, actions, className, ...rest }) {
-  const [current, setCurrent] = useNavControlled(value, defaultValue !== undefined ? defaultValue : stages[0] && stages[0].value, onChange);
+  const [rawCurrent, setCurrent] = useNavControlled(value, defaultValue !== undefined ? defaultValue : stages[0] && stages[0].value, onChange);
+  const current = navStage(rawCurrent);
   return (
     <header className={IFS.cx('ifs-navbar', className)} {...rest}>
       <div className="ifs-navbar__left">
@@ -293,7 +298,7 @@ function NavBar({ stages = DEFAULT_STAGES, value, defaultValue, onChange, logo, 
         <nav aria-label="Stages">
           <ul className="ifs-navbar__list">
             {stages.map(s => (
-              <li key={s.value}><NavBarItem active={s.value === current} disabled={s.disabled} onClick={() => setCurrent(s.value)}>{s.label}</NavBarItem></li>
+              <li key={s.value}><NavBarItem active={navStage(s.value) === current} disabled={s.disabled} onClick={() => setCurrent(s.value)}>{s.label}</NavBarItem></li>
             ))}
           </ul>
         </nav>
@@ -320,10 +325,11 @@ function NavBar({ stages = DEFAULT_STAGES, value, defaultValue, onChange, logo, 
 // Figma: page-header (1588:1971) — Level-3 header at the top of the content area (the instance the Map overview screen uses;
 // page-header-pattern / header-pattern are near-duplicates). Props: title, id (Figma ID), onBack (Figma "Show button back"),
 // onTitleMenu (chevron after the title), status (node, e.g. an indicator), views (node, e.g. segmented icon control; a divider precedes it),
-// actions (node, right side: e.g. Cooper chip, Share, primary button).
-function PageHeader({ title, id, onBack, onTitleMenu, status, views, actions, className, ...rest }) {
+// center (node, centred between left and right: e.g. the Stepper), actions (node, right side: e.g. Cooper chip, Share, primary button).
+// The blur sits on a ::before layer, so fixed popovers/modals opened from header actions aren't trapped by it.
+function PageHeader({ title, id, onBack, onTitleMenu, status, views, center, actions, className, ...rest }) {
   return (
-    <div className={IFS.cx('ifs-page-header', className)} {...rest}>
+    <div className={IFS.cx('ifs-page-header', center != null && 'ifs-page-header--center', className)} {...rest}>
       <div className="ifs-page-header__left">
         <div className="ifs-page-header__text">
           {onBack && <IFS.IconButton icon="arrow-chevron-left" label="Back" size="s" type="tertiary" onClick={onBack} />}
@@ -334,7 +340,8 @@ function PageHeader({ title, id, onBack, onTitleMenu, status, views, actions, cl
         </div>
         {views && <><span className="ifs-page-header__divider" aria-hidden="true" />{views}</>}
       </div>
-      {actions && <div className="ifs-page-header__right">{actions}</div>}
+      {center != null && <div className="ifs-page-header__center">{center}</div>}
+      {(actions || center != null) && <div className="ifs-page-header__right">{actions}</div>}
     </div>
   );
 }

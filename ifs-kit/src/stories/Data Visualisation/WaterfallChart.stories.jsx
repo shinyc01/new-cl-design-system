@@ -7,7 +7,7 @@ const section = sections.find(s => s.name === "WaterfallChart");
 export default {
   title: "Data Visualisation/WaterfallChart",
   component: IFS["WaterfallChart"],
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   parameters: {
     docs: { description: { component: "**Figma:** chart-waterfall (9866:16075)\n\n\n**Use for** (inferred) Bridge from a start value to an end value through increments." } },
     design: {"type":"figma","url":"https://www.figma.com/design/atgUmwcA1AE5sjFoWBT7ar/IFS-Design-System?node-id=9866-16075"},

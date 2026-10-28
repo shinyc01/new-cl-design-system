@@ -167,11 +167,14 @@ function ExtrasRefCollector({ refs }) {
 }
 
 // Icon-button presets: Figma icon-button S (24) + a "new" dot. Composed from IFS.IconButton.
-function ExtrasDotButton({ kind, icon, type, hasNew, label, className, ...rest }) {
+// dot error|warning picks the dot colour (hasNew = error); shape round = the 28px round instance the explore header draws.
+function ExtrasDotButton({ kind, icon, type, hasNew, dot, shape, label, className, ...rest }) {
+  const tone = dot || (hasNew ? 'error' : null);
   return (
-    <span className={IFS.cx('ifs-dot-button', `ifs-dot-button--${kind}`, className)}>
-      <IFS.IconButton icon={icon} type={type} size="s" label={hasNew ? `${label} (new)` : label} {...rest} />
-      {hasNew && (kind === 'notification'
+    <span className={IFS.cx('ifs-dot-button', `ifs-dot-button--${kind}`, shape === 'round' && 'ifs-dot-button--round', tone && `ifs-dot-button--${tone}`, className)}>
+      <IFS.IconButton icon={icon} type={type} size="s" shape={shape === 'round' ? 'circle' : undefined}
+        label={tone ? `${label} (${tone === 'warning' ? 'warnings' : 'new'})` : label} {...rest} />
+      {tone && (kind === 'notification'
         ? <IFS.StatusIndicator state="error" stroke className="ifs-dot-button__dot" />
         : <span className="ifs-dot-button__dot" aria-hidden="true" />)}
     </span>
@@ -183,9 +186,13 @@ function NotificationButton({ label = 'Notifications', ...p }) { return <ExtrasD
 // Figma: icon-button-comment (2563:8153). Tertiary S; hasNew ("Has a new comment?") shows the danger dot.
 function CommentButton({ label = 'Comments', ...p }) { return <ExtrasDotButton kind="comment" icon="system-comment" type="tertiary" label={label} {...p} />; }
 // Figma: icon-button-filter (6955:768). Tertiary S; hasNew = filters applied.
+// shape round: 28px circle with the element/search/border/default outside stroke (next to a SmartSearch, explore-header).
 function FilterButton({ label = 'Filters', ...p }) { return <ExtrasDotButton kind="filter" icon="system-filter" type="tertiary" label={label} {...p} />; }
-// Figma: icon-button-arrow (6349:61950). Tertiary S arrow-bar-right with the same dot.
-function ArrowButton({ label = 'Open', ...p }) { return <ExtrasDotButton kind="arrow" icon="arrow-bar-right" type="tertiary" label={label} {...p} />; }
+// Figma: icon-button-arrow (6349:61950). Tertiary S |→ (direction right, the library default) or ←| (direction left: the
+// expand button of a collapsed panel rail, which the pattern screens draw as type ghost). hasNew = danger dot; dot warning = orange.
+function ArrowButton({ label = 'Open', direction = 'right', ...p }) {
+  return <ExtrasDotButton kind="arrow" icon={direction === 'left' ? 'arrow-bar-left' : 'arrow-bar-right'} type="tertiary" label={label} {...p} />;
+}
 
 // Flags exported from Figma country-flag (8012:4654) as SVG (32×24). Only a starter set; pass `countries`
 // with your own { flag } markup for others.

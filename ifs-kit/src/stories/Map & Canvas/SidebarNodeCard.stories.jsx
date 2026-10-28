@@ -7,7 +7,7 @@ const section = sections.find(s => s.name === "SidebarNodeCard");
 export default {
   title: "Map & Canvas/SidebarNodeCard",
   component: IFS["SidebarNodeCard"],
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   parameters: {
     docs: { description: { component: "**Figma:** sidebar-node-card (2667:6608)\n\n\n**Use for** (inferred) Draggable node in a side list, dropped onto the canvas. **Notes** (Figma) Legacy; can be `content-card-organism`." } },
     design: {"type":"figma","url":"https://www.figma.com/design/atgUmwcA1AE5sjFoWBT7ar/IFS-Design-System?node-id=2667-6608"},

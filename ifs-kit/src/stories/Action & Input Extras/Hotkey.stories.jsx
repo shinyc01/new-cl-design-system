@@ -7,7 +7,7 @@ const section = sections.find(s => s.name === "Hotkey");
 export default {
   title: "Action & Input Extras/Hotkey",
   component: IFS["Hotkey"],
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   parameters: {
     docs: { description: { component: "**Figma:** hotkey-atom (67:6150)\n\n\n**Use for** (inferred) Keyboard-shortcut label inside tooltips, menus and circular buttons." } },
     design: {"type":"figma","url":"https://www.figma.com/design/atgUmwcA1AE5sjFoWBT7ar/IFS-Design-System?node-id=67-6150"},

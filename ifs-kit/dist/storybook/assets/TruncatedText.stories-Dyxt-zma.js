@@ -1,0 +1,4 @@
+import{I as n}from"./patterns-table-BoHIV5tP.js";import{I as o}from"./patterns-trace-BbbZlZ3a.js";import"./index-B0WjJBI_.js";import"./_commonjsHelpers-CqkleIqs.js";import"./index-x-G-dxfr.js";import"./index-CwPCC0ZT.js";const i=n.find(s=>s.name==="TruncatedText"),T={title:"Pattern helpers/Table/TruncatedText",component:o.TruncatedText,tags:["autodocs"],parameters:{docs:{description:{component:"**Figma:** Name display [patterns] (190:230621)"}},design:{type:"figma",url:"https://www.figma.com/design/KmmVU2D0kqWr0dC1xXNzWw/IFS-Design-System-Patterns?node-id=190-230621"}}},e={name:"All variants & states",render:()=>i.render()};var t,r,a;e.parameters={...e.parameters,docs:{...(t=e.parameters)==null?void 0:t.docs,source:{originalSource:`{
+  name: 'All variants & states',
+  render: () => section.render()
+}`,...(a=(r=e.parameters)==null?void 0:r.docs)==null?void 0:a.source}}};const g=["AllVariants"];export{e as AllVariants,g as __namedExportsOrder,T as default};

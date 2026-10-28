@@ -7,7 +7,7 @@ const section = sections.find(s => s.name === "MapPin");
 export default {
   title: "Map & Canvas/MapPin",
   component: IFS["MapPin"],
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   parameters: {
     docs: { description: { component: "**Figma:** map-pin-teardrop (43:2020)\n\n\n**Use for** (Figma) Default location marker for one asset on an exact spot. Other pins on the page (`map-pin-dot`, `-square`, `-pole`, `-defect`, `-flow`) cover counts, clusters, readings, defects and direction." } },
     design: {"type":"figma","url":"https://www.figma.com/design/atgUmwcA1AE5sjFoWBT7ar/IFS-Design-System?node-id=43-2020"},

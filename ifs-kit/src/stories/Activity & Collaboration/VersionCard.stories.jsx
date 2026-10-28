@@ -7,7 +7,7 @@ const section = sections.find(s => s.name === "VersionCard");
 export default {
   title: "Activity & Collaboration/VersionCard",
   component: IFS["VersionCard"],
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   parameters: {
     docs: { description: { component: "**Figma:** version-card (2104:4022) (legacy)\n\n\n**Use for** (inferred) A version entry with change list. **Notes** (Figma) Legacy; can be `content-card-organism`." } },
     design: {"type":"figma","url":"https://www.figma.com/design/atgUmwcA1AE5sjFoWBT7ar/IFS-Design-System?node-id=2104-4022"},

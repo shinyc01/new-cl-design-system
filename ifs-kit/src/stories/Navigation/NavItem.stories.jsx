@@ -7,7 +7,7 @@ const section = sections.find(s => s.name === "NavItem");
 export default {
   title: "Navigation/NavItem",
   component: IFS["NavItem"],
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   parameters: {
     docs: { description: { component: "**Figma:** navigation-panel-atom (1544:2681)\n\n\n**Use for** (inferred) One sidebar row: section (Parent), sub-section (Child), group header (Subtitle)." } },
     design: {"type":"figma","url":"https://www.figma.com/design/atgUmwcA1AE5sjFoWBT7ar/IFS-Design-System?node-id=1544-2681"},

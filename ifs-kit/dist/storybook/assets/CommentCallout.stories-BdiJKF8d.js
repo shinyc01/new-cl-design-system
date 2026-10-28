@@ -1,0 +1,4 @@
+import{I as n}from"./patterns-comments-CHRthaG8.js";import{I as s}from"./patterns-trace-BbbZlZ3a.js";import"./index-B0WjJBI_.js";import"./_commonjsHelpers-CqkleIqs.js";import"./index-x-G-dxfr.js";import"./index-CwPCC0ZT.js";const m=n.find(a=>a.name==="CommentCallout"),u={title:"Pattern helpers/Comments/CommentCallout",component:s.CommentCallout,tags:["autodocs"],parameters:{docs:{description:{component:"**Figma:** commentModal in Comment open / Resolved thread actions [patterns] (12:34876, 12:44840)"}}}},t={name:"All variants & states",render:()=>m.render()};var e,o,r;t.parameters={...t.parameters,docs:{...(e=t.parameters)==null?void 0:e.docs,source:{originalSource:`{
+  name: 'All variants & states',
+  render: () => section.render()
+}`,...(r=(o=t.parameters)==null?void 0:o.docs)==null?void 0:r.source}}};const A=["AllVariants"];export{t as AllVariants,A as __namedExportsOrder,u as default};

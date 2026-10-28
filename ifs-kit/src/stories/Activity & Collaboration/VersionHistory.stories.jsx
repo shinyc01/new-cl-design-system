@@ -7,7 +7,7 @@ const section = sections.find(s => s.name === "VersionHistory");
 export default {
   title: "Activity & Collaboration/VersionHistory",
   component: IFS["VersionHistory"],
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   parameters: {
     docs: { description: { component: "**Figma:** version-history-timeline (2277:5299) (legacy) — built on activity-organism\n\n\n**Use for** (inferred) A version-history entry. **Notes** (Figma) Legacy timeline; use timeline base for new work." } },
     design: {"type":"figma","url":"https://www.figma.com/design/atgUmwcA1AE5sjFoWBT7ar/IFS-Design-System?node-id=2277-5299"},

@@ -22,15 +22,16 @@ function StatusIndicator({ state = 'default', stroke, label, className, ...rest 
 }
 
 // Figma: badge-atom (83:52162)
-// Props: color white|black|red|green|orange|false|loading (Figma "False" = no fill, uppercase caption),
-// size l|m|s, iconLeft / iconRight (icon names; Figma default shows system-star-favourite on the left),
+// Props: color white|black|red|green|orange|info|false|loading (Figma "False" = no fill, uppercase caption; info = black fill
+// with text/info + icon/info, as the Patterns source-card draws it), borderless (drops the black badge's border/medium edge —
+// the library's Black variant has that stroke hidden), size l|m|s, iconLeft / iconRight (icon names; Figma default shows system-star-favourite on the left),
 // indicator = status-indicator state (show-indicator), avatar = Avatar props (show-avatar), flag = node (show-flag), children = label.
-function Badge({ color = 'white', size = 'm', iconLeft, iconRight, indicator, avatar, flag, children, className, ...rest }) {
+function Badge({ color = 'white', size = 'm', borderless, iconLeft, iconRight, indicator, avatar, flag, children, className, ...rest }) {
   const sz = color === 'false' ? 's' : size;
   const iconSize = sz === 's' ? 12 : 16;
   if (color === 'loading') return <span aria-hidden="true" className={IFS.cx('ifs-badge', 'ifs-badge--loading', `ifs-badge--${size}`, 'ifs-skeleton', className)} {...rest} />;
   return (
-    <span className={IFS.cx('ifs-badge', `ifs-badge--${color}`, `ifs-badge--${sz}`, className)} {...rest}>
+    <span className={IFS.cx('ifs-badge', `ifs-badge--${color}`, `ifs-badge--${sz}`, borderless && 'ifs-badge--borderless', className)} {...rest}>
       {indicator && <StatusIndicator state={indicator} />}
       {avatar && <Avatar size="xs" {...avatar} />}
       {flag}
@@ -112,11 +113,11 @@ function Indicator({ type = 'orange', size = 's', children, buttonRight, onButto
 }
 
 // Figma: status-readiness-molecule (1440:5273)
-// Props: type done|warning|in-progress|active|loading, children = label (Figma Label),
+// Props: type done|warning|error|in-progress|active|loading (error = red, e.g. "Exceeded" in the Patterns file), children = label (Figma Label),
 // right = text (Right-section=Text) OR indicators = [{ type, label }] (Right-section=Status, XS indicators).
 function ReadinessStatus({ type = 'done', children, right, indicators, className, ...rest }) {
   const t = dataKey(type);
-  const icon = t === 'done' ? 'status-success-filled' : t === 'warning' ? 'status-warning-filled' : null;
+  const icon = t === 'done' ? 'status-success-filled' : t === 'warning' ? 'status-warning-filled' : t === 'error' ? 'status-error-filled' : null;
   const loading = t === 'loading';
   return (
     <div className={IFS.cx('ifs-readiness', `ifs-readiness--${t}`, className)} {...rest}>
@@ -138,9 +139,10 @@ function ReadinessStatus({ type = 'done', children, right, indicators, className
 }
 
 // Figma: stat-card-organism (3643:35055)
-// Props: size m|s, title (show-title), value, description, trend (e.g. "3 %"; show-trend), trendDirection up|down,
+// Props: size m|s, title (show-title), value, description, descriptionPosition below|inline (below = value over an UPPERCASE
+// caption, as the Patterns file draws it; inline = the library's default slot: description beside the value), trend (e.g. "3 %"; show-trend), trendDirection up|down,
 // badge = Badge props (show-badge; Figma default Color=Red S), children = additional content slot, loading.
-function StatCard({ size = 'm', title, value, description, trend, trendDirection = 'up', badge, loading, children, className, ...rest }) {
+function StatCard({ size = 'm', title, value, description, descriptionPosition = 'below', trend, trendDirection = 'up', badge, loading, children, className, ...rest }) {
   const m = size === 'm';
   return (
     <div className={IFS.cx('ifs-stat-card', `ifs-stat-card--${size}`, loading && 'ifs-stat-card--loading', className)} aria-busy={loading || undefined} {...rest}>
@@ -160,8 +162,15 @@ function StatCard({ size = 'm', title, value, description, trend, trendDirection
           <span className="ifs-skeleton-bar" style={{ width: m ? 51 : 51, height: m ? 24 : 20 }} />
           <span className="ifs-skeleton-bar" style={{ flex: 1, height: 16 }} />
         </> : <>
-          <span className="ifs-stat-card__value">{value}</span>
-          {description != null && <span className="ifs-stat-card__desc">{description}</span>}
+          {description != null && descriptionPosition !== 'inline'
+            ? <span className="ifs-stat-card__stack">
+                <span className="ifs-stat-card__value">{value}</span>
+                <span className="ifs-stat-card__desc ifs-stat-card__desc--below">{description}</span>
+              </span>
+            : <>
+                <span className="ifs-stat-card__value">{value}</span>
+                {description != null && <span className="ifs-stat-card__desc">{description}</span>}
+              </>}
         </>}
       </div>
       {children != null && !loading && <div className="ifs-stat-card__extra">{children}</div>}
@@ -172,17 +181,20 @@ function StatCard({ size = 'm', title, value, description, trend, trendDirection
 // Figma: content-card-organism (3643:32067)
 // Props: size m|s, title, description (show-description), avatar = Avatar props (show-avatar, L 40),
 // control = node (show-checkbox / show-radio-button / show-switch → pass IFS.Checkbox etc.), iconRight = icon name (Figma arrow-right),
-// iconButton = { icon, label, onClick } (show-icon-button), top / bottom = slot nodes,
+// iconLeft = icon name before the title (show-icon-left; Figma default arrow-caret-right-filled),
+// iconButton = { icon, label, onClick } (show-icon-button), top / bottom = slot nodes (with no title/description/avatar/control/icons
+// the title block is skipped, so a slots-only card holds just its slots),
 // tertiaryAction / primaryAction = Button props incl. children (show-buttons, show-tertiary-button, show-primary-button),
 // selected, cooper (Figma State=Cooper), loading, state (forced: hover|pressed|focus|drag|selected|cooper), onClick → focusable role=button.
-function ContentCard({ size = 'm', title, description, avatar, control, iconRight, iconButton, top, bottom, tertiaryAction, primaryAction,
+function ContentCard({ size = 'm', title, description, avatar, control, iconLeft, iconRight, iconButton, top, bottom, tertiaryAction, primaryAction,
   selected, cooper, loading, state, onClick, className, ...rest }) {
   const bsize = size === 's' ? 's' : 'm';
+  const hasMain = loading || title != null || description != null || avatar || control || iconLeft || iconRight || iconButton;
   return (
     <div {...dataClickable(onClick, { 'aria-pressed': onClick && selected != null ? !!selected : undefined })} data-state={state} aria-busy={loading || undefined}
       className={IFS.cx('ifs-content-card', `ifs-content-card--${size}`, selected && 'ifs-content-card--selected', cooper && 'ifs-content-card--cooper', loading && 'ifs-content-card--loading', className)} {...rest}>
       {top && <div className="ifs-content-card__slot">{top}</div>}
-      <div className="ifs-content-card__main">
+      {hasMain && <div className="ifs-content-card__main">
         {avatar && !loading && <Avatar size="l" {...avatar} />}
         <div className="ifs-content-card__text">
           {loading ? <>
@@ -190,7 +202,9 @@ function ContentCard({ size = 'm', title, description, avatar, control, iconRigh
             <span className="ifs-skeleton-bar" style={{ width: '41%', height: 16 }} />
           </> : <>
             <div className="ifs-content-card__head">
-              <span className="ifs-content-card__title">{title}</span>
+              {iconLeft
+                ? <span className="ifs-content-card__lead"><IFS.Icon name={iconLeft} size={16} /><span className="ifs-content-card__title">{title}</span></span>
+                : <span className="ifs-content-card__title">{title}</span>}
               {control}
               {iconRight && <IFS.Icon name={iconRight} size={16} />}
               {iconButton && IFS.IconButton && <IFS.IconButton type="ghost" size="s" {...iconButton} onClick={e => { e.stopPropagation(); iconButton.onClick && iconButton.onClick(e); }} />}
@@ -198,7 +212,7 @@ function ContentCard({ size = 'm', title, description, avatar, control, iconRigh
             {description != null && <div className="ifs-content-card__desc">{description}</div>}
           </>}
         </div>
-      </div>
+      </div>}
       {bottom && <div className="ifs-content-card__slot">{bottom}</div>}
       {(tertiaryAction || primaryAction) && (
         <div className="ifs-content-card__buttons">
@@ -245,8 +259,10 @@ function renderCell(col, row) {
 //   rows = [{ id, ...data }], groupBy = key or fn(row) → group title (group-row-molecule, expand/collapse), defaultCollapsed = [titles],
 //   sort / defaultSort = { key, dir: 'asc'|'desc' }, onSortChange, selectedId / onRowClick (row hover + selected),
 //   title (show-table-name), tabs (show-segmanted-control), search (right side of the bar). Without title/tabs/search it renders the bare table.
+//   rowHeight = content-row min height in px (default 48; e.g. 60 for rows holding icon-button cells),
+//   rowProps(row) → { className, style, ...attributes } merged onto that content row (drag states, data-* hooks).
 function Table({ columns = [], rows = [], groupBy, defaultCollapsed = [], sort, defaultSort = null, onSortChange,
-  selectedId, onRowClick, rowKey = 'id', title, tabs, search, className, ...rest }) {
+  selectedId, onRowClick, rowKey = 'id', rowHeight, rowProps, title, tabs, search, className, ...rest }) {
   const [inner, setInner] = React.useState(defaultSort);
   const cur = sort !== undefined ? sort : inner;
   const [collapsed, setCollapsed] = React.useState(() => new Set(defaultCollapsed));
@@ -273,16 +289,17 @@ function Table({ columns = [], rows = [], groupBy, defaultCollapsed = [], sort, 
   const renderRow = row => {
     const id = row[rowKey];
     const sel = selectedId != null && id === selectedId;
+    const { className: xCls, style: xStyle, ...xAttrs } = (rowProps && rowProps(row)) || {};
     return (
-      <div role="row" key={id} aria-selected={onRowClick ? sel : undefined} {...(onRowClick ? { tabIndex: 0, onClick: () => onRowClick(row), onKeyDown: e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onRowClick(row); } } } : {})}
-        className={IFS.cx('ifs-table__row', 'ifs-table__row--content', onRowClick && 'ifs-table__row--clickable', sel && 'ifs-table__row--selected')}>
+      <div role="row" key={id} {...xAttrs} style={xStyle} aria-selected={onRowClick ? sel : undefined} {...(onRowClick ? { tabIndex: 0, onClick: () => onRowClick(row), onKeyDown: e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onRowClick(row); } } } : {})}
+        className={IFS.cx('ifs-table__row', 'ifs-table__row--content', onRowClick && 'ifs-table__row--clickable', sel && 'ifs-table__row--selected', xCls)}>
         {columns.map(c => <div role="cell" key={c.key} className={IFS.cx('ifs-table__td', `ifs-table__td--${c.type || 'text'}`, c.align && `ifs-table__td--${c.align}`)}>{renderCell(c, row)}</div>)}
       </div>
     );
   };
 
   const table = (
-    <div role="table" className={IFS.cx('ifs-table', !(title || tabs || search) && className)} style={{ '--cols': cols }} {...(title || tabs || search ? {} : rest)}>
+    <div role="table" className={IFS.cx('ifs-table', !(title || tabs || search) && className)} style={{ '--cols': cols, ...(rowHeight != null && { '--ifs-table-row-h': `${rowHeight}px` }) }} {...(title || tabs || search ? {} : rest)}>
       <div role="row" className="ifs-table__row ifs-table__row--header">
         {columns.map(c => {
           const dir = cur && cur.key === c.key ? cur.dir : null;

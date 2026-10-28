@@ -10,10 +10,12 @@ const comp = join(root, 'src/components');
 const families = readdirSync(comp).filter(f => f.endsWith('.jsx') && !f.startsWith('_')).sort();
 const pkg = JSON.parse(readFileSync(join(root, 'package.json'), 'utf8'));
 const PAGES = 'https://shinyc01.github.io/new-cl-design-system/ifs-kit';
+const tiers = JSON.parse(readFileSync(join(root, 'guide/tiers.json'), 'utf8'));
+const tierOf = (fam, name) => !fam.startsWith('patterns-') || tiers.components.includes(name) ? 'Component' : 'Pattern helper';
 
 let out = `# IFS DS kit — component API
 
-Kit version ${pkg.version}, generated ${new Date().toISOString().slice(0, 10)}. Every component is available as \`IFS.<Name>\` in a prototype.
+Kit version ${pkg.version}, generated ${new Date().toISOString().slice(0, 10)}. Everything is available as \`IFS.<Name>\` in a prototype. Each entry has a **Tier**: *Component* = a published IFS DS Figma component (build screens from these); *Pattern helper* = a working composition that implements a pattern's rules, not a Figma component (allowed, but name it as a pattern helper in the plan). Example screens are not in this list — see the Examples in Storybook.
 Each entry is the comment above the component in source (Figma name/node and props). For real usage of every variant,
 read the family's examples file (linked per family). \`IFS.Icon({ name, size: 12|16|24, variant })\` takes Figma icon names — see icons.txt.
 
@@ -58,7 +60,7 @@ for (const f of ['_core.jsx', ...families]) {
   out += `## ${fam}\n\nExamples (read before using any component below — shows the data shapes props expect): ${PAGES}/src/gallery/${fam === 'core' ? 'button' : fam}.jsx\n\n`;
   for (const e of entries(f)) {
     if (e.name === 'cx') continue;
-    out += `### ${e.name}\n${e.doc ? e.doc + '\n' : ''}\`${e.sig.slice(0, 900)}\`\n\n`;
+    out += `### ${e.name}\n**Tier:** ${tierOf(fam, e.name)}\n${e.doc ? e.doc + '\n' : ''}\`${e.sig.slice(0, 900)}\`\n\n`;
   }
 }
 

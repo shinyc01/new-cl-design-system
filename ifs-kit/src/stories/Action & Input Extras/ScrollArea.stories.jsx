@@ -7,7 +7,7 @@ const section = sections.find(s => s.name === "ScrollArea");
 export default {
   title: "Action & Input Extras/ScrollArea",
   component: IFS["ScrollArea"],
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   parameters: {
     docs: { description: { component: "**Figma:** scroll-bar-atom (83:57650)\n\n\n**Use for** (inferred) Custom scrollbar inside scrolling surfaces (popover, drawer)." } },
     design: {"type":"figma","url":"https://www.figma.com/design/atgUmwcA1AE5sjFoWBT7ar/IFS-Design-System?node-id=83-57650"},

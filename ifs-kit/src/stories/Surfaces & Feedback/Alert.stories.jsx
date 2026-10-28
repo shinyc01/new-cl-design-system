@@ -7,7 +7,7 @@ const section = sections.find(s => s.name === "Alert");
 export default {
   title: "Surfaces & Feedback/Alert",
   component: IFS["Alert"],
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   parameters: {
     docs: { description: { component: "**Figma:** alert-organism (1440:5440)\n\n\n**Use for** (Figma) Error (persistent, dismissible only once resolved), Warning (persistent while the condition holds), Success (auto-dismiss ~4s, may carry Undo). Floats top-right over the layout.\n\n**Don't use for** (Figma) Info/neutral messages — use inline text, a tooltip, or a snackbar for action confirmations." } },
     design: {"type":"figma","url":"https://www.figma.com/design/atgUmwcA1AE5sjFoWBT7ar/IFS-Design-System?node-id=1440-5440"},

@@ -7,7 +7,7 @@ const section = sections.find(s => s.name === "StatusIndicator");
 export default {
   title: "Data Display/StatusIndicator",
   component: IFS["StatusIndicator"],
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   parameters: {
     docs: { description: { component: "**Figma:** status-indicator-atom (789:39211)\n\n\n**Use for** (Figma — mapping of note to set inferred) Colour-only dot for category/identity (legend, series marker, online dot) where a label next to it carries the meaning.\n\n**Don't use for** (Figma) Anything the user must act on — colour alone isn't enough." } },
     design: {"type":"figma","url":"https://www.figma.com/design/atgUmwcA1AE5sjFoWBT7ar/IFS-Design-System?node-id=789-39211"},

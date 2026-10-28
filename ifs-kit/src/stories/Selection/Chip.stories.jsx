@@ -7,7 +7,7 @@ const section = sections.find(s => s.name === "Chip");
 export default {
   title: "Selection/Chip",
   component: IFS["Chip"],
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   parameters: {
     docs: { description: { component: "**Figma:** chips (832:235895)\n\n\n**Use for** (Figma) A clickable token for one discrete value. Selection chip = stateful applied filter value, removable with ✕. Suggestion chip = fire-once next action/prompt, no ✕, no checked state.\n\n**Don't use for** (Figma, Badge) Read-only labels — that's a badge.\n\n**Notes** (Figma, Filter) In a chip group values combine as OR; \"All\" is exclusive; selection is instant." } },
     design: {"type":"figma","url":"https://www.figma.com/design/atgUmwcA1AE5sjFoWBT7ar/IFS-Design-System?node-id=832-235895"},

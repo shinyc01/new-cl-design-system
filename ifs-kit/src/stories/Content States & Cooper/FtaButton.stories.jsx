@@ -7,7 +7,7 @@ const section = sections.find(s => s.name === "FtaButton");
 export default {
   title: "Content States & Cooper/FtaButton",
   component: IFS["FtaButton"],
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   parameters: {
     docs: { description: { component: "**Figma:** FTA button (67:4758)\n\n\n**Use for** (Figma) Every action and every navigation move (open object, go to screen, go up a level). Primary = the single main action; Secondary = alternative/frequent actions; Tertiary = secondary actions in dense areas (tables, cards, headers); Ghost = replacement for a text link; Accent (Cooper) = hands the task to Cooper.\n\n**Don't use for** (Figma) Links inside user-authored content or to external resources — those stay links.\n\n**Notes** (inferred) One Primary per region. Size L for full pages, M in modals/drawers, S in dense rows." } },
     design: {"type":"figma","url":"https://www.figma.com/design/atgUmwcA1AE5sjFoWBT7ar/IFS-Design-System?node-id=67-4758"},

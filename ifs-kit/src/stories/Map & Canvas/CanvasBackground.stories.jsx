@@ -7,7 +7,7 @@ const section = sections.find(s => s.name === "CanvasBackground");
 export default {
   title: "Map & Canvas/CanvasBackground",
   component: IFS["CanvasBackground"],
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   parameters: {
     docs: { description: { component: "**Figma:** canvas-background (1395:196712)\n\n\n**Use for** (Figma) The infinite, pannable, zoomable ground plane for map-first and node-graph views (Value framework, Explore map).\n\n**Don't use for** (Figma) Document-flow pages — those use the 12-column grid." } },
     design: {"type":"figma","url":"https://www.figma.com/design/atgUmwcA1AE5sjFoWBT7ar/IFS-Design-System?node-id=1395-196712"},

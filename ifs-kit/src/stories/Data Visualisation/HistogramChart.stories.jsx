@@ -7,7 +7,7 @@ const section = sections.find(s => s.name === "HistogramChart");
 export default {
   title: "Data Visualisation/HistogramChart",
   component: IFS["HistogramChart"],
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   parameters: {
     docs: { description: { component: "**Figma:** chart-histogram (9864:14012)\n\n\n**Use for** (inferred) Distribution of one measure across bins." } },
     design: {"type":"figma","url":"https://www.figma.com/design/atgUmwcA1AE5sjFoWBT7ar/IFS-Design-System?node-id=9864-14012"},

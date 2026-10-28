@@ -7,7 +7,7 @@ const section = sections.find(s => s.name === "Sankey");
 export default {
   title: "Map & Canvas/Sankey",
   component: IFS["Sankey"],
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   parameters: {
     docs: { description: { component: "**Figma:** sankey-organism (4457:53304)\n\n\n**Use for** (Figma) Flow: how a total splits through stages (budget allocation, value decomposition, goal → objective → model lineage); band width = value." } },
     design: {"type":"figma","url":"https://www.figma.com/design/atgUmwcA1AE5sjFoWBT7ar/IFS-Design-System?node-id=4457-53304"},

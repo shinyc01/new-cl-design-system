@@ -9,6 +9,6 @@ export default {
     backgrounds: { default: 'page', values: [{ name: 'page', value: '#000000' }] },
     docs: { theme: themes.dark },
     controls: { expanded: true },
-    options: { storySort: { order: ['Introduction', 'Action', 'Action & Input Extras', 'Inputs & Forms', 'Selection', 'Navigation', 'Surfaces & Feedback', 'Content States & Cooper', 'Data Display', 'Activity & Collaboration', 'Data Visualisation', 'Map & Canvas'] } },
+    options: { storySort: { order: ['Introduction', 'Review queue', 'Action', 'Action & Input Extras', 'Inputs & Forms', 'Selection', 'Navigation', 'Surfaces & Feedback', 'Content States & Cooper', 'Data Display', 'Activity & Collaboration', 'Data Visualisation', 'Map & Canvas', 'More components', 'Pattern helpers', 'Examples'] } },
   },
 };

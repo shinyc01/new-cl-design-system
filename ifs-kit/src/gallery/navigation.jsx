@@ -56,6 +56,7 @@ export default IFS_GALLERY;
         { id: 'f', label: 'Value', cooper: true },
       ]} /></div>
       <div style={{ height: 420 }}><SideNav title="Value" items={valueNav} defaultCollapsed /></div>
+      <div style={{ height: 420 }}><SideNav title="Plan"><span className="t-body-m-regular" style={{ color: 'var(--text-tertiary)' }}>children = Content slot (e.g. a tree)</span></SideNav></div>
       <span className="g-label t-body-m-regular">selected: {sel}</span>
     </div>;
   } });
@@ -118,6 +119,7 @@ export default IFS_GALLERY;
     return <>
       <Row label="default"><Box w={356}><Pager page={p} onChange={setP} total={3} percent={Math.round((p - 1) / 3 * 100)} onShowAll={() => {}} /></Box></Row>
       <Row label="complete"><Box w={356}><Pager defaultPage={3} total={3} percent={100} complete /></Box></Row>
+      <Row label="progress word"><Box w={356}><Pager total={4} percent={0} progress="resolved" onShowAll={() => {}} /></Box></Row>
     </>;
   } });
 
@@ -143,6 +145,11 @@ export default IFS_GALLERY;
     <div style={{ width: 1200, marginTop: 12 }}>
       <PageHeader title="Copy of Q1 2026 Enterprise Strategy" id="1/2" onBack={() => {}} status={<Status>Draft</Status>}
         actions={<IFS.Button type="primary" size="s">Review</IFS.Button>} />
+    </div>
+    <div style={{ width: 1200, marginTop: 12 }}>
+      <PageHeader title="Q1 2026 Strategy Framework" status={<Status>Draft</Status>}
+        center={<Stepper current={1} steps={[{ label: 'Input' }, { label: 'Shape' }, { label: 'Review' }]} />}
+        actions={<IFS.Button type="primary" size="s">Publish</IFS.Button>} />
     </div>
   </> });
 

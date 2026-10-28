@@ -7,7 +7,7 @@ const section = sections.find(s => s.name === "Collaborator");
 export default {
   title: "Activity & Collaboration/Collaborator",
   component: IFS["Collaborator"],
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   parameters: {
     docs: { description: { component: "**Figma:** collaborator (1440:6097) (legacy)\n\n\n**Use for** (inferred) A collaborator row with invite status. **Notes** (Figma) Legacy; can be `content-card-organism`." } },
     design: {"type":"figma","url":"https://www.figma.com/design/atgUmwcA1AE5sjFoWBT7ar/IFS-Design-System?node-id=1440-6097"},

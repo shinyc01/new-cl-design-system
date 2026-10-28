@@ -265,6 +265,10 @@
 --element-map-pin-overlay-warning: rgba(255,175,46,0.1)
 --element-cooper-icon-white-1000: #ffffff
 --element-cooper-icon-white-500: rgba(255,255,255,0.5)
+--element-text-area-fill-typing: rgba(255,255,255,0.1)
+--element-text-area-border-default: rgba(255,255,255,0.1)
+--white-500: rgba(255,255,255,0.5)
+--white-alpha-50: rgba(255,255,255,0.5)
 --element-cooper-icon-white-100: rgba(255,255,255,0.1)
 --element-cooper-insight-fill-strong: rgba(0,0,0,0.85)
 --element-cooper-insight-fill-base: rgba(0,0,0,0.1)
@@ -310,6 +314,16 @@
 --collaboration-user-14: #b46dff
 --collaboration-user-15: #f58adb
 --collaboration-user-16: #000000
+--data-viz-data-1: #bf302f
+--data-viz-data-2: #a06d1c
+--data-viz-data-3: #176932
+--data-viz-data-4: #5238a4
+--data-viz-data-5: #3556a0
+--data-viz-data-6: #167bb6
+--data-viz-data-7: #692917
+--data-viz-data-8: #6a1766
+--data-viz-data-9: #1e1e1e
+--data-viz-data-10: #313131
 --data-viz-rose-data-1: #f3d1f2
 --data-viz-rose-data-2: #e8b0e5
 --data-viz-rose-data-3: #d598d2
@@ -512,6 +526,7 @@
 .t-label-l-medium
 .t-label-l-upper
 .t-label-m-medium
+.t-label-s-medium
 .t-label-m-upper
 .t-code-medium
 .t-code-regular

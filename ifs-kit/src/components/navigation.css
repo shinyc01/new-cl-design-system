@@ -22,6 +22,8 @@
 .ifs-sidenav__content{display:flex;flex-direction:column;gap:var(--gaps-gap-200);padding:var(--paddings-padding-300) 0;margin:0;list-style:none}
 .ifs-sidenav__section{display:flex;flex-direction:column}
 .ifs-sidenav__group{display:flex;flex-direction:column;margin:0;padding:0;list-style:none}
+.ifs-sidenav__slot{display:flex;flex-direction:column;gap:var(--gaps-gap-200);padding:var(--paddings-padding-300) 0;min-height:0}
+.ifs-sidenav__content + .ifs-sidenav__slot{padding-top:0}
 /* View=Collapsed: 48px wide, only the expand button */
 .ifs-sidenav--collapsed{width:48px}
 .ifs-sidenav--collapsed .ifs-sidenav__title{padding:var(--paddings-padding-100) 0 0}
@@ -181,10 +183,18 @@
   color:var(--text-primary);font:600 12px/16px var(--font-family-text);letter-spacing:0.2px}
 
 /* ---------- PageHeader: page-header ---------- */
-.ifs-page-header{box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;gap:var(--gaps-gap-300);
-  width:100%;height:40px;padding:0 var(--paddings-padding-300);
+.ifs-page-header{position:relative;z-index:0;box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;gap:var(--gaps-gap-300);
+  width:100%;height:40px;padding:0 var(--paddings-padding-300)}
+/* Fill, divider and blur/light live on a pseudo layer: backdrop-filter on the header itself would make it the containing
+   block of position:fixed descendants (popovers, modals opened from its actions) and clip them. */
+.ifs-page-header::before{content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;
   background:var(--surface-primary-alpha);box-shadow:inset 0 -1px 0 var(--border-base);
   backdrop-filter:blur(var(--blur-light));-webkit-backdrop-filter:blur(var(--blur-light))}
+/* center slot: left and right containers share the remaining width equally so the centre is truly centred */
+.ifs-page-header--center{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr)}
+.ifs-page-header__center{display:flex;align-items:center;justify-content:center;min-width:0}
+.ifs-page-header__center > .ifs-stepper{width:264px} /* stepper-organism instance width in page-header */
+.ifs-page-header--center .ifs-page-header__right{justify-content:flex-end;min-width:0}
 .ifs-page-header__left{display:flex;align-items:center;gap:var(--gaps-gap-300);min-width:0}
 .ifs-page-header__text{display:flex;align-items:center;gap:var(--gaps-gap-200);min-width:0}
 .ifs-page-header__title{margin:0;color:var(--text-primary);font:500 12px/16px var(--font-family-text);letter-spacing:-0.15px;

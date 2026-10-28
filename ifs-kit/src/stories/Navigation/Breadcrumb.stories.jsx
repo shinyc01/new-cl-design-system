@@ -7,7 +7,7 @@ const section = sections.find(s => s.name === "Breadcrumb");
 export default {
   title: "Navigation/Breadcrumb",
   component: IFS["Breadcrumb"],
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   parameters: {
     docs: { description: { component: "**Figma:** breadcrumb-atom (3492:9413), breadcrumb-organism (67:4698)\n\n\n**Use for** (inferred) One crumb; building block.\n\n\n**Use for** (inferred) Showing where the page sits in a hierarchy, with a back ‹ control.\n\n**Notes** (Figma) Each crumb is a tab stop; the current crumb is plain text with aria-current=\"page\"; separators are not focusable." } },
     design: [{"name":"breadcrumb-atom","type":"figma","url":"https://www.figma.com/design/atgUmwcA1AE5sjFoWBT7ar/IFS-Design-System?node-id=3492-9413"},{"name":"breadcrumb-organism","type":"figma","url":"https://www.figma.com/design/atgUmwcA1AE5sjFoWBT7ar/IFS-Design-System?node-id=67-4698"}],

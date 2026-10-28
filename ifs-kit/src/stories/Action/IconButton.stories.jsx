@@ -7,7 +7,7 @@ const section = sections.find(s => s.name === "IconButton");
 export default {
   title: "Action/IconButton",
   component: IFS["IconButton"],
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   parameters: {
     docs: { description: { component: "**Figma:** icon-button (71:4250)\n\n\n**Use for** (Figma) An action in a dense context where a label won't fit.\n\n**Notes** (Figma) Must have a tooltip and aria-label (Feedback › Tooltip)." } },
     design: {"type":"figma","url":"https://www.figma.com/design/atgUmwcA1AE5sjFoWBT7ar/IFS-Design-System?node-id=71-4250"},

@@ -7,7 +7,7 @@ const section = sections.find(s => s.name === "GroupedColumnChart");
 export default {
   title: "Data Visualisation/GroupedColumnChart",
   component: IFS["GroupedColumnChart"],
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   parameters: {
     docs: { description: { component: "**Figma:** chart-grouped-column (9862:13445)\n\n\n**Use for** (Figma, Bar Chart) A few series side by side per category; 2–3 series max, legend, consistent series order." } },
     design: {"type":"figma","url":"https://www.figma.com/design/atgUmwcA1AE5sjFoWBT7ar/IFS-Design-System?node-id=9862-13445"},

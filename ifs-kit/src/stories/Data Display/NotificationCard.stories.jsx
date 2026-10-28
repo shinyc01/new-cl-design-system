@@ -7,7 +7,7 @@ const section = sections.find(s => s.name === "NotificationCard");
 export default {
   title: "Data Display/NotificationCard",
   component: IFS["NotificationCard"],
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   parameters: {
     docs: { description: { component: "**Figma:** notification-card (9943:5373)\n\n\n**Use for** (Figma, component description) Notification tray card. Type = what happened; Read = unread dot + contrast; show-critical adds the error status.\n\n**Notes** (inferred) Sits loose on the page, outside any documented frame (see Gaps).\n\n\n---" } },
     design: {"type":"figma","url":"https://www.figma.com/design/atgUmwcA1AE5sjFoWBT7ar/IFS-Design-System?node-id=9943-5373"},

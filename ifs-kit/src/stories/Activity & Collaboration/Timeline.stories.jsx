@@ -7,7 +7,7 @@ const section = sections.find(s => s.name === "Timeline");
 export default {
   title: "Activity & Collaboration/Timeline",
   component: IFS["Timeline"],
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   parameters: {
     docs: { description: { component: "**Figma:** activity-organism (3713:13396) + marker-atom (3713:12836) + connector-atom (3713:12835)\n\n\n**Use for** (Figma) The timeline base: build any activity/timeline entry type from slots.\n\n**Notes** (Figma, Timeline List) \"Don't create a new timeline component. Use Timeline Base instead.\"\n\n\nLegacy cards (Cards List frame). (Figma) \"Many cards were built before the card base existed … don't create a new card component unless the card is genuinely unique.\" Each of the following \"can refer to content-card-organism\": prefer `content-card-organism` for new screens; use the legacy set only to match an existing handover screen.\n\n\n**Use for** (inferred) Timeline marker (icon/avatar circle); building block of `activity-organism`.\n\n\n**Use for** (inferred) Line between timeline markers; building block." } },
     design: [{"name":"activity-organism","type":"figma","url":"https://www.figma.com/design/atgUmwcA1AE5sjFoWBT7ar/IFS-Design-System?node-id=3713-13396"},{"name":"marker-atom","type":"figma","url":"https://www.figma.com/design/atgUmwcA1AE5sjFoWBT7ar/IFS-Design-System?node-id=3713-12836"},{"name":"connector-atom","type":"figma","url":"https://www.figma.com/design/atgUmwcA1AE5sjFoWBT7ar/IFS-Design-System?node-id=3713-12835"}],

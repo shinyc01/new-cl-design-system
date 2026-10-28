@@ -7,7 +7,7 @@ const section = sections.find(s => s.name === "CooperChip");
 export default {
   title: "Content States & Cooper/CooperChip",
   component: IFS["CooperChip"],
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   parameters: {
     docs: { description: { component: "**Figma:** cooper-chip-atom (3501:23480)\n\n\n**Use for** (Figma) In-context marker where Cooper has a recommendation for something that already exists (node, asset, field, row); click opens the recommendation." } },
     design: {"type":"figma","url":"https://www.figma.com/design/atgUmwcA1AE5sjFoWBT7ar/IFS-Design-System?node-id=3501-23480"},

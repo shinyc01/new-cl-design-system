@@ -7,7 +7,7 @@ const section = sections.find(s => s.name === "EmptyState");
 export default {
   title: "Content States & Cooper/EmptyState",
   component: IFS["EmptyState"],
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   parameters: {
     docs: { description: { component: "**Figma:** empty-state-organism (3782:18464)\n\n\n**Use for** (Figma) A region with no content: heading (required) + optional icon, body, suggestion chips, one primary + one secondary action. Cause → action: no objects yet → invite creation; filter found similar → clear/adjust/use suggestions; filter excludes all → clear/adjust; terminal positive → none; load failed → retry; not permitted → request access; parent empty → invite adding. Sizes: Full (page/main region) or Section (inside card/panel).\n\n**Notes** (Figma) Never show loading → empty → content; hold the skeleton until the final state is known." } },
     design: {"type":"figma","url":"https://www.figma.com/design/atgUmwcA1AE5sjFoWBT7ar/IFS-Design-System?node-id=3782-18464"},

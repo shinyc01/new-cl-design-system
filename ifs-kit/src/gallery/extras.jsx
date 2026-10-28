@@ -35,6 +35,9 @@ export default IFS_GALLERY;
     {[['notification', NotificationButton], ['comment', CommentButton], ['filter', FilterButton], ['arrow', ArrowButton]].map(([k, C]) => (
       <Row key={k} label={k}><C hasNew /><C /><C hasNew state="focus" /><C state="focus" /></Row>
     ))}
+    <Row label="arrow ←| (direction left; ghost on a panel rail)"><ArrowButton direction="left" hasNew /><ArrowButton direction="left" dot="warning" />
+      <ArrowButton direction="left" type="ghost" hasNew /><ArrowButton direction="left" type="ghost" dot="warning" /><ArrowButton direction="left" type="ghost" /></Row>
+    <Row label="filter round (28)"><FilterButton shape="round" /><FilterButton shape="round" hasNew /><FilterButton shape="round" state="focus" /></Row>
   </> });
 
   IFS_GALLERY.push({ name: 'Counter', figma: 'counter-atom (88:24147)', render: () => <>

@@ -7,7 +7,7 @@ const section = sections.find(s => s.name === "StackedColumnChart");
 export default {
   title: "Data Visualisation/StackedColumnChart",
   component: IFS["StackedColumnChart"],
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   parameters: {
     docs: { description: { component: "**Figma:** chart-stacked-column (9863:11139)\n\n\n**Use for** (inferred) Composition of a total per category." } },
     design: {"type":"figma","url":"https://www.figma.com/design/atgUmwcA1AE5sjFoWBT7ar/IFS-Design-System?node-id=9863-11139"},

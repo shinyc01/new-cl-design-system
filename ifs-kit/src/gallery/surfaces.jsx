@@ -44,6 +44,7 @@ export default IFS_GALLERY;
   IFS_GALLERY.push({ name: 'Snackbar', figma: 'snackbar-organism (3795:29459)', render: () => <>
     <Row label="default"><Snackbar title="{title}" secondaryAction={{ label: '{label}' }} primaryAction={{ label: '{label}' }}>placeholder</Snackbar></Row>
     <Row label="minimal"><Snackbar title="Investment saved">Changes are live for your team.</Snackbar></Row>
+    <Row label="action iconLeft"><Snackbar title="Widget removed" secondaryAction={{ label: 'Undo', iconLeft: 'arrow-back-up' }} /></Row>
     <Live><Button type="primary" onClick={() => IFS.toast({ title: 'Investment archived', description: 'Moved to Archive.', primaryAction: { label: 'Undo' } })}>Show toast</Button></Live>
   </> });
 
@@ -53,6 +54,7 @@ export default IFS_GALLERY;
     return <>
       <Row label="inline" top>
         <Modal inline title="{title}" secondaryAction={{ label: '{label}' }} primaryAction={{ label: '{label}' }}><div style={{ height: 286 }} /></Modal>
+        <Modal inline title="Primary disabled" secondaryAction={{ label: 'Cancel' }} primaryAction={{ label: 'Save', disabled: true }}><div style={{ height: 60 }} /></Modal>
         <div style={{ position: 'relative', width: 240, height: 160, overflow: 'hidden', background: 'linear-gradient(135deg,#335,#a63)' }}>
           <Overlay inline type="strong" style={{ inset: '0 50% 0 0' }} /><Overlay inline type="base" style={{ inset: '0 0 0 50%' }} />
         </div>
@@ -90,13 +92,28 @@ export default IFS_GALLERY;
       <div style={{ display: 'flex', height: 420, gap: 24 }}>
         <Panel title="{title}" />
         <Panel title="{title}" defaultExpanded={false} />
+        <Panel title="{title}" defaultExpanded={false} dot="error" />
+        <Panel title="{title}" defaultExpanded={false} dot="warning" />
       </div>
     </Row>
-    <Row label="live"><span className="t-body-m-regular" style={{ color: 'var(--text-tertiary)' }}>Both panels above toggle with the |→ button.</span></Row>
+    <Row label="actions + onClose (✕ instead of collapse)" top>
+      <div style={{ display: 'flex', height: 240, gap: 24 }}>
+        <Panel title="Details" showEvidence={false} onClose={() => {}} actions={<Button type="tertiary" size="s" iconLeft="system-plus">Add</Button>} />
+      </div>
+    </Row>
+    <Row label="live"><span className="t-body-m-regular" style={{ color: 'var(--text-tertiary)' }}>The panels above collapse with |→ and expand from the 48px rail's ←|.</span></Row>
   </> });
 
+  function SurfPopoverSearch() {
+    const [q, setQ] = React.useState('north');
+    const rows = ['Northgate substation', 'North river crossing', 'Southfield depot'].filter(r => r.toLowerCase().includes(q.toLowerCase()));
+    return <Popover inline title="Documents" count={rows.length} search searchValue={q} onSearchChange={setQ} showClose={false}>
+      {rows.map(r => <div key={r} className="t-body-m-regular">{r}</div>)}
+    </Popover>;
+  }
   IFS_GALLERY.push({ name: 'Popover', figma: 'popover-organism (4394:56471)', render: () => <>
     <Row label="default" top><Popover inline title="{title}" count={3} search onFilter={() => {}} style={{ height: 360 }} /></Row>
+    <Row label="controlled search (clearable)" top><SurfPopoverSearch /></Row>
     <Live>
       <Popover trigger={<Button iconRight="system-chevron-down">16 Documents</Button>} title="Documents" count={16} search onFilter={() => {}}>
         <Filler h={80}>Esc, outside click or ✕ closes.</Filler>

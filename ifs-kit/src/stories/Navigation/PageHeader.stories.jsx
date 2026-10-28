@@ -7,7 +7,7 @@ const section = sections.find(s => s.name === "PageHeader");
 export default {
   title: "Navigation/PageHeader",
   component: IFS["PageHeader"],
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   parameters: {
     docs: { description: { component: "**Figma:** page-header (1588:1971)\n\n\n**Use for** (Figma) Level 3 page header: page title, status and page-level actions." } },
     design: {"type":"figma","url":"https://www.figma.com/design/atgUmwcA1AE5sjFoWBT7ar/IFS-Design-System?node-id=1588-1971"},

@@ -1,4 +1,5 @@
 import React from 'react';
+import { createPortal } from 'react-dom';
 import { IFS } from './registry.js';
 // Activity family: the timeline base (Data Display › Activity chart), its approval / version-history configurations,
 // the Comments pattern (Patterns › Comments 1399:9455) and the legacy people / file cards (Data Display).
@@ -182,34 +183,80 @@ function ApprovalChain({ steps, defaultSteps = [], onChange, onApprove, onReject
   );
 }
 
+/* ===================================================== ⋯ menu (shared by the thread header, own replies) ===================================================== */
+
+// "Copy link" item: its label turns to "Copied" (✓) for 2 s (Figma 165:406810).
+function useActCopied() {
+  const [copied, setCopied] = React.useState(false);
+  const t = React.useRef();
+  React.useEffect(() => () => clearTimeout(t.current), []);
+  const fire = () => { setCopied(true); clearTimeout(t.current); t.current = setTimeout(() => setCopied(false), 2000); };
+  return [copied, fire];
+}
+// IconButton + Menu (single-select-list-molecule 153:62054, 160 wide), rendered at <body> level so the thread can't clip it.
+// items = ActionMenu items (destructive ones go last after a divider); an item with copy:true is "Copy link" (stays open, shows "Copied").
+function ActMenu({ items = [], label = 'More actions', icon = 'system-dots-horizont', open, onOpenChange, className }) {
+  const [isOpen, setOpen] = useActValue(open, false, onOpenChange);
+  const [copied, fireCopied] = useActCopied();
+  const safe = items.filter(i => !i.destructive), bad = items.filter(i => i.destructive);
+  const list = [...safe, ...(bad.length && safe.length ? [{ divider: true }] : []), ...bad].map(it => it.divider ? it : it.copy
+    ? { ...it, keepOpen: true, label: copied ? 'Copied' : (it.label || 'Copy link'), icon: copied ? 'system-check' : 'system-link', onClick: (_, e) => { fireCopied(); it.onClick && it.onClick(e); } }
+    : { ...it, onClick: it.onClick ? (_, e) => it.onClick(e) : undefined });
+  return (
+    <IFS.Menu items={list} label={label} open={!!isOpen} onOpenChange={setOpen} width={160} className={actCx('ifs-act-menu', className)}
+      trigger={<IFS.IconButton type="ghost" size="s" icon={icon} label={label} />} />
+  );
+}
+
 /* ===================================================== VersionHistory ===================================================== */
 // Legacy reference: version-history-timeline (2277:5299). Built on the timeline base: the marker (M) is the
 // expand toggle; the Content slot holds the version card and, when expanded, a nested Timeline of activity.
 
-// One version entry. Props: title (e.g. "Version 3"), badge (show-badge; label or Badge props), description, author = { name, avatar },
-// time, activity = TimelineItem props[] (shown when expanded), expanded / defaultExpanded / onExpandedChange,
-// onRename(newTitle) — the ⋯ button (or double-click on the title) enters Rename; Enter/✓ saves, Esc/✕ cancels.
-// onMenu replaces the ⋯ behaviour. state hover|rename (gallery).
+// One version entry. Props: title (e.g. "Version 3"), badge (show-badge; label or Badge props, e.g. "Current"), description,
+// author = { name, avatar }, time, activity = TimelineItem props[] (shown when expanded), expanded / defaultExpanded / onExpandedChange,
+// onOpen (click the card or the name: open that version), menu (node in the top-right slot, e.g. an ActionMenu ⋮; default ⋯ =
+// onMenu, or Rename when absent).
+// Rename: renaming / defaultRenaming / onRenamingChange (controlled or not; double-click on the title also starts it),
+// renameValue / onRenameChange(value) (the draft; resets to the title when renaming starts), onRenameSubmit(value) (Enter / ✓;
+// return false to stay in rename, e.g. a duplicate name), renameError (message: red field, ✓ disabled with the message as tooltip),
+// onRenameCancel (Esc / ✕), onRename(value) (fires after a successful submit). state hover|rename (gallery).
 function VersionEntry({ title, badge, description, author, time, activity, expanded, defaultExpanded = false, onExpandedChange,
-  onRename, onMenu, state, last, className, ...rest }) {
+  onOpen, menu, onMenu, renaming, defaultRenaming = false, onRenamingChange, renameValue, onRenameChange, onRenameSubmit, renameError,
+  onRenameCancel, onRename, state, last, className, ...rest }) {
   const [open, setOpen] = useActValue(expanded, defaultExpanded, onExpandedChange);
-  const [renaming, setRenaming] = React.useState(state === 'rename');
-  const [draft, setDraft] = React.useState(title || '');
-  const startRename = () => { setDraft(typeof title === 'string' ? title : ''); setRenaming(true); };
-  const save = () => { setRenaming(false); onRename && onRename(draft); };
+  const [isRen, setRen] = useActValue(renaming, defaultRenaming || state === 'rename', onRenamingChange);
+  const [draft, setDraft] = useActValue(renameValue, typeof title === 'string' ? title : '', onRenameChange);
+  const wasRen = React.useRef(isRen);
+  React.useEffect(() => { if (isRen && !wasRen.current && renameValue === undefined) setDraft(typeof title === 'string' ? title : ''); wasRen.current = isRen; }, [isRen]);
+  const blocked = !!renameError || !String(draft || '').trim();
+  const startRename = () => setRen(true);
+  const cancel = () => { setRen(false); onRenameCancel && onRenameCancel(); };
+  const save = () => {
+    if (blocked) return;
+    const v = String(draft).trim();
+    if (onRenameSubmit && onRenameSubmit(v) === false) return;
+    setRen(false); onRename && onRename(v);
+  };
   const badgeProps = badge == null ? null : (typeof badge === 'object' ? badge : { children: badge });
+  const apply = <IFS.IconButton type="ghost" size="s" icon="system-check" label="Save name" disabled={blocked} onClick={save} />;
   const card = (
-    <div className={actCx('ifs-version__card', renaming && 'ifs-version__card--rename')} data-state={state === 'hover' ? 'hover' : undefined}>
-      {renaming ? (
+    <div className={actCx('ifs-version__card', isRen && 'ifs-version__card--rename', onOpen && !isRen && 'ifs-version__card--link')}
+      data-state={state === 'hover' ? 'hover' : undefined}
+      onClick={e => { if (onOpen && !isRen && !e.target.closest('button,[role=menu],a,input')) onOpen(e); }}>
+      {isRen ? (
         <IFS.TextField size="m" autoFocus value={draft} onChange={v => setDraft(v)} aria-label="Version name" className="ifs-version__rename"
-          onKeyDown={e => { if (e.key === 'Enter') save(); if (e.key === 'Escape') setRenaming(false); }}
+          error={renameError || undefined} onFocus={e => e.target.select && e.target.select()}
+          onKeyDown={e => { if (e.key === 'Enter') save(); if (e.key === 'Escape') { e.stopPropagation(); cancel(); } }}
           suffix={<span className="ifs-version__rename-tools">
-            <IFS.IconButton type="ghost" size="s" icon="system-close" label="Cancel rename" onClick={() => setRenaming(false)} />
-            <IFS.IconButton type="ghost" size="s" icon="system-check" label="Save name" onClick={save} />
+            <IFS.IconButton type="ghost" size="s" icon="system-close" label="Cancel rename" onClick={cancel} />
+            {renameError ? <IFS.Tooltip content={renameError}><span className="ifs-version__apply">{apply}</span></IFS.Tooltip> : apply}
           </span>} />
       ) : (
         <div className="ifs-version__head">
-          <span className="ifs-version__title" onDoubleClick={startRename}>{title}</span>
+          {onOpen
+            ? <button type="button" className="ifs-version__title ifs-version__open" onClick={onOpen} onDoubleClick={startRename}
+                aria-label={typeof title === 'string' ? `Open ${title} (read-only)` : undefined}>{title}</button>
+            : <span className="ifs-version__title" onDoubleClick={startRename}>{title}</span>}
           {badgeProps && <IFS.Badge color="white" size="m" {...badgeProps} />}
         </div>
       )}
@@ -220,15 +267,16 @@ function VersionEntry({ title, badge, description, author, time, activity, expan
           {time != null && <span className="ifs-version__time">{time}</span>}
         </div>
       )}
-      {!renaming && (
-        <IFS.IconButton type="ghost" size="s" icon="system-dots-horizont" label="Version actions" className="ifs-version__menu"
-          state={state === 'hover' ? 'hover' : undefined} onClick={onMenu || startRename} />
-      )}
+      {!isRen && <div className="ifs-version__menu">
+        {menu != null ? menu : <IFS.IconButton type="ghost" size="s" icon="system-dots-horizont" label="Version actions"
+          state={state === 'hover' ? 'hover' : undefined} onClick={onMenu || startRename} />}
+      </div>}
     </div>
   );
+  const name = typeof title === 'string' ? title : 'version';
   return (
     <TimelineItem className={actCx('ifs-version', open && 'ifs-version--open', className)} markerSize="m" connector={last ? 'none' : 'solid'}
-      marker={<button type="button" className="ifs-version__toggle" aria-expanded={!!open} aria-label={open ? 'Collapse version' : 'Expand version'}
+      marker={<button type="button" className="ifs-version__toggle" aria-expanded={!!open} aria-label={open ? `Collapse ${name}` : `Show activity of ${name}`}
         onClick={() => setOpen(!open)}><IFS.Icon name={open ? 'arrow-caret-down-filled' : 'arrow-caret-right-filled'} size={12} /></button>}
       content={<div className="ifs-version__content">
         {card}
@@ -255,6 +303,7 @@ function VersionHistory({ versions = [], onRename, className, ...rest }) {
 /* ===================================================== Comments ===================================================== */
 
 // Splits comment text into plain runs and @mention tokens. `mentions` (names) makes matching exact; otherwise @Word.
+// A posted mention is a tagged user: badge White XS with the mention icon (Patterns 12:46402 / 12:46575).
 function renderMentions(text, mentions) {
   if (typeof text !== 'string') return text;
   const names = (mentions || []).slice().sort((a, b) => b.length - a.length).map(n => n.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
@@ -262,7 +311,7 @@ function renderMentions(text, mentions) {
   const out = []; let last = 0; let m;
   while ((m = re.exec(text))) {
     if (m.index > last) out.push(text.slice(last, m.index));
-    out.push(<span key={m.index} className="ifs-comment__mention">{m[0]}</span>);
+    out.push(<IFS.Badge key={m.index} color="white" size="s" iconLeft="mention" className="ifs-comment__mention" aria-label={m[0]}>{m[0].slice(1)}</IFS.Badge>);
     last = m.index + m[0].length;
   }
   if (last < text.length) out.push(text.slice(last));
@@ -271,11 +320,12 @@ function renderMentions(text, mentions) {
 
 // Figma: comment-content-card (260:86722) — one reply. Variants State=Default|Hover, Tagged user=False|True.
 // Props: name, time (time ago), avatar = Avatar props, you (adds "(you)"), children = text (string: @mentions render as
-// accent tokens — Figma Tagged user), mentions = names to match exactly, onMenu (⋯ shown on hover/focus; Figma Hover),
-// state hover (gallery).
-function Comment({ name, time, avatar, you, children, mentions, onMenu, state, className, ...rest }) {
+// tagged-user badges), mentions = names to match exactly, menuItems (⋯ menu shown on hover/focus — e.g. Edit / Delete on your
+// own reply; ActionMenu items), onMenu (plain ⋯ button instead of a menu), state hover (gallery).
+function Comment({ name, time, avatar, you, children, mentions, onMenu, menuItems, state, className, ...rest }) {
+  const [menuOpen, setMenuOpen] = React.useState(false);
   return (
-    <div className={actCx('ifs-comment', className)} data-state={state} {...rest}>
+    <div className={actCx('ifs-comment', menuOpen && 'ifs-comment--menu', className)} data-state={state} {...rest}>
       <IFS.Avatar size="m" name={name} type="auto" {...avatar} />
       <div className="ifs-comment__main">
         <div className="ifs-comment__title">
@@ -284,7 +334,36 @@ function Comment({ name, time, avatar, you, children, mentions, onMenu, state, c
         </div>
         <div className="ifs-comment__text">{renderMentions(children, mentions)}</div>
       </div>
-      {onMenu && <IFS.IconButton type="ghost" size="s" icon="system-dots-horizont" label="Comment actions" className="ifs-comment__menu" onClick={onMenu} />}
+      {menuItems && menuItems.length > 0
+        ? <ActMenu className="ifs-comment__menu" label="Comment actions" items={menuItems} open={menuOpen} onOpenChange={setMenuOpen} />
+        : onMenu && <IFS.IconButton type="ghost" size="s" icon="system-dots-horizont" label="Comment actions" className="ifs-comment__menu" onClick={onMenu} />}
+    </div>
+  );
+}
+
+// Width of `text` on one line in the textarea's font (canvas measure: no layout, so no feedback into the line-mode switch).
+let actCanvas;
+function actTextWidth(el, text) {
+  actCanvas = actCanvas || document.createElement('canvas');
+  const ctx = actCanvas.getContext('2d'); const cs = getComputedStyle(el);
+  ctx.font = `${cs.fontStyle} ${cs.fontWeight} ${cs.fontSize} ${cs.fontFamily}`;
+  return ctx.measureText(text).width;
+}
+const actMentionQuery = text => { const m = /(^|\s)@([\w.-]*)$/.exec(text || ''); return m ? m[2] : null; };
+
+// Default @-mention list (Patterns › Mention 12:45593): popover-organism, one content-card-organism S row per person.
+function ComposerMentionList({ people, activeIndex, onPick, onActiveChange }) {
+  return (
+    <div className="ifs-composer-mention" role="listbox" aria-label="Mention someone">
+      <IFS.Popover inline showClose={false} width={317}>
+        <div className="ifs-composer-mention__list">
+          {people.map((p, i) => (
+            <IFS.ContentCard key={p.name} size="s" role="option" aria-selected={i === activeIndex} title={p.name} description={p.role}
+              avatar={{ name: p.name, ...p.avatar, size: 'm' }} state={i === activeIndex ? 'hover' : undefined}
+              onMouseEnter={() => onActiveChange(i)} onMouseDown={e => e.preventDefault()} onClick={() => onPick(p)} />
+          ))}
+        </div>
+      </IFS.Popover>
     </div>
   );
 }
@@ -294,19 +373,50 @@ function Comment({ name, time, avatar, you, children, mentions, onMenu, state, c
 // onChange(text), onSubmit(text) (Enter or send; clears the draft), placeholder (defaults per mode: "Add a comment" /
 // "Say a comment" / "Working on your comment…" while generating), generating (Cooper drafting → send becomes stop),
 // onStop, avatar = Avatar props of the current user (molecule), disabled, autoFocus, state (gallery: multi).
-// Single line = pill; grows to Multi line (12px radius, buttons below) when the text wraps.
+// @-mentions: mentionables = [{ name, role, avatar }] turns on the picker — typing "@" + letters lists the matching people
+// below the field (↑/↓ move, Enter/Tab pick, Esc drops the "@…"); picking inserts "@Name " and calls onMention(person).
+// renderMentionMenu({ people, query, activeIndex, onPick, onActiveChange }) replaces the default list (e.g. IFS.CommentMentionMenu).
+// Single line = pill; grows to Multi line (12px radius, buttons below) when the text wraps. It returns to one line only when the
+// text fits the single-line width with an 8px margin (measured off-layout), so a draft right at the wrap width can't flip-flop.
 function CommentComposer({ mode, defaultMode = 'text', onModeChange, value, defaultValue = '', onChange, onSubmit, placeholder,
-  generating, onStop, avatar, disabled, autoFocus, state, className, style, ...rest }) {
+  generating, onStop, avatar, disabled, autoFocus, state, mentionables, onMention, renderMentionMenu, className, style, ...rest }) {
   const [m, setM] = useActValue(mode, defaultMode, onModeChange);
   const [text, setText] = useActValue(value, defaultValue, onChange);
-  const ref = React.useRef(null);
+  const ref = React.useRef(null); const fieldRef = React.useRef(null);
   const [multi, setMulti] = React.useState(state === 'multi');
+  const singleW = React.useRef(0);
   React.useLayoutEffect(() => {
     const el = ref.current; if (!el) return;
     el.style.height = 'auto';
     el.style.height = el.scrollHeight + 'px';
-    if (state !== 'multi') setMulti(el.scrollHeight > 24 || /\n/.test(text || ''));
+    if (state === 'multi') return;
+    const t = text || '';
+    if (!multi) {
+      singleW.current = el.clientWidth;
+      if (el.scrollHeight > 24 || /\n/.test(t)) setMulti(true);
+    } else if (!/\n/.test(t) && singleW.current && actTextWidth(el, t) <= singleW.current - 8) setMulti(false);
   }, [text, multi, state]);
+  // Mention picker
+  const q = mentionables && mentionables.length ? actMentionQuery(text) : null;
+  const matches = q == null ? [] : mentionables.filter(p => p.name.toLowerCase().includes(q.toLowerCase()));
+  const [active, setActive] = React.useState(0);
+  const ai = Math.max(0, Math.min(active, matches.length - 1));
+  const [menuPos, setMenuPos] = React.useState(null);
+  React.useLayoutEffect(() => {
+    if (!matches.length) { if (menuPos) setMenuPos(null); return; }
+    const r = fieldRef.current.getBoundingClientRect();
+    if (!menuPos || menuPos.left !== r.left || menuPos.top !== r.bottom + 4) setMenuPos({ left: r.left, top: r.bottom + 4 });
+  });
+  const pick = p => { setText((text || '').replace(/@([\w.-]*)$/, `@${p.name} `)); setActive(0); onMention && onMention(p); ref.current && ref.current.focus(); };
+  const onKeyDown = e => {
+    if (matches.length) {
+      const k = e.key;
+      if (k === 'ArrowDown' || k === 'ArrowUp') { e.preventDefault(); setActive((ai + (k === 'ArrowDown' ? 1 : -1) + matches.length) % matches.length); return; }
+      if (k === 'Enter' || k === 'Tab') { e.preventDefault(); pick(matches[ai]); return; }
+      if (k === 'Escape') { e.preventDefault(); e.stopPropagation(); setText((text || '').replace(/@([\w.-]*)$/, '')); return; }
+    }
+    if (e.key === 'Enter' && !e.shiftKey && !e.nativeEvent.isComposing) { e.preventDefault(); submit(); }
+  };
   const cooper = m === 'cooper';
   const has = (text || '').trim().length > 0;
   const ph = placeholder || (cooper && generating ? 'Working on your comment…' : m === 'voice' ? 'Say a comment' : 'Add a comment');
@@ -324,8 +434,12 @@ function CommentComposer({ mode, defaultMode = 'text', onModeChange, value, defa
       {sendBtn}
     </div>
   );
+  const picker = matches.length > 0 && menuPos && createPortal(
+    <div className="ifs-composer__mention-pop" style={{ left: menuPos.left, top: menuPos.top }}>
+      {(renderMentionMenu || (p => <ComposerMentionList {...p} />))({ people: matches, query: q, activeIndex: ai, onPick: pick, onActiveChange: setActive })}
+    </div>, document.body);
   const field = (
-    <div className={actCx('ifs-composer', `ifs-composer--${m}`, multi && 'ifs-composer--multi', disabled && 'ifs-composer--disabled', !avatar && className)}
+    <div ref={fieldRef} className={actCx('ifs-composer', `ifs-composer--${m}`, multi && 'ifs-composer--multi', disabled && 'ifs-composer--disabled', !avatar && className)}
       style={avatar ? undefined : style} onMouseDown={e => { if (e.target === e.currentTarget) { e.preventDefault(); ref.current && ref.current.focus(); } }}>
       <div className="ifs-composer__inner">
         <div className="ifs-composer__row">
@@ -333,12 +447,13 @@ function CommentComposer({ mode, defaultMode = 'text', onModeChange, value, defa
             <IFS.Icon name="cooper-system-icon" variant="Insight" size={12} />
           </button>}
           <textarea ref={ref} rows={1} className="ifs-composer__input" value={text} placeholder={ph} disabled={disabled} autoFocus={autoFocus}
-            aria-label={rest['aria-label'] || 'Comment'} onChange={e => setText(e.target.value)}
-            onKeyDown={e => { if (e.key === 'Enter' && !e.shiftKey && !e.nativeEvent.isComposing) { e.preventDefault(); submit(); } }} />
+            aria-label={rest['aria-label'] || 'Comment'} aria-autocomplete={mentionables ? 'list' : undefined} aria-expanded={mentionables ? matches.length > 0 : undefined}
+            onChange={e => setText(e.target.value)} onKeyDown={onKeyDown} />
           {!multi && buttons}
         </div>
         {multi && buttons}
       </div>
+      {picker}
     </div>
   );
   if (!avatar) return field;
@@ -350,24 +465,28 @@ function CommentComposer({ mode, defaultMode = 'text', onModeChange, value, defa
   );
 }
 
-// Inline editor for one's own reply (comment-popover-organism Type=Edit: input/keyboard state=Edit).
-function CommentEditor({ defaultValue, onSave, onCancel }) {
+// Inline editor for one's own reply (Patterns "Comment edit input" 12:47187): the reply becomes comment-input-molecule
+// state=Edit — avatar + a 12px-radius field with the text and Cancel (Secondary S) / Send (Primary S) below.
+// Enter or Send saves; Shift+Enter breaks the line; Esc or Cancel keeps the old text.
+function CommentEditor({ defaultValue, avatar, onSave, onCancel }) {
   const [v, setV] = React.useState(defaultValue || '');
   const ref = React.useRef(null);
   React.useEffect(() => { const el = ref.current; if (el) { el.focus(); el.setSelectionRange(el.value.length, el.value.length); } }, []);
   React.useLayoutEffect(() => { const el = ref.current; if (el) { el.style.height = 'auto'; el.style.height = el.scrollHeight + 'px'; } }, [v]);
-  const mention = () => { setV(x => (x && !/\s$/.test(x) ? x + ' @' : x + '@')); ref.current && ref.current.focus(); };
+  const save = () => { if (v.trim()) onSave(v.trim()); };
   return (
-    <div className="ifs-comment-edit">
-      <div className="ifs-comment-edit__field">
-        <textarea ref={ref} rows={1} className="ifs-comment-edit__input" value={v} aria-label="Edit comment" onChange={e => setV(e.target.value)}
-          onKeyDown={e => { if (e.key === 'Escape') { e.stopPropagation(); onCancel(); } if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) onSave(v.trim()); }} />
-      </div>
-      <div className="ifs-comment-edit__actions">
-        <IFS.IconButton type="ghost" shape="circle" size="m" icon="system-mail-user" label="Mention someone" onClick={mention} />
-        <div className="ifs-comment-edit__buttons">
-          <IFS.Button type="secondary" size="s" onClick={onCancel}>Cancel</IFS.Button>
-          <IFS.Button type="primary" size="s" disabled={!v.trim()} onClick={() => onSave(v.trim())}>Save</IFS.Button>
+    <div className="ifs-composer-molecule ifs-comment-edit-row" role="listitem">
+      {avatar && <span className="ifs-composer-molecule__avatar"><IFS.Avatar size="m" type="auto" {...avatar} /></span>}
+      <div className="ifs-comment-edit">
+        <div className="ifs-comment-edit__field">
+          <textarea ref={ref} rows={1} className="ifs-comment-edit__input" value={v} aria-label="Edit comment" onChange={e => setV(e.target.value)}
+            onKeyDown={e => { if (e.key === 'Escape') { e.stopPropagation(); onCancel(); } if (e.key === 'Enter' && !e.shiftKey && !e.nativeEvent.isComposing) { e.preventDefault(); save(); } }} />
+        </div>
+        <div className="ifs-comment-edit__actions">
+          <div className="ifs-comment-edit__buttons">
+            <IFS.Button type="secondary" size="s" onClick={onCancel}>Cancel</IFS.Button>
+            <IFS.Button type="primary" size="s" disabled={!v.trim()} onClick={save}>Send</IFS.Button>
+          </div>
         </div>
       </div>
     </div>
@@ -377,43 +496,74 @@ function CommentEditor({ defaultValue, onSave, onCancel }) {
 // Figma: comment-popover-organism (260:88500) — the full thread. Variants Type=Default | Cooper suggestion | Edit.
 // Props: number (thread ID shown after "Comment", e.g. "#55"), comments / defaultComments / onCommentsChange
 // ([{ id, name, time, text, avatar, you, mentions }]), currentUser = { name, avatar } (composer avatar + author of new replies),
-// resolved / defaultResolved / onResolvedChange (✓ in the header; resolved threads hide the composer until reopened),
-// onClose (✕), onMenu (⋯), cooperSuggestion = { label, onClick } (Type=Cooper suggestion: Accent (Cooper) L button),
-// composerProps (passed to CommentComposer), editingId (gallery: opens Type=Edit on that reply).
-// Posting really appends a reply ("Just now", marked (you)); ⋯ on your own reply opens the inline editor.
+// resolved / defaultResolved / onResolvedChange, onClose (✕), cooperSuggestion = { label, onClick } (Type=Cooper suggestion),
+// onCopyLink (⋯ → Copy link; default copies the page URL), menuItems (extra ⋯ items), onMenu (plain ⋯ button instead of the menu),
+// mentionables / onMention / renderMentionMenu (composer @-picker; posted replies get `mentions` from mentionables),
+// composerProps (passed to CommentComposer), editingId (gallery: opens the editor on that reply).
+// Unresolved: header ⋯ (Copy link) + ✓ Resolve + ✕. Resolved (Patterns 12:44840): ⋯ (Unresolve, Copy link) + ✕, every author
+// avatar Inactive; text is not dimmed and the composer stays.
+// Your own reply's ⋯ = Edit / Delete (12:46616). Edit → inline editor with Cancel / Send (12:47187). Delete → modal
+// "Delete this comment?" (12:47578) → snackbar "Comment deleted" with Undo (Patterns "Comment deleted").
 function CommentThread({ number = '#00', comments, defaultComments = [], onCommentsChange, currentUser = { name: 'You' },
-  resolved, defaultResolved = false, onResolvedChange, onClose, onMenu, cooperSuggestion, composerProps, editingId,
-  className, style, ...rest }) {
+  resolved, defaultResolved = false, onResolvedChange, onClose, onMenu, menuItems, onCopyLink, mentionables, onMention, renderMentionMenu,
+  cooperSuggestion, composerProps, editingId, className, style, ...rest }) {
   const [list, setList] = useActValue(comments, defaultComments, onCommentsChange);
+  const listRef = React.useRef(list); listRef.current = list;
   const [isResolved, setResolved] = useActValue(resolved, defaultResolved, onResolvedChange);
   const [editing, setEditing] = React.useState(editingId);
+  const [confirmId, setConfirmId] = React.useState(null);
   const bodyRef = React.useRef(null);
+  const names = (mentionables || []).map(p => p.name);
   const post = text => {
     const c = { id: `c${Date.now()}`, name: currentUser.name, avatar: currentUser.avatar, time: 'Just now', text, you: true };
+    if (names.length) c.mentions = names.filter(n => text.includes(`@${n}`));
     setList([...list, c]);
     requestAnimationFrame(() => { const b = bodyRef.current; if (b) b.scrollTop = b.scrollHeight; });
   };
+  const keyOf = (c, i) => (c.id != null ? c.id : i);
+  const remove = id => {
+    const cur = listRef.current; const at = cur.findIndex((c, i) => keyOf(c, i) === id); setConfirmId(null);
+    if (at < 0) return;
+    const gone = cur[at];
+    setList(cur.filter((_, j) => j !== at));
+    IFS.toast && IFS.toast({ title: 'Comment deleted', showClose: false, duration: 5000, secondaryAction: { label: 'Undo', onClick: () => {
+      const now = listRef.current.slice(); now.splice(Math.min(at, now.length), 0, gone); setList(now);
+    } } });
+  };
+  const copy = () => {
+    if (onCopyLink) { onCopyLink(); return; }
+    try { navigator.clipboard && navigator.clipboard.writeText(`${location.href.split('#')[0]}#comment-${String(number).replace(/\D/g, '')}`); } catch (e) { /* no clipboard */ }
+  };
+  const headerItems = [
+    ...(isResolved ? [{ label: 'Unresolve', icon: 'arrow-back-up', onClick: () => setResolved(false) }] : []),
+    { copy: true, onClick: copy },
+    ...(menuItems || []),
+  ];
   return (
     <section className={actCx('ifs-thread', isResolved && 'ifs-thread--resolved', className)} style={style} aria-label={`Comment ${number}`} {...rest}>
       <header className="ifs-thread__header">
         <div className="ifs-thread__title"><span>Comment</span><span className="ifs-thread__number">{number}</span></div>
         <div className="ifs-thread__buttons">
-          <IFS.IconButton type="ghost" size="s" icon="system-dots-horizont" label="More actions" onClick={onMenu} />
-          <IFS.IconButton type="ghost" size="s" icon={isResolved ? 'status-success-filled' : 'system-circle-check'}
-            label={isResolved ? 'Reopen thread' : 'Resolve thread'} aria-pressed={!!isResolved} className="ifs-thread__resolve"
-            onClick={() => setResolved(!isResolved)} />
+          {onMenu ? <IFS.IconButton type="ghost" size="s" icon="system-dots-horizont" label="More actions" onClick={onMenu} />
+            : <ActMenu label="Thread actions" items={headerItems} />}
+          {!isResolved && <IFS.Tooltip content="Resolve"><IFS.IconButton type="ghost" size="s" icon="system-circle-check" label="Resolve thread"
+            className="ifs-thread__resolve" onClick={() => setResolved(true)} /></IFS.Tooltip>}
           <IFS.IconButton type="ghost" size="s" icon="system-close" label="Close" onClick={onClose} />
         </div>
       </header>
       <div className="ifs-thread__body" ref={bodyRef}>
         <div className="ifs-thread__comments" role="list">
           {list.map((c, i) => {
-            const id = c.id != null ? c.id : i;
-            if (editing === id) return <CommentEditor key={id} defaultValue={c.text}
+            const id = keyOf(c, i);
+            if (editing === id) return <CommentEditor key={id} defaultValue={c.text} avatar={{ name: c.name, ...c.avatar }}
               onCancel={() => setEditing(undefined)}
-              onSave={t => { setList(list.map((x, j) => j === i ? { ...x, text: t } : x)); setEditing(undefined); }} />;
-            return <Comment key={id} role="listitem" name={c.name} time={c.time} avatar={c.avatar} you={c.you} mentions={c.mentions}
-              onMenu={c.you && !isResolved ? () => setEditing(id) : undefined}>{c.text}</Comment>;
+              onSave={t => { setList(list.map((x, j) => j === i ? { ...x, text: t, ...(names.length ? { mentions: names.filter(n => t.includes(`@${n}`)) } : {}) } : x)); setEditing(undefined); }} />;
+            const avatar = isResolved ? { ...c.avatar, type: 'inactive', src: undefined } : c.avatar;
+            return <Comment key={id} role="listitem" name={c.name} time={c.time} avatar={avatar} you={c.you} mentions={c.mentions}
+              menuItems={c.you ? [
+                { label: 'Edit', icon: 'system-edit-rename', onClick: () => setEditing(id) },
+                { label: 'Delete', icon: 'system-trash-delete', onClick: () => setConfirmId(id) },
+              ] : undefined}>{c.text}</Comment>;
           })}
           {cooperSuggestion && !isResolved && (
             <IFS.Button type="cooper" size="l" iconRight="arrow-right" className="ifs-thread__cooper" onClick={cooperSuggestion.onClick}>
@@ -421,10 +571,14 @@ function CommentThread({ number = '#00', comments, defaultComments = [], onComme
             </IFS.Button>
           )}
         </div>
-        {isResolved
-          ? <div className="ifs-thread__resolved"><IFS.Icon name="status-success-filled" size={16} />Resolved</div>
-          : <CommentComposer avatar={{ name: currentUser.name, ...currentUser.avatar }} onSubmit={post} {...composerProps} />}
+        <CommentComposer avatar={{ name: currentUser.name, ...currentUser.avatar }} onSubmit={post}
+          mentionables={mentionables} onMention={onMention} renderMentionMenu={renderMentionMenu} {...composerProps} />
       </div>
+      {confirmId != null && createPortal(
+        <IFS.Modal open onOpenChange={o => { if (!o) setConfirmId(null); }} width={440} title="Delete this comment?"
+          secondaryAction={{ label: 'Cancel', onClick: () => setConfirmId(null) }} primaryAction={{ label: 'Delete', onClick: () => remove(confirmId) }}>
+          The selected comment will be permanently deleted for all collaborators.
+        </IFS.Modal>, document.body)}
     </section>
   );
 }
@@ -497,31 +651,63 @@ function Collaborator({ type = 'joined', name, position, avatar, role, defaultRo
   );
 }
 
+// File name with middle truncation: the head ellipsizes, the tail (last ~16 characters, widened back to a word start, so the
+// extension stays readable: "2025 Board Plan…Business Case.pdf") never shrinks. A cut name shows the full name as a tooltip.
+function FileCardName({ name }) {
+  const headRef = React.useRef(null);
+  const [cut, setCut] = React.useState(false);
+  const s = String(name == null ? '' : name);
+  let at = Math.max(0, s.length - 16);
+  const sp = s.lastIndexOf(' ', at);
+  if (sp >= 0 && at - sp <= 8) at = sp + 1;
+  const head = s.slice(0, at), tail = s.slice(at);
+  React.useLayoutEffect(() => {
+    const el = headRef.current; if (!el) return undefined;
+    const check = () => setCut(el.scrollWidth > el.clientWidth + 1);
+    check();
+    const ro = window.ResizeObserver ? new ResizeObserver(check) : null;
+    ro && ro.observe(el);
+    return () => ro && ro.disconnect();
+  }, [s]);
+  const text = (
+    <span className="ifs-file-card__name" aria-label={s}>
+      <span ref={headRef} className="ifs-file-card__head">{cut ? head.trimEnd() : head}</span><span className="ifs-file-card__tail">{tail}</span>
+    </span>
+  );
+  return cut ? <IFS.Tooltip content={s} arrow="left">{text}</IFS.Tooltip> : text;
+}
+
 // Figma: file-card (1440:5465) — legacy ("Documents"; guide: "can be content-card-organism").
-// Props: name, date, error (State=error: red tile + delete / retry), loading, onDownload (shown on hover/focus), onDelete, onRetry,
-// onClick (open), state hover (gallery).
-function FileCard({ name, date, error, loading, onDownload, onDelete, onRetry, onClick, state, className, ...rest }) {
+// Props: name (long names truncate in the middle, full name as tooltip), date, error (State=error: red tile + delete / retry),
+// loading, onDownload (shown on hover/focus), onDelete, onRetry, onClick (open), actions (node replacing the right-hand buttons,
+// e.g. a ⋮ ActionMenu or Tooltip-wrapped icon-buttons; shown on hover/focus, always on error), active (keeps the hover look and
+// the actions visible, e.g. while its menu is open), state hover (gallery).
+function FileCard({ name, date, error, loading, onDownload, onDelete, onRetry, onClick, actions, active, state, className, ...rest }) {
   if (loading) return <div className={actCx('ifs-file-card', 'ifs-file-card--loading', 'ifs-skeleton', className)} aria-busy="true" {...rest} />;
+  let right = null;
+  if (actions != null) right = <div className={actCx('ifs-file-card__actions', error && 'ifs-file-card__actions--error')} onClick={e => e.stopPropagation()}>{actions}</div>;
+  else if (error) right = (
+    <div className="ifs-file-card__actions ifs-file-card__actions--error">
+      <IFS.IconButton type="ghost" size="s" icon="system-trash-delete" label="Delete file" onClick={e => { e.stopPropagation(); onDelete && onDelete(e); }} />
+      <IFS.IconButton type="ghost" size="s" icon="arrow-refresh" label="Retry upload" onClick={e => { e.stopPropagation(); onRetry && onRetry(e); }} />
+    </div>
+  );
+  else if (onDownload) right = (
+    <div className="ifs-file-card__actions">
+      <IFS.IconButton type="ghost" size="s" icon="system-download" label="Download file" onClick={e => { e.stopPropagation(); onDownload(e); }} />
+    </div>
+  );
   return (
-    <div className={actCx('ifs-file-card', error && 'ifs-file-card--error', className)} data-state={state} tabIndex={onClick ? undefined : 0}
-      {...actKeyClick(onClick)} {...rest}>
+    <div className={actCx('ifs-file-card', error && 'ifs-file-card--error', active && 'ifs-file-card--active', className)} data-state={state}
+      tabIndex={onClick ? undefined : 0} {...actKeyClick(onClick)} {...rest}>
       <div className="ifs-file-card__main">
         <span className="ifs-file-card__tile"><IFS.Icon name={error ? 'status-error-filled' : 'system-file'} size={16} /></span>
         <div className="ifs-file-card__text">
-          <span className="ifs-file-card__name">{name}</span>
+          <FileCardName name={name} />
           {date != null && <span className="ifs-file-card__date">{date}</span>}
         </div>
       </div>
-      {error ? (
-        <div className="ifs-file-card__actions ifs-file-card__actions--error">
-          <IFS.IconButton type="ghost" size="s" icon="system-trash-delete" label="Delete file" onClick={e => { e.stopPropagation(); onDelete && onDelete(e); }} />
-          <IFS.IconButton type="ghost" size="s" icon="arrow-refresh" label="Retry upload" onClick={e => { e.stopPropagation(); onRetry && onRetry(e); }} />
-        </div>
-      ) : onDownload && (
-        <div className="ifs-file-card__actions">
-          <IFS.IconButton type="ghost" size="s" icon="system-download" label="Download file" onClick={e => { e.stopPropagation(); onDownload(e); }} />
-        </div>
-      )}
+      {right}
     </div>
   );
 }

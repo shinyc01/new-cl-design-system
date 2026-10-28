@@ -69,6 +69,17 @@ export default IFS_GALLERY;
     ))}
   </Grid> });
 
+  IFS_GALLERY.push({ name: 'DataVizCard chart: actions / bare', figma: 'data-viz-card-organism (4457:33030)', render: () => <Grid w={558}>
+    <DataVizCard variant="chart" state="hover" title="With header actions" style={{ width: 558 }}
+      actions={<IFS.IconButton type="ghost" size="s" icon="system-dots-vertical" label="Widget actions" />}>
+      <DataVizGroupedBar type="vertical" showValues values={[42, 28, 18, 12]} style={{ height: 40 }} />
+      <div style={{ height: 120 }} />
+    </DataVizCard>
+    <div style={{ width: 558, padding: 6, borderRadius: 4, background: 'var(--surface-secondary-alpha)' }}>
+      <ColumnChart bare title="Bare chart" data={spend} valueLabel="Actual spend" format={usdAxis} height={160} />
+    </div>
+  </Grid> });
+
   IFS_GALLERY.push({ name: 'DataVizTooltip', figma: 'data-viz-modal-organism (4440:32681)', render: () => <Row label="modal · chart">
     <DataVizTooltip subtitle="{Category}" title="{Title}" value="$X" items={[{ label: 'Title', value: 'Value', color: 'rose' }, { label: 'Title', value: 'Value', color: 'teal' }]} />
     <DataVizTooltip variant="chart" title="Q4 FY25" value="$14.8M" delta={{ text: '+9% vs plan', direction: 'down' }}

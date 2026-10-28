@@ -1,0 +1,4 @@
+import{I as o}from"./patterns-cooper-C667F40c.js";import{I as n}from"./patterns-trace-BbbZlZ3a.js";import"./index-B0WjJBI_.js";import"./_commonjsHelpers-CqkleIqs.js";import"./index-x-G-dxfr.js";import"./index-CwPCC0ZT.js";const m=o.find(s=>s.name==="ChatCard"),g={title:"More components/Cooper/ChatCard",component:n.ChatCard,tags:["autodocs"],parameters:{docs:{description:{component:"**Figma:** chat-card-molecule [patterns] (67:120468)"}},design:{type:"figma",url:"https://www.figma.com/design/KmmVU2D0kqWr0dC1xXNzWw/IFS-Design-System-Patterns?node-id=67-120468"}}},r={name:"All variants & states",render:()=>m.render()};var e,t,a;r.parameters={...r.parameters,docs:{...(e=r.parameters)==null?void 0:e.docs,source:{originalSource:`{
+  name: 'All variants & states',
+  render: () => section.render()
+}`,...(a=(t=r.parameters)==null?void 0:t.docs)==null?void 0:a.source}}};const u=["AllVariants"];export{r as AllVariants,u as __namedExportsOrder,g as default};

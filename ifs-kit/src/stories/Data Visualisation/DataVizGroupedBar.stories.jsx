@@ -7,7 +7,7 @@ const section = sections.find(s => s.name === "DataVizGroupedBar");
 export default {
   title: "Data Visualisation/DataVizGroupedBar",
   component: IFS["DataVizGroupedBar"],
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   parameters: {
     docs: { description: { component: "**Figma:** grouped-bar-molecule (4457:37362)\n\n\n**Use for** (Figma, Bar Chart) Grouped bars: compare 2–3 series across the same categories; Progress=True = meter bar against a max." } },
     design: {"type":"figma","url":"https://www.figma.com/design/atgUmwcA1AE5sjFoWBT7ar/IFS-Design-System?node-id=4457-37362"},

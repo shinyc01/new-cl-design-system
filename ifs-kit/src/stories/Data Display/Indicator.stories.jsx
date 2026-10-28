@@ -7,7 +7,7 @@ const section = sections.find(s => s.name === "Indicator");
 export default {
   title: "Data Display/Indicator",
   component: IFS["Indicator"],
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   parameters: {
     docs: { description: { component: "**Figma:** indicator-molecule (1074:180251)\n\n\n**Use for** (inferred) Dot + text status label (e.g. \"● Active\" next to a page title)." } },
     design: {"type":"figma","url":"https://www.figma.com/design/atgUmwcA1AE5sjFoWBT7ar/IFS-Design-System?node-id=1074-180251"},

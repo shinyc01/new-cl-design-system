@@ -7,7 +7,7 @@ const section = sections.find(s => s.name === "AppShell");
 export default {
   title: "Navigation/AppShell",
   component: IFS["AppShell"],
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   parameters: {
     docs: { description: { component: "**Figma:** not a Figma component — layout of \"Map - Overview - Default\" (4484:116532)" } },
     design: {"type":"figma","url":"https://www.figma.com/design/atgUmwcA1AE5sjFoWBT7ar/IFS-Design-System?node-id=4484-116532"},

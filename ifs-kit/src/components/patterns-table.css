@@ -1,0 +1,183 @@
+/* Table pattern family — Figma Patterns file, page Table (92:16787). Tokens only. */
+
+/* ================= smart-search-organism (2145:3758) ================= */
+.ifs-smart-search{position:relative;flex:none;max-width:100%}
+.ifs-smart-search__field{
+  --border:var(--element-search-border-default);--ring:0 0 0 0 transparent;
+  display:flex;align-items:center;justify-content:space-between;gap:var(--gaps-gap-700);box-sizing:border-box;width:100%;height:40px;
+  padding:var(--paddings-padding-200) var(--paddings-padding-100) var(--paddings-padding-200) var(--paddings-padding-300);
+  border-radius:var(--radius-radius-full);box-shadow:var(--ring),inset 0 0 0 1px var(--border) /* INSIDE stroke */;
+  color:var(--icon-primary);cursor:text;transition:box-shadow .12s;
+}
+.ifs-smart-search__lead{display:flex;align-items:center;gap:var(--gaps-gap-150);flex:1;min-width:0}
+.ifs-smart-search__lead>.ifs-icon{flex:none}
+.ifs-smart-search__input{
+  flex:1;min-width:0;margin:0;padding:0;border:0;outline:none;background:none;text-overflow:ellipsis;
+  color:var(--text-primary);caret-color:var(--text-accent-cooper);
+  font:500 12px/16px var(--font-family-text);letter-spacing:-0.15px /* Label/M/medium */;
+}
+.ifs-smart-search__input::placeholder{color:var(--text-tertiary);opacity:1}
+.ifs-smart-search__clear{flex:none;margin-right:var(--paddings-padding-100)}
+.ifs-smart-search__field:hover,.ifs-smart-search[data-state=hover] .ifs-smart-search__field{--border:var(--element-search-border-hover)}
+/* Pressed / Typing / Overflow / Listening / Recording: typing border */
+.ifs-smart-search__field:focus-within,.ifs-smart-search[data-state=pressed] .ifs-smart-search__field,
+.ifs-smart-search--listening .ifs-smart-search__field{--border:var(--element-search-border-typing)}
+/* Focus (keyboard): default border + focus ring */
+.ifs-smart-search--kbd .ifs-smart-search__field,.ifs-smart-search[data-state=focus] .ifs-smart-search__field{
+  --border:var(--element-search-border-default);--ring:0 0 0 1.5px var(--focus-focus-inner),0 0 0 3px var(--focus-focus-outer)}
+.ifs-smart-search--filled:not(:focus-within) .ifs-smart-search__field{--border:var(--element-search-border-default)}
+.ifs-smart-search--disabled .ifs-smart-search__field{--border:var(--element-search-border-disabled);color:var(--icon-disabled);cursor:not-allowed}
+.ifs-smart-search--disabled .ifs-smart-search__input,.ifs-smart-search--disabled .ifs-smart-search__input::placeholder{color:var(--text-disabled);cursor:not-allowed}
+/* size s: 28 tall, padding 8/0/8/8, the mic icon-button fills 28 (explore-header instance) */
+.ifs-smart-search--s .ifs-smart-search__field{height:28px;padding:var(--paddings-padding-200) 0 var(--paddings-padding-200) var(--paddings-padding-200)}
+.ifs-smart-search--s .ifs-smart-search__field>.ifs-icon-button--m{width:28px;height:28px}
+.ifs-smart-search .ifs-search-modal{position:absolute;left:0;right:0;top:calc(100% + var(--gaps-gap-100));z-index:var(--z-index-z-popover)}
+
+/* ================= search-modal (d983e4df…) ================= */
+.ifs-search-modal{
+  box-sizing:border-box;border-radius:var(--radius-radius-200);overflow:hidden;
+  background:var(--background-color-alpha-black-base);box-shadow:var(--elevation-elevation-3-primary),inset 0 0 0 1px var(--border-base);
+  backdrop-filter:blur(var(--blur-strong));-webkit-backdrop-filter:blur(var(--blur-strong)); /* effect elevation-3 */
+}
+.ifs-search-modal--inline{position:relative;width:462px}
+.ifs-search-modal__body{display:flex;flex-direction:column;gap:var(--gaps-gap-200);padding:var(--paddings-padding-300) var(--paddings-padding-200) var(--paddings-padding-200)}
+.ifs-search-modal__title{padding:var(--paddings-padding-100) var(--paddings-padding-200) 0;color:var(--text-secondary);
+  font:400 10px/12px var(--font-family-text);letter-spacing:0.1px;text-transform:uppercase} /* Caption/regular-UPPER */
+.ifs-search-modal__list{display:flex;flex-direction:column;overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--background-elevation-1-tertiary) transparent}
+
+/* ================= search-card (205664d0…) ================= */
+.ifs-search-card{
+  all:unset;flex:none;display:flex;align-items:center;gap:var(--gaps-gap-100);box-sizing:border-box;height:32px; /* 40 in the search-card set, 32 in every screen */
+  padding:var(--paddings-padding-100) var(--paddings-padding-100) var(--paddings-padding-100) var(--paddings-padding-200);
+  border-radius:var(--radius-radius-100);cursor:pointer;color:var(--text-primary);
+  font:400 14px/20px var(--font-family-text);letter-spacing:-0.1px; /* Body/L/regular */
+}
+.ifs-search-card__text{min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.ifs-search-card__suggest{color:var(--text-tertiary)}
+.ifs-search-card:hover,.ifs-search-card[data-state=hover]{background:var(--surface-secondary-alpha)}
+.ifs-search-card:focus-visible{box-shadow:0 0 0 1.5px var(--focus-focus-inner),0 0 0 3px var(--focus-focus-outer)}
+
+/* ================= Column filter (single-select-list-molecule + chips) ================= */
+.ifs-column-filter{
+  display:flex;flex-direction:column;box-sizing:border-box;border-radius:var(--radius-radius-100);
+  background:var(--background-elevation-2-primary-base);box-shadow:inset 0 0 0 1px var(--border-base);
+  backdrop-filter:blur(var(--blur-strong));-webkit-backdrop-filter:blur(var(--blur-strong)); /* effect blur/strong */
+}
+.ifs-column-filter__header{display:flex;align-items:center;gap:var(--gaps-gap-100);min-height:38px;box-sizing:border-box;
+  padding:var(--paddings-padding-300);box-shadow:inset 0 -1px 0 var(--border-base) /* bottom stroke */}
+.ifs-column-filter__title{color:var(--text-tertiary);font:500 12px/14px var(--font-family-text);letter-spacing:0.1px;text-transform:uppercase} /* Heading/H4/UPPER */
+.ifs-column-filter__clear{margin:-8px -6px -8px auto}
+.ifs-column-filter__body{display:flex;flex-direction:column;gap:var(--gaps-gap-300);padding:var(--paddings-padding-300)}
+.ifs-column-filter__chips{display:flex;flex-wrap:wrap;gap:var(--gaps-gap-100)}
+.ifs-column-filter__range{display:flex;flex-direction:column;gap:var(--gaps-gap-200)}
+.ifs-column-filter__label{color:var(--text-secondary);font:400 12px/16px var(--font-family-text);letter-spacing:0} /* Body/M/regular */
+.ifs-column-filter__range-fields{display:flex;gap:var(--gaps-gap-100)}
+.ifs-column-filter .ifs-search{width:100%}
+.ifs-column-filter .ifs-datepicker,.ifs-column-filter .ifs-select{width:100%}
+
+/* From / To field of a range filter (text-field-organism M look + stepper arrows) */
+.ifs-range-field{
+  --border:var(--element-input-border-default);
+  position:relative;display:flex;align-items:center;flex:1;min-width:0;box-sizing:border-box;height:32px;gap:var(--gaps-gap-150);
+  padding:var(--paddings-padding-200);border-radius:var(--radius-radius-100);background:var(--element-input-fill-default);
+  box-shadow:0 0 0 1px var(--border) /* OUTSIDE stroke */;color:var(--icon-secondary);
+}
+.ifs-range-field:hover{--border:var(--element-input-border-hover)}
+.ifs-range-field:focus-within{--border:var(--element-input-border-typing)}
+.ifs-range-field__input{flex:1;min-width:0;width:100%;margin:0;padding:0;border:0;outline:none;background:none;color:var(--text-primary);
+  font:400 12px/16px var(--font-family-text);letter-spacing:0} /* Body/M/regular */
+.ifs-range-field__input::placeholder{color:var(--text-tertiary);opacity:1}
+.ifs-range-field__stepper{position:relative;display:inline-flex;flex:none;width:16px;height:16px}
+.ifs-range-field__stepper button{all:unset;position:absolute;left:0;width:16px;height:8px;cursor:pointer;z-index:1}
+.ifs-range-field__stepper button:first-child{top:0}
+.ifs-range-field__stepper button:nth-child(2){bottom:0}
+.ifs-range-field__stepper:hover{color:var(--icon-primary)}
+
+/* ================= Collaboration badge + read-only tooltip ================= */
+.ifs-collab-badge{all:unset;display:inline-flex;align-items:center;gap:var(--gaps-gap-100);cursor:pointer;border-radius:var(--radius-radius-full)}
+.ifs-collab-badge .ifs-badge{cursor:pointer;transition:background-color .12s}
+.ifs-collab-badge:hover .ifs-badge{background:var(--element-button-secondary-fill-hover)}
+.ifs-collab-badge:focus-visible{box-shadow:0 0 0 1.5px var(--focus-focus-inner),0 0 0 3px var(--focus-focus-outer)}
+.ifs-collab-tip{display:flex;flex-direction:column;gap:var(--gaps-gap-200);width:240px;text-align:left;white-space:normal}
+.ifs-collab-tip__head{display:flex;align-items:flex-start;gap:var(--gaps-gap-200)}
+.ifs-collab-tip__who{display:flex;flex-direction:column;flex:1;min-width:0}
+.ifs-collab-tip__name{color:var(--text-primary);font:500 12px/16px var(--font-family-text);letter-spacing:-0.1px} /* Body/M/medium */
+.ifs-collab-tip__role,.ifs-collab-tip__time,.ifs-collab-tip__meta{color:var(--text-tertiary);font:400 12px/16px var(--font-family-text);letter-spacing:0} /* Body/M/regular */
+.ifs-collab-tip__quote{padding-left:var(--paddings-padding-200);box-shadow:inset 1px 0 0 var(--border-medium);color:var(--text-secondary);font:400 12px/16px var(--font-family-text)}
+
+/* ================= Name truncation ================= */
+.ifs-truncate{display:block;min-width:0;max-width:100%;overflow:hidden;white-space:nowrap}
+.ifs-truncate--end{text-overflow:ellipsis}
+.ifs-truncate--wrap{white-space:normal;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.ifs-truncate:focus-visible{outline:none;box-shadow:0 0 0 1.5px var(--focus-focus-inner),0 0 0 3px var(--focus-focus-outer);border-radius:var(--radius-radius-100)}
+
+/* ================= More-actions menu: IFS.Menu (selection.css) ================= */
+
+/* ================= Table toolbar ================= */
+.ifs-table-toolbar{display:flex;align-items:center;justify-content:space-between;gap:var(--gaps-gap-300);min-height:40px}
+.ifs-table-toolbar__filter{display:flex;align-items:center;min-width:0}
+.ifs-table-toolbar__stack{display:flex;align-items:center;gap:var(--gaps-gap-300);min-width:0}
+.ifs-table-toolbar__divider{flex:none;width:1px;height:20px;margin:0 var(--paddings-padding-50);background:var(--border-medium)}
+
+/* ================= Column settings (drawer content) ================= */
+.ifs-column-settings{display:flex;flex-direction:column;gap:var(--gaps-gap-200);padding:var(--paddings-padding-300)}
+.ifs-column-settings .ifs-smart-search{margin-bottom:var(--gaps-gap-100)}
+.ifs-column-settings__label{display:flex;align-items:center;gap:var(--gaps-gap-100);color:var(--text-primary);
+  font:400 10px/12px var(--font-family-text);letter-spacing:0.1px;text-transform:uppercase} /* Caption/regular-UPPER */
+.ifs-column-settings__label--cooper .ifs-icon{color:var(--icon-accent-cooper)}
+.ifs-column-settings__list{display:flex;flex-direction:column;gap:var(--gaps-gap-100)}
+.ifs-column-settings__row.is-dragging{opacity:.6}
+.ifs-column-settings__name{display:inline-flex;align-items:center;gap:var(--gaps-gap-200)}
+.ifs-column-settings__handle{display:inline-flex;color:var(--icon-tertiary);cursor:grab;touch-action:none}
+.ifs-column-settings__hidden{color:var(--text-tertiary)}
+.ifs-column-settings__sep{height:1px;margin:var(--gaps-gap-200) 0;background:var(--border-base)}
+.ifs-column-settings__none{color:var(--text-tertiary);font:400 12px/16px var(--font-family-text)}
+
+/* ================= Record preview (panel-organism look) ================= */
+.ifs-record-preview{display:flex;flex-direction:column;flex:none;box-sizing:border-box;height:100%;min-height:0;
+  background:var(--surface-primary);box-shadow:inset 1px 0 0 var(--border-base)}
+.ifs-record-preview__header{display:flex;align-items:center;gap:var(--gaps-gap-200);padding:var(--paddings-padding-300) var(--paddings-padding-400)}
+.ifs-record-preview__id{flex:1;min-width:0;color:var(--text-secondary);font:500 14px/16px var(--font-family-text);letter-spacing:-0.2px} /* Heading/H3/medium */
+.ifs-record-preview__content{flex:1;min-height:0;overflow:auto;padding:0 var(--paddings-padding-400) var(--paddings-padding-400)}
+
+/* ================= DataTable (pattern) ================= */
+.ifs-data-table{position:relative;display:flex;flex-direction:column;gap:var(--gaps-gap-300);box-sizing:border-box;min-width:0;
+  padding:var(--paddings-padding-400);border-radius:var(--radius-radius-200);background:var(--surface-secondary-alpha)}
+.ifs-data-table-page{display:flex;flex-direction:column;gap:var(--gaps-gap-500)}
+.ifs-data-table__header{display:flex;align-items:center;justify-content:space-between;gap:var(--gaps-gap-300);margin-bottom:var(--gaps-gap-100)}
+.ifs-data-table__title{all:unset;display:inline-flex;align-items:center;gap:var(--gaps-gap-150);cursor:pointer;color:var(--text-secondary);
+  font:500 14px/16px var(--font-family-text);letter-spacing:0.2px;text-transform:uppercase} /* Heading/H3/UPPERCASE */
+.ifs-data-table__title:disabled{cursor:default}
+.ifs-data-table__title .ifs-icon{color:var(--icon-secondary)}
+.ifs-data-table__title:focus-visible{box-shadow:0 0 0 1.5px var(--focus-focus-inner),0 0 0 3px var(--focus-focus-outer);border-radius:var(--radius-radius-100)}
+.ifs-data-table__scroll{min-height:0}
+.ifs-data-table--capped{overflow:hidden}
+.ifs-data-table--capped .ifs-data-table__scroll{flex:1;overflow:hidden;
+  -webkit-mask-image:linear-gradient(to bottom,#000 calc(100% - 48px),transparent);mask-image:linear-gradient(to bottom,#000 calc(100% - 48px),transparent) /* mask alpha only, not a colour */}
+.ifs-data-table__more{display:flex;margin-top:calc(-1 * var(--gaps-gap-200))}
+/* Ranked (Idea Pad) rows are 60px in Figma (pin icon-button cells): IFS.Table rowHeight={60}. The row being dragged dims. */
+.ifs-data-table__row--dragged{opacity:.4}
+.ifs-data-table__table{display:flex;flex-direction:column;gap:var(--gaps-gap-100)}
+.ifs-data-table__searching{display:flex;align-items:center;box-sizing:border-box;height:48px;padding:0 var(--paddings-padding-300);border-radius:var(--radius-radius-100);
+  background:var(--surface-secondary-alpha);color:var(--text-secondary);font:400 12px/16px var(--font-family-text)} /* Body/M/regular */
+.ifs-data-table__empty{display:flex;justify-content:center;padding:var(--paddings-padding-300);border-radius:var(--radius-radius-100);background:var(--surface-secondary-alpha)}
+.ifs-data-table__filter-pop{position:absolute;z-index:var(--z-index-z-popover)}
+/* Name cell: pin / drag lead, optional icon, name + code */
+.ifs-data-table__name{display:flex;align-items:center;gap:var(--gaps-gap-100);min-width:0;flex:1}
+.ifs-data-table--ranked .ifs-table__td:first-child{padding-left:var(--paddings-padding-50)}
+.ifs-data-table--ranked .ifs-table__th:first-child{padding-left:30px /* raw in Figma: 2px cell pad + 24px pin + 4px gap */}
+.ifs-data-table__lead{position:relative;display:flex;align-items:center;flex:none}
+.ifs-data-table__handle{position:absolute;right:100%;margin-right:var(--paddings-padding-150);display:inline-flex;color:var(--icon-tertiary);cursor:grab;touch-action:none}
+.ifs-data-table__icon{flex:none;color:var(--icon-primary)}
+.ifs-data-table__stack{display:flex;flex-direction:column;gap:var(--gaps-gap-100);min-width:0;flex:1}
+.ifs-data-table__code{color:var(--text-secondary);font:400 12px/16px var(--font-family-text);white-space:nowrap} /* never truncated */
+.ifs-data-table__edit{flex:1;min-width:0}
+.ifs-data-table__actions{display:inline-flex;align-items:center;gap:var(--gaps-gap-100)}
+/* hover-only row controls (pin when not pinned, drag handle, preview, more actions) */
+.ifs-data-table__hover{visibility:hidden}
+.ifs-table__row--content:hover .ifs-data-table__hover,.ifs-table__row--content:focus-within .ifs-data-table__hover{visibility:visible}
+.ifs-data-table--dragging .ifs-data-table__hover{visibility:hidden}
+.ifs-data-table--dragging{cursor:grabbing;user-select:none}
+.ifs-data-table__drawer .ifs-drawer__subtitle{color:var(--text-secondary);font:400 12px/16px var(--font-family-text);letter-spacing:0;text-transform:none}
+.ifs-data-table__hover:has([aria-expanded=true]){visibility:visible} /* keep an open menu visible when the pointer leaves the row */
+.ifs-tooltip-anchor:has(> .ifs-truncate){display:flex;min-width:0;max-width:100%} /* let a truncated name keep its cell width inside the tooltip anchor */

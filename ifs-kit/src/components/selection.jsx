@@ -17,19 +17,23 @@ function useControlled(prop, def, onChange) {
 // Open lists and the date popover render at the end of <body>, fixed to their field, so a scrolling parent
 // (a modal body, a drawer, a table card) can't clip them. `floatRef` must be passed to useOutside with the root.
 // z-index: the toast layer, because a list opened inside a modal (z-modal 600) must sit above it.
-function Floating({ anchorRef, floatRef, position = 'down', matchWidth = true, children }) {
+function Floating({ anchorRef, floatRef, position = 'down', matchWidth = true, align = 'start', flip = false, children }) {
   const [pos, setPos] = useState(null);
   useLayoutEffect(() => {
     const calc = () => {
       const a = anchorRef.current; if (!a) return;
       const r = a.getBoundingClientRect(), gap = 4; // --gaps-gap-100
-      setPos({ left: r.left, ...(matchWidth ? { width: r.width } : {}),
-        ...(position === 'up' ? { bottom: window.innerHeight - r.top + gap } : { top: r.bottom + gap }) });
+      const fh = floatRef && floatRef.current ? floatRef.current.offsetHeight : 0;
+      let up = position === 'up';
+      if (flip && fh) { if (!up && r.bottom + gap + fh > window.innerHeight && r.top - gap - fh >= 0) up = true; else if (up && r.top - gap - fh < 0) up = false; }
+      const vw = document.documentElement.clientWidth;
+      setPos({ ...(align === 'end' ? { right: vw - r.right } : { left: r.left }), ...(matchWidth ? { width: r.width } : {}),
+        ...(up ? { bottom: window.innerHeight - r.top + gap } : { top: r.bottom + gap }) });
     };
     calc();
     window.addEventListener('scroll', calc, true); window.addEventListener('resize', calc);
     return () => { window.removeEventListener('scroll', calc, true); window.removeEventListener('resize', calc); };
-  }, [position, matchWidth]);
+  }, [position, matchWidth, align, flip]);
   return createPortal(
     <div ref={floatRef} className="ifs-floating" style={{ position: 'fixed', zIndex: 'var(--z-index-z-toast)', ...(pos || { visibility: 'hidden' }) }}>
       {children}
@@ -45,7 +49,7 @@ function useOutside(active, refs, onOutside) {
     return () => document.removeEventListener('mousedown', h);
   }, [active]);
 }
-const norm = o => (o && typeof o === 'object') ? o : { value: o, label: String(o) };
+const norm = o => (o && typeof o === 'object') ? (o.divider ? { ...o, disabled: true } : o) : { value: o, label: String(o) };
 
 // Trigger shared by Select, MultiSelect, Combobox and DatePicker.
 // Figma: single-select-atom (789:18085) / multiple-select-atom (3200:7897). Sizes s (28–24, text-only) | m (32) | l (40) | xl (44, with label prefix).
@@ -84,12 +88,13 @@ function OptionList({ id, opts, isSelected, active, onPick, multi, listPosition,
       {listTitle && <div className="ifs-select__list-title" role="presentation">{listTitle}</div>}
       {opts.length === 0 && empty}
       {opts.map((o, i) => {
-        const sel = isSelected(o);
+        if (o.divider) return <div key={`d${i}`} role="separator" className="ifs-select__divider" />;
+        const sel = !o.action && isSelected(o);
         return (
-          <div key={String(o.value)} id={`${id}-${i}`} data-index={i} role="option" aria-selected={sel} aria-disabled={o.disabled || undefined}
-            className={cx('ifs-select__option', sel && 'is-selected', i === active && 'is-active', o.disabled && 'is-disabled')}
+          <div key={o.action ? `a${i}` : String(o.value)} id={`${id}-${i}`} data-index={i} role="option" aria-selected={o.action ? undefined : sel} aria-disabled={o.disabled || undefined}
+            className={cx('ifs-select__option', sel && 'is-selected', i === active && 'is-active', o.disabled && 'is-disabled', o.action && 'ifs-select__option--action', o.danger && 'is-danger')}
             onClick={() => !o.disabled && onPick(o)}>
-            {multi && <span className="ifs-select__check" aria-hidden="true">{sel && <IFS.Icon name="system-check" size={12} />}</span>}
+            {multi && !o.action && <span className="ifs-select__check" aria-hidden="true">{sel && <IFS.Icon name="system-check" size={12} />}</span>}
             {o.icon && <IFS.Icon name={o.icon} size={listSize === 'l' ? 16 : 12} />}
             <span className="ifs-select__option-label" title={o.label}>{o.label}</span>
             {!multi && sel && <IFS.Icon name="system-check" size={12} className="ifs-select__option-check" />}
@@ -164,11 +169,12 @@ function SelectBase({ multi, options = [], value, defaultValue, onChange, open, 
   const listId = useUid('ifs-select-list');
   const rootRef = useRef(null), trigRef = useRef(null), listRef = useRef(null), floatRef = useRef(null);
   const dd = useDropdown({ open, defaultOpen, onOpenChange, disabled, opts,
-    firstIndex: () => { const i = opts.findIndex(o => isSelected(o) && !o.disabled); return i >= 0 ? i : opts.findIndex(o => !o.disabled); } });
+    firstIndex: () => { const i = opts.findIndex(o => !o.action && isSelected(o) && !o.disabled); return i >= 0 ? i : opts.findIndex(o => !o.disabled); } });
   useOutside(dd.isOpen, [rootRef, floatRef], () => dd.setOpen(false));
   scrollActive(listRef, dd.active);
 
   const pick = o => {
+    if (o.action) { dd.setOpen(false); if (o.onClick) o.onClick(o); return; }
     if (multi) setVal(isSelected(o) ? values.filter(v => v !== o.value) : [...values, o.value], o);
     else { setVal(o.value, o); dd.setOpen(false); }
   };
@@ -184,7 +190,7 @@ function SelectBase({ multi, options = [], value, defaultValue, onChange, open, 
     else if ((k === 'Backspace' || k === 'Delete') && clearable && values.length) { e.preventDefault(); clear(); }
   };
 
-  const selOpts = opts.filter(isSelected);
+  const selOpts = opts.filter(o => !o.action && !o.divider && isSelected(o));
   const filled = selOpts.length > 0;
   let content = null;
   if (filled && multi && size === 's') content = <span className="ifs-select__value is-count">{selOpts.length} selected</span>;
@@ -211,7 +217,8 @@ function SelectBase({ multi, options = [], value, defaultValue, onChange, open, 
 }
 
 // Figma: single-select-organism (3273:26820) = single-select-atom (789:18085) + single-select-list-molecule (153:62054)
-// Props: options (strings or {value,label,icon,disabled}), value/defaultValue/onChange(value, option), open/defaultOpen/onOpenChange,
+// Props: options (strings or {value,label,icon,disabled}; {divider:true} draws a separator; {action:true,label,icon,danger,onClick} is a
+// command row such as "Remove" (danger = red) that runs onClick and closes without selecting), value/defaultValue/onChange(value, option), open/defaultOpen/onOpenChange,
 // size s|m|l|xl, label (xl prefix / s text), placeholder, iconLeft, clearable (Figma show-remove-select, default true), loading, error,
 // disabled, listPosition down|up (Figma "List position"), listTitle (e.g. "Suggested"), listSize s|l, state hover|focus|open (gallery).
 function Select(props) { return <SelectBase {...props} multi={false} />; }
@@ -277,8 +284,8 @@ function Combobox({ options = [], value, defaultValue = null, onChange, defaultO
 
 // Figma: segmented-control-organism (1387:244501) built from segmented-control-atom (1387:244511)
 // Props: options = [{ value, label, iconLeft, iconRight, counter, disabled, state }] (strings allowed), value/defaultValue/onChange,
-// size m (34) | s (24). Arrow keys move the selection (radio group).
-function SegmentedControl({ options = [], value, defaultValue, onChange, size = 'm', className, ...rest }) {
+// size m (34) | s (24), fullWidth (stretches to its container; segments share the width equally). Arrow keys move the selection (radio group).
+function SegmentedControl({ options = [], value, defaultValue, onChange, size = 'm', fullWidth = false, className, ...rest }) {
   const opts = options.map(norm);
   const [val, setVal] = useControlled(value, defaultValue !== undefined ? defaultValue : (opts[0] && opts[0].value), onChange);
   const refs = useRef([]);
@@ -292,7 +299,7 @@ function SegmentedControl({ options = [], value, defaultValue, onChange, size = 
     }
   };
   return (
-    <div role="radiogroup" className={cx('ifs-segmented', `ifs-segmented--${size}`, className)} {...rest}>
+    <div role="radiogroup" className={cx('ifs-segmented', `ifs-segmented--${size}`, fullWidth && 'ifs-segmented--full', className)} {...rest}>
       {opts.map((o, i) => {
         const sel = o.value === val;
         return (
@@ -431,22 +438,28 @@ function Calendar({ value, defaultValue = null, onChange, range = false, month, 
 
 // DatePicker = select trigger (single-select-atom look) + Calendar popup (date-picker-molecule 3406:9510).
 // Props: value/defaultValue/onChange (Date or {start,end} with range), open/defaultOpen/onOpenChange, size s|m|l|xl, label, placeholder,
-// format(date) → string, range, clearable, error, disabled, listPosition down|up, state, plus Calendar props (today, events, min, max).
+// format(date) → string, range, clearable, iconLeft (default system-calendar-date; null hides it), showApply (Figma show-apply-button:
+// picks stay a draft until the full-width Apply button commits them), applyLabel, error, disabled, listPosition down|up, state,
+// plus Calendar props (today, events, min, max).
 function DatePicker({ value, defaultValue = null, onChange, open, defaultOpen = false, onOpenChange, size = 'm', label, placeholder = 'Select date',
   format = d => d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }), range = false, clearable = true,
+  iconLeft = 'system-calendar-date', showApply = false, applyLabel = 'Apply',
   error, disabled, listPosition = 'down', state, today, events, min, max, className, style, id, 'aria-label': ariaLabel, ...rest }) {
   const [val, setVal] = useControlled(value, defaultValue, onChange);
   const [isOpen, setOpenRaw] = useControlled(open, defaultOpen, onOpenChange);
-  const setOpen = v => { if (disabled && v) return; if (v !== isOpen) setOpenRaw(v); };
+  const [draft, setDraft] = useState(val);
+  const setOpen = v => { if (disabled && v) return; if (v && showApply) setDraft(val); if (v !== isOpen) setOpenRaw(v); };
   const rootRef = useRef(null), trigRef = useRef(null), floatRef = useRef(null);
   const popId = useUid('ifs-datepicker');
   useOutside(isOpen, [rootRef, floatRef], () => setOpen(false));
   const filled = range ? !!(val && val.start) : !!val;
   const text = !filled ? null : range ? `${format(val.start)} – ${val.end ? format(val.end) : '…'}` : format(val);
-  const onPick = v => { setVal(v); if (!range || (v && v.end)) { setOpen(false); trigRef.current && trigRef.current.focus(); } };
+  const done = () => { setOpen(false); trigRef.current && trigRef.current.focus(); };
+  const onPick = v => { if (showApply) { setDraft(v); return; } setVal(v); if (!range || (v && v.end)) done(); };
+  const canApply = range ? !!(draft && draft.start && draft.end) : !!draft;
   return (
     <div ref={rootRef} id={id} className={cx('ifs-select', `ifs-select--${size}`, 'ifs-datepicker', className)} style={style}>
-      <Trigger size={size} label={label} placeholder={placeholder} filled={filled} isOpen={isOpen} error={error} disabled={disabled}
+      <Trigger size={size} label={label} placeholder={placeholder} filled={filled} iconLeft={iconLeft} isOpen={isOpen} error={error} disabled={disabled}
         clearable={clearable} onClear={() => setVal(null)} state={state} triggerRef={trigRef}
         role="combobox" aria-haspopup="dialog" aria-expanded={isOpen} aria-controls={popId} aria-label={ariaLabel || label}
         onClick={() => setOpen(!isOpen)}
@@ -457,9 +470,11 @@ function DatePicker({ value, defaultValue = null, onChange, open, defaultOpen = 
         }} {...rest}>{text}</Trigger>
       {isOpen && (
         <Floating anchorRef={rootRef} floatRef={floatRef} position={listPosition} matchWidth={false}>
-        <div id={popId} role="dialog" aria-label={ariaLabel || label || 'Choose date'} className={cx('ifs-datepicker__popover', `ifs-datepicker__popover--${listPosition}`)}
+        <div id={popId} role="dialog" aria-label={ariaLabel || label || 'Choose date'} className={cx('ifs-datepicker__popover', `ifs-datepicker__popover--${listPosition}`, showApply && 'ifs-datepicker__popover--apply')}
           onKeyDown={e => { if (e.key === 'Escape') { e.stopPropagation(); setOpen(false); trigRef.current && trigRef.current.focus(); } }}>
-          <Calendar value={val} onChange={onPick} range={range} today={today} events={events} min={min} max={max} autoFocus={!state} />
+          <Calendar value={showApply ? draft : val} onChange={onPick} range={range} today={today} events={events} min={min} max={max} autoFocus={!state} />
+          {showApply && <IFS.Button type="secondary" size="m" className="ifs-datepicker__apply" disabled={!canApply}
+            onClick={() => { setVal(draft); done(); }}>{applyLabel}</IFS.Button>}
         </div>
         </Floating>
       )}
@@ -467,5 +482,111 @@ function DatePicker({ value, defaultValue = null, onChange, open, defaultOpen = 
   );
 }
 
-Object.assign(IFS, { Select, MultiSelect, Combobox, SegmentedControl, Chip, Calendar, DatePicker });
-export { Select, MultiSelect, Combobox, SegmentedControl, Chip, Calendar, DatePicker };
+// ---------- Menu ----------
+// One list (main or submenu) of Menu rows.
+function MenuList({ items, label, width, onRun, listRef, sub, setSub, submenuSide }) {
+  const btns = useRef([]);
+  const enabled = () => btns.current.map((b, k) => (b && !b.disabled ? k : -1)).filter(k => k >= 0);
+  const focusAt = i => { const b = btns.current[i]; b && b.focus(); };
+  const onKeyDown = (e, i, it) => {
+    const en = enabled(), at = en.indexOf(i);
+    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); focusAt(en[(at + (e.key === 'ArrowDown' ? 1 : -1) + en.length) % en.length]); }
+    else if (e.key === 'Home' || e.key === 'End') { e.preventDefault(); focusAt(e.key === 'Home' ? en[0] : en[en.length - 1]); }
+    else if (it.items && (e.key === (submenuSide === 'left' ? 'ArrowLeft' : 'ArrowRight'))) { e.preventDefault(); setSub && setSub(i); }
+  };
+  return (
+    <div ref={listRef} role="menu" aria-label={label} className="ifs-menu__list" style={width ? { width } : undefined}>
+      {items.map((it, i) => {
+        if (it.divider) return <div key={`d${i}`} role="separator" className="ifs-menu__divider" />;
+        if (it.title) return <div key={`t${i}`} role="presentation" className="ifs-menu__title">{it.title}</div>;
+        const b = (
+          <button key={`i${i}`} ref={el => (btns.current[i] = el)} type="button" role={it.selected != null ? 'menuitemcheckbox' : 'menuitem'}
+            aria-checked={it.selected != null ? !!it.selected : undefined} disabled={it.disabled} aria-haspopup={it.items ? 'menu' : undefined}
+            aria-expanded={it.items ? sub === i : undefined} data-state={it.state}
+            className={cx('ifs-menu__item', (it.danger || it.destructive) && 'is-danger', it.selected && 'is-selected', sub === i && 'is-open', it.description && 'has-description')}
+            onMouseEnter={() => setSub && setSub(it.items ? i : null)}
+            onKeyDown={e => onKeyDown(e, i, it)}
+            onClick={e => { e.stopPropagation(); if (it.disabled) return; if (it.items) { setSub && setSub(i); return; } onRun(it, e); }}>
+            {it.prefix}
+            {it.icon && <IFS.Icon name={it.icon} size={16} className="ifs-menu__icon" />}
+            <span className="ifs-menu__text">
+              <span className="ifs-menu__label">{it.label}</span>
+              {it.description && <span className="ifs-menu__description">{it.description}</span>}
+            </span>
+            {it.shortcut && <span className="ifs-menu__shortcut">{it.shortcut}</span>}
+            {it.items && <IFS.Icon name={submenuSide === 'left' ? 'arrow-caret-left-filled' : 'arrow-caret-right-filled'} size={12} className="ifs-menu__caret" />}
+            {it.selected && <IFS.Icon name="system-check" size={12} className="ifs-menu__check" />}
+          </button>
+        );
+        return it.disabled && it.reason && IFS.Tooltip
+          ? <IFS.Tooltip key={`i${i}`} content={it.reason} type="right"><span className="ifs-menu__wrap">{b}</span></IFS.Tooltip> : b;
+      })}
+    </div>
+  );
+}
+
+// Figma: single-select-list-molecule (445715ff…, 153:62054) of single-select-list-atom (1e822b07…, 153:61939), Size S (28):
+// 4px padding, radius 4, elevation-2 fill, border/base, blur/strong; rows Body/M/medium text/secondary, hover = button secondary hover.
+// A dropdown of commands anchored to a trigger. Rendered at the end of <body> (Floating), so no scrolling or blurred parent clips it.
+// Props: items = [{ label, icon, shortcut (Figma show-shortcut), description (Figma description line), danger, disabled, reason (tooltip on
+// a disabled item), selected (check), prefix (node before the label), items (submenu), keepOpen, onClick(item, event), hidden }
+//   | { divider: true } | { title: 'Section' }],
+// trigger (element; gets aria-haspopup/aria-expanded and the pressed look) or anchor (DOMRect or element, for menus opened elsewhere)
+// or inline (just the list, in place: galleries and custom popovers),
+// open / defaultOpen / onOpenChange, onSelect(item), align end|start, position down|up (flips when there is no room), width (default 200),
+// label (accessible name). Keyboard: ↑/↓ move, Home/End, Enter/Space run, → / ← open / close a submenu, Esc closes and refocuses the trigger.
+function Menu({ items = [], trigger, anchor, inline = false, open, defaultOpen = false, onOpenChange, onSelect, align = 'end', position = 'down', width = 200,
+  label = 'Menu', className, style }) {
+  const [isOpen, setOpenRaw] = useControlled(open, defaultOpen, onOpenChange);
+  const [sub, setSub] = useState(null);
+  const rootRef = useRef(null), floatRef = useRef(null), listRef = useRef(null);
+  const anchorRef = useMemo(() => ({ get current() {
+    if (!anchor) return rootRef.current;
+    return typeof anchor.getBoundingClientRect === 'function' ? anchor : { getBoundingClientRect: () => anchor };
+  } }), [anchor]);
+  const setOpen = v => { if (v !== isOpen) setOpenRaw(v); if (!v) setSub(null); };
+  const focusTrigger = () => { const t = rootRef.current && rootRef.current.querySelector('button,[tabindex]'); t && t.focus(); };
+  useOutside(isOpen, [rootRef, floatRef], () => setOpen(false));
+  useEffect(() => {
+    if (!isOpen) return;
+    const id = requestAnimationFrame(() => {
+      const f = listRef.current && listRef.current.querySelector('.ifs-menu__item:not(:disabled)');
+      if (f) f.focus({ preventScroll: true });
+    });
+    return () => cancelAnimationFrame(id);
+  }, [isOpen]);
+  const list = items.filter(it => it && !it.hidden);
+  const subItems = sub != null && list[sub] && list[sub].items ? list[sub].items.filter(it => it && !it.hidden) : null;
+  const side = align === 'end' ? 'left' : 'right';
+  const run = (it, e) => { if (!it.keepOpen) { setOpen(false); if (trigger) focusTrigger(); } if (it.onClick) it.onClick(it, e); if (onSelect) onSelect(it); };
+  const body = (
+    <div className={cx('ifs-menu__panel', side === 'left' && 'ifs-menu__panel--left', inline && className)} style={inline ? style : undefined}
+      onKeyDown={e => {
+        if (e.key === 'Escape' && !inline) { e.preventDefault(); e.stopPropagation(); if (subItems) { setSub(null); return; } setOpen(false); focusTrigger(); }
+        else if (e.key === 'Tab' && !inline) setOpen(false);
+      }}>
+      <MenuList items={list} label={label} width={width} onRun={run} listRef={listRef} sub={sub} setSub={setSub} submenuSide={side} />
+      {subItems && <MenuList items={subItems} label={list[sub].label} width={width} onRun={run} submenuSide={side} />}
+    </div>
+  );
+  if (inline) return body;
+  const panel = isOpen && (
+    <Floating anchorRef={anchorRef} floatRef={floatRef} position={position} matchWidth={false} align={align} flip>
+      {body}
+    </Floating>
+  );
+  if (!trigger) return panel || null;
+  const t = React.isValidElement(trigger) ? React.cloneElement(trigger, {
+    'aria-haspopup': 'menu', 'aria-expanded': !!isOpen, 'data-state': isOpen ? 'pressed' : trigger.props['data-state'],
+    onClick: e => { trigger.props.onClick && trigger.props.onClick(e); if (!e.defaultPrevented) setOpen(!isOpen); },
+    onKeyDown: e => { trigger.props.onKeyDown && trigger.props.onKeyDown(e); if (e.key === 'ArrowDown' && !isOpen) { e.preventDefault(); setOpen(true); } },
+  }) : trigger;
+  return (
+    <span ref={rootRef} className={cx('ifs-menu', className)} style={style} onClick={e => e.stopPropagation()}>
+      {t}{panel}
+    </span>
+  );
+}
+
+Object.assign(IFS, { Menu, Select, MultiSelect, Combobox, SegmentedControl, Chip, Calendar, DatePicker });
+export { Menu, Select, MultiSelect, Combobox, SegmentedControl, Chip, Calendar, DatePicker };

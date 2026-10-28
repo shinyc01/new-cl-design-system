@@ -199,18 +199,23 @@ function DvCooperButton({ onClick, label = 'Ask Cooper about this chart' }) {
 // Props: state default|hover|drag|cooper, title, header = extra DataVizHeader props, children = Content slot, legend (node, below content).
 // variant="chart" is the frame every core chart (chart-column … chart-funnel) is drawn in: 6px padding, header with the Cooper
 // button (onCooper) and, on hover, drag handle + "Edit with Cooper" (onEditWithCooper; false hides it) + the view-as-table toggle.
-function DataVizCard({ variant = 'organism', state, title, header, legend, children, onCooper, onEditWithCooper, tableView, onToggleTable, className, ...rest }) {
+// actions = extra header node (e.g. a ⋮ menu IconButton), shown in the hover row after "Edit with Cooper" (chart) or after the
+// header's own hover icons (organism). bare = no frame: no padding, fill, border or header — just the content and legend, for
+// a chart placed inside another frame that already draws the header (e.g. a dashboard widget).
+function DataVizCard({ variant = 'organism', state, title, header, legend, children, onCooper, onEditWithCooper, tableView, onToggleTable,
+  actions, bare, className, ...rest }) {
   if (variant === 'chart') {
     return (
       <section data-state={state} aria-label={typeof title === 'string' ? title : undefined}
-        className={IFS.cx('ifs-dv-card', 'ifs-dv-card--chart', state && `ifs-dv-card--${state}`, className)} {...rest}>
-        <DataVizHeader title={title} draggable {...header}
+        className={IFS.cx('ifs-dv-card', 'ifs-dv-card--chart', bare && 'ifs-dv-card--bare', state && `ifs-dv-card--${state}`, className)} {...rest}>
+        {!bare && <DataVizHeader title={title} draggable {...header}
           hoverActions={<>
             {onEditWithCooper !== false && <IFS.Button type="tertiary" size="s" iconLeft="cooper-system-icon" onClick={onEditWithCooper || undefined}>Edit with Cooper</IFS.Button>}
             {onToggleTable && <IFS.IconButton type="ghost" size="s" icon="system-dots-vertical" label={tableView ? 'View as chart' : 'View as table'} aria-pressed={!!tableView} onClick={onToggleTable} />}
+            {actions}
             <span className="ifs-dv-header__divider" aria-hidden="true" />
           </>}
-          slot={<DvCooperButton onClick={onCooper} />} />
+          slot={<DvCooperButton onClick={onCooper} />} />}
         <div className="ifs-dv-card__body">{children}</div>
         {legend && <div className="ifs-dv-card__legend">{legend}</div>}
       </section>
@@ -218,8 +223,8 @@ function DataVizCard({ variant = 'organism', state, title, header, legend, child
   }
   return (
     <section data-state={state} aria-label={typeof title === 'string' ? title : undefined}
-      className={IFS.cx('ifs-dv-card', state && `ifs-dv-card--${state}`, className)} {...rest}>
-      <DataVizHeader title={title} {...header} />
+      className={IFS.cx('ifs-dv-card', bare && 'ifs-dv-card--bare', state && `ifs-dv-card--${state}`, className)} {...rest}>
+      {!bare && <DataVizHeader title={title} {...header} hoverActions={actions || (header && header.hoverActions) ? <>{header && header.hoverActions}{actions}</> : undefined} />}
       <div className="ifs-dv-card__content">{children}{legend && <div className="ifs-dv-card__legend">{legend}</div>}</div>
     </section>
   );
@@ -323,9 +328,10 @@ function ChartEmpty({ title, text }) {
 
 // Shared frame for every core chart: DataVizCard (variant chart) + states + view-as-table fallback + screen-reader table.
 // Shell props (all charts): title, state default|hover|empty|loading|cooper (hover = forced card hover; real hover works too),
-// view / defaultView chart|table / onViewChange, defaultActive (index — or [row, col] for heatmap — whose tooltip starts open), onCooper, onEditWithCooper, emptyTitle, emptyText, height (plot px, default 328), className, style.
+// view / defaultView chart|table / onViewChange, defaultActive (index — or [row, col] for heatmap — whose tooltip starts open), onCooper, onEditWithCooper,
+// actions (extra hover-row header node), bare (no frame or header: for a chart inside a widget frame), emptyTitle, emptyText, height (plot px, default 328), className, style.
 function ChartShell({ title, state, legend, table, isEmpty, skeleton = 'bars', height = 328, view, defaultView = 'chart', onViewChange,
-  onCooper, onEditWithCooper, emptyTitle = 'Insufficient data', emptyText = 'Not enough data to display this chart yet.', className, style, children }) {
+  onCooper, onEditWithCooper, actions, bare, emptyTitle = 'Insufficient data', emptyText = 'Not enough data to display this chart yet.', className, style, children }) {
   const [v, setV] = useControlled(view, defaultView, onViewChange);
   const mode = state === 'loading' ? 'loading' : state === 'empty' || isEmpty ? 'empty' : v === 'table' ? 'table' : 'chart';
   const cardState = state === 'hover' || state === 'cooper' ? state : undefined;
@@ -338,7 +344,7 @@ function ChartShell({ title, state, legend, table, isEmpty, skeleton = 'bars', h
   );
   return (
     <DataVizCard variant="chart" title={title} state={cardState} className={IFS.cx('ifs-chart', `ifs-chart--${mode}`, className)} style={style}
-      onCooper={onCooper} onEditWithCooper={onEditWithCooper}
+      onCooper={onCooper} onEditWithCooper={onEditWithCooper} actions={actions} bare={bare}
       tableView={mode === 'table'} onToggleTable={table && (mode === 'chart' || mode === 'table') ? () => setV(mode === 'table' ? 'chart' : 'table') : undefined}
       legend={mode === 'chart' || mode === 'table' ? legend : null}>
       {mode === 'loading' ? <ChartSkeleton kind={skeleton} height={height} />
@@ -408,8 +414,8 @@ function Plot({ p, label, children, tip }) {
   );
 }
 
-const shellProps = ({ title, state, view, defaultView, onViewChange, onCooper, onEditWithCooper, emptyTitle, emptyText, height = 328, className, style }) =>
-  ({ title, state, view, defaultView, onViewChange, onCooper, onEditWithCooper, emptyTitle, emptyText, height, className, style });
+const shellProps = ({ title, state, view, defaultView, onViewChange, onCooper, onEditWithCooper, actions, bare, emptyTitle, emptyText, height = 328, className, style }) =>
+  ({ title, state, view, defaultView, onViewChange, onCooper, onEditWithCooper, actions, bare, emptyTitle, emptyText, height, className, style });
 
 const tipFrom = (d, base, tooltip, i) => (tooltip ? tooltip(d, i) : { ...base, ...(d.delta && { delta: d.delta }), ...(d.details && { items: d.details }) });
 
@@ -976,7 +982,7 @@ function ProgressRing({ value = 0, size = 24, label = 'Progress', className, ...
   const sw = size * 0.15, r = size / 2 - sw / 2, C = 2 * Math.PI * r; // Figma: ellipse arc, inner radius 70%
   return (
     <svg role="progressbar" aria-label={label} aria-valuemin={0} aria-valuemax={100} aria-valuenow={v} width={size} height={size} viewBox={`0 0 ${size} ${size}`}
-      className={IFS.cx('ifs-progress-ring', className)} {...rest}>
+      className={IFS.cx('ifs-progress-ring', v >= 100 && 'ifs-progress-ring--complete', className)} {...rest}>
       <circle cx={size / 2} cy={size / 2} r={r} fill="none" className="ifs-progress-ring__track" strokeWidth={sw} />
       {v > 0 && <circle cx={size / 2} cy={size / 2} r={r} fill="none" className="ifs-progress-ring__bar" strokeWidth={sw}
         strokeDasharray={`${(C * v) / 100} ${C}`} transform={`rotate(-90 ${size / 2} ${size / 2})`} />}

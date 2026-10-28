@@ -7,7 +7,7 @@ const section = sections.find(s => s.name === "ApprovalChain");
 export default {
   title: "Activity & Collaboration/ApprovalChain",
   component: IFS["ApprovalChain"],
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   parameters: {
     docs: { description: { component: "**Figma:** approval-chain-timeline (1440:6174) (legacy) — built on activity-organism\n\n\n**Use for** (inferred) One approver step in an approval chain. **Notes** (Figma) Legacy timeline; new ones use the timeline base (`activity-organism`)." } },
     design: {"type":"figma","url":"https://www.figma.com/design/atgUmwcA1AE5sjFoWBT7ar/IFS-Design-System?node-id=1440-6174"},

@@ -7,7 +7,7 @@ const section = sections.find(s => s.name === "DatePicker");
 export default {
   title: "Selection/DatePicker",
   component: IFS["DatePicker"],
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   parameters: {
     docs: { description: { component: "**Figma:** date-picker-molecule (3406:9510) · date-atom (1440:5201)\n\n\n**Use for** (Figma) Single date: click a day commits and closes, no Apply. Range: two clicks, then Apply confirms. Field is typeable (DD.MM.YYYY) and stays in sync with the grid; header opens month/year view.\n\n\n---\n\n\n**Use for** (inferred) One day cell in the calendar." } },
     design: [{"name":"date-picker-molecule","type":"figma","url":"https://www.figma.com/design/atgUmwcA1AE5sjFoWBT7ar/IFS-Design-System?node-id=3406-9510"},{"name":"date-atom","type":"figma","url":"https://www.figma.com/design/atgUmwcA1AE5sjFoWBT7ar/IFS-Design-System?node-id=1440-5201"}],

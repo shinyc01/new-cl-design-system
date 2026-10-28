@@ -7,7 +7,7 @@ const section = sections.find(s => s.name === "TextField");
 export default {
   title: "Inputs & Forms/TextField",
   component: IFS["TextField"],
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   parameters: {
     docs: { description: { component: "**Figma:** text-field-organism (210:77559)\n\n\n**Use for** (Figma) Single-line input. L = full-page contexts where the input is central; M = drawers, modals, embedded surfaces.\n\n**Notes** (Figma) All visible fields are required; no required markers. Cooper / Cooper Generating states show Cooper-filled values." } },
     design: {"type":"figma","url":"https://www.figma.com/design/atgUmwcA1AE5sjFoWBT7ar/IFS-Design-System?node-id=210-77559"},

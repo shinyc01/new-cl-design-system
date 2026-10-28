@@ -7,7 +7,7 @@ const section = sections.find(s => s.name === "DataVizBar");
 export default {
   title: "Data Visualisation/DataVizBar",
   component: IFS["DataVizBar"],
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   parameters: {
     docs: { description: { component: "**Figma:** bar-atom (4457:32996)\n\n\n**Use for** (inferred) One bar; Background = the meter track." } },
     design: {"type":"figma","url":"https://www.figma.com/design/atgUmwcA1AE5sjFoWBT7ar/IFS-Design-System?node-id=4457-32996"},

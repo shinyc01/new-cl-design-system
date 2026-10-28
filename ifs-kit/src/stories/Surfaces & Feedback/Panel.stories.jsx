@@ -7,7 +7,7 @@ const section = sections.find(s => s.name === "Panel");
 export default {
   title: "Surfaces & Feedback/Panel",
   component: IFS["Panel"],
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   parameters: {
     docs: { description: { component: "**Figma:** panel-organism (4305:365421)\n\n\n**Use for** (Figma) Persistent, always-relevant side context inside the page layout (confidence/insight rail, inspector, secondary reading pane). 380px expanded / 84px collapsed, full height, divider not shadow.\n\n**Don't use for** (Figma) Temporary tasks or on-demand detail (→ drawer or popover); anything with a scrim or focus trap." } },
     design: {"type":"figma","url":"https://www.figma.com/design/atgUmwcA1AE5sjFoWBT7ar/IFS-Design-System?node-id=4305-365421"},

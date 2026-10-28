@@ -113,16 +113,25 @@
 .ifs-bottom-sheet--base{justify-content:flex-end}
 .ifs-bottom-sheet--value,.ifs-bottom-sheet--explore{justify-content:space-between}
 .ifs-bottom-sheet--explore{padding-left:var(--paddings-padding-150,6px)}
-.ifs-bottom-sheet__agent{display:flex;align-items:center;gap:6px;flex:none;margin-left:auto}
-.ifs-bottom-sheet__prompts{display:flex;align-items:center;gap:4px}
-.ifs-bottom-sheet__left{display:flex;align-items:center;gap:12px;min-width:0}
+.ifs-bottom-sheet__agent{display:flex;align-items:center;gap:6px;flex:0 1 auto;min-width:0;margin-left:auto}
+.ifs-bottom-sheet__agent > :not(.ifs-bottom-sheet__prompts){flex:none}
+.ifs-bottom-sheet__prompts{display:flex;align-items:center;gap:4px;min-width:0}
+.ifs-bottom-sheet__prompts > *{flex:none}
+/* Sideways scroll when space runs out (no visible bar); 3px inner padding keeps focus rings unclipped */
+.ifs-bottom-sheet__scroller{overflow-x:auto;overflow-y:hidden;scrollbar-width:none;padding:3px;margin:-3px}
+.ifs-bottom-sheet__scroller::-webkit-scrollbar{display:none}
+.ifs-bottom-sheet__left{display:flex;align-items:center;gap:12px;flex:0 1 auto}
+.ifs-bottom-sheet__left > *{flex:none}
+.ifs-bottom-sheet__left > .ifs-bottom-sheet__context{flex:0 1 auto}
 .ifs-bottom-sheet__context{display:flex;align-items:center;gap:8px}
 .ifs-bottom-sheet__context-title{color:var(--text-secondary);font:500 12px/14px var(--font-family-text);letter-spacing:.1px;text-transform:uppercase;white-space:nowrap}
 .ifs-bottom-sheet__buttons{display:flex;align-items:center;gap:6px}
-.ifs-coverage{display:flex;align-items:center;gap:10px /* raw in Figma */;width:190px;box-sizing:border-box;padding:var(--paddings-padding-100);border-radius:var(--radius-radius-100)}
+.ifs-coverage{display:flex;align-items:center;gap:10px /* raw in Figma */;width:190px;flex:0 1 190px;min-width:96px;box-sizing:border-box;padding:var(--paddings-padding-100);border-radius:var(--radius-radius-100)}
 .ifs-coverage .ifs-progress{flex:1 1 auto;width:auto}
 .ifs-coverage__value{color:var(--text-primary);font:500 14px/20px var(--font-family-text);letter-spacing:-.15px}
-.ifs-bottom-sheet__map{display:flex;align-items:center;gap:16px}
+.ifs-bottom-sheet__map{display:flex;align-items:center;gap:16px;min-width:0;flex:0 1 auto}
+.ifs-bottom-sheet__fields{display:flex;align-items:center;gap:16px;min-width:0}
+.ifs-bottom-sheet__fields > *,.ifs-bottom-sheet__map > :not(.ifs-bottom-sheet__fields){flex:none}
 .ifs-map-field{display:flex;flex-direction:column;gap:4px}
 .ifs-map-field__label{padding-left:var(--paddings-padding-150,6px);color:var(--text-tertiary);font:400 10px/12px var(--font-family-text);letter-spacing:.1px;text-transform:uppercase;white-space:nowrap}
 .ifs-map-field__row{display:flex;align-items:center;gap:2px /* raw in Figma */;height:16px}

@@ -7,7 +7,7 @@ const section = sections.find(s => s.name === "Search");
 export default {
   title: "Inputs & Forms/Search",
   component: IFS["Search"],
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   parameters: {
     docs: { description: { component: "**Figma:** search-regular-organism (153:63462)\n\n\n**Use for** (inferred) Keyword/name search over a list or table.\n\n**Don't use for** (Figma, Table) Natural-language questions — that is the separate Cooper \"Ask anything…\" bar." } },
     design: {"type":"figma","url":"https://www.figma.com/design/atgUmwcA1AE5sjFoWBT7ar/IFS-Design-System?node-id=153-63462"},

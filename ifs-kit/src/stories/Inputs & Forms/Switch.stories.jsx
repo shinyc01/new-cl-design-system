@@ -7,7 +7,7 @@ const section = sections.find(s => s.name === "Switch");
 export default {
   title: "Inputs & Forms/Switch",
   component: IFS["Switch"],
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   parameters: {
     docs: { description: { component: "**Figma:** switch-molecule (88:22668), switch-atom (88:23960)\n\n\n**Use for** (inferred) Labelled on/off setting that applies immediately.\n\n\n**Use for** (inferred) Bare toggle inside cards/rows (e.g. map layer cards)." } },
     design: [{"name":"switch-molecule","type":"figma","url":"https://www.figma.com/design/atgUmwcA1AE5sjFoWBT7ar/IFS-Design-System?node-id=88-22668"},{"name":"switch-atom","type":"figma","url":"https://www.figma.com/design/atgUmwcA1AE5sjFoWBT7ar/IFS-Design-System?node-id=88-23960"}],

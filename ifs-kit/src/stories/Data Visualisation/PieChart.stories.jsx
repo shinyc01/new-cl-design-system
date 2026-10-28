@@ -7,7 +7,7 @@ const section = sections.find(s => s.name === "PieChart");
 export default {
   title: "Data Visualisation/PieChart",
   component: IFS["PieChart"],
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   parameters: {
     docs: { description: { component: "**Figma:** chart-pie (9866:12309)\n\n\n**Use for** (inferred) Parts of one whole with few slices. Prefer `chart-donut` (documented)." } },
     design: {"type":"figma","url":"https://www.figma.com/design/atgUmwcA1AE5sjFoWBT7ar/IFS-Design-System?node-id=9866-12309"},

@@ -95,5 +95,9 @@ export default IFS_GALLERY;
     <Labeled label="value, not in progress"><BottomSheet type="value" prompts={prompts} documents={{ label: '3 Documents' }} onUpload={() => {}} /></Labeled>
     <Labeled label="value, Active (read-only)"><BottomSheet type="value" prompts={prompts} documents={{ label: '16 Documents' }} /></Labeled>
     <Labeled label="type=explore"><BottomSheet type="explore" prompts={['What’s this signal?', 'Open overnight log']} /></Labeled>
+    <Labeled label="600px wide: left side and prompts scroll sideways, nothing overflows"><div style={{ width: 600, display: 'flex', flexDirection: 'column', gap: 12 }}>
+      <BottomSheet type="value" inProgress coverage={10} prompts={prompts} documents={{ label: '3 Documents' }} onUpload={() => {}} />
+      <BottomSheet type="explore" prompts={['What’s this signal?', 'Open overnight log']} />
+    </div></Labeled>
   </div> });
 }

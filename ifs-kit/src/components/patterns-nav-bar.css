@@ -1,0 +1,85 @@
+/* Patterns › Nav bar (Patterns page 243:66369): nav-bar-organism Collapsed / Collapsed opened, explore-header,
+   home-row-card-organism, and the Plan tree sidebar (SideNavTree). */
+
+/* ---------- NavBarCollapsed: nav-bar-organism Type=Collapsed (12:2340) / Collapsed opened (12:2352) ----------
+   Shares the bar shell of IFS.NavBar (.ifs-navbar*, navigation.css): 48px, padding 8/12, gap 20, left gap 24. */
+.ifs-navbar-responsive{width:100%}
+.ifs-navbar-menu{position:relative;display:flex;align-items:center;height:30px}
+.ifs-navbar-menu__trigger{display:inline-flex}
+/* single-select-list-molecule (.ifs-select__list, selection.css): 240 wide, L rows (40px), 4px under the hamburger */
+.ifs-select__list.ifs-navbar-menu__list{left:0;right:auto;top:calc(100% + var(--gaps-gap-100) + 1px);width:240px;max-height:none}
+
+/* ---------- ExploreHeader: explore-header (12:175111) ---------- */
+.ifs-explore-header{box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;gap:var(--gaps-gap-300);
+  width:100%;height:40px;padding:0 var(--paddings-padding-300);
+  background:var(--surface-primary-alpha);box-shadow:inset 0 -1px 0 var(--border-base);
+  backdrop-filter:blur(var(--blur-light));-webkit-backdrop-filter:blur(var(--blur-light))}
+.ifs-explore-header__left,.ifs-explore-header__right{display:flex;align-items:center;gap:var(--gaps-gap-150);min-width:0}
+.ifs-explore-header__right{flex:none}
+
+/* ---------- HomeRowCard: home-row-card-organism (244:117301) ---------- */
+.ifs-home-row-card{position:relative;box-sizing:border-box;display:flex;align-items:stretch;width:100%;
+  border-radius:var(--radius-radius-200);background:var(--surface-secondary-alpha);color:var(--text-primary);
+  outline:none;transition:background-color .12s}
+.ifs-home-row-card[role=button]{cursor:pointer}
+.ifs-home-row-card--primary{height:124px}
+.ifs-home-row-card--secondary{height:72px}
+.ifs-home-row-card:hover,.ifs-home-row-card[data-state=hover]{background:var(--surface-tertiary-alpha)}
+.ifs-home-row-card:focus-visible,.ifs-home-row-card[data-state=focus]{box-shadow:0 0 0 1.5px var(--focus-focus-inner),0 0 0 3px var(--focus-focus-outer)}
+/* Primary: 1px INSIDE gradient stroke, white (left) → Cooper copper (right) */
+.ifs-home-row-card--primary::before{content:'';position:absolute;inset:0;border-radius:inherit;padding:1px;pointer-events:none;
+  background:linear-gradient(90deg,var(--border-white),var(--border-accent-cooper));
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
+.ifs-home-row-card--loading{background:linear-gradient(90deg,var(--background-elevation-1-secondary),var(--surface-secondary-alpha),var(--background-elevation-1-secondary));cursor:default}
+.ifs-home-row-card--loading::before{display:none}
+.ifs-home-row-card__rank{flex:none;display:flex;justify-content:center;align-items:flex-start;box-sizing:border-box;width:72px;
+  padding:18px var(--paddings-padding-400) /* raw in Figma: 18 */}
+.ifs-home-row-card__body{flex:1 1 460px;min-width:0;display:flex;flex-direction:column;justify-content:center;gap:var(--gaps-gap-300);
+  box-sizing:border-box;padding:var(--paddings-padding-400) var(--paddings-padding-400) var(--paddings-padding-400) 0}
+.ifs-home-row-card--secondary .ifs-home-row-card__body{flex-basis:460px}
+.ifs-home-row-card__text{display:flex;flex-direction:column;gap:var(--gaps-gap-100);min-width:0}
+.ifs-home-row-card__head{display:flex;align-items:center;gap:var(--gaps-gap-200);min-width:0;min-height:20px}
+.ifs-home-row-card__title{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--text-primary);
+  font:500 14px/20px var(--font-family-text);letter-spacing:-0.15px /* Body/L/medium */}
+.ifs-home-row-card__head .ifs-badge{flex:none}
+.ifs-home-row-card__desc{margin:0;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--text-tertiary);
+  font:400 12px/16px var(--font-family-text);letter-spacing:-0.1px /* Body/M/regular */}
+.ifs-home-row-card__metrics{display:flex}
+.ifs-home-row-card__metric{flex:none;display:flex;flex-direction:column;gap:var(--gaps-gap-100);box-sizing:border-box;width:132px;min-width:0}
+.ifs-home-row-card__metric+.ifs-home-row-card__metric{width:190px}
+.ifs-home-row-card--primary .ifs-home-row-card__metric+.ifs-home-row-card__metric{padding-left:var(--paddings-padding-400)}
+.ifs-home-row-card--secondary .ifs-home-row-card__metric{padding:var(--paddings-padding-400);justify-content:center}
+.ifs-home-row-card__value{white-space:nowrap;color:var(--text-primary);font:500 14px/20px var(--font-family-text);letter-spacing:-0.15px /* Body/L/medium */}
+.ifs-home-row-card__label{white-space:nowrap;color:var(--text-tertiary);font:400 12px/16px var(--font-family-text);letter-spacing:-0.1px /* Body/M/regular */}
+.ifs-home-row-card__action{flex:none;display:flex;justify-content:flex-end;box-sizing:border-box;padding:var(--paddings-padding-400)}
+.ifs-home-row-card--secondary .ifs-home-row-card__action{width:182px;align-items:center}
+.ifs-home-row-card__media{position:relative;flex:0 1 504px;min-width:182px;display:flex;justify-content:flex-end;align-items:flex-end}
+.ifs-home-row-card__media-art{position:absolute;inset:0;overflow:hidden;border-radius:var(--radius-radius-100)}
+/* Figma "overlay": radial fade of the map into the card (mask: alpha only, no colour) */
+.ifs-home-row-card__media-art{-webkit-mask-image:radial-gradient(ellipse 75% 140% at 62% 50%,black 35%,transparent 100%);
+  mask-image:radial-gradient(ellipse 75% 140% at 62% 50%,black 35%,transparent 100%)}
+.ifs-home-row-card__media .ifs-home-row-card__action{position:relative}
+
+/* ---------- SideNavTree: navigation-panel-organism + folder tree (Plan 244:120655) ---------- */
+.ifs-nav-tree__list,.ifs-nav-tree__children{display:flex;flex-direction:column;gap:var(--gaps-gap-50);margin:0;padding:0;list-style:none}
+.ifs-nav-tree__children{position:relative;padding-left:18px /* raw in Figma */;margin-top:var(--gaps-gap-50)}
+/* tree guide: hairline from the parent's caret down the children */
+.ifs-nav-tree__children::before{content:'';position:absolute;left:9px;top:0;bottom:16px;width:7px;
+  border-left:1px solid var(--border-base);border-bottom:1px solid var(--border-base);border-bottom-left-radius:var(--radius-radius-100);pointer-events:none}
+.ifs-nav-tree__section{display:flex;flex-direction:column;padding-top:var(--paddings-padding-100)}
+.ifs-nav-tree__row{box-sizing:border-box;display:flex;align-items:center;gap:var(--gaps-gap-100);width:100%;height:32px;margin:0;
+  padding:var(--paddings-padding-200) var(--paddings-padding-200) var(--paddings-padding-200) var(--paddings-padding-100);
+  border:0;border-radius:var(--radius-radius-100);background:transparent;color:var(--text-secondary);text-align:left;cursor:pointer;
+  font:500 12px/16px var(--font-family-text);letter-spacing:-0.1px /* Body/M/medium */;transition:background-color .12s}
+.ifs-nav-tree__row .ifs-icon{flex:none;color:var(--icon-secondary)}
+.ifs-nav-tree__caret{flex:none;display:inline-flex;width:12px;height:12px}
+.ifs-nav-tree__label{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ifs-nav-tree__row:hover{background:var(--background-elevation-1-secondary);color:var(--text-primary)}
+.ifs-nav-tree__row.is-path{box-shadow:inset 0 0 0 1px var(--border-base);color:var(--text-primary)}
+.ifs-nav-tree__row.is-current{background:var(--background-elevation-1-secondary);color:var(--text-primary)}
+.ifs-nav-tree__row.is-current:has(.ifs-nav-tree__caret){box-shadow:inset 0 0 0 1px var(--border-base)}
+.ifs-nav-tree__row.is-path .ifs-icon,.ifs-nav-tree__row.is-current .ifs-icon,.ifs-nav-tree__row:hover .ifs-icon{color:var(--icon-primary)}
+.ifs-nav-tree__row:focus-visible{outline:none;box-shadow:0 0 0 1.5px var(--focus-focus-inner),0 0 0 3px var(--focus-focus-outer)}
+
+/* ---------- StagedAppShell ---------- */
+.ifs-staged-shell{position:relative;width:100%;height:100vh;overflow:hidden}

@@ -5,7 +5,7 @@ const IFS_GALLERY = [];
 export default IFS_GALLERY;
 
 {
-  const { Select, MultiSelect, Combobox, SegmentedControl, Chip, Calendar, DatePicker } = IFS;
+  const { Menu, Select, MultiSelect, Combobox, SegmentedControl, Chip, Calendar, DatePicker } = IFS;
   const Row = ({ label, children, style }) => <div className="g-row" style={style}><span className="g-label t-body-m-regular">{label}</span>{children}</div>;
   const LONG = 'Scenario Pricing Model Affected by Various Customer segments';
   const OPTS = ['Alpha', 'Bravo', 'Charlie', 'Delta', 'Echo', 'Foxtrot', 'Golf', 'Hotel', LONG].map((l, i) => ({ value: i + 1, label: l }));
@@ -28,6 +28,10 @@ export default IFS_GALLERY;
       <div style={{ width: 384 }}><Select size="l" defaultOpen placeholder="{label}" listTitle="Suggested" options={OPTS} defaultValue={3} /></div>
       <div style={{ width: 384, marginTop: 460 }}><Select size="l" defaultOpen listPosition="up" placeholder="{label}" listTitle="Suggested" options={OPTS} /></div>
       <div style={{ width: 240 }}><Select size="m" defaultOpen placeholder="{label}" listSize="l" options={[...OPTS.slice(0, 3), { value: 'x', label: 'Disabled option', disabled: true }]} defaultValue={2} /></div>
+    </Row>
+    <Row label="divider + action" style={{ alignItems: 'flex-start', height: 240 }}>
+      <div style={{ width: 240 }}><Select size="m" defaultOpen placeholder="Owner" defaultValue={1}
+        options={[...OPTS.slice(0, 3), { divider: true }, { action: true, danger: true, icon: 'system-trash-delete', label: 'Remove' }]} /></div>
     </Row>
   </> });
 
@@ -62,6 +66,29 @@ export default IFS_GALLERY;
       {[undefined, 'hover', 'pressed', 'focus'].map(s => <SegmentedControl key={s || 'd'} size={z} defaultValue={0} options={[{ value: 0, label: 'label', iconLeft: 'system-star-favourite', iconRight: 'system-heart', counter: 3, state: s }, { value: 1, label: 'label', iconLeft: 'system-star-favourite', iconRight: 'system-heart', counter: 3, state: s }]} />)}
       <SegmentedControl size={z} defaultValue={0} options={[{ value: 0, label: 'label', counter: 3, disabled: true }, { value: 1, label: 'label', counter: 3, disabled: true }]} />
     </Row>)}
+    <Row label="fullWidth (355)"><div style={{ width: 355 }}><SegmentedControl size="s" fullWidth options={[{ value: 0, label: 'Versions' }, { value: 1, label: 'Approvals', counter: 2 }]} /></div></Row>
+  </> });
+
+  const MENU = [
+    { title: 'Actions' },
+    { label: 'Rename', icon: 'system-edit-rename', shortcut: '⌘R' },
+    { label: 'Duplicate', icon: 'duplicate', shortcut: '⌘D' },
+    { label: 'Compare', icon: 'compare', disabled: true, reason: 'Compare needs two versions' },
+    { label: 'Pinned', icon: 'chat-pin', selected: true },
+    { divider: true },
+    { label: 'Delete', icon: 'system-trash-delete', danger: true },
+  ];
+  IFS_GALLERY.push({ name: 'Menu', figma: 'single-select-list-molecule (153:62054) · single-select-list-atom (153:61939)', render: () => <>
+    <Row label="list" style={{ alignItems: 'flex-start' }}>
+      <Menu inline items={MENU} />
+      <Menu inline width={160} items={[{ label: 'Default' }, { label: 'Hover', state: 'hover' }, { label: 'Selected', selected: true }, { label: 'Disabled', disabled: true }, { label: 'Danger', danger: true }]} />
+      <Menu inline width={240} items={[{ label: 'Approve', description: 'Moves the item to the next stage' }, { label: 'Approve with note', description: 'Adds a note for the next approver' }]} />
+    </Row>
+    <Row label="trigger (end / start)" style={{ alignItems: 'flex-start', height: 280 }}>
+      <div style={{ width: 240, display: 'flex', justifyContent: 'flex-end' }}><Menu defaultOpen items={MENU} label="More actions" trigger={<IFS.IconButton icon="system-dots-vertical" type="ghost" size="s" label="More actions" />} /></div>
+      <div style={{ width: 240, marginLeft: 40 }}><Menu align="start" items={[{ label: 'Resize', icon: 'arrow-diagonal-expand', items: [{ label: 'Small' }, { label: 'Medium', selected: true }, { label: 'Large' }] }, { label: 'Remove', icon: 'system-trash-delete', danger: true }]}
+        label="Widget actions" trigger={<IFS.Button type="secondary" size="s" iconRight="arrow-caret-down-filled">Open menu</IFS.Button>} /></div>
+    </Row>
   </> });
 
   IFS_GALLERY.push({ name: 'Chip', figma: 'chips (832:235895)', render: () => <>
@@ -87,6 +114,9 @@ export default IFS_GALLERY;
       <div style={{ width: 240 }}><DatePicker defaultValue={new Date(2026, 1, 18)} defaultOpen state="open" /></div>
       <div style={{ width: 240 }}><DatePicker size="l" /></div>
       <div style={{ width: 240 }}><DatePicker size="xl" label="Date" range /></div>
+    </Row>
+    <Row label="showApply" style={{ alignItems: 'flex-start', height: 380 }}>
+      <div style={{ width: 240 }}><DatePicker defaultValue={new Date(2026, 1, 18)} defaultOpen state="open" showApply /></div>
     </Row>
   </> });
 }

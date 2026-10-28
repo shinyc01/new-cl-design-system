@@ -7,7 +7,7 @@ const section = sections.find(s => s.name === "Skeleton");
 export default {
   title: "Content States & Cooper/Skeleton",
   component: IFS["Skeleton"],
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   parameters: {
     docs: { description: { component: "**Figma:** Content States › Skeleton (4759:9600)" } },
     design: {"type":"figma","url":"https://www.figma.com/design/atgUmwcA1AE5sjFoWBT7ar/IFS-Design-System?node-id=4759-9600"},

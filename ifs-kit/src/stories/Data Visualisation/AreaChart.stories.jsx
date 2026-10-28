@@ -7,7 +7,7 @@ const section = sections.find(s => s.name === "AreaChart");
 export default {
   title: "Data Visualisation/AreaChart",
   component: IFS["AreaChart"],
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   parameters: {
     docs: { description: { component: "**Figma:** chart-area (9863:12167)\n\n\n**Use for** (inferred) Cumulative volume over time." } },
     design: {"type":"figma","url":"https://www.figma.com/design/atgUmwcA1AE5sjFoWBT7ar/IFS-Design-System?node-id=9863-12167"},
