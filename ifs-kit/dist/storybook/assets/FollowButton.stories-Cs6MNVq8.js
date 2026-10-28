@@ -1,0 +1,4 @@
+import{I as s}from"./patterns-table-CKZZN5E-.js";import{I as a}from"./patterns-trace-BESFmCOG.js";import"./index-B0WjJBI_.js";import"./_commonjsHelpers-CqkleIqs.js";import"./index-x-G-dxfr.js";import"./index-CwPCC0ZT.js";const i=s.find(n=>n.name==="FollowButton"),g={title:"More components/Table/FollowButton",component:a.FollowButton,tags:["autodocs"],parameters:{docs:{description:{component:"**Figma:** icon-button-following [patterns] (95:16985)"}},design:{type:"figma",url:"https://www.figma.com/design/KmmVU2D0kqWr0dC1xXNzWw/IFS-Design-System-Patterns?node-id=95-16985"}}},t={name:"All variants & states",render:()=>i.render()};var o,e,r;t.parameters={...t.parameters,docs:{...(o=t.parameters)==null?void 0:o.docs,source:{originalSource:`{
+  name: 'All variants & states',
+  render: () => section.render()
+}`,...(r=(e=t.parameters)==null?void 0:e.docs)==null?void 0:r.source}}};const w=["AllVariants"];export{t as AllVariants,w as __namedExportsOrder,g as default};

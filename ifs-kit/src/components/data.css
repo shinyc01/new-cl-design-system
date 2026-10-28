@@ -202,10 +202,13 @@ button.ifs-risk:hover,.ifs-risk[data-state=hover]{background:var(--surface-terti
 .ifs-content-card[data-state=drag]{--fill:var(--element-card-state-fill-drag);--stroke:inset 0 0 0 1px var(--element-card-state-border-drag)}
 .ifs-content-card:focus-visible,.ifs-content-card[data-state=focus]{outline:none;--fill:var(--surface-secondary-alpha);
   --ring:0 0 0 2px var(--focus-focus-inner),0 0 0 4px var(--focus-focus-outer)}
-/* Cooper: 4px outside gradient ring (text/accent-cooper → text/primary) + 2px focus-inner */
+/* Cooper (content-card-organism State=Cooper, 12:6669 / 12:6715): a 4px OUTSIDE gradient stroke with a 2px OUTSIDE
+   focus-inner stroke drawn over its inner half, so it reads as a 2px black gap, then a 2px gradient ring.
+   Gradient brand/cooper/500-base → core/1000-base, orange at bottom-right to white at the left (Figma transform ≈ 282deg).
+   text/accent-cooper and text/primary hold the same values as those primitives. */
 .ifs-content-card--cooper,.ifs-content-card[data-state=cooper]{--fill:var(--surface-secondary-alpha);--ring:0 0 0 2px var(--focus-focus-inner)}
-.ifs-content-card--cooper::before,.ifs-content-card[data-state=cooper]::before{content:"";position:absolute;inset:-4px;padding:4px;border-radius:calc(var(--radius-radius-100) + 4px);pointer-events:none;
-  background:linear-gradient(225deg,var(--text-accent-cooper),var(--text-primary));
+.ifs-content-card--cooper::before,.ifs-content-card[data-state=cooper]::before{content:"";position:absolute;inset:-4px;padding:2px;border-radius:calc(var(--radius-radius-100) + 4px);pointer-events:none;
+  background:linear-gradient(282deg,var(--text-accent-cooper),var(--text-primary));
   -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
 .ifs-content-card--loading{background:linear-gradient(90deg,var(--background-elevation-1-secondary),var(--surface-secondary-alpha),var(--background-elevation-1-secondary))}
 .ifs-content-card__main{display:flex;gap:var(--gaps-gap-200);min-width:0}

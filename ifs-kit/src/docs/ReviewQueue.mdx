@@ -5,16 +5,21 @@ import { Meta } from '@storybook/blocks';
 
 # Review queue
 
-69 items to check, on 45 stories. Each one is a place where Figma disagrees with itself, something was invented or approximated, or a legacy part was kept. When frames and notes disagreed, the notes won. Open the story, compare it with the Design tab, then remove the item from `guide/review.md`.
+72 items to check, on 47 stories. Each one is a place where Figma disagrees with itself, something was invented or approximated, or a legacy part was kept. When frames and notes disagreed, the notes won. Open the story, compare it with the Design tab, then remove the item from `guide/review.md`.
 
 ## <a href="./index.html?path=/docs/activity-collaboration-commentthread--docs" target="_top">Activity & Collaboration/CommentThread</a>
 
+- The Cooper-mode composer ring uses the same 225° diagonal gradient. Verify its direction against the Comments Cooper input in Figma.
 - The resolved look is now rebuilt to match 12:44840: ⋯ (Unresolve, Copy link) and ✕, Inactive avatars, the composer kept, nothing dimmed. The invented look is gone.
 - Figma has two resolved looks: 12:44840 (above) and 12:36500 (green filled ✓, coloured avatars). Which is current?
 
 ## <a href="./index.html?path=/docs/map-canvas-canvas-demo--docs" target="_top">Map & Canvas/Canvas demo</a>
 
 - **Invented.** The mini-map is a stand-in. Figma describes a navigator but has no component for it.
+
+## <a href="./index.html?path=/docs/data-visualisation-datavizcard--docs" target="_top">Data Visualisation/DataVizCard</a>
+
+- The Cooper ring gradient runs diagonally (225°, orange at top-right). That may have been copied from the old ContentCard rather than taken from Figma; ContentCard's real direction is ≈282°. Verify against data-viz-card-organism State=Cooper in the IFS DS file.
 
 ## <a href="./index.html?path=/docs/data-visualisation-columnchart--docs" target="_top">Data Visualisation/ColumnChart</a>
 
@@ -23,6 +28,10 @@ import { Meta } from '@storybook/blocks';
 ## <a href="./index.html?path=/docs/data-visualisation-linechart--docs" target="_top">Data Visualisation/LineChart</a>
 
 - The y-axis starts at 80; Figma's starts at 60.
+
+## <a href="./index.html?path=/docs/data-display-contentcard--docs" target="_top">Data Display/ContentCard</a>
+
+- Cooper state fixed (Oct 2026) to match content-card-organism 12:6669 / 12:6715: a 2px black gap, then a 2px ring, orange at bottom-right fading to white at the left (≈282°). It used to be a 4px diagonal gradient frame. Check it against the Figma component.
 
 ## <a href="./index.html?path=/docs/navigation-pagetop--docs" target="_top">Navigation/PageTop</a>
 

@@ -1,0 +1,4 @@
+import{I as n}from"./patterns-cooper-BRSZa-Hl.js";import{I as o}from"./patterns-trace-BESFmCOG.js";import"./index-B0WjJBI_.js";import"./_commonjsHelpers-CqkleIqs.js";import"./index-x-G-dxfr.js";import"./index-CwPCC0ZT.js";const m=n.find(a=>a.name==="Attachment"),g={title:"More components/Cooper/Attachment",component:o.Attachment,tags:["autodocs"],parameters:{docs:{description:{component:"**Figma:** attachments [patterns] (16:18042)"}},design:{type:"figma",url:"https://www.figma.com/design/KmmVU2D0kqWr0dC1xXNzWw/IFS-Design-System-Patterns?node-id=16-18042"}}},t={name:"All variants & states",render:()=>m.render()};var e,r,s;t.parameters={...t.parameters,docs:{...(e=t.parameters)==null?void 0:e.docs,source:{originalSource:`{
+  name: 'All variants & states',
+  render: () => section.render()
+}`,...(s=(r=t.parameters)==null?void 0:r.docs)==null?void 0:s.source}}};const f=["AllVariants"];export{t as AllVariants,f as __namedExportsOrder,g as default};

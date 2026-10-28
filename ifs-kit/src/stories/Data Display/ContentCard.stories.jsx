@@ -7,9 +7,9 @@ const section = sections.find(s => s.name === "ContentCard");
 export default {
   title: "Data Display/ContentCard",
   component: IFS["ContentCard"],
-  tags: ["autodocs"],
+  tags: ["autodocs","needs-review"],
   parameters: {
-    docs: { description: { component: "**Figma:** content-card-organism (3643:32067)\n\n\n**Use for** (Figma) Every content card (content, selectable, settings, link, media); vary it with props. Size M = main element with room (primary areas, dashboards, full-width lists); S = nested in drawers, side panels, popovers, dense lists.\n\n**Don't use for** (Figma) Cards with behaviour the base can't model (drag/connect on a canvas, map-tied selection) — those get their own component, e.g. `node-card`." } },
+    docs: { description: { component: "> ⚠️ **Needs review** — check these against Figma:\n>\n> - Cooper state fixed (Oct 2026) to match content-card-organism 12:6669 / 12:6715: a 2px black gap, then a 2px ring, orange at bottom-right fading to white at the left (≈282°). It used to be a 4px diagonal gradient frame. Check it against the Figma component.\n\n**Figma:** content-card-organism (3643:32067)\n\n\n**Use for** (Figma) Every content card (content, selectable, settings, link, media); vary it with props. Size M = main element with room (primary areas, dashboards, full-width lists); S = nested in drawers, side panels, popovers, dense lists.\n\n**Don't use for** (Figma) Cards with behaviour the base can't model (drag/connect on a canvas, map-tied selection) — those get their own component, e.g. `node-card`." } },
     design: {"type":"figma","url":"https://www.figma.com/design/atgUmwcA1AE5sjFoWBT7ar/IFS-Design-System?node-id=3643-32067"},
   },
 };

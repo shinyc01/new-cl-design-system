@@ -153,6 +153,16 @@ Format (read by tools/gen-stories.mjs): `### <story section name>`, then one bul
 
 ## Components
 
+### ContentCard
+- Cooper state fixed (Oct 2026) to match content-card-organism 12:6669 / 12:6715: a 2px black gap, then a 2px ring, orange at bottom-right fading to white at the left (≈282°). It used to be a 4px diagonal gradient frame. Check it against the Figma component.
+
+### DataVizCard
+- The Cooper ring gradient runs diagonally (225°, orange at top-right). That may have been copied from the old ContentCard rather than taken from Figma; ContentCard's real direction is ≈282°. Verify against data-viz-card-organism State=Cooper in the IFS DS file.
+
+### CommentThread
+- The Cooper-mode composer ring uses the same 225° diagonal gradient. Verify its direction against the Comments Cooper input in Figma.
+
+
 ### CommentThread
 - The resolved look is now rebuilt to match 12:44840: ⋯ (Unresolve, Copy link) and ✕, Inactive avatars, the composer kept, nothing dimmed. The invented look is gone.
 - Figma has two resolved looks: 12:44840 (above) and 12:36500 (green filled ✓, coloured avatars). Which is current?

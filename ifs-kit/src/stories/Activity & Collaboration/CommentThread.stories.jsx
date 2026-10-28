@@ -9,7 +9,7 @@ export default {
   component: IFS["CommentThread"],
   tags: ["autodocs","needs-review"],
   parameters: {
-    docs: { description: { component: "> ⚠️ **Needs review** — check these against Figma:\n>\n> - The resolved look is now rebuilt to match 12:44840: ⋯ (Unresolve, Copy link) and ✕, Inactive avatars, the composer kept, nothing dimmed. The invented look is gone.\n> - Figma has two resolved looks: 12:44840 (above) and 12:36500 (green filled ✓, coloured avatars). Which is current?\n\n**Figma:** comment-popover-organism (260:88500)\n\n\n**Use for** (Figma) Full thread opened in place from a pin: header (ID, ⋯, resolve ✓, ✕), replies, input docked at the bottom." } },
+    docs: { description: { component: "> ⚠️ **Needs review** — check these against Figma:\n>\n> - The Cooper-mode composer ring uses the same 225° diagonal gradient. Verify its direction against the Comments Cooper input in Figma.\n> - The resolved look is now rebuilt to match 12:44840: ⋯ (Unresolve, Copy link) and ✕, Inactive avatars, the composer kept, nothing dimmed. The invented look is gone.\n> - Figma has two resolved looks: 12:44840 (above) and 12:36500 (green filled ✓, coloured avatars). Which is current?\n\n**Figma:** comment-popover-organism (260:88500)\n\n\n**Use for** (Figma) Full thread opened in place from a pin: header (ID, ⋯, resolve ✓, ✕), replies, input docked at the bottom." } },
     design: {"type":"figma","url":"https://www.figma.com/design/atgUmwcA1AE5sjFoWBT7ar/IFS-Design-System?node-id=260-88500"},
   },
 };

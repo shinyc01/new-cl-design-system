@@ -7,9 +7,9 @@ const section = sections.find(s => s.name === "DataVizCard");
 export default {
   title: "Data Visualisation/DataVizCard",
   component: IFS["DataVizCard"],
-  tags: ["autodocs"],
+  tags: ["autodocs","needs-review"],
   parameters: {
-    docs: { description: { component: "**Figma:** data-viz-card-organism (4457:33030)\n\n\n**Use for** (inferred) The card that holds any chart on a dashboard; Drag for dashboard edit mode." } },
+    docs: { description: { component: "> ⚠️ **Needs review** — check these against Figma:\n>\n> - The Cooper ring gradient runs diagonally (225°, orange at top-right). That may have been copied from the old ContentCard rather than taken from Figma; ContentCard's real direction is ≈282°. Verify against data-viz-card-organism State=Cooper in the IFS DS file.\n\n**Figma:** data-viz-card-organism (4457:33030)\n\n\n**Use for** (inferred) The card that holds any chart on a dashboard; Drag for dashboard edit mode." } },
     design: {"type":"figma","url":"https://www.figma.com/design/atgUmwcA1AE5sjFoWBT7ar/IFS-Design-System?node-id=4457-33030"},
   },
 };

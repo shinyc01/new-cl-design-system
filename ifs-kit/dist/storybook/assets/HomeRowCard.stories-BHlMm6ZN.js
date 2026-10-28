@@ -1,4 +1,0 @@
-import{I as s}from"./patterns-nav-bar-CMNsyL6O.js";import{I as n}from"./patterns-trace-DCNRvUMl.js";import"./index-B0WjJBI_.js";import"./_commonjsHelpers-CqkleIqs.js";import"./index-x-G-dxfr.js";import"./index-CwPCC0ZT.js";const m=s.find(a=>a.name==="HomeRowCard"),w={title:"More components/Nav bar/HomeRowCard",component:n.HomeRowCard,tags:["autodocs"],parameters:{docs:{description:{component:"**Figma:** home-row-card-organism [patterns] (244:117301)"}},design:{type:"figma",url:"https://www.figma.com/design/KmmVU2D0kqWr0dC1xXNzWw/IFS-Design-System-Patterns?node-id=244-117301"}}},r={name:"All variants & states",render:()=>m.render()};var e,o,t;r.parameters={...r.parameters,docs:{...(e=r.parameters)==null?void 0:e.docs,source:{originalSource:`{
-  name: 'All variants & states',
-  render: () => section.render()
-}`,...(t=(o=r.parameters)==null?void 0:o.docs)==null?void 0:t.source}}};const f=["AllVariants"];export{r as AllVariants,f as __namedExportsOrder,w as default};
