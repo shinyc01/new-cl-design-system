@@ -1,0 +1,139 @@
+/* Figma: Content States page (4759:9172) — empty-state-organism (3782:18464), empty-state-spinner-molecule (3782:24081),
+   empty-state-loading-more-molecule (3782:24082), progress-bar-loading (5530:11867), skeleton rules.
+   Action page (1399:9453) — FTA button (67:4758), prompt-button (67:2937). Selection page — cooper-chip-atom (3501:23480).
+   Navigation page — base-bottom-sheet-organism (4406:25590), value-bottom-sheet-organism (789:37502), explore-bottom-sheet (72:4676).
+   Gaps are raw numbers in Figma (no gap variables bound), so they stay as px. */
+
+/* ---------- Media disc (the "avatarBase" used by empty-state + spinner) ---------- */
+.ifs-state-media{position:relative;display:inline-flex;align-items:center;justify-content:center;flex:none;width:40px;height:40px;
+  border-radius:var(--radius-radius-full);color:var(--icon-primary);isolation:isolate;
+  outline:1px solid var(--border-base);outline-offset:-.5px;
+  background:radial-gradient(closest-side,var(--grey-1000-base,#464646),var(--element-status-fade-grey))}
+/* Success / warning tone: surface/secondary-alpha + a 30% radial tint from the top-left corner */
+.ifs-state-media--success,.ifs-state-media--warning{background:var(--surface-secondary-alpha)}
+.ifs-state-media--success::before,.ifs-state-media--warning::before{content:"";position:absolute;inset:0;border-radius:inherit;z-index:-1;opacity:.3;
+  background:radial-gradient(circle at 0 0,var(--fade) 0,var(--tint) 160%)}
+.ifs-state-media--success{--fade:var(--element-status-fade-success);--tint:var(--system-success-700,#1b7138)}
+.ifs-state-media--warning{--fade:var(--element-status-fade-warning);--tint:var(--system-warning-700,#99691c)}
+
+/* ---------- empty-state-organism ---------- */
+.ifs-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;
+  padding:var(--paddings-padding-300) 0;box-sizing:border-box;text-align:center;min-width:0}
+.ifs-empty--full{flex:1 1 auto;width:100%;height:100%;min-height:100%}
+.ifs-empty--section{width:100%}
+.ifs-empty__heading{margin:0;width:100%;color:var(--text-primary);font:500 14px/16px var(--font-family-text);letter-spacing:.2px;text-transform:uppercase}
+.ifs-empty__text{display:flex;flex-direction:column;align-items:center;gap:8px;width:100%}
+.ifs-empty__body{margin:0;width:100%;color:var(--text-secondary);font:400 12px/16px var(--font-family-text);letter-spacing:0}
+.ifs-empty__chips{display:flex;flex-wrap:wrap;justify-content:center;gap:4px}
+.ifs-empty__actions{display:flex;justify-content:center;gap:8px;padding:0 40px /* raw in Figma */;width:100%;box-sizing:border-box}
+
+/* ---------- Loading indicators ---------- */
+@keyframes ifs-states-spin{to{transform:rotate(360deg)}}
+.ifs-spin{animation:ifs-states-spin 1s linear infinite}
+@media (prefers-reduced-motion:reduce){.ifs-spin{animation-duration:3s}}
+
+.ifs-spinner{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;gap:12px}
+.ifs-spinner__text{color:var(--text-primary);font:500 16px/20px var(--font-family-text);letter-spacing:-.3px}
+.ifs-loading-more{display:inline-flex;align-items:center;gap:8px;color:var(--text-primary);
+  font:500 14px/16px var(--font-family-text);letter-spacing:-.2px}
+.ifs-loading-more .ifs-icon{color:var(--icon-primary)}
+.ifs-progress-loading{display:inline-flex;align-items:center;gap:8px;width:289px;max-width:100%}
+.ifs-progress-loading .ifs-progress{flex:1 1 auto;width:auto}
+.ifs-progress-loading__value{flex:none;min-width:30px;color:var(--text-primary);font:500 14px/16px var(--font-family-text);letter-spacing:-.2px}
+
+/* Skeleton blocks. Same fill as the skeleton bars inside the Figma Loading variants (data.css .ifs-skeleton-bar),
+   plus the single shared shimmer the Skeleton notes ask for (rule 6), off under reduced motion. */
+.ifs-sk{display:block;flex:none;border-radius:var(--radius-radius-100);
+  background:linear-gradient(90deg,rgba(255,255,255,.1),rgba(255,255,255,.04),rgba(255,255,255,.1)) /* raw in Figma */;
+  background-size:200% 100%;animation:ifs-states-shimmer 1.6s ease-in-out infinite}
+.ifs-sk--circle{border-radius:var(--radius-radius-full)}
+.ifs-sk--block{border-radius:var(--radius-radius-200)}
+@keyframes ifs-states-shimmer{0%{background-position:100% 0}100%{background-position:-100% 0}}
+@media (prefers-reduced-motion:reduce){.ifs-sk{animation:none}}
+.ifs-loading-region{position:relative}
+.ifs-sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+/* ---------- FTA button (Cooper FAB) ---------- */
+.ifs-fta{--ring:0 0 0 0 transparent;position:relative;display:inline-flex;align-items:center;justify-content:center;flex:none;
+  margin:0;padding:0;border:0;cursor:pointer;border-radius:var(--radius-radius-full);background:transparent;box-shadow:var(--ring)}
+.ifs-fta--stroke{--edge:var(--border-base);--blur:10px;width:48px;height:48px;padding:var(--paddings-padding-200);
+  background:
+    radial-gradient(ellipse 90% 140% at 15% 100%,var(--element-cooper-glow-center),var(--element-cooper-glow-edge)) /* geometry from gradientTransform, approx. */,
+    var(--element-cooper-insight-fill-base);
+  box-shadow:inset 0 0 0 1px var(--edge),var(--ring);
+  backdrop-filter:blur(var(--blur));-webkit-backdrop-filter:blur(var(--blur))}
+.ifs-fta--stroke:hover,.ifs-fta--stroke[data-state=hover]{--edge:var(--border-medium);--blur:100px}
+.ifs-fta--stroke:active,.ifs-fta--stroke[data-state=pressed]{background:
+    radial-gradient(ellipse 90% 140% at 15% 100%,var(--element-cooper-glow-center),var(--element-cooper-glow-edge)),
+    var(--element-cooper-insight-fill-strong)}
+.ifs-fta--stroke:disabled{background:var(--element-cooper-insight-fill-base)}
+.ifs-fta:disabled{cursor:not-allowed}
+.ifs-fta__orb{position:relative;display:block;width:32px;height:32px;flex:none}
+/* cooper-visual-icon "sphere" is drawn on an 18x16 box with the 16px disc at x≈0.56 */
+.ifs-fta__sphere{position:absolute;left:-1.1px;top:0;width:36px !important;height:32px !important;overflow:visible;
+  filter:drop-shadow(0 0 1.8px var(--element-cooper-fab-shadow)) /* effect style cooper/fab/shadow */}
+.ifs-fta:disabled .ifs-fta__sphere{filter:grayscale(1) /* LUMINOSITY blend in Figma */}
+.ifs-fta__mark{position:absolute;left:8px;top:8px}
+.ifs-fta__dot{position:absolute;left:24px;top:0}
+.ifs-fta:focus-visible,.ifs-fta[data-state=focus]{outline:none;--ring:0 0 0 2px var(--focus-focus-inner),0 0 0 4px var(--focus-focus-outer)}
+
+/* ---------- prompt-button ---------- */
+.ifs-prompt{--fill:var(--element-button-secondary-fill-default);--edge:var(--element-button-secondary-border-default);--ring:0 0 0 0 transparent;
+  display:inline-flex;align-items:center;justify-content:center;flex:none;margin:0;border:0;cursor:pointer;white-space:nowrap;
+  border-radius:var(--radius-radius-full);background:var(--fill);color:var(--text-primary);
+  box-shadow:inset 0 0 0 1px var(--edge),var(--elevation-elevation-1-primary),var(--ring);
+  backdrop-filter:blur(var(--blur-strong));-webkit-backdrop-filter:blur(var(--blur-strong));transition:background-color .12s,box-shadow .12s}
+.ifs-prompt--l{height:40px;padding:var(--paddings-padding-250) var(--paddings-padding-400,16px);font:500 14px/20px var(--font-family-text);letter-spacing:-.15px}
+.ifs-prompt--m{height:32px;padding:var(--paddings-padding-200) var(--paddings-padding-300);font:500 12px/16px var(--font-family-text);letter-spacing:-.15px}
+.ifs-prompt:hover,.ifs-prompt[data-state=hover]{--fill:var(--element-button-secondary-fill-hover);--edge:var(--element-button-secondary-border-hover);color:var(--text-secondary)}
+.ifs-prompt:active,.ifs-prompt[data-state=pressed]{--fill:var(--element-button-secondary-fill-pressed);--edge:var(--element-button-secondary-border-pressed);color:var(--text-tertiary)}
+.ifs-prompt:disabled{cursor:not-allowed;--fill:var(--element-button-secondary-fill-disabled);--edge:var(--element-button-secondary-border-disabled);color:var(--text-disabled)}
+.ifs-prompt:focus-visible,.ifs-prompt[data-state=focus]{outline:none;--ring:0 0 0 1.5px var(--focus-focus-inner),0 0 0 3px var(--focus-focus-outer)}
+
+/* ---------- cooper-chip-atom ---------- */
+.ifs-cooper-chip{--fill:var(--background-color-alpha-cooper-base);--ring:0 0 0 0 transparent;
+  display:inline-flex;align-items:center;gap:4px;flex:none;height:24px;box-sizing:border-box;margin:0;border:0;cursor:pointer;white-space:nowrap;
+  padding:var(--paddings-padding-100) var(--paddings-padding-200);border-radius:var(--radius-radius-full);background:var(--fill);box-shadow:var(--ring);
+  font:500 12px/16px var(--font-family-text);letter-spacing:-.15px}
+.ifs-cooper-chip__label{background:linear-gradient(to left,var(--text-accent-cooper),var(--text-primary)) /* gradient direction approx. */;
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.ifs-cooper-chip:hover,.ifs-cooper-chip[data-state=hover]{--fill:var(--background-color-alpha-cooper-strong)}
+.ifs-cooper-chip.is-selected{--ring:0 0 0 1px var(--focus-focus-inner),0 0 0 2px var(--border-accent-cooper)}
+.ifs-cooper-chip:focus-visible,.ifs-cooper-chip[data-state=focus]{outline:none;--ring:0 0 0 1px var(--focus-focus-inner),0 0 0 2px var(--focus-focus-outer)}
+.ifs-cooper-chip:disabled{cursor:not-allowed;--fill:var(--element-chips-off-fill-disabled);
+  box-shadow:0 0 0 1px var(--border-base);backdrop-filter:blur(var(--blur-light));-webkit-backdrop-filter:blur(var(--blur-light))}
+.ifs-cooper-chip:disabled .ifs-cooper-chip__label{background:none;color:var(--text-disabled)}
+.ifs-cooper-chip:disabled .ifs-icon{opacity:.5}
+
+/* ---------- Bottom sheets ---------- */
+.ifs-bottom-sheet{display:flex;align-items:center;gap:12px;width:100%;height:40px;box-sizing:border-box;
+  padding:var(--paddings-padding-100) var(--paddings-padding-300);
+  background:var(--surface-primary-alpha);box-shadow:inset 0 1px 0 var(--border-base);
+  backdrop-filter:blur(var(--blur-light));-webkit-backdrop-filter:blur(var(--blur-light))}
+.ifs-bottom-sheet--base{justify-content:flex-end}
+.ifs-bottom-sheet--value,.ifs-bottom-sheet--explore{justify-content:space-between}
+.ifs-bottom-sheet--explore{padding-left:var(--paddings-padding-150,6px)}
+.ifs-bottom-sheet__agent{display:flex;align-items:center;gap:6px;flex:none;margin-left:auto}
+.ifs-bottom-sheet__prompts{display:flex;align-items:center;gap:4px}
+.ifs-bottom-sheet__left{display:flex;align-items:center;gap:12px;min-width:0}
+.ifs-bottom-sheet__context{display:flex;align-items:center;gap:8px}
+.ifs-bottom-sheet__context-title{color:var(--text-secondary);font:500 12px/14px var(--font-family-text);letter-spacing:.1px;text-transform:uppercase;white-space:nowrap}
+.ifs-bottom-sheet__buttons{display:flex;align-items:center;gap:6px}
+.ifs-coverage{display:flex;align-items:center;gap:10px /* raw in Figma */;width:190px;box-sizing:border-box;padding:var(--paddings-padding-100);border-radius:var(--radius-radius-100)}
+.ifs-coverage .ifs-progress{flex:1 1 auto;width:auto}
+.ifs-coverage__value{color:var(--text-primary);font:500 14px/20px var(--font-family-text);letter-spacing:-.15px}
+.ifs-bottom-sheet__map{display:flex;align-items:center;gap:16px}
+.ifs-map-field{display:flex;flex-direction:column;gap:4px}
+.ifs-map-field__label{padding-left:var(--paddings-padding-150,6px);color:var(--text-tertiary);font:400 10px/12px var(--font-family-text);letter-spacing:.1px;text-transform:uppercase;white-space:nowrap}
+.ifs-map-field__row{display:flex;align-items:center;gap:2px /* raw in Figma */;height:16px}
+.ifs-map-field__value{padding:0 var(--paddings-padding-150,6px);color:var(--text-secondary);font:600 12px/16px var(--font-family-text);letter-spacing:.2px;text-transform:uppercase;white-space:nowrap}
+.ifs-bottom-sheet__divider{width:1px;height:20px;margin:0 var(--paddings-padding-50,2px);background:var(--border-medium);flex:none}
+.ifs-bottom-sheet__tools{display:flex;align-items:center;gap:4px}
+
+/* zoom-slider-atom (3275:483): 20 ticks 4px apart, the current one 16px tall with a marker */
+.ifs-zoom{position:relative;display:inline-flex;align-items:center;gap:3px;width:80px;height:16px;padding:0 2px;box-sizing:border-box;cursor:pointer}
+.ifs-zoom:focus-visible{outline:none;box-shadow:0 0 0 1.5px var(--focus-focus-inner),0 0 0 3px var(--focus-focus-outer);border-radius:2px}
+.ifs-zoom__tick{width:1px;height:8px;flex:none;background:var(--border-selected)}
+.ifs-zoom__tick.is-after{background:var(--border-medium)}
+.ifs-zoom__tick.is-current{height:16px}
+.ifs-zoom__marker{position:absolute;top:-3px;width:4px;height:4px;margin-left:-1.5px;background:var(--icon-primary);clip-path:polygon(0 0,100% 0,50% 100%)}

@@ -1,0 +1,172 @@
+/* Figma: Data Visualisation page (3487:19894) — data-viz Base atoms, data-viz-card-organism and the core chart types */
+
+/* ================= bar-atom (4457:32996) ================= */
+.ifs-dv-bar{--dv-c:var(--data-viz-rose-data-4);display:flex;align-items:center;justify-content:center;gap:var(--gaps-gap-250);box-sizing:border-box;
+  min-width:0;min-height:32px;padding:var(--paddings-padding-200);border-radius:var(--radius-radius-100);
+  background:var(--dv-c);box-shadow:inset 0 0 0 1px var(--border-base)}
+.ifs-dv-bar--default:hover,.ifs-dv-bar[data-state=hover]{background:var(--dv-c-hover)}
+.ifs-dv-bar--out-of-focus{background:var(--dv-c-muted)}
+.ifs-dv-bar--background{background:var(--background-elevation-1-secondary)}
+.ifs-dv-bar--loading{background:linear-gradient(90deg,var(--background-elevation-1-secondary),var(--surface-secondary-alpha),var(--background-elevation-1-secondary))}
+.ifs-dv-bar--out-of-focus .ifs-dv-value{color:var(--text-disabled)}
+
+/* ================= grouped-bar-molecule (4457:37362) ================= */
+.ifs-dv-grouped{display:flex;box-sizing:border-box;gap:var(--gaps-gap-50);padding:var(--paddings-padding-50);border-radius:var(--radius-radius-100);min-width:0}
+.ifs-dv-grouped--horizontal{flex-direction:column}
+.ifs-dv-grouped--vertical{flex-direction:row}
+.ifs-dv-grouped--progress{position:relative;flex-direction:row}
+.ifs-dv-grouped--progress .ifs-dv-grouped__track{flex:1}
+.ifs-dv-grouped--progress .ifs-dv-grouped__fill{position:absolute;left:var(--paddings-padding-50);top:var(--paddings-padding-50);bottom:var(--paddings-padding-50)}
+.ifs-dv-grouped--vertical.ifs-dv-grouped--progress{flex-direction:column}
+.ifs-dv-grouped--vertical.ifs-dv-grouped--progress .ifs-dv-grouped__fill{top:auto;right:var(--paddings-padding-50);min-height:0}
+
+/* ================= line-atom (4440:32650) ================= */
+.ifs-dv-line{display:block;flex:none;background:var(--border-medium)}
+.ifs-dv-line--horizontal{width:100%;height:1px}
+.ifs-dv-line--vertical{height:100%;width:1px}
+.ifs-dv-line--horizontal.ifs-dv-line--dashed{background:repeating-linear-gradient(90deg,var(--border-medium) 0 3px,transparent 3px 8px)}
+.ifs-dv-line--vertical.ifs-dv-line--dashed{background:repeating-linear-gradient(180deg,var(--border-medium) 0 3px,transparent 3px 8px)}
+
+/* ================= indicator-atom (4440:32643) ================= */
+.ifs-dv-indicator{display:inline-block;flex:none;width:8px;height:8px;border-radius:50%;background:var(--dv-c)}
+.ifs-dv-indicator--selected{box-shadow:0 0 0 1px var(--border-selected)}
+.ifs-dv-indicator--intended-target{width:2px;height:16px;border-radius:2px;background:var(--icon-primary)}
+
+/* ================= value-label-atom (4440:32611) — Label/M/medium ================= */
+.ifs-dv-value{display:inline-flex;align-items:center;justify-content:center;min-height:16px;white-space:nowrap;color:var(--text-primary);
+  font:500 12px/16px var(--font-family-text);letter-spacing:-0.15px}
+.ifs-dv-value--secondary{color:var(--text-secondary)}
+.ifs-dv-value--tertiary{color:var(--text-tertiary)}
+.ifs-dv-value--empty{min-width:30px}
+.ifs-dv-value__skeleton{display:block;width:30px;height:16px;
+  background:linear-gradient(90deg,rgba(255,255,255,.1),rgba(255,255,255,.04),rgba(255,255,255,.1)) /* raw in Figma */}
+
+/* ================= legend-swatch-atom (4440:32628) — Heading/H4/medium ================= */
+.ifs-dv-legend{display:inline-flex;align-items:center;gap:var(--gaps-gap-200);padding:var(--paddings-padding-150) 0;white-space:nowrap;
+  font:500 12px/14px var(--font-family-text);letter-spacing:-0.1px;cursor:default}
+.ifs-dv-legend__swatch{flex:none;width:16px;height:16px;border-radius:var(--radius-radius-100)}
+.ifs-dv-legend__target{flex:none;width:2px;height:16px;border-radius:2px;background:var(--icon-primary)}
+.ifs-dv-legend__name{color:var(--text-secondary)}
+.ifs-dv-legend__value{color:var(--text-primary)}
+.ifs-dv-legend--hover .ifs-dv-legend__name{color:var(--text-primary)}
+.ifs-dv-legend--out-of-hover .ifs-dv-legend__swatch{opacity:.2}
+.ifs-dv-legend--out-of-hover .ifs-dv-legend__name,.ifs-dv-legend--out-of-hover .ifs-dv-legend__value{color:var(--text-disabled)}
+
+/* ================= data-viz-header-molecule (2154:2068) ================= */
+.ifs-dv-header{display:flex;align-items:center;gap:var(--gaps-gap-200);min-height:28px;min-width:0;box-sizing:border-box}
+.ifs-dv-header__left{flex:1;display:flex;align-items:center;gap:var(--gaps-gap-100);min-width:0}
+.ifs-dv-header__title{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--text-tertiary);
+  font:600 14px/20px var(--font-family-text);letter-spacing:0.3px;text-transform:uppercase}
+.ifs-dv-header__drag{display:none;color:#9e9ea8 /* raw in Figma */;cursor:grab}
+.ifs-dv-header__hover{display:flex;align-items:center;gap:var(--gaps-gap-200);opacity:0;pointer-events:none}
+.ifs-dv-header__divider{width:1px;height:20px;margin:0 var(--paddings-padding-50);background:var(--border-medium)}
+/* Hover row: real hover / keyboard focus of the header or its card, or forced (data-state=hover) */
+.ifs-dv-header:hover .ifs-dv-header__drag,.ifs-dv-header[data-state=hover] .ifs-dv-header__drag,
+.ifs-dv-card:hover .ifs-dv-header__drag,.ifs-dv-card[data-state=hover] .ifs-dv-header__drag{display:inline-flex}
+.ifs-dv-header:hover .ifs-dv-header__hover,.ifs-dv-header:focus-within .ifs-dv-header__hover,.ifs-dv-header[data-state=hover] .ifs-dv-header__hover,
+.ifs-dv-card:hover .ifs-dv-header__hover,.ifs-dv-card:focus-within .ifs-dv-header__hover,.ifs-dv-card[data-state=hover] .ifs-dv-header__hover{opacity:1;pointer-events:auto}
+
+/* ================= data-viz-card-organism (4457:33030) ================= */
+.ifs-dv-card{position:relative;display:flex;flex-direction:column;gap:var(--gaps-gap-400);box-sizing:border-box;min-width:0;
+  padding:var(--paddings-padding-400) var(--paddings-padding-500) var(--paddings-padding-500);border-radius:var(--radius-radius-100);
+  background:var(--element-card-state-fill-default);box-shadow:0 0 0 1px var(--element-card-state-border-default)}
+.ifs-dv-card:not(.ifs-dv-card--chart):not(.ifs-dv-card--cooper):not(.ifs-dv-card--drag):hover,.ifs-dv-card--hover:not(.ifs-dv-card--chart){
+  background:var(--element-card-state-fill-hover);box-shadow:0 0 0 1px var(--element-card-state-border-hover)}
+.ifs-dv-card--drag{background:var(--element-card-state-fill-drag);box-shadow:0 0 0 1px var(--element-card-state-border-drag)}
+.ifs-dv-card__content{display:flex;flex-direction:column;gap:var(--gaps-gap-400);min-width:0}
+/* Cooper: 4px outside gradient ring + 2px focus-inner, card itself surface/secondary-alpha + border/base */
+.ifs-dv-card--cooper:not(.ifs-dv-card--chart){background:var(--surface-secondary-alpha);box-shadow:0 0 0 1px var(--border-base),0 0 0 2px var(--focus-focus-inner)}
+.ifs-dv-card--cooper::before{content:"";position:absolute;inset:-6px;padding:4px;border-radius:calc(var(--radius-radius-100) + 6px);pointer-events:none;
+  background:linear-gradient(225deg,var(--text-accent-cooper),var(--text-primary));
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
+
+/* variant="chart": the "strategic" frame every core chart is drawn in */
+.ifs-dv-card--chart{gap:0;padding:var(--paddings-padding-150);background:var(--surface-secondary-alpha);box-shadow:0 0 0 1px var(--border-base)}
+.ifs-dv-card--chart:hover,.ifs-dv-card--chart.ifs-dv-card--hover{box-shadow:inset 0 0 0 1px var(--element-card-state-border-selected)}
+.ifs-dv-card--chart .ifs-dv-header{min-height:40px;padding:var(--paddings-padding-200)}
+.ifs-dv-card--chart:hover .ifs-dv-header,.ifs-dv-card--chart[data-state=hover] .ifs-dv-header{padding-left:var(--paddings-padding-100)}
+.ifs-dv-card--chart.ifs-dv-card--cooper::before{inset:-1px;padding:1px;border-radius:var(--radius-radius-100)}
+.ifs-dv-card__body{position:relative;min-width:0;padding:var(--paddings-padding-200)}
+.ifs-dv-card__legend{display:flex;flex-wrap:wrap;justify-content:center;column-gap:var(--gaps-gap-500);padding:var(--paddings-padding-200)}
+.ifs-dv-card:not(.ifs-dv-card--chart) .ifs-dv-card__legend{padding:0}
+
+/* ================= data-viz-modal-organism (4440:32681) / chart-info-modal tooltip ================= */
+.ifs-dv-tooltip{display:flex;flex-direction:column;gap:var(--gaps-gap-300);box-sizing:border-box;width:256px;padding:var(--paddings-padding-300);
+  border-radius:var(--radius-radius-200);background:var(--background-elevation-1-primary-base);backdrop-filter:blur(var(--blur-strong));
+  box-shadow:inset 0 0 0 1px var(--border-fieldborder-alpha,rgba(255,255,255,0.1));color:var(--text-primary);text-align:left}
+.ifs-dv-tooltip--chart{width:320px}
+.ifs-dv-tooltip__head{display:flex;flex-direction:column;gap:var(--gaps-gap-150)}
+.ifs-dv-tooltip__titlerow{display:flex;align-items:flex-end;gap:var(--gaps-gap-200)}
+.ifs-dv-tooltip__titles{flex:1;display:flex;flex-direction:column;gap:var(--gaps-gap-50);min-width:0}
+.ifs-dv-tooltip__title{color:var(--text-primary);font:500 12px/14px var(--font-family-text);letter-spacing:-0.1px}
+.ifs-dv-tooltip__sub{color:var(--text-secondary);font:400 12px/16px var(--font-family-text)}
+.ifs-dv-tooltip__line{display:flex;justify-content:space-between;align-items:center;gap:var(--gaps-gap-150);color:var(--text-secondary);
+  font:500 12px/16px var(--font-family-text);letter-spacing:-0.1px}
+.ifs-dv-tooltip__delta{display:inline-flex;align-items:center;gap:var(--gaps-gap-50)}
+.ifs-dv-tooltip__delta .ifs-icon{color:var(--icon-success)}
+.ifs-dv-tooltip__delta--negative .ifs-icon{color:var(--icon-danger)}
+.ifs-dv-tooltip__divider{display:block;height:1px;background:var(--border-fieldborder-alpha,rgba(255,255,255,0.1))}
+.ifs-dv-tooltip__items{display:flex;flex-direction:column}
+.ifs-dv-tooltip__item{display:flex;align-items:center;gap:var(--gaps-gap-200);padding:var(--paddings-padding-150) 0;font:500 12px/14px var(--font-family-text);letter-spacing:-0.1px}
+.ifs-dv-tooltip__dot{flex:none;width:8px;height:8px;border-radius:50%}
+.ifs-dv-tooltip__name{flex:1;min-width:0;color:var(--text-secondary)}
+.ifs-dv-tooltip__val{color:var(--text-primary);white-space:nowrap}
+
+/* ================= core charts (chart-column 9862:12468 … chart-funnel 9867:1065) ================= */
+.ifs-chart__plot{position:relative;width:100%}
+.ifs-chart__svg{display:block;overflow:visible;font-family:var(--font-family-text)}
+.ifs-chart__tip{position:absolute;z-index:5;pointer-events:none}
+/* Axis + in-plot text: raw in Figma (12px Medium, no text style) */
+.ifs-chart__axis{font-size:12px;font-weight:500;fill:var(--text-tertiary)}
+.ifs-chart__value{font-size:12px;font-weight:500;fill:var(--text-primary)}
+.ifs-chart__slice-label{font-size:12px;font-weight:600;fill:var(--text-primary);pointer-events:none}
+.ifs-chart__center{font-size:28px;font-weight:600;fill:var(--text-primary)}
+.ifs-chart__gauge-value{font-size:40px;font-weight:600;letter-spacing:-1px;fill:var(--text-primary)}
+.ifs-chart__grid{stroke:var(--border-base);stroke-dasharray:2 4;stroke-linecap:round}
+.ifs-chart__baseline{stroke:var(--white-alpha-30,rgba(255,255,255,0.3))}
+.ifs-chart__guide{stroke:var(--border-medium);stroke-dasharray:2 4}
+.ifs-chart__refline{stroke:#ffffff /* raw in Figma */;stroke-width:1.5;stroke-dasharray:4 4}
+.ifs-chart__refline--thin{stroke-width:1}
+.ifs-chart__connector{stroke:var(--white-alpha-30,rgba(255,255,255,0.3));stroke-dasharray:2 3;stroke-linecap:round}
+.ifs-chart__slice{stroke:#0f0f0f /* raw in Figma */;stroke-width:2;stroke-linejoin:round}
+.ifs-chart__band{fill:transparent}
+.ifs-chart__band--on{fill:var(--surface-secondary-alpha)}
+.ifs-chart__hit,.ifs-chart__overlay{outline:none}
+.ifs-chart__hit:focus-visible .ifs-chart__band,.ifs-chart__hit:focus-visible path,.ifs-chart__hit:focus-visible rect:not(.ifs-chart__band){stroke:var(--focus-focus-outer);stroke-width:1.5}
+.ifs-chart__overlay:focus-visible{stroke:var(--focus-focus-outer);stroke-width:1.5}
+.ifs-chart__skel{fill:var(--surface-secondary-alpha)}
+.ifs-chart__skel-stroke{stroke:var(--surface-secondary-alpha);fill:none}
+.ifs-chart__skeleton{display:flex;flex-direction:column}
+.ifs-chart__skel-legend{display:flex;justify-content:center;align-items:center;gap:var(--gaps-gap-200);height:44px}
+.ifs-chart__skel-legend span{display:block;width:12px;height:12px;border-radius:2px;background:var(--surface-secondary-alpha)}
+.ifs-chart__skel-legend span + span{width:75px}
+.ifs-chart--empty .ifs-dv-card__body,.ifs-chart--loading .ifs-dv-card__body{padding:0}
+.ifs-chart__empty{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:var(--gaps-gap-200);height:388px;text-align:center}
+.ifs-chart__empty-title{color:var(--text-primary);font:500 12px/16px var(--font-family-text);letter-spacing:-0.15px}
+.ifs-chart__empty-text{color:var(--text-secondary);font:400 12px/16px var(--font-family-text)}
+.ifs-chart__table{overflow:auto}
+.ifs-chart__sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+/* ================= progress-ring-molecule (4619:18187) ================= */
+.ifs-progress-ring{display:inline-block;flex:none;vertical-align:middle}
+.ifs-progress-ring__track{stroke:var(--background-elevation-2-primary-base)}
+.ifs-progress-ring__bar{stroke:var(--icon-primary)}
+
+/* ================= evidence-strength-bar-molecule (67:6634) ================= */
+.ifs-evidence{display:flex;flex-direction:column;gap:var(--gaps-gap-150);min-width:0;width:100%}
+.ifs-evidence__title{color:var(--text-secondary);font:500 14px/16px var(--font-family-text);letter-spacing:-0.2px}
+.ifs-evidence__bar{position:relative;display:flex;height:24px}
+.ifs-evidence__seg{--seg:var(--background-system-danger);flex:1;position:relative}
+.ifs-evidence__seg--review{--seg:var(--background-system-warning)}
+.ifs-evidence__seg--approve{--seg:var(--background-system-success)}
+/* inactive bands: thin dotted line in the band's system colour (Figma: 2px frame of dots) */
+.ifs-evidence__seg::before{content:"";position:absolute;left:0;right:0;top:17px;height:2px;
+  background:repeating-linear-gradient(90deg,var(--seg) 0 2px,transparent 2px 4px) /* raw in Figma: dot spacing */}
+.ifs-evidence__seg--on::before{top:14px;height:8px;border-radius:var(--radius-radius-full);background:var(--seg)}
+.ifs-evidence__marker{position:absolute;top:-9px;display:flex;flex-direction:column;align-items:center;transform:translateX(-50%)}
+.ifs-evidence__value{color:var(--text-primary);font:500 14px/20px var(--font-family-text);letter-spacing:-0.15px}
+.ifs-evidence__pointer{width:0;height:0;border-left:4px solid transparent;border-right:4px solid transparent;border-top:8px solid var(--text-primary)}
+.ifs-evidence__caption{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gaps-gap-400);color:var(--text-tertiary);
+  font:400 10px/12px var(--font-family-text);letter-spacing:0.1px;text-transform:uppercase}
+.ifs-evidence__caption span:nth-child(2){text-align:center}
+.ifs-evidence__caption span:nth-child(3){text-align:right}

@@ -1,0 +1,214 @@
+/* Figma: navigation family — navigation-panel-atom (1544:2681), navigation-panel-organism (1545:2808),
+   tab (1440:5039), tab-organism (3412:32038), breadcrumb-atom (3492:9413), breadcrumb-organism (67:4698),
+   stepper-molecule (1219:169725), stepper-organism (3029:22750), pagination-organism (3497:9660),
+   canvas-header (1440:5321), canvas-container-atom (1440:5305), global-header (69:3736),
+   nav-bar-page-atom (69:4012), page-header (1588:1971); AppShell = layout of screen "Map - Overview - Default" (4484:116532). */
+
+/* ---------- Shared: focus ring ---------- */
+.ifs-nav-item:focus-visible,.ifs-nav-item[data-state=focus],
+.ifs-navbar__item:focus-visible,.ifs-navbar__item[data-state=focus]{
+  outline:none;box-shadow:0 0 0 1.5px var(--focus-focus-inner),0 0 0 3px var(--focus-focus-outer)}
+
+/* ---------- SideNav: navigation-panel-organism ---------- */
+.ifs-sidenav{box-sizing:border-box;display:flex;flex-direction:column;width:240px;height:100%;
+  padding:var(--paddings-padding-300);background:var(--surface-primary);
+  box-shadow:inset -1px 0 0 var(--border-base);overflow-y:auto}
+.ifs-sidenav__menu{display:flex;flex-direction:column;gap:var(--gaps-gap-100)}
+.ifs-sidenav__title{display:flex;align-items:center;gap:var(--gaps-gap-100);height:28px;box-sizing:border-box;
+  padding:var(--paddings-padding-100) var(--paddings-padding-200) 0}
+.ifs-sidenav__title-text{flex:1;min-width:0;margin:0;color:var(--text-secondary);
+  font:500 14px/16px var(--font-family-text);letter-spacing:0.2px;text-transform:uppercase;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ifs-sidenav__content{display:flex;flex-direction:column;gap:var(--gaps-gap-200);padding:var(--paddings-padding-300) 0;margin:0;list-style:none}
+.ifs-sidenav__section{display:flex;flex-direction:column}
+.ifs-sidenav__group{display:flex;flex-direction:column;margin:0;padding:0;list-style:none}
+/* View=Collapsed: 48px wide, only the expand button */
+.ifs-sidenav--collapsed{width:48px}
+.ifs-sidenav--collapsed .ifs-sidenav__title{padding:var(--paddings-padding-100) 0 0}
+
+/* ---------- navigation-panel-atom ---------- */
+/* Parent / Child / Submenu: 40px row, inner 32px title with 8px padding, radius 4 */
+.ifs-nav-item{box-sizing:border-box;display:flex;align-items:center;gap:var(--gaps-gap-100);width:100%;height:40px;
+  margin:0;padding:0 var(--paddings-padding-200);border:0;border-radius:var(--radius-radius-100);
+  background:transparent;color:var(--text-secondary);text-align:left;cursor:pointer;text-decoration:none;
+  font:500 14px/16px var(--font-family-text);letter-spacing:-0.2px;transition:background-color .12s,color .12s}
+.ifs-nav-item__label{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ifs-nav-item .ifs-icon{color:var(--icon-secondary)}
+.ifs-nav-item:hover,.ifs-nav-item[data-state=hover],
+.ifs-nav-item[aria-current=page],.ifs-nav-item--active{background:var(--background-elevation-1-secondary);color:var(--text-primary)}
+.ifs-nav-item:hover .ifs-icon,.ifs-nav-item[data-state=hover] .ifs-icon,
+.ifs-nav-item[aria-current=page] .ifs-icon,.ifs-nav-item--active .ifs-icon{color:var(--icon-primary)}
+.ifs-nav-item:disabled,.ifs-nav-item[aria-disabled=true]{background:transparent;color:var(--text-disabled);cursor:not-allowed}
+.ifs-nav-item:disabled .ifs-icon,.ifs-nav-item[aria-disabled=true] .ifs-icon{color:var(--icon-disabled)}
+/* Child: corner arrow, gap 2 */
+.ifs-nav-item--child{gap:var(--gaps-gap-50)}
+/* Cooper recommended marker (cooper-system-icon 14px) */
+.ifs-nav-item__cooper{flex:none;color:var(--icon-accent-cooper)}
+/* show-button: Child shows its icon-button on hover/focus; Parent shows it always when given */
+.ifs-nav-row{position:relative;display:flex;align-items:center}
+.ifs-nav-row > .ifs-icon-button{position:absolute;right:var(--paddings-padding-200);top:50%;transform:translateY(-50%)}
+.ifs-nav-row--child > .ifs-icon-button{opacity:0}
+.ifs-nav-row--child:hover > .ifs-icon-button,.ifs-nav-row--child:focus-within > .ifs-icon-button,.ifs-nav-row--child[data-state=hover] > .ifs-icon-button{opacity:1}
+.ifs-nav-row:has(> .ifs-icon-button) .ifs-nav-item{padding-right:calc(var(--paddings-padding-200) + 28px)}
+/* Submenu: caret + Body/L/medium, tertiary; no fill on hover */
+.ifs-nav-item--submenu{gap:var(--gaps-gap-100);color:var(--text-tertiary);font:500 14px/20px var(--font-family-text);letter-spacing:-0.15px}
+.ifs-nav-item--submenu .ifs-icon{color:var(--icon-tertiary)}
+.ifs-nav-item--submenu:hover,.ifs-nav-item--submenu[data-state=hover]{background:transparent;color:var(--text-secondary)}
+.ifs-nav-item--submenu:hover .ifs-icon,.ifs-nav-item--submenu[data-state=hover] .ifs-icon{color:var(--icon-secondary)}
+.ifs-nav-item--submenu[aria-expanded=true]{background:transparent;color:var(--text-tertiary)}
+.ifs-nav-item--submenu[aria-expanded=true] .ifs-icon{color:var(--icon-tertiary)}
+/* Subtitle: section heading, 30px, H4/UPPER disabled colour */
+.ifs-nav-subtitle{box-sizing:border-box;display:flex;align-items:center;gap:var(--gaps-gap-100);min-height:30px;
+  padding:var(--paddings-padding-300) var(--paddings-padding-100) var(--paddings-padding-100) var(--paddings-padding-200);
+  border-radius:var(--radius-radius-150)}
+.ifs-nav-subtitle__label{flex:1;min-width:0;margin:0;color:var(--text-disabled);
+  font:500 12px/14px var(--font-family-text);letter-spacing:0.1px;text-transform:uppercase}
+
+/* ---------- Tabs: tab-organism + tab ---------- */
+.ifs-tabs{display:flex;align-items:stretch;box-shadow:inset 0 -1px 0 var(--border-base);overflow-x:auto;scrollbar-width:none}
+.ifs-tab{box-sizing:border-box;display:inline-flex;align-items:center;justify-content:center;gap:6px /* raw in Figma */;flex:none;
+  margin:0;border:0;background:transparent;cursor:pointer;white-space:nowrap;color:var(--text-secondary);
+  --line:transparent;box-shadow:inset 0 -1px 0 var(--line);transition:color .12s,box-shadow .12s}
+.ifs-tab--m{height:36px;padding:0 var(--paddings-padding-200);font:500 12px/14px var(--font-family-text);letter-spacing:-0.1px}
+.ifs-tab--l{height:40px;padding:0 var(--paddings-padding-300);font:500 14px/16px var(--font-family-text);letter-spacing:-0.2px}
+.ifs-tab:hover,.ifs-tab[data-state=hover]{color:var(--text-primary)}
+.ifs-tab[aria-selected=true]{color:var(--text-primary);--line:var(--border-selected)}
+/* Figma Focus = 1px focus-outer underline, label primary */
+.ifs-tab:focus-visible,.ifs-tab[data-state=focus]{outline:none;color:var(--text-primary);--line:var(--focus-focus-outer)}
+.ifs-tab:disabled,.ifs-tab[aria-disabled=true]{color:var(--text-disabled);cursor:not-allowed;--line:transparent}
+/* counter-atom Size=S (18) */
+.ifs-tab__counter{box-sizing:border-box;display:inline-flex;align-items:center;justify-content:center;height:18px;min-width:18px;
+  padding:var(--paddings-padding-50) var(--paddings-padding-200);border-radius:10px /* raw in Figma */;
+  background:var(--surface-secondary-alpha);color:var(--text-secondary);font:500 12px/16px var(--font-family-text);letter-spacing:-0.1px}
+.ifs-tab:disabled .ifs-tab__counter,.ifs-tab[aria-disabled=true] .ifs-tab__counter{color:var(--text-disabled)}
+
+/* ---------- Breadcrumb: breadcrumb-organism + breadcrumb-atom ---------- */
+.ifs-breadcrumb{box-sizing:border-box;display:inline-flex;align-items:center;height:24px;
+  padding:0 var(--paddings-padding-300) 0 var(--paddings-padding-200);border-radius:var(--radius-radius-100);
+  background:var(--background-elevation-1-primary-base);box-shadow:inset 0 0 0 1px var(--border-base)}
+.ifs-breadcrumb__list{display:flex;align-items:center;gap:var(--gaps-gap-100);margin:0;padding:0;list-style:none}
+.ifs-breadcrumb__list > li{display:flex;align-items:center;gap:var(--gaps-gap-100)}
+.ifs-breadcrumb__sep{width:2px;height:2px;border-radius:50%;background:var(--icon-tertiary);flex:none}
+.ifs-crumb{display:inline-flex;align-items:center;gap:var(--gaps-gap-50);height:16px;margin:0;padding:0;border:0;background:none;
+  font:500 12px/16px var(--font-family-text);letter-spacing:-0.15px;white-space:nowrap;color:var(--text-tertiary);cursor:pointer}
+.ifs-crumb .ifs-icon{color:var(--icon-tertiary)}
+.ifs-crumb:hover,.ifs-crumb[data-state=hover]{color:var(--text-primary)}
+.ifs-crumb:hover .ifs-icon,.ifs-crumb[data-state=hover] .ifs-icon{color:var(--icon-primary)}
+.ifs-crumb:focus-visible,.ifs-crumb[data-state=focus]{outline:none;color:var(--text-focus)}
+.ifs-crumb:focus-visible .ifs-icon,.ifs-crumb[data-state=focus] .ifs-icon{color:var(--icon-focus)}
+.ifs-crumb:disabled,.ifs-crumb[aria-disabled=true]{color:var(--text-disabled);cursor:not-allowed}
+.ifs-crumb:disabled .ifs-icon,.ifs-crumb[aria-disabled=true] .ifs-icon{color:var(--icon-disabled)}
+.ifs-crumb--current{color:var(--text-primary);cursor:default}
+.ifs-crumb--current[aria-disabled=true]{color:var(--text-disabled)}
+
+/* ---------- Stepper: stepper-organism + stepper-molecule (non-interactive) ---------- */
+.ifs-stepper{display:flex;align-items:center;margin:0;padding:0;list-style:none}
+.ifs-stepper > li{flex:1 1 0;min-width:0;display:flex}
+.ifs-step{position:relative;box-sizing:border-box;display:flex;flex-direction:column;gap:6px /* raw in Figma */;flex:1;min-width:0;
+  padding:var(--paddings-padding-100);border-radius:var(--radius-radius-100)}
+.ifs-step__text{display:flex;align-items:center;gap:var(--gaps-gap-100);min-width:0;color:var(--text-primary);
+  font:500 12px/14px var(--font-family-text);letter-spacing:-0.1px}
+.ifs-step__text .ifs-icon{color:var(--icon-primary)}
+.ifs-step__label{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ifs-step__line{height:4px;border-radius:100px;overflow:hidden}
+.ifs-step--completed .ifs-step__line{background:var(--icon-primary)}
+/* In progress: Figma draws 1px diagonal hairlines in border/selected, 12px tall vectors at -12 gap (approximated) */
+.ifs-step--in-progress .ifs-step__line{background:repeating-linear-gradient(-60deg,var(--border-selected) 0 1px,transparent 1px 4px) /* approximates Figma's line vectors */}
+.ifs-step--not-started .ifs-step__text{color:var(--text-secondary)}
+.ifs-step--not-started .ifs-step__line{background:var(--surface-tertiary-alpha)}
+.ifs-step--active{background:var(--background-elevation-1-secondary)}
+/* Hover=True: the step shows its tooltip (non-interactive) */
+.ifs-step__tip{position:absolute;left:50%;top:calc(100% + 4px);transform:translateX(-50%);z-index:5;pointer-events:none;
+  padding:var(--paddings-padding-150) var(--paddings-padding-200);border-radius:var(--radius-radius-100);
+  background:var(--surface-tertiary-alpha);backdrop-filter:blur(var(--blur-medium));-webkit-backdrop-filter:blur(var(--blur-medium));
+  color:var(--text-primary);font:400 12px/16px var(--font-family-text);white-space:nowrap;opacity:0;transition:opacity .12s}
+.ifs-step:hover .ifs-step__tip,.ifs-step[data-state=hover] .ifs-step__tip{opacity:1}
+
+/* ---------- Pager: pagination-organism ---------- */
+.ifs-pager{box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;gap:var(--gaps-gap-100);
+  height:44px;padding:var(--paddings-padding-200) 0}
+.ifs-pager__status{display:flex;align-items:center;gap:var(--gaps-gap-100);white-space:nowrap}
+.ifs-pager__status .ifs-icon{color:var(--icon-success)}
+.ifs-pager__count{font:500 14px/20px var(--font-family-text);letter-spacing:-0.15px;color:var(--text-primary)}
+.ifs-pager__total{color:var(--text-disabled)}
+.ifs-pager__pct{font:500 14px/20px var(--font-family-text);letter-spacing:-0.15px;color:var(--text-tertiary)}
+.ifs-pager__actions{display:flex;align-items:center;gap:var(--paddings-padding-300)}
+.ifs-pager__steps{display:inline-flex;align-items:center;gap:var(--gaps-gap-50);height:24px;border-radius:var(--radius-radius-100);
+  background:var(--element-button-tertiary-fill-default);box-shadow:inset 0 0 0 1px var(--element-button-tertiary-border-default);
+  backdrop-filter:blur(var(--blur-medium));-webkit-backdrop-filter:blur(var(--blur-medium))}
+.ifs-pager__divider{width:1px;height:14px;background:var(--border-medium);flex:none}
+
+/* ---------- CanvasHeader: canvas-header + canvas-container-atom ---------- */
+.ifs-canvas-header{display:flex;flex-direction:column;width:100%}
+.ifs-canvas-header__columns{box-sizing:border-box;display:flex;align-items:center;height:30px;padding:var(--paddings-padding-50) 0;
+  background:var(--background-elevation-1-primary-base);backdrop-filter:blur(var(--blur-light));-webkit-backdrop-filter:blur(var(--blur-light))}
+.ifs-canvas-column{box-sizing:border-box;display:flex;align-items:center;justify-content:center;gap:var(--gaps-gap-200);flex:1 1 0;min-width:0;
+  height:26px;padding:0 20px /* raw in Figma */;box-shadow:inset -1px 0 0 var(--border-base)}
+.ifs-canvas-column:last-child{box-shadow:none}
+.ifs-canvas-column__inner{display:flex;align-items:center;gap:6px /* raw in Figma */;padding:var(--paddings-padding-100);min-width:0}
+.ifs-canvas-column__label{color:var(--text-tertiary);font:600 12px/16px var(--font-family-text);letter-spacing:0.2px;text-transform:uppercase;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+/* zoom ruler: 1px top border + an 8px tick vector (raw vector in Figma; ticks approximated) */
+.ifs-canvas-header__ruler{box-sizing:border-box;height:9px;box-shadow:inset 0 1px 0 var(--border-base);
+  background:repeating-linear-gradient(90deg,var(--border-base) 0 1px,transparent 1px 4px) 0 1px/100% 8px no-repeat}
+
+/* ---------- NavBar: global-header + nav-bar-page-atom ---------- */
+.ifs-navbar{box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;gap:20px /* raw in Figma */;
+  width:100%;height:48px;padding:var(--paddings-padding-200) var(--paddings-padding-300);
+  background:var(--surface-primary-alpha);box-shadow:inset 0 -1px 0 var(--border-base);
+  backdrop-filter:blur(var(--blur-light));-webkit-backdrop-filter:blur(var(--blur-light))}
+.ifs-navbar__left{display:flex;align-items:center;gap:24px /* raw in Figma */;min-width:0}
+.ifs-navbar__logo{display:flex;align-items:center;flex:none;height:30px;color:var(--text-primary)}
+.ifs-navbar__logo-fallback{display:inline-flex;align-items:center;width:156px;height:30px;font:500 18px/30px var(--font-family-display);letter-spacing:-0.5px;white-space:nowrap}
+.ifs-navbar__list{display:flex;align-items:center;gap:var(--gaps-gap-200);margin:0;padding:0;list-style:none}
+.ifs-navbar__item{box-sizing:border-box;display:inline-flex;align-items:center;gap:var(--gaps-gap-100);height:32px;
+  padding:var(--paddings-padding-150) 10px /* raw in Figma */;margin:0;border:0;border-radius:var(--radius-radius-100);cursor:pointer;white-space:nowrap;
+  background:var(--element-header-item-fill-default);color:var(--text-primary);font:500 14px/20px var(--font-family-text);letter-spacing:-0.15px;
+  transition:background-color .12s}
+.ifs-navbar__item:hover,.ifs-navbar__item[data-state=hover]{background:var(--element-header-item-fill-hover)}
+.ifs-navbar__item:active,.ifs-navbar__item[data-state=pressed]{background:var(--element-header-item-fill-pressed);color:var(--text-secondary)}
+.ifs-navbar__item[aria-current=page]{background:var(--element-header-item-fill-active)}
+.ifs-navbar__item:disabled,.ifs-navbar__item[aria-disabled=true]{background:var(--element-header-item-fill-disabled);color:var(--text-disabled);cursor:not-allowed}
+.ifs-navbar__actions{display:flex;align-items:center;gap:var(--gaps-gap-200);flex:none}
+.ifs-navbar__buttons{display:flex;align-items:center;gap:var(--gaps-gap-100)}
+/* icon-button-notification: status-indicator-atom State=Error, Stroke=True */
+.ifs-navbar__notify{position:relative;display:inline-flex}
+.ifs-navbar__dot{position:absolute;top:2px;right:2px;width:8px;height:8px;box-sizing:border-box;border-radius:50%;pointer-events:none;
+  background:var(--icon-danger);box-shadow:0 0 0 1.5px var(--surface-primary)}
+/* avatar-organism Size=M (32) fallback when the avatar family isn't loaded */
+.ifs-navbar__avatar{box-sizing:border-box;display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;flex:none;
+  border-radius:var(--radius-radius-full);background:var(--background-solid-black);box-shadow:inset 0 0 0 1px var(--border-medium);
+  color:var(--text-primary);font:600 12px/16px var(--font-family-text);letter-spacing:0.2px}
+
+/* ---------- PageHeader: page-header ---------- */
+.ifs-page-header{box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;gap:var(--gaps-gap-300);
+  width:100%;height:40px;padding:0 var(--paddings-padding-300);
+  background:var(--surface-primary-alpha);box-shadow:inset 0 -1px 0 var(--border-base);
+  backdrop-filter:blur(var(--blur-light));-webkit-backdrop-filter:blur(var(--blur-light))}
+.ifs-page-header__left{display:flex;align-items:center;gap:var(--gaps-gap-300);min-width:0}
+.ifs-page-header__text{display:flex;align-items:center;gap:var(--gaps-gap-200);min-width:0}
+.ifs-page-header__title{margin:0;color:var(--text-primary);font:500 12px/16px var(--font-family-text);letter-spacing:-0.15px;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ifs-page-header__id{color:var(--text-tertiary);font:500 12px/16px var(--font-family-text);letter-spacing:-0.15px;white-space:nowrap}
+.ifs-page-header__divider{width:1px;height:20px;margin:0 var(--paddings-padding-50);background:var(--border-medium);flex:none}
+.ifs-page-header__right{display:flex;align-items:center;gap:var(--gaps-gap-400);flex:none}
+/* title chevron: button Type=Tertiary Size=S with icon only, 12×20, padding 4/0 */
+.ifs-page-header__menu{box-sizing:border-box;display:inline-flex;align-items:center;justify-content:center;width:12px;height:20px;flex:none;
+  margin:0;padding:var(--paddings-padding-100) 0;border:0;border-radius:var(--radius-radius-100);cursor:pointer;
+  background:var(--element-button-tertiary-fill-default);color:var(--icon-secondary)}
+.ifs-page-header__menu:hover{background:var(--element-button-tertiary-fill-hover)}
+.ifs-page-header__menu:focus-visible{outline:none;box-shadow:0 0 0 1.5px var(--focus-focus-inner),0 0 0 3px var(--focus-focus-outer)}
+
+/* ---------- AppShell (layout only — not a Figma component) ---------- */
+.ifs-app-shell{display:grid;grid-template-columns:auto 1fr;grid-template-rows:48px 1fr;width:100%;height:100vh;overflow:hidden;
+  background:var(--background-page);color:var(--text-primary)}
+.ifs-app-shell__bar{grid-column:1 / -1;position:relative;z-index:3}
+.ifs-app-shell__side{grid-row:2;min-height:0;position:relative;z-index:2}
+.ifs-app-shell__main{grid-row:2;grid-column:2;display:flex;flex-direction:column;min-width:0;min-height:0}
+.ifs-app-shell__header{flex:none;position:relative;z-index:1}
+.ifs-app-shell__content{flex:1;min-height:0;overflow:auto}
+.ifs-app-shell__bottom{flex:none}
+
+/* Stepper icons: Figma overrides the success icon's green to icon/primary (check reads as a cut-out) */
+.ifs-step--completed .ifs-step__text .ifs-icon path:first-child{fill:var(--icon-primary)}
+.ifs-step--completed .ifs-step__text .ifs-icon path:nth-child(2){fill:var(--surface-primary)}

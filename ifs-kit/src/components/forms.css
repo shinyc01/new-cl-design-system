@@ -1,0 +1,176 @@
+/* Figma: text-field-organism (210:77559), text-area-organism (3024:9383), search-regular-organism (153:63462),
+   checkbox-atom (153:60798) + checkbox-molecule (153:61241), radio-button-atom (210:113374) + radio-button-molecule (1387:222956),
+   switch-atom (88:23960) + switch-molecule (88:22668) */
+
+/* ---------- TextField + TextArea (shared field shell) ---------- */
+.ifs-field{display:flex;flex-direction:column;min-width:0;gap:var(--gaps-gap-200)}
+.ifs-field--m{gap:var(--gaps-gap-150)}
+.ifs-field__title{display:flex;align-items:flex-start;gap:var(--gaps-gap-200)}
+.ifs-field__label{flex:1;min-width:0;color:var(--text-tertiary);font:500 14px/16px var(--font-family-text);letter-spacing:-0.2px /* Heading/H3/medium */}
+.ifs-field--m .ifs-field__label{font:500 12px/14px var(--font-family-text);letter-spacing:-0.1px /* Heading/H4/medium */}
+.ifs-field__hint{color:var(--icon-tertiary);display:inline-flex;cursor:help}
+.ifs-field__desc{margin:0;color:var(--text-secondary);font:500 12px/16px var(--font-family-text);letter-spacing:-0.15px /* Label/M/medium */}
+.ifs-field--m .ifs-field__desc{font:400 12px/16px var(--font-family-text);letter-spacing:0 /* raw in Figma: Inter Regular 12 */}
+
+.ifs-field__control{
+  --fill:var(--element-input-fill-default);--border:var(--element-input-border-default);--ring:0 0 0 0 transparent;
+  position:relative;display:flex;align-items:center;box-sizing:border-box;
+  gap:var(--gaps-gap-200);height:40px;padding:var(--paddings-padding-250) var(--paddings-padding-300);border-radius:var(--radius-radius-200);
+  background:var(--fill);box-shadow:var(--ring),0 0 0 1px var(--border) /* OUTSIDE stroke */;
+  color:var(--icon-secondary);cursor:text;transition:background-color .12s,box-shadow .12s;
+}
+.ifs-field--m .ifs-field__control{gap:var(--gaps-gap-150);height:32px;padding:var(--paddings-padding-200);border-radius:var(--radius-radius-100)}
+.ifs-field__input{
+  flex:1;min-width:0;margin:0;padding:0;border:0;outline:none;background:none;
+  color:var(--text-primary);caret-color:var(--text-accent-cooper);
+  font:400 14px/20px var(--font-family-text);letter-spacing:-0.1px /* Body/L/regular */;
+  text-overflow:ellipsis;
+}
+.ifs-field--m .ifs-field__input{font:400 12px/16px var(--font-family-text);letter-spacing:0 /* Body/M/regular */}
+.ifs-field__input::placeholder{color:var(--text-tertiary);opacity:1}
+.ifs-field__suffix{flex:none;color:var(--white-alpha-85,rgba(255,255,255,.85));font:400 14px/20px var(--font-family-text);letter-spacing:-0.1px}
+.ifs-field--m .ifs-field__suffix{font:400 12px/16px var(--font-family-text);letter-spacing:0}
+.ifs-field__loader{flex:none;color:var(--icon-primary)}
+
+/* TextArea: fixed-height box, content top-aligned */
+.ifs-field--area .ifs-field__control{align-items:flex-start;height:140px}
+.ifs-field--area.ifs-field--m .ifs-field__control{height:100px}
+.ifs-field--area .ifs-field__input{align-self:stretch;resize:none;overflow:auto}
+
+/* Title brightens while the field is engaged */
+.ifs-field:hover .ifs-field__label,.ifs-field[data-state=hover] .ifs-field__label,
+.ifs-field:focus-within .ifs-field__label,.ifs-field[data-state=focus] .ifs-field__label,.ifs-field[data-state=typing] .ifs-field__label,
+.ifs-field--error .ifs-field__label{color:var(--text-secondary)}
+
+/* Hover */
+.ifs-field__control:hover,.ifs-field[data-state=hover] .ifs-field__control{--fill:var(--element-input-fill-hover);--border:var(--element-input-border-hover)}
+/* TextField: Typing/Active/Focus = focus ring. L ring 2px + 4px, M 1.5px + 3px (Figma Focus wrapper). */
+.ifs-field--text .ifs-field__control:focus-within,.ifs-field--text[data-state=focus] .ifs-field__control,.ifs-field--text[data-state=typing] .ifs-field__control,
+.ifs-field--area[data-state=focus] .ifs-field__control{
+  --fill:var(--element-input-fill-default);--border:var(--element-input-border-default);
+  --ring:0 0 0 2px var(--focus-focus-inner),0 0 0 4px var(--focus-focus-outer)}
+.ifs-field--text.ifs-field--m .ifs-field__control:focus-within,.ifs-field--text.ifs-field--m[data-state=focus] .ifs-field__control,.ifs-field--text.ifs-field--m[data-state=typing] .ifs-field__control,
+.ifs-field--area.ifs-field--m[data-state=focus] .ifs-field__control{
+  --ring:0 0 0 1.5px var(--focus-focus-inner),0 0 0 3px var(--focus-focus-outer)}
+/* TextArea: Typing = brighter border, no ring (Figma text-area State=Typing) */
+.ifs-field--area .ifs-field__control:focus-within,.ifs-field--area[data-state=typing] .ifs-field__control{
+  --fill:var(--element-input-fill-typing);--border:var(--element-input-border-typing)}
+/* Error */
+.ifs-field--error .ifs-field__control,.ifs-field--error .ifs-field__control:hover{--fill:var(--element-input-fill-danger);--border:var(--element-input-border-danger)}
+.ifs-field--error .ifs-field__desc{color:var(--text-danger)}
+/* Disabled */
+.ifs-field--disabled .ifs-field__label,.ifs-field--disabled:hover .ifs-field__label{color:var(--text-disabled)}
+.ifs-field--disabled .ifs-field__control,.ifs-field--disabled .ifs-field__control:hover{--fill:var(--element-input-fill-disabled);--border:var(--element-input-border-disabled);cursor:not-allowed;color:var(--icon-disabled)}
+.ifs-field--disabled .ifs-field__input,.ifs-field--disabled .ifs-field__input::placeholder{color:var(--text-disabled);cursor:not-allowed}
+
+/* Cooper (AI): 2px focus-inner + 2px gradient ring text/accent-cooper → text/primary.
+   Gradient angle converted from Figma's gradientTransform (approximate). */
+.ifs-field--cooper .ifs-field__control,.ifs-field--cooper .ifs-field__control:hover,.ifs-field--cooper .ifs-field__control:focus-within{
+  --fill:var(--element-input-fill-default);--border:var(--element-input-border-default);--ring:0 0 0 2px var(--focus-focus-inner)}
+.ifs-field--cooper .ifs-field__control::after{
+  content:"";position:absolute;inset:-4px;padding:2px;border-radius:12px;pointer-events:none;
+  background:linear-gradient(272deg,var(--text-accent-cooper) -8%,var(--text-primary) 99%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;
+  mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);
+}
+.ifs-field--cooper.ifs-field--m .ifs-field__control{--ring:0 0 0 1.5px var(--focus-focus-inner)}
+.ifs-field--cooper.ifs-field--m .ifs-field__control::after{inset:-3px;padding:1.5px;border-radius:7px}
+
+/* ---------- Search ---------- */
+.ifs-search{
+  --border:var(--element-search-border-default);--ring:0 0 0 0 transparent;
+  display:flex;align-items:center;box-sizing:border-box;width:248px;height:32px;
+  gap:var(--gaps-gap-100);padding:var(--paddings-padding-200);border-radius:var(--radius-radius-100);
+  box-shadow:var(--ring),inset 0 0 0 1px var(--border) /* INSIDE stroke */;
+  color:var(--icon-secondary);cursor:text;transition:box-shadow .12s;
+}
+.ifs-search--has-action{padding-right:var(--paddings-padding-100)}
+.ifs-search__input{
+  flex:1;min-width:0;margin:0;padding:0;border:0;outline:none;background:none;
+  color:var(--text-primary);caret-color:var(--text-accent-cooper);text-overflow:ellipsis;
+  font:500 12px/16px var(--font-family-text);letter-spacing:-0.15px /* Label/M/medium */;
+}
+.ifs-search__input::placeholder{color:var(--text-tertiary);opacity:1}
+.ifs-search__input::-webkit-search-cancel-button{display:none}
+.ifs-search .ifs-search__clear{color:var(--icon-tertiary)}
+.ifs-search:hover,.ifs-search[data-state=hover],.ifs-search--filled{--border:var(--element-search-border-hover)}
+.ifs-search:hover .ifs-search__input::placeholder,.ifs-search[data-state=hover] .ifs-search__input::placeholder{color:var(--text-secondary)}
+.ifs-search:focus-within,.ifs-search[data-state=focus]{--border:var(--element-search-border-default);--ring:0 0 0 1.5px var(--focus-focus-inner),0 0 0 3px var(--focus-focus-outer)}
+.ifs-search--disabled,.ifs-search--disabled:hover{--border:var(--element-search-border-disabled);color:var(--icon-disabled);cursor:not-allowed}
+.ifs-search--disabled .ifs-search__input,.ifs-search--disabled .ifs-search__input::placeholder{color:var(--text-disabled);cursor:not-allowed}
+
+/* ---------- Checkbox + Radio (shared molecule row) ---------- */
+.ifs-check{
+  --ring:0 0 0 0 transparent;
+  position:relative;display:inline-flex;align-items:center;box-sizing:border-box;min-height:28px;
+  gap:var(--gaps-gap-200);padding:var(--paddings-padding-150) var(--paddings-padding-100);border-radius:var(--radius-radius-100);
+  color:var(--text-secondary);font:500 12px/16px var(--font-family-text);letter-spacing:-0.15px /* Label/M/medium */;
+  box-shadow:var(--ring);cursor:pointer;user-select:none;transition:background-color .12s;
+}
+.ifs-check--bare{padding:0;min-height:0;gap:0}
+.ifs-check__input{position:absolute;opacity:0;width:1px;height:1px;margin:0;pointer-events:none}
+.ifs-check__box{
+  --box-fill:transparent;--box-border:var(--element-checkbox-off-border-default);--box-ring:0 0 0 0 transparent;
+  position:relative;flex:none;display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;box-sizing:border-box;
+  border-radius:var(--radius-radius-100);background:var(--box-fill);box-shadow:var(--box-ring),inset 0 0 0 1px var(--box-border);
+  color:var(--icon-primary-inverse);transition:background-color .12s,box-shadow .12s;
+}
+.ifs-check:hover,.ifs-check[data-state=hover]{background:var(--surface-secondary-alpha)}
+.ifs-check--bare:hover,.ifs-check--bare[data-state=hover]{background:none}
+/* Checkbox: off = border only, on/indeterminate = solid fill + icon */
+.ifs-checkbox:hover .ifs-check__box,.ifs-checkbox[data-state=hover] .ifs-check__box{--box-border:var(--element-checkbox-off-border-hover)}
+.ifs-checkbox:active .ifs-check__box,.ifs-checkbox[data-state=pressed] .ifs-check__box{--box-border:var(--element-checkbox-off-border-pressed)}
+.ifs-checkbox--on .ifs-check__box{--box-border:transparent!important;--box-fill:var(--element-checkbox-on-fill-default)}
+.ifs-checkbox--on:hover .ifs-check__box,.ifs-checkbox--on[data-state=hover] .ifs-check__box{--box-fill:var(--element-checkbox-on-fill-hover)}
+.ifs-checkbox--on:active .ifs-check__box,.ifs-checkbox--on[data-state=pressed] .ifs-check__box{--box-fill:var(--element-checkbox-on-fill-pressed)}
+.ifs-checkbox--on:hover,.ifs-checkbox--on[data-state=hover],.ifs-checkbox--on:active,.ifs-checkbox--on[data-state=pressed]{color:var(--text-primary)}
+/* Radio */
+.ifs-radio .ifs-check__box{border-radius:var(--radius-radius-full);--box-border:var(--element-radiobutton-off-border-default)}
+.ifs-radio .ifs-check__dot{width:8px;height:8px;border-radius:50%;background:var(--dot);display:none}
+.ifs-radio:hover .ifs-check__box,.ifs-radio[data-state=hover] .ifs-check__box{--box-border:var(--element-radiobutton-off-border-hover)}
+.ifs-radio:active .ifs-check__box,.ifs-radio[data-state=pressed] .ifs-check__box{--box-border:var(--element-radiobutton-off-border-pressed)}
+.ifs-radio--on .ifs-check__dot{display:block}
+.ifs-radio--on .ifs-check__box{--box-border:var(--element-radiobutton-on-border-default);--dot:var(--element-radiobutton-on-fill-default)}
+.ifs-radio--on:hover .ifs-check__box,.ifs-radio--on[data-state=hover] .ifs-check__box{--box-border:var(--element-radiobutton-on-border-hover);--dot:var(--element-radiobutton-on-fill-hover)}
+.ifs-radio--on:active .ifs-check__box,.ifs-radio--on[data-state=pressed] .ifs-check__box{--box-border:var(--element-radiobutton-on-border-pressed);--dot:var(--element-radiobutton-on-fill-pressed)}
+.ifs-radio--on:hover,.ifs-radio--on[data-state=hover],.ifs-radio--on:active,.ifs-radio--on[data-state=pressed]{color:var(--text-primary)}
+/* Focus: molecule ring 1.5px + 3px; bare atom ring 1px + 2px */
+.ifs-check:has(.ifs-check__input:focus-visible),.ifs-check[data-state=focus]{--ring:0 0 0 1.5px var(--focus-focus-inner),0 0 0 3px var(--focus-focus-outer)}
+.ifs-check--bare:has(.ifs-check__input:focus-visible),.ifs-check--bare[data-state=focus]{--ring:none}
+.ifs-check--bare:has(.ifs-check__input:focus-visible) .ifs-check__box,.ifs-check--bare[data-state=focus] .ifs-check__box{--box-ring:0 0 0 1px var(--focus-focus-inner),0 0 0 2px var(--focus-focus-outer)}
+/* Disabled */
+.ifs-check--disabled,.ifs-check--disabled:hover{cursor:not-allowed;background:none;color:var(--text-disabled)}
+.ifs-checkbox.ifs-check--disabled .ifs-check__box{--box-border:var(--element-checkbox-off-border-disabled);color:var(--icon-disabled)}
+.ifs-checkbox--on.ifs-check--disabled .ifs-check__box{--box-fill:var(--element-checkbox-on-fill-disabled)}
+.ifs-radio.ifs-check--disabled .ifs-check__box{--box-border:var(--element-radiobutton-off-border-disabled)}
+.ifs-radio--on.ifs-check--disabled .ifs-check__box{--box-border:var(--element-radiobutton-on-border-disabled);--dot:var(--element-radiobutton-on-fill-disabled)}
+.ifs-radio-group{display:flex;flex-direction:column;align-items:flex-start;margin:0;padding:0;border:0}
+.ifs-radio-group--horizontal{flex-direction:row;flex-wrap:wrap}
+
+/* ---------- Switch ---------- */
+.ifs-switch-row{display:flex;align-items:center;justify-content:space-between;gap:var(--gaps-gap-100);border-radius:var(--radius-radius-100);cursor:pointer}
+.ifs-switch-row__text{display:flex;flex-direction:column;gap:var(--gaps-gap-50);min-width:0}
+.ifs-switch-row__label{color:var(--text-primary);font:500 12px/16px var(--font-family-text);letter-spacing:-0.15px /* Label/M/medium */}
+.ifs-switch-row__desc{color:var(--text-secondary);font:400 10px/14px var(--font-family-text) /* raw in Figma: 10px, unbound fill */}
+.ifs-switch-row--disabled{cursor:not-allowed}
+.ifs-switch-row--disabled .ifs-switch-row__label,.ifs-switch-row--disabled .ifs-switch-row__desc{color:var(--text-disabled)}
+
+.ifs-switch{
+  --fill:var(--element-toggle-off-fill-default);--border:var(--element-toggle-off-border-default);--knob:var(--icon-primary);--ring:0 0 0 0 transparent;
+  position:relative;flex:none;width:44px;height:24px;margin:0;padding:0;border:0;border-radius:var(--radius-radius-full);
+  background:var(--fill);box-shadow:var(--ring),inset 0 0 0 1px var(--border);cursor:pointer;transition:background-color .15s,box-shadow .15s;
+}
+.ifs-switch__knob{position:absolute;top:50%;left:6px;width:12px;height:12px;border-radius:50%;background:var(--knob);transform:translateY(-50%);transition:left .15s,width .15s,height .15s}
+.ifs-switch--s{width:22px;height:12px}
+.ifs-switch--s .ifs-switch__knob{left:3px;width:7px;height:7px}
+.ifs-switch:hover,.ifs-switch[data-state=hover],.ifs-switch-row:hover .ifs-switch{--fill:var(--element-toggle-off-fill-hover);--border:var(--element-toggle-off-border-hover)}
+.ifs-switch:active,.ifs-switch[data-state=pressed]{--fill:var(--element-toggle-off-fill-pressed);--border:var(--element-toggle-off-border-pressed)}
+.ifs-switch[aria-checked=true]{--fill:var(--element-toggle-on-fill-default);--border:transparent;--knob:var(--icon-primary-inverse)}
+.ifs-switch[aria-checked=true] .ifs-switch__knob{left:23px;width:18px;height:18px}
+.ifs-switch--s[aria-checked=true] .ifs-switch__knob{left:11px;width:10px;height:10px}
+.ifs-switch[aria-checked=true]:hover,.ifs-switch[aria-checked=true][data-state=hover],.ifs-switch-row:hover .ifs-switch[aria-checked=true]{--fill:var(--element-toggle-on-fill-hover);--border:transparent}
+.ifs-switch[aria-checked=true]:active,.ifs-switch[aria-checked=true][data-state=pressed]{--fill:var(--element-toggle-on-fill-pressed);--border:transparent}
+.ifs-switch:focus-visible,.ifs-switch[data-state=focus]{outline:none;--ring:0 0 0 1px var(--focus-focus-inner),0 0 0 2px var(--focus-focus-outer)}
+/* Disabled: Figma uses toggle/off/border/pressed for the off border */
+.ifs-switch:disabled,.ifs-switch-row:hover .ifs-switch:disabled{cursor:not-allowed;--fill:var(--element-toggle-off-fill-disabled);--border:var(--element-toggle-off-border-pressed);--knob:var(--icon-disabled)}
+.ifs-switch[aria-checked=true]:disabled,.ifs-switch-row:hover .ifs-switch[aria-checked=true]:disabled{--fill:var(--element-toggle-on-fill-disabled);--border:transparent;--knob:var(--icon-disabled-inverse)}

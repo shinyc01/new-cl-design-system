@@ -1,0 +1,198 @@
+/* Extras family: circular buttons, icon-button presets, counter, hotkey, scroll bar, phone field, slider,
+   form card, icon picker, weekday, logo. */
+
+/* ================= Hotkey — hotkey-atom (67:6150) ================= */
+.ifs-hotkey{display:inline-flex;align-items:center;justify-content:center;gap:var(--gaps-gap-50);flex:none;
+  margin:0;padding:0;background:none;border:0;color:var(--text-disabled);
+  font:500 12px/16px var(--font-family-text);letter-spacing:-0.15px; /* Label/M/medium */ white-space:nowrap}
+
+/* ================= Counter — counter-atom (88:24147) ================= */
+.ifs-counter{position:relative;display:inline-flex;align-items:center;justify-content:center;flex:none;box-sizing:border-box;
+  height:18px;min-width:18px;padding:var(--paddings-padding-50) var(--paddings-padding-200);gap:var(--gaps-gap-100);
+  border-radius:10px /* raw in Figma */;background:var(--surface-secondary-alpha);color:var(--text-secondary);
+  font:500 12px/16px var(--font-family-text);letter-spacing:-0.1px /* Body/M/medium */;white-space:nowrap}
+.ifs-counter--m{height:24px;min-width:24px;gap:var(--gaps-gap-150);border-radius:16px /* raw in Figma */;
+  font:500 14px/20px var(--font-family-text);letter-spacing:-0.15px /* Body/L/medium */}
+.ifs-counter .ifs-status-indicator{position:absolute;top:-1px;right:0}
+
+/* ================= ScrollArea — scroll-bar-atom (83:57650) ================= */
+.ifs-scroll-area{position:relative;min-height:0;overflow:hidden}
+.ifs-scroll-area__viewport{height:100%;max-height:inherit;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;scrollbar-width:none;outline:none}
+.ifs-scroll-area__viewport::-webkit-scrollbar{display:none}
+.ifs-scroll-area__viewport:focus-visible{box-shadow:inset 0 0 0 1.5px var(--focus-focus-outer)}
+/* 8px track, 2px side padding, 4px bar (Figma Bar 4×140, radius 8, blur/strong) */
+.ifs-scroll-area__track{position:absolute;top:0;right:0;bottom:0;width:8px;padding:0 var(--paddings-padding-50);box-sizing:border-box;opacity:1;transition:opacity .2s}
+.ifs-scroll-area__track[hidden]{display:none}
+.ifs-scroll-area__bar{position:absolute;left:var(--paddings-padding-50);right:var(--paddings-padding-50);top:0;min-height:24px;
+  border-radius:var(--radius-radius-200);background:var(--background-elevation-1-tertiary);
+  backdrop-filter:blur(var(--blur-strong));-webkit-backdrop-filter:blur(var(--blur-strong));cursor:default;touch-action:none}
+/* Gallery: show the Figma atom alone */
+.ifs-scroll-bar{position:relative;display:inline-flex;width:8px;padding:0 var(--paddings-padding-50);box-sizing:border-box;flex:none}
+.ifs-scroll-bar .ifs-scroll-area__bar{position:absolute;height:140px}
+
+/* ================= CircularButton — circular-button-molecule (72:9983) ================= */
+.ifs-circular-button{--fill:var(--element-button-circular-fill-default);--stroke:var(--element-button-circular-border-default);
+  --fg:var(--text-primary);--ic:var(--icon-primary);
+  display:inline-flex;align-items:center;gap:var(--gaps-gap-100);flex:none;margin:0;padding:0;border:0;background:none;
+  border-radius:var(--radius-radius-100);cursor:pointer;color:var(--fg);font:inherit}
+.ifs-circular-button--top,.ifs-circular-button--bottom{flex-direction:column}
+.ifs-circular-button__label,.ifs-circular-button__arrow{display:inline-flex;align-items:center;justify-content:center;height:24px;box-sizing:border-box;
+  border-radius:var(--radius-radius-100);background:var(--fill);box-shadow:inset 0 0 0 1px var(--stroke);
+  backdrop-filter:blur(var(--blur-medium));-webkit-backdrop-filter:blur(var(--blur-medium));transition:background-color .12s,box-shadow .12s}
+.ifs-circular-button__label{gap:var(--gaps-gap-100);padding:0 var(--paddings-padding-150);
+  font:500 12px/16px var(--font-family-text);letter-spacing:-0.15px /* Label/M/medium */;white-space:nowrap;color:var(--fg)}
+.ifs-circular-button__arrow{width:24px;color:var(--ic)}
+.ifs-circular-button:hover,.ifs-circular-button[data-state=hover]{--fill:var(--element-button-circular-fill-hover);--stroke:var(--element-button-circular-border-hover);--fg:var(--text-primary-inverse);--ic:var(--icon-primary-inverse)}
+.ifs-circular-button:active,.ifs-circular-button[data-state=pressed]{--fill:var(--element-button-circular-fill-pressed);--stroke:var(--element-button-circular-border-pressed);--fg:var(--text-primary-inverse);--ic:var(--icon-primary-inverse)}
+.ifs-circular-button:disabled,.ifs-circular-button[aria-disabled=true]{cursor:not-allowed;
+  --fill:var(--element-button-circular-fill-disabled);--stroke:var(--element-button-circular-border-disabled);--fg:var(--text-disabled);--ic:var(--icon-disabled)}
+.ifs-circular-button:disabled .ifs-hotkey{color:var(--text-disabled)}
+.ifs-circular-button:focus-visible,.ifs-circular-button[data-state=focus]{outline:none;box-shadow:0 0 0 1.5px var(--focus-focus-inner),0 0 0 3px var(--focus-focus-outer)}
+
+/* ================= CircularMenu — circular-button-organism (72:10235) ================= */
+/* Hub: 112px disc (background/elevation-1/secondary, border/medium, blur 20) with a 36px centre (black-strong).
+   Each action's arrow box sits centred on the disc edge. */
+.ifs-circular-menu{--r:56px;position:relative;display:inline-block;flex:none;width:341px;height:212px}
+.ifs-circular-menu__hub{position:absolute;left:50%;top:50%;width:112px;height:112px;margin:-56px 0 0 -56px;border-radius:50%;
+  background:var(--background-elevation-1-secondary);box-shadow:inset 0 0 0 1px var(--border-medium);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px) /* raw in Figma: background blur 20 */;overflow:hidden}
+.ifs-circular-menu__core{position:absolute;left:50%;top:50%;width:36px;height:36px;margin:-18px 0 0 -18px;border-radius:50%;
+  background:var(--background-color-alpha-black-strong);box-shadow:inset 0 0 0 1px var(--border-medium);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
+/* Hover wedge: angular purple gradient at 60% + white rim arc, rotated to the hovered side.
+   Approximates Figma's GRADIENT_ANGULAR (white/aplha-0 → brand/purple/500-base → surface/secondary-alpha). */
+.ifs-circular-menu__glow{position:absolute;inset:0;border-radius:50%;opacity:0;transition:opacity .15s;pointer-events:none;
+  --purple:var(--brand-purple-500-base,#8366f7);
+  background:radial-gradient(closest-side,var(--purple) 25%,rgba(131,102,247,.25) 100%);
+  -webkit-mask:conic-gradient(from calc(var(--dir) - 45deg),#000 0 90deg,transparent 90deg);
+  mask:conic-gradient(from calc(var(--dir) - 45deg),#000 0 90deg,transparent 90deg)}
+.ifs-circular-menu__glow.is-on{opacity:.6}
+.ifs-circular-menu__rim{position:absolute;inset:0;border-radius:50%;opacity:0;transition:opacity .15s;pointer-events:none;
+  box-shadow:inset 0 0 0 2px var(--element-button-circular-hover-ring);
+  -webkit-mask:conic-gradient(from calc(var(--dir) - 45deg),transparent 0,#000 30deg,#000 60deg,transparent 90deg);
+  mask:conic-gradient(from calc(var(--dir) - 45deg),transparent 0,#000 30deg,#000 60deg,transparent 90deg)}
+.ifs-circular-menu__rim.is-on{opacity:1}
+.ifs-circular-menu .ifs-circular-button{position:absolute}
+.ifs-circular-menu .ifs-circular-button--top{left:50%;bottom:calc(50% + var(--r) - 12px);transform:translateX(-50%)}
+.ifs-circular-menu .ifs-circular-button--bottom{left:50%;top:calc(50% + var(--r) - 12px);transform:translateX(-50%)}
+.ifs-circular-menu .ifs-circular-button--left{top:50%;right:calc(50% + var(--r) - 12px);transform:translateY(-50%)}
+.ifs-circular-menu .ifs-circular-button--right{top:50%;left:calc(50% + var(--r) - 12px);transform:translateY(-50%)}
+
+/* ================= Icon-button presets with a dot ================= */
+/* icon-button-notification (357:53417), -comment (2563:8153), -filter (6955:768), -arrow (6349:61950) */
+.ifs-dot-button{position:relative;display:inline-flex;flex:none}
+.ifs-dot-button__dot{position:absolute;pointer-events:none;border-radius:50%}
+/* notification: status-indicator-atom Error + stroke, 8px at (13,3) */
+.ifs-dot-button--notification .ifs-dot-button__dot{left:13px;top:3px}
+/* comment / filter / arrow: 6px background/system/danger ellipse, 1.5px surface/primary outside stroke */
+.ifs-dot-button--comment .ifs-dot-button__dot,.ifs-dot-button--filter .ifs-dot-button__dot,.ifs-dot-button--arrow .ifs-dot-button__dot{
+  width:6px;height:6px;left:15px;top:3px;background:var(--background-system-danger);box-shadow:0 0 0 1.5px var(--surface-primary)}
+.ifs-dot-button--comment .ifs-dot-button__dot{top:5px}
+
+/* ================= PhoneField — mobile-number-field-organism (8947:11306) ================= */
+/* Reuses the text-field shell (.ifs-field*, forms.css) for title, control states and description. */
+.ifs-phone .ifs-field__control{padding-left:var(--paddings-padding-100)}
+.ifs-phone.ifs-field--m .ifs-field__control{padding-left:var(--paddings-padding-200);gap:0}
+.ifs-phone .ifs-field__control{gap:0}
+.ifs-phone__country{position:relative;display:inline-flex;align-items:center;gap:var(--gaps-gap-100);flex:none;height:28px;box-sizing:border-box;
+  margin:-4px 0;padding:var(--paddings-padding-150);border:0;border-radius:var(--radius-radius-100);background:none;cursor:pointer;
+  color:var(--text-primary);font:600 12px/16px var(--font-family-text);letter-spacing:0.2px;text-transform:uppercase /* Label/M/UPPER */}
+.ifs-phone__country:focus-visible{outline:none;box-shadow:0 0 0 1.5px var(--focus-focus-inner),0 0 0 3px var(--focus-focus-outer)}
+.ifs-phone__country:disabled{cursor:not-allowed}
+.ifs-phone__country .ifs-icon{color:var(--icon-primary)}
+.ifs-phone__flag{display:inline-block;flex:none;width:20px;height:14px;border-radius:1px /* raw in Figma */;overflow:hidden}
+.ifs-phone__flag svg{display:block;width:100%;height:100%}
+.ifs-phone__flag--none{background:var(--surface-tertiary-alpha)}
+.ifs-phone__body{display:flex;align-items:center;flex:1;min-width:0;gap:var(--gaps-gap-200)}
+.ifs-field--m .ifs-phone__body{gap:var(--gaps-gap-150)}
+/* "IconButton" frame in Figma: 1px border/medium divider, 20px tall, 2px side padding */
+.ifs-phone__divider{flex:none;width:1px;height:20px;margin:0 var(--paddings-padding-50);background:var(--border-medium)}
+.ifs-phone__menu{position:absolute;left:0;top:calc(100% + var(--gaps-gap-100));z-index:var(--z-index-z-popover,1000);
+  display:flex;flex-direction:column;min-width:220px;max-height:196px;overflow-y:auto;box-sizing:border-box;
+  padding:var(--paddings-padding-100);border-radius:var(--radius-radius-100);
+  background:var(--background-elevation-2-primary-base);box-shadow:inset 0 0 0 1px var(--border-base);
+  backdrop-filter:blur(var(--blur-strong));-webkit-backdrop-filter:blur(var(--blur-strong));
+  scrollbar-width:thin;scrollbar-color:var(--background-elevation-1-tertiary) transparent;text-transform:none;letter-spacing:-0.1px}
+.ifs-phone__option{flex:none;display:flex;align-items:center;gap:var(--gaps-gap-200);height:28px;box-sizing:border-box;
+  padding:var(--paddings-padding-100) var(--paddings-padding-200);border-radius:var(--radius-radius-100);
+  color:var(--text-secondary);cursor:pointer;font:500 12px/16px var(--font-family-text);letter-spacing:-0.1px /* Body/M/medium */}
+.ifs-phone__option:hover{background:var(--element-button-secondary-fill-hover);color:var(--text-primary)}
+.ifs-phone__option.is-active{background:var(--background-elevation-1-secondary)}
+.ifs-phone__option.is-selected{color:var(--text-primary)}
+.ifs-phone__option-name{flex:1;min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.ifs-phone__option-dial{color:var(--text-tertiary)}
+
+/* ================= Slider — sliter-atom (3029:21077), slider-molecule (3029:20933), slider-organism (3029:20689) ================= */
+.ifs-slider{display:flex;flex-direction:column;gap:var(--gaps-gap-200);min-width:0}
+.ifs-slider__title{display:flex;align-items:center;justify-content:space-between;gap:var(--gaps-gap-200)}
+.ifs-slider__heading{display:flex;align-items:center;gap:var(--gaps-gap-150);min-width:0}
+.ifs-slider__label{color:var(--text-tertiary);font:500 14px/16px var(--font-family-text);letter-spacing:-0.2px /* Heading/H3/medium */}
+.ifs-slider__hint{display:inline-flex;color:var(--icon-tertiary);cursor:help}
+.ifs-slider__value{flex:none;color:var(--text-primary);font:500 14px/16px var(--font-family-text);letter-spacing:-0.2px;font-variant-numeric:tabular-nums}
+.ifs-slider__row{display:flex;align-items:center;gap:var(--gaps-gap-200);min-height:24px}
+.ifs-slider__desc{margin:0;color:var(--text-secondary);font:500 12px/16px var(--font-family-text);letter-spacing:-0.15px /* Label/M/medium */}
+.ifs-slider--disabled .ifs-slider__value{color:var(--text-disabled)}
+/* molecule: 4px track (surface/tertiary-alpha), fill icon/primary */
+.ifs-slider-track{position:relative;flex:1;min-width:60px;height:4px;margin:10px 0;border-radius:var(--radius-radius-full);
+  background:var(--surface-tertiary-alpha);cursor:pointer;touch-action:none}
+.ifs-slider-track__fill{position:absolute;top:0;bottom:0;background:var(--icon-primary)}
+.ifs-slider-track--disabled{cursor:not-allowed}
+.ifs-slider-track--disabled .ifs-slider-track__fill{background:transparent}
+/* atom: 12px thumb */
+.ifs-slider-thumb{position:absolute;top:50%;width:12px;height:12px;margin:-6px 0 0 -6px;box-sizing:border-box;border-radius:50%;
+  background:var(--icon-primary);backdrop-filter:blur(var(--blur-strong));-webkit-backdrop-filter:blur(var(--blur-strong));
+  outline:none;cursor:grab;transition:box-shadow .12s}
+.ifs-slider-thumb:hover,.ifs-slider-thumb[data-state=hover]{box-shadow:var(--drop-shadow-elevation-2)}
+.ifs-slider-thumb.is-dragging,.ifs-slider-thumb[data-state=drag]{cursor:grabbing;box-shadow:0 0 0 2px var(--border-strong)}
+.ifs-slider-thumb:focus-visible,.ifs-slider-thumb[data-state=focus]{box-shadow:0 0 0 1px var(--focus-focus-inner),0 0 0 2px var(--focus-focus-outer)}
+.ifs-slider-track--disabled .ifs-slider-thumb{background:var(--icon-disabled);cursor:not-allowed;box-shadow:none}
+
+/* ================= FormCard — form-card-organism (5826:24755) ================= */
+/* 464–680px wide, 32px padding (canvas notes), radius 12, background/elevation-1/primary (base), border/base outside. */
+.ifs-form-card{position:relative;display:flex;flex-direction:column;box-sizing:border-box;width:100%;min-width:464px;max-width:680px;
+  max-height:var(--ifs-form-card-max-h,calc(100vh - 48px));
+  border-radius:var(--radius-radius-300);background:var(--background-elevation-1-primary-base);box-shadow:0 0 0 1px var(--border-base);
+  backdrop-filter:blur(var(--blur-strong));-webkit-backdrop-filter:blur(var(--blur-strong))}
+.ifs-form-card__header{flex:none;display:flex;align-items:flex-start;gap:var(--gaps-gap-400);padding:32px 32px 0 /* raw in canvas notes */}
+.ifs-form-card__heading{flex:1;min-width:0;display:flex;flex-direction:column;gap:var(--gaps-gap-200)}
+.ifs-form-card__title{margin:0;color:var(--text-primary);font:500 20px/24px var(--font-family-text);letter-spacing:-0.5px /* Heading/H1/medium */}
+.ifs-form-card__desc{margin:0;color:var(--text-secondary);font:400 14px/20px var(--font-family-text);letter-spacing:-0.1px /* Body/L/regular */}
+.ifs-form-card__divider{flex:none;height:1px;margin:var(--gaps-gap-600) 32px 0;background:var(--border-base)}
+.ifs-form-card__body{flex:1 1 auto;min-height:0;overflow-y:auto;display:flex;flex-direction:column;gap:var(--gaps-gap-600);
+  padding:var(--gaps-gap-600) 32px 32px;scrollbar-width:thin;scrollbar-color:var(--background-elevation-1-tertiary) transparent}
+.ifs-form-card__header + .ifs-form-card__body{padding-top:var(--gaps-gap-600)}
+.ifs-form-card > .ifs-form-card__body:first-child{padding-top:32px}
+.ifs-form-card__body.is-submitting{opacity:.6;pointer-events:none}
+.ifs-form-card__body fieldset{display:contents}
+.ifs-form-card__skeleton{display:flex;flex-direction:column;gap:var(--gaps-gap-200)}
+.ifs-form-card__message{flex:none;margin:0 32px var(--gaps-gap-400)}
+.ifs-form-card__summary{margin:0;padding:0 0 0 var(--paddings-padding-400)}
+.ifs-form-card__summary li{margin:0}
+.ifs-form-card__footer{flex:none;display:flex;align-items:center;justify-content:flex-end;gap:var(--gaps-gap-200);
+  padding:var(--paddings-padding-500) 32px;box-shadow:inset 0 1px 0 var(--border-base)}
+.ifs-form-card__footer--plain{box-shadow:none;padding-top:0}
+.ifs-form-card__submitting .ifs-icon{animation:ifs-extras-spin 1s linear infinite}
+@keyframes ifs-extras-spin{to{transform:rotate(360deg)}}
+
+/* ================= IconPicker — icon-picker-atom (210:77686), icon-picker-organism (5434:16926) ================= */
+.ifs-icon-picker{display:inline-flex;flex-direction:column;gap:var(--gaps-gap-400);padding:var(--paddings-padding-300);box-sizing:border-box}
+.ifs-icon-picker--bare{padding:0}
+.ifs-icon-picker__grid{display:grid;grid-template-columns:repeat(var(--cols,4),44px);gap:var(--gaps-gap-200)}
+.ifs-icon-picker__item{--stroke:var(--element-button-tertiary-border-default);
+  display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;margin:0;padding:0;border:0;
+  border-radius:var(--radius-radius-200);background:none;box-shadow:inset 0 0 0 1px var(--stroke);color:var(--icon-primary);cursor:pointer;
+  transition:box-shadow .12s}
+.ifs-icon-picker__item:hover,.ifs-icon-picker__item[data-state=hover]{--stroke:var(--element-button-tertiary-border-hover)}
+.ifs-icon-picker__item[aria-checked=true],.ifs-icon-picker__item[data-state=selected]{--stroke:var(--border-selected)}
+.ifs-icon-picker__item:focus-visible,.ifs-icon-picker__item[data-state=focus]{outline:none;
+  box-shadow:inset 0 0 0 1px var(--stroke),0 0 0 1.5px var(--focus-focus-inner),0 0 0 3px var(--focus-focus-outer)}
+
+/* ================= Weekday — weekday-atom (2704:74414) ================= */
+.ifs-weekday{display:inline-flex;align-items:center;justify-content:center;flex:none;box-sizing:border-box;width:32px;height:16px;
+  padding:var(--paddings-padding-50) var(--paddings-padding-100);color:var(--text-tertiary);
+  font:600 10px/12px var(--font-family-text);letter-spacing:0.2px;text-transform:uppercase /* Caption/semibold-UPPER */}
+.ifs-weekdays{display:flex}
+
+/* ================= Logo — logo (788:52389) used in global-header (69:3736) ================= */
+.ifs-logo{display:inline-block;flex:none;color:var(--icon-primary);vertical-align:middle}
+.ifs-logo svg{display:block;width:100%;height:100%}

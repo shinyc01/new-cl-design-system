@@ -1,0 +1,301 @@
+/* Figma: Data Display page (3501:10172) + progress-bar-molecule (1674:1902) */
+
+/* ---- Shared loading skeletons ----
+   Container skeleton: background/elevation-1/secondary → surface/secondary-alpha → back (badge, avatar, card, risk).
+   Bar skeleton: raw white 10% → 4% → 10% (indicator, stat-card, table-cell text bars). */
+.ifs-skeleton{background:linear-gradient(90deg,var(--background-elevation-1-secondary),var(--surface-secondary-alpha),var(--background-elevation-1-secondary))}
+.ifs-skeleton-bar{display:block;flex:none;
+  background:linear-gradient(90deg,rgba(255,255,255,.1),rgba(255,255,255,.04),rgba(255,255,255,.1)) /* raw in Figma */}
+
+/* ---- counter-atom (88:24147) — used inside group rows and grouped notifications ---- */
+.ifs-data-counter{display:inline-flex;align-items:center;justify-content:center;flex:none;height:18px;padding:var(--paddings-padding-50) var(--paddings-padding-200);
+  border-radius:10px /* raw in Figma */;background:var(--surface-tertiary-alpha);color:var(--text-secondary);
+  font:500 12px/16px var(--font-family-text);letter-spacing:-0.1px}
+
+/* ================= Badge — badge-atom (83:52162) ================= */
+.ifs-badge{display:inline-flex;align-items:center;justify-content:center;gap:var(--gaps-gap-100);flex:none;box-sizing:border-box;
+  border-radius:var(--radius-radius-full);white-space:nowrap;color:var(--text-primary);
+  font:500 12px/16px var(--font-family-text);letter-spacing:-0.15px}
+.ifs-badge--l{height:32px;padding:var(--paddings-padding-200) var(--paddings-padding-250)}
+.ifs-badge--m{height:24px;padding:var(--paddings-padding-100) var(--paddings-padding-200)}
+.ifs-badge--s{height:20px;padding:0 var(--paddings-padding-150)}
+.ifs-badge--white{background:var(--element-button-secondary-fill-default)}
+.ifs-badge--black{background:var(--background-color-alpha-black-strong);box-shadow:inset 0 0 0 1px var(--border-medium)}
+.ifs-badge--red{background:var(--background-color-alpha-red-base);color:var(--text-danger)}
+.ifs-badge--green{background:var(--background-color-alpha-green-base);color:var(--text-success)}
+.ifs-badge--orange{background:var(--element-map-pin-overlay-warning);color:var(--text-warning)}
+/* Color=False: no fill, caption uppercase in text/secondary, 12px icons */
+.ifs-badge--false{height:20px;padding:var(--paddings-padding-100) var(--paddings-padding-150);color:var(--text-secondary);
+  font:600 10px/12px var(--font-family-text);letter-spacing:0.2px;text-transform:uppercase}
+.ifs-badge--loading{padding:0}
+.ifs-badge--loading.ifs-badge--l{width:36px;height:28px}
+.ifs-badge--loading.ifs-badge--m{width:32px;height:20px}
+.ifs-badge--loading.ifs-badge--s{width:28px;height:20px}
+.ifs-badge .ifs-status-indicator{width:4px;height:4px}
+
+/* ================= StatusIndicator — status-indicator-atom (789:39211) ================= */
+.ifs-status-indicator{display:inline-block;flex:none;width:8px;height:8px;border-radius:var(--radius-radius-full);background:var(--dot)}
+.ifs-status-indicator--default{--dot:var(--icon-disabled)}
+.ifs-status-indicator--error{--dot:var(--background-system-danger)}
+.ifs-status-indicator--success{--dot:var(--background-system-success)}
+.ifs-status-indicator--warning{--dot:var(--icon-warning)}
+.ifs-status-indicator--cooper{--dot:var(--icon-accent-cooper)}
+.ifs-status-indicator--blue{--dot:var(--icon-info)}
+.ifs-status-indicator--stroke{box-shadow:0 0 0 1.5px var(--surface-primary)}
+
+/* ================= Avatar — avatar-atom (260:17144) + avatar-organism (260:19923) ================= */
+.ifs-avatar{position:relative;display:inline-flex;flex:none;width:var(--av);height:var(--av);vertical-align:middle}
+.ifs-avatar--xs{--av:16px;--av-status:8px}
+.ifs-avatar--s{--av:24px;--av-status:8px}
+.ifs-avatar--m{--av:32px;--av-status:10px}
+.ifs-avatar--l{--av:40px;--av-status:12px}
+.ifs-avatar--xl{--av:56px;--av-status:16px}
+.ifs-avatar__base{--ring:0 0 0 0 transparent;--edge:0 0 0 0 transparent;position:relative;display:flex;align-items:center;justify-content:center;
+  width:100%;height:100%;box-sizing:border-box;margin:0;padding:0;border:0;border-radius:var(--radius-radius-full);overflow:hidden;
+  background:var(--av-fill,var(--collaboration-user-16));color:var(--av-text,var(--text-on-solid));box-shadow:var(--edge),var(--ring);
+  font:600 12px/16px var(--font-family-text);letter-spacing:0.2px;text-transform:uppercase}
+button.ifs-avatar__base{cursor:pointer}
+/* initials type per organism size (Figma overrides the atom text per size) */
+.ifs-avatar--xs .ifs-avatar__base{font:600 7px/12px var(--font-family-text);letter-spacing:0.2px /* raw in Figma */}
+.ifs-avatar--s .ifs-avatar__base{font:600 10px/12px var(--font-family-text);letter-spacing:0.2px}
+.ifs-avatar--l .ifs-avatar__base{font:500 14px/20px var(--font-family-text);letter-spacing:-0.15px}
+.ifs-avatar--xl .ifs-avatar__base{font:600 16px/20px var(--font-family-text);letter-spacing:0 /* raw in Figma */}
+.ifs-avatar__name{position:relative;z-index:2}
+.ifs-avatar__img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+/* "color": 1.3px inner rim, white 100% → 0% top to bottom at 40% */
+.ifs-avatar__base::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1.3px;z-index:3;pointer-events:none;
+  background:linear-gradient(180deg,rgba(255,255,255,.4),rgba(255,255,255,0)) /* raw in Figma */;
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
+/* "gradient": soft-light highlight on the top half, blurred */
+.ifs-avatar__base::after{content:"";position:absolute;left:0;right:0;top:-4%;height:50%;z-index:1;pointer-events:none;opacity:.8;mix-blend-mode:soft-light;
+  background:linear-gradient(0deg,rgba(255,255,255,.2),#fff) /* raw in Figma */;filter:blur(calc(var(--av) * .135))}
+/* hover / pressed overlay ("hoverLight") */
+.ifs-avatar__overlay{position:absolute;inset:0;border-radius:inherit;z-index:1;background:transparent;pointer-events:none}
+
+.ifs-avatar--black{--av-fill:var(--collaboration-user-16)}
+.ifs-avatar--red{--av-fill:var(--collaboration-user-12)}
+.ifs-avatar--dark-orange{--av-fill:var(--collaboration-user-1)}
+.ifs-avatar--orange{--av-fill:var(--collaboration-user-7);--av-text:var(--text-on-solid-dark)}
+.ifs-avatar--yellow{--av-fill:var(--collaboration-user-13);--av-text:var(--text-on-solid-dark)}
+.ifs-avatar--brown{--av-fill:var(--collaboration-user-9)}
+.ifs-avatar--dark-blue{--av-fill:var(--collaboration-user-2)}
+.ifs-avatar--blue{--av-fill:var(--collaboration-user-10)}
+.ifs-avatar--light-blue{--av-fill:var(--collaboration-user-4);--av-text:var(--text-on-solid-dark)}
+.ifs-avatar--green{--av-fill:var(--collaboration-user-3)}
+.ifs-avatar--lime{--av-fill:var(--collaboration-user-6);--av-text:var(--text-on-solid-dark)}
+.ifs-avatar--dark-purple{--av-fill:var(--collaboration-user-8)}
+.ifs-avatar--purple{--av-fill:var(--collaboration-user-14)}
+.ifs-avatar--light-purple{--av-fill:var(--collaboration-user-11);--av-text:var(--text-on-solid-dark)}
+.ifs-avatar--dark-pink{--av-fill:var(--collaboration-user-5)}
+.ifs-avatar--light-pink{--av-fill:var(--collaboration-user-15);--av-text:var(--text-on-solid-dark)}
+.ifs-avatar--image .ifs-avatar__base,.ifs-avatar--cooper .ifs-avatar__base{--edge:0 0 0 1px var(--border-medium)}
+.ifs-avatar--image .ifs-avatar__base::after{display:none}
+/* Cooper avatar: Figma draws a multi-gradient sphere image; approximated */
+.ifs-avatar--cooper{--av-fill:radial-gradient(circle at 35% 30%,#fff 0,#fbc4e6 22%,#cd9579 55%,#5a12bf 120%) /* raw in Figma */}
+.ifs-avatar--cooper .ifs-avatar__base{background:var(--av-fill)}
+.ifs-avatar--awaiting .ifs-avatar__base{background:transparent;color:var(--text-primary);border:1.5px dashed var(--border-strong)}
+.ifs-avatar--awaiting .ifs-avatar__base::after,.ifs-avatar--inactive .ifs-avatar__base::after,.ifs-avatar--loading .ifs-avatar__base::after{display:none}
+.ifs-avatar--inactive .ifs-avatar__base{--av-fill:var(--collaboration-user-16);--av-text:var(--text-tertiary);--edge:0 0 0 1px var(--border-medium)}
+.ifs-avatar--loading .ifs-avatar__base{background:linear-gradient(90deg,var(--background-elevation-1-secondary),var(--surface-secondary-alpha),var(--background-elevation-1-secondary));
+  box-shadow:inset 0 0 0 .5px var(--border-base),0 0 0 .5px var(--border-base)}
+/* states */
+button.ifs-avatar__base:hover,.ifs-avatar__base[data-state=hover]{--edge:0 0 0 1px var(--border-medium)}
+button.ifs-avatar__base:hover .ifs-avatar__overlay,.ifs-avatar__base[data-state=hover] .ifs-avatar__overlay{background:var(--overlay-element-light)}
+button.ifs-avatar__base:active,.ifs-avatar__base[data-state=pressed]{--edge:0 0 0 1px var(--border-medium);color:var(--text-secondary)}
+button.ifs-avatar__base:active .ifs-avatar__overlay,.ifs-avatar__base[data-state=pressed] .ifs-avatar__overlay{background:var(--overlay-screen-medium)}
+.ifs-avatar__base:focus-visible,.ifs-avatar__base[data-state=focus]{outline:none;--ring:0 0 0 1.5px var(--focus-focus-inner),0 0 0 3px var(--focus-focus-outer)}
+.ifs-avatar__status{position:absolute;right:0;bottom:0;z-index:4;width:var(--av-status);height:var(--av-status)}
+.ifs-avatar__status .ifs-risk-atom{width:100%;height:100%}
+
+/* ---- status-risk-atom (260:18430): 16 box; circle 8 (online/offline) or 14 filled disc ---- */
+.ifs-risk-atom{position:relative;display:inline-flex;align-items:center;justify-content:center;flex:none;width:16px;height:16px;color:var(--icon-primary)}
+.ifs-risk-atom .ifs-icon{width:87.5%;height:87.5%}
+.ifs-risk-atom--online::before,.ifs-risk-atom--offline::before{content:"";width:50%;height:50%;border-radius:var(--radius-radius-full);box-shadow:0 0 0 1px var(--icon-primary)}
+.ifs-risk-atom--online::before{background:var(--background-system-success)}
+.ifs-risk-atom--offline::before{background:var(--icon-tertiary)}
+.ifs-risk-atom--check{--disc:var(--background-system-success)}
+.ifs-risk-atom--warning{--disc:var(--background-system-warning)}
+.ifs-risk-atom--error{--disc:var(--background-system-danger)}
+
+/* ================= RiskStatus — status-risk-molecule (69:1729) ================= */
+.ifs-risk{--stroke:0 0 0 0 transparent;--ring:0 0 0 0 transparent;display:inline-flex;align-items:center;gap:var(--gaps-gap-100);flex:none;box-sizing:border-box;
+  height:24px;margin:0;border:0;padding:var(--paddings-padding-100) var(--paddings-padding-200) var(--paddings-padding-100) var(--paddings-padding-100);
+  border-radius:100px /* raw in Figma */;background:var(--surface-secondary-alpha);color:var(--text-primary);white-space:nowrap;
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px) /* raw in Figma */;
+  box-shadow:var(--stroke),var(--ring),0 4px 24px rgba(0,0,0,.04) /* raw in Figma */;
+  font:600 12px/16px var(--font-family-text);letter-spacing:0.2px;text-transform:uppercase}
+button.ifs-risk{cursor:pointer}
+button.ifs-risk:hover,.ifs-risk[data-state=hover]{background:var(--surface-tertiary-alpha);--stroke:0 0 0 1px var(--border-base)}
+.ifs-risk:disabled,.ifs-risk[aria-disabled=true]{cursor:not-allowed;color:var(--text-disabled);background:var(--surface-secondary-alpha);--stroke:0 0 0 1px var(--border-base)}
+.ifs-risk:focus-visible,.ifs-risk[data-state=focus]{outline:none;border-radius:var(--radius-radius-full);--ring:0 0 0 1px var(--focus-focus-inner),0 0 0 2px var(--focus-focus-outer)}
+.ifs-risk--loading{width:138px}
+
+/* ================= ReadinessStatus — status-readiness-molecule (1440:5273) ================= */
+.ifs-readiness{display:flex;align-items:center;gap:var(--gaps-gap-150);box-sizing:border-box;min-height:32px;padding:var(--paddings-padding-150) 0}
+.ifs-readiness__left,.ifs-readiness__right{display:flex;align-items:center;gap:var(--gaps-gap-150);flex:1 1 0;min-width:0}
+.ifs-readiness__right{justify-content:flex-end}
+.ifs-readiness__right--text{justify-content:flex-start}
+.ifs-readiness__icon{position:relative;display:flex;align-items:center;justify-content:center;flex:none;width:16px;height:16px;color:var(--icon-primary)}
+.ifs-readiness__label{flex:1;min-width:0;font:500 14px/20px var(--font-family-text);letter-spacing:-0.15px;color:var(--text-primary)}
+.ifs-readiness__text{flex:1;min-width:0;font:400 14px/20px var(--font-family-text);letter-spacing:-0.1px;color:var(--text-secondary)}
+.ifs-readiness--in-progress .ifs-readiness__label,.ifs-readiness--active .ifs-readiness__label{color:var(--text-secondary)}
+/* In progress / Loading: dashed ring (vector in Figma) */
+.ifs-readiness--in-progress .ifs-readiness__icon::before,.ifs-readiness--loading .ifs-readiness__icon::before{content:"";width:13.5px;height:13.5px;box-sizing:border-box;border-radius:50%;border:1.25px dashed var(--icon-tertiary)}
+/* Active: 12px ring 1.5 stroke + 6px dot */
+.ifs-readiness--active .ifs-readiness__icon::before{content:"";position:absolute;width:12px;height:12px;box-sizing:border-box;border-radius:50%;border:1.5px dotted var(--icon-primary)}
+.ifs-readiness--active .ifs-readiness__icon::after{content:"";width:6px;height:6px;border-radius:50%;background:var(--icon-primary)}
+.ifs-readiness--loading .ifs-readiness__label{flex:1;height:16px}
+
+/* ================= Indicator — indicator-molecule (1074:180251) ================= */
+.ifs-indicator{display:inline-flex;align-items:center;flex:none;border-radius:100px /* raw in Figma */;color:var(--text-primary);white-space:nowrap}
+.ifs-indicator--s{gap:var(--gaps-gap-150);font:600 12px/16px var(--font-family-text);letter-spacing:0.2px;text-transform:uppercase}
+.ifs-indicator--xs{gap:var(--gaps-gap-100);font:500 12px/16px var(--font-family-text);letter-spacing:-0.15px}
+.ifs-indicator--xs .ifs-status-indicator{width:6px;height:6px}
+.ifs-indicator--orange{--dot:var(--icon-warning)}
+.ifs-indicator--green{--dot:var(--icon-success)}
+.ifs-indicator--red{--dot:var(--icon-danger)}
+.ifs-indicator--blue{--dot:var(--icon-info)}
+.ifs-indicator--purple{--dot:var(--background-solid-accent-purple)}
+.ifs-indicator--gray{--dot:var(--icon-tertiary)}
+.ifs-indicator--cooper{--dot:var(--icon-accent-cooper)}
+.ifs-indicator--archive,.ifs-indicator--loading{--dot:var(--icon-disabled)}
+.ifs-indicator--archive{color:var(--text-disabled)}
+.ifs-indicator .ifs-status-indicator{background:var(--dot)}
+.ifs-indicator--s .ifs-skeleton-bar{width:33px;height:16px}
+.ifs-indicator--xs .ifs-skeleton-bar{width:22px;height:14px}
+.ifs-indicator--xs.ifs-indicator--loading{height:14px}
+
+/* ================= StatCard — stat-card-organism (3643:35055) ================= */
+.ifs-stat-card{display:flex;flex-direction:column;box-sizing:border-box;border-radius:var(--radius-radius-100);
+  background:var(--element-card-state-fill-default);box-shadow:0 0 0 1px var(--element-card-state-border-default)}
+.ifs-stat-card--m{gap:var(--gaps-gap-200);padding:var(--paddings-padding-300)}
+.ifs-stat-card--s{gap:var(--gaps-gap-100);padding:var(--paddings-padding-200)}
+.ifs-stat-card__top{display:flex;align-items:center;gap:var(--gaps-gap-100);min-height:16px}
+.ifs-stat-card__title{flex:1;min-width:0;color:var(--text-tertiary);font:500 12px/14px var(--font-family-text);letter-spacing:-0.1px}
+.ifs-stat-card__trend{display:inline-flex;align-items:center;gap:var(--gaps-gap-50);flex:none;color:var(--text-tertiary);font:400 12px/16px var(--font-family-text);letter-spacing:0}
+.ifs-stat-card__trend .ifs-icon{color:var(--icon-tertiary)}
+.ifs-stat-card__trend--down .ifs-icon{transform:rotate(180deg)}
+.ifs-stat-card__value-row{display:flex;align-items:baseline;gap:var(--gaps-gap-100)}
+.ifs-stat-card__value{flex:none;color:var(--text-primary)}
+.ifs-stat-card--m .ifs-stat-card__value{font:500 20px/24px var(--font-family-text);letter-spacing:-0.5px}
+.ifs-stat-card--s .ifs-stat-card__value{font:500 16px/20px var(--font-family-text);letter-spacing:-0.3px}
+.ifs-stat-card__desc{flex:1;min-width:0;color:var(--text-tertiary);font:500 12px/16px var(--font-family-text);letter-spacing:-0.15px}
+.ifs-stat-card__extra{display:flex;align-items:baseline;gap:var(--gaps-gap-150)}
+.ifs-stat-card--loading .ifs-stat-card__value-row{align-items:center}
+
+/* ================= ContentCard — content-card-organism (3643:32067) ================= */
+.ifs-content-card{--fill:var(--element-card-state-fill-default);--stroke:0 0 0 0 transparent;--ring:0 0 0 0 transparent;
+  position:relative;display:flex;flex-direction:column;gap:var(--gaps-gap-300);box-sizing:border-box;padding:var(--paddings-padding-200);
+  border-radius:var(--radius-radius-100);background:var(--fill);box-shadow:var(--stroke),var(--ring);color:var(--text-primary);text-align:left;
+  transition:background-color .12s,box-shadow .12s}
+.ifs-content-card[role=button]{cursor:pointer}
+.ifs-content-card[role=button]:hover,.ifs-content-card[data-state=hover]{--fill:var(--element-card-state-fill-hover)}
+.ifs-content-card[role=button]:active,.ifs-content-card[data-state=pressed]{--fill:var(--element-card-state-fill-pressed);--stroke:inset 0 0 0 1px var(--element-card-state-border-pressed)}
+.ifs-content-card--selected,.ifs-content-card[data-state=selected]{--fill:var(--element-card-state-fill-selected);--stroke:inset 0 0 0 1px var(--element-card-state-border-selected)}
+.ifs-content-card[data-state=drag]{--fill:var(--element-card-state-fill-drag);--stroke:inset 0 0 0 1px var(--element-card-state-border-drag)}
+.ifs-content-card:focus-visible,.ifs-content-card[data-state=focus]{outline:none;--fill:var(--surface-secondary-alpha);
+  --ring:0 0 0 2px var(--focus-focus-inner),0 0 0 4px var(--focus-focus-outer)}
+/* Cooper: 4px outside gradient ring (text/accent-cooper → text/primary) + 2px focus-inner */
+.ifs-content-card--cooper,.ifs-content-card[data-state=cooper]{--fill:var(--surface-secondary-alpha);--ring:0 0 0 2px var(--focus-focus-inner)}
+.ifs-content-card--cooper::before,.ifs-content-card[data-state=cooper]::before{content:"";position:absolute;inset:-4px;padding:4px;border-radius:calc(var(--radius-radius-100) + 4px);pointer-events:none;
+  background:linear-gradient(225deg,var(--text-accent-cooper),var(--text-primary));
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
+.ifs-content-card--loading{background:linear-gradient(90deg,var(--background-elevation-1-secondary),var(--surface-secondary-alpha),var(--background-elevation-1-secondary))}
+.ifs-content-card__main{display:flex;gap:var(--gaps-gap-200);min-width:0}
+.ifs-content-card__text{display:flex;flex-direction:column;gap:var(--gaps-gap-100);flex:1;min-width:0}
+.ifs-content-card__head{display:flex;align-items:center;gap:var(--gaps-gap-150);min-height:20px}
+.ifs-content-card__title{flex:1;min-width:0;color:var(--text-primary)}
+.ifs-content-card--m .ifs-content-card__title{font:500 14px/20px var(--font-family-text);letter-spacing:-0.15px}
+.ifs-content-card--s .ifs-content-card__title{font:500 12px/16px var(--font-family-text);letter-spacing:-0.1px}
+.ifs-content-card--s .ifs-content-card__head{min-height:16px}
+.ifs-content-card__head > .ifs-icon{color:var(--icon-primary)}
+.ifs-content-card__desc{color:var(--text-secondary);font:400 12px/16px var(--font-family-text);letter-spacing:0}
+.ifs-content-card__slot{display:flex;gap:var(--gaps-gap-150)}
+.ifs-content-card__buttons{display:flex;gap:var(--gaps-gap-200)}
+.ifs-content-card__buttons > .ifs-button{flex:1 1 0;min-width:0}
+
+/* ================= Table — table-card-organism (4835:4031) and its parts ================= */
+.ifs-table-card{display:flex;flex-direction:column;gap:var(--gaps-gap-200);padding:var(--paddings-padding-300);border-radius:var(--radius-radius-200);background:var(--surface-secondary-alpha)}
+.ifs-table-card__name{color:var(--text-tertiary);font:600 14px/20px var(--font-family-text);letter-spacing:0.3px;text-transform:uppercase}
+.ifs-table-card__bar{display:flex;align-items:center;justify-content:space-between;gap:var(--gaps-gap-300);min-height:40px}
+.ifs-table-card__bar > :last-child:not(:first-child){width:360px;flex:none}
+.ifs-table{display:flex;flex-direction:column;gap:var(--gaps-gap-100);min-width:0}
+/* content-row-molecule (4835:3501) */
+.ifs-table__row{display:grid;grid-template-columns:var(--cols);align-items:center;border-radius:var(--radius-radius-100)}
+.ifs-table__row--header{min-height:32px}
+.ifs-table__row--content{min-height:48px;background:var(--surface-secondary-alpha);transition:background-color .12s,box-shadow .12s}
+/* Row hover / selected: not drawn in Figma — card state tokens */
+.ifs-table__row--clickable{cursor:pointer}
+.ifs-table__row--clickable:hover,.ifs-table__row--content[data-state=hover]{background:var(--element-card-state-fill-hover)}
+.ifs-table__row--selected{box-shadow:inset 0 0 0 1px var(--element-card-state-border-selected)}
+.ifs-table__row--clickable:focus-visible{outline:none;box-shadow:0 0 0 1.5px var(--focus-focus-inner),0 0 0 3px var(--focus-focus-outer)}
+/* table-header-molecule (1440:5904) */
+.ifs-table__th{display:flex;align-items:center;gap:var(--gaps-gap-200);min-width:0;box-sizing:border-box;height:32px;padding:var(--paddings-padding-200) var(--paddings-padding-300);
+  color:var(--text-tertiary);font:500 12px/14px var(--font-family-text);letter-spacing:0.1px;text-transform:uppercase;white-space:nowrap}
+.ifs-table__th:hover,.ifs-table__th[data-state=hover]{color:var(--text-secondary)}
+.ifs-table__th--right{justify-content:flex-end}
+.ifs-table__th--center{justify-content:center}
+.ifs-table__th-btn{all:unset;display:inline-flex;align-items:center;gap:var(--gaps-gap-200);cursor:pointer;border-radius:var(--radius-radius-100)}
+.ifs-table__th-btn:focus-visible{box-shadow:0 0 0 1.5px var(--focus-focus-inner),0 0 0 3px var(--focus-focus-outer)}
+/* table-sort-atom (1440:5921) */
+.ifs-table-sort{position:relative;display:inline-flex;flex:none;width:16px;height:16px;color:var(--icon-tertiary)}
+.ifs-table__th:hover .ifs-table-sort,.ifs-table-sort[data-state=hover]{color:var(--icon-secondary)}
+.ifs-table-sort--asc,.ifs-table-sort--desc{color:transparent}
+.ifs-table-sort--asc::before,.ifs-table-sort--asc::after,.ifs-table-sort--desc::before,.ifs-table-sort--desc::after{
+  content:"";position:absolute;left:4.85px;width:6.3px;height:3.7px;background:var(--icon-disabled)}
+.ifs-table-sort--asc::before,.ifs-table-sort--desc::before{top:3.3px;clip-path:polygon(50% 0,100% 100%,0 100%)}
+.ifs-table-sort--asc::after,.ifs-table-sort--desc::after{bottom:3.3px;clip-path:polygon(0 0,100% 0,50% 100%)}
+.ifs-table-sort--asc::before,.ifs-table-sort--desc::after{background:var(--icon-primary)}
+/* table-filter-atom (1440:5932) */
+.ifs-table-filter{all:unset;position:relative;display:inline-flex;flex:none;width:16px;height:16px;cursor:pointer;color:var(--icon-tertiary);border-radius:var(--radius-radius-100)}
+.ifs-table-filter:hover,.ifs-table-filter[data-state=hover]{color:var(--icon-secondary)}
+.ifs-table-filter--applied{color:var(--icon-primary)}
+.ifs-table-filter--applied::after{content:"";position:absolute;right:1.5px;top:1.5px;width:3px;height:3px;border-radius:50%;background:var(--background-solid-accent-purple);box-shadow:0 0 0 1px var(--surface-primary)}
+.ifs-table-filter:focus-visible{box-shadow:0 0 0 1.5px var(--focus-focus-inner),0 0 0 3px var(--focus-focus-outer)}
+/* table-cell-atom (1440:5941) */
+.ifs-table__td{display:flex;align-items:center;gap:var(--gaps-gap-200);min-width:0;box-sizing:border-box;padding:var(--paddings-padding-300);
+  color:var(--text-primary);font:500 12px/16px var(--font-family-text);letter-spacing:-0.1px}
+.ifs-table__td--right{justify-content:flex-end}
+.ifs-table__td--center{justify-content:center}
+.ifs-table__td--check,.ifs-table__td--status{gap:var(--gaps-gap-100)}
+.ifs-table__stack{display:flex;flex-direction:column;gap:var(--gaps-gap-100);min-width:0}
+.ifs-table__stack--user{gap:var(--gaps-gap-50)}
+.ifs-table__desc{color:var(--text-secondary);font:400 12px/16px var(--font-family-text);letter-spacing:0}
+.ifs-table__username{color:var(--text-primary);font:500 12px/14px var(--font-family-text);letter-spacing:-0.1px}
+.ifs-table__status-desc{color:var(--text-tertiary);font:600 12px/16px var(--font-family-text);letter-spacing:0.2px;text-transform:uppercase}
+.ifs-table__trend{display:inline-flex;align-items:center;gap:var(--gaps-gap-50);color:var(--text-tertiary);font:400 12px/16px var(--font-family-text);letter-spacing:0}
+.ifs-table__trend .ifs-icon{color:var(--icon-tertiary)}
+.ifs-table__trend--down .ifs-icon{transform:rotate(180deg)}
+.ifs-table__ellipsis{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+/* group-row-molecule (4833:19072) */
+.ifs-table__group{all:unset;display:flex;align-items:center;gap:var(--gaps-gap-100);box-sizing:border-box;height:32px;padding:var(--paddings-padding-300);cursor:pointer;
+  border-radius:var(--radius-radius-100);background:var(--surface-tertiary-alpha);color:var(--text-tertiary);
+  font:500 12px/14px var(--font-family-text);letter-spacing:0.1px;text-transform:uppercase}
+.ifs-table__group .ifs-icon{color:var(--icon-tertiary);transform:rotate(180deg) /* Figma rotates the caret 180° */}
+.ifs-table__group-title{flex:1;min-width:0}
+.ifs-table__group:focus-visible{box-shadow:0 0 0 1.5px var(--focus-focus-inner),0 0 0 3px var(--focus-focus-outer)}
+
+/* ================= NotificationCard — notification-card (9943:5373) ================= */
+.ifs-notification{--fill:var(--element-card-state-fill-default);position:relative;display:flex;align-items:flex-start;gap:var(--gaps-gap-300);box-sizing:border-box;
+  padding:var(--paddings-padding-300);border-radius:var(--radius-radius-100);background:var(--fill);text-align:left;transition:background-color .12s}
+.ifs-notification[role=button]{cursor:pointer}
+.ifs-notification[role=button]:hover,.ifs-notification[data-state=hover]{--fill:var(--element-card-state-fill-hover)}
+.ifs-notification[role=button]:focus-visible{outline:none;box-shadow:0 0 0 1.5px var(--focus-focus-inner),0 0 0 3px var(--focus-focus-outer)}
+.ifs-notification__lead{position:relative;flex:none;width:32px;height:32px}
+.ifs-notification__critical{position:absolute;left:23px;top:-3px;display:inline-flex;color:var(--icon-danger)}
+.ifs-notification__count{position:absolute;left:16px;top:-9px;backdrop-filter:blur(var(--blur-strong));-webkit-backdrop-filter:blur(var(--blur-strong))}
+.ifs-notification__content{display:flex;flex-direction:column;gap:var(--gaps-gap-100);flex:1;min-width:0}
+.ifs-notification__title-row{display:flex;align-items:flex-start;gap:var(--gaps-gap-200)}
+.ifs-notification--has-tag .ifs-notification__title-row{min-height:20px}
+.ifs-notification__title{flex:1;min-width:0;color:var(--text-primary);font:500 14px/16px var(--font-family-text);letter-spacing:-0.2px}
+.ifs-notification__details{color:var(--text-secondary);font:400 12px/16px var(--font-family-text);letter-spacing:0}
+.ifs-notification__meta-row{display:flex;align-items:center;gap:var(--gaps-gap-150);padding-top:var(--paddings-padding-50);
+  color:var(--text-tertiary);font:400 12px/16px var(--font-family-text);letter-spacing:0}
+.ifs-notification__meta{flex:1;min-width:0}
+.ifs-notification__time{flex:none}
+.ifs-notification__actions{display:flex;gap:var(--gaps-gap-200);padding-top:var(--paddings-padding-200)}
+.ifs-notification__unread{display:flex;align-items:center;flex:none;width:8px;height:20px}
+
+/* ================= ProgressBar — progress-bar-molecule (1674:1902) ================= */
+.ifs-progress{display:block;width:100%;height:4px;border-radius:var(--radius-radius-100);background:var(--surface-tertiary-alpha);overflow:hidden}
+.ifs-progress__bar{display:block;height:100%;border-radius:var(--radius-radius-100);background:var(--icon-primary);transition:width .2s}

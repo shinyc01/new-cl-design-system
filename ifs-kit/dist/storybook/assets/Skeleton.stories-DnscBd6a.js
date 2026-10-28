@@ -1,0 +1,4 @@
+import{I as r}from"./states-mZoAP5kB.js";import{I as a}from"./extras-DjJ3pM81.js";import"./index-B0WjJBI_.js";import"./_commonjsHelpers-CqkleIqs.js";const i=r.find(n=>n.name==="Skeleton"),p={title:"Content States & Cooper/Skeleton",component:a.Skeleton,tags:["autodocs"],parameters:{docs:{description:{component:"**Figma:** Content States › Skeleton (4759:9600)"}},design:{type:"figma",url:"https://www.figma.com/design/atgUmwcA1AE5sjFoWBT7ar/IFS-Design-System?node-id=4759-9600"}}},e={name:"All variants & states",render:()=>i.render()};var t,o,s;e.parameters={...e.parameters,docs:{...(t=e.parameters)==null?void 0:t.docs,source:{originalSource:`{
+  name: 'All variants & states',
+  render: () => section.render()
+}`,...(s=(o=e.parameters)==null?void 0:o.docs)==null?void 0:s.source}}};const S=["AllVariants"];export{e as AllVariants,S as __namedExportsOrder,p as default};

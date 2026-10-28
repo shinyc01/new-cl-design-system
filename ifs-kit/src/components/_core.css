@@ -1,0 +1,6 @@
+/* Shared pieces used by several components. */
+.ifs-icon{display:inline-block;flex:none;vertical-align:middle}
+.ifs-icon--missing{outline:1px dashed var(--border-danger)}
+
+/* Figma focus ring: outer 3px focus-outer + inner 1.5px focus-inner, both outside. */
+.ifs-focus-ring{box-shadow:0 0 0 1.5px var(--focus-focus-inner),0 0 0 3px var(--focus-focus-outer)}

@@ -1,0 +1,77 @@
+/* Figma: button (65:3211), icon-button (71:4250) */
+.ifs-button,.ifs-icon-button{
+  --fill:transparent;--stroke-shadow:0 0 0 0 transparent;--ring:0 0 0 0 transparent;
+  display:inline-flex;align-items:center;justify-content:center;flex:none;
+  margin:0;border:0;cursor:pointer;white-space:nowrap;text-decoration:none;
+  background:var(--fill);color:var(--text-primary);
+  box-shadow:var(--stroke-shadow),var(--ring);
+  backdrop-filter:blur(var(--blur-medium));-webkit-backdrop-filter:blur(var(--blur-medium));
+  transition:background-color .12s,box-shadow .12s;
+}
+.ifs-button .ifs-button__label{padding:0 var(--paddings-padding-100)}
+
+/* Sizes */
+.ifs-button--l{height:40px;padding:var(--paddings-padding-250) var(--paddings-padding-300);border-radius:var(--radius-radius-200);font:500 14px/20px var(--font-family-text);letter-spacing:-0.15px}
+.ifs-button--m{height:32px;padding:var(--paddings-padding-200) var(--paddings-padding-250);border-radius:var(--radius-radius-100);font:500 12px/16px var(--font-family-text);letter-spacing:-0.15px}
+.ifs-button--s{height:24px;padding:var(--paddings-padding-100) var(--paddings-padding-150);border-radius:var(--radius-radius-100);font:500 12px/16px var(--font-family-text);letter-spacing:-0.15px}
+.ifs-icon-button--l{width:40px;height:40px;padding:var(--paddings-padding-300);border-radius:var(--radius-radius-200)}
+.ifs-icon-button--m{width:32px;height:32px;padding:var(--paddings-padding-200);border-radius:var(--radius-radius-100)}
+.ifs-icon-button--s{width:24px;height:24px;padding:var(--paddings-padding-100);border-radius:var(--radius-radius-100)}
+.ifs-icon-button--circle{border-radius:var(--radius-radius-full)}
+
+/* Types: fill + stroke per state, straight from element/button/<type>/{fill,border}/<state>.
+   Primary and Ghost strokes are OUTSIDE in Figma, Secondary and Tertiary INSIDE. */
+.ifs-button--primary,.ifs-icon-button--primary{--t:primary;color:var(--text-primary-inverse);
+  --fill:var(--element-button-primary-fill-default);--stroke-shadow:0 0 0 1px var(--element-button-primary-border-default)}
+.ifs-button--primary:hover,.ifs-button--primary[data-state=hover],.ifs-icon-button--primary:hover,.ifs-icon-button--primary[data-state=hover]{
+  --fill:var(--element-button-primary-fill-hover);--stroke-shadow:0 0 0 1px var(--element-button-primary-border-hover)}
+.ifs-button--primary:active,.ifs-button--primary[data-state=pressed],.ifs-icon-button--primary:active,.ifs-icon-button--primary[data-state=pressed]{
+  --fill:var(--element-button-primary-fill-pressed);--stroke-shadow:0 0 0 1px var(--element-button-primary-border-pressed)}
+.ifs-icon-button--primary{color:var(--icon-primary-inverse)}
+
+.ifs-button--secondary,.ifs-icon-button--secondary{
+  --fill:var(--element-button-secondary-fill-default);--stroke-shadow:inset 0 0 0 1px var(--element-button-secondary-border-default)}
+.ifs-button--secondary:hover,.ifs-button--secondary[data-state=hover],.ifs-icon-button--secondary:hover,.ifs-icon-button--secondary[data-state=hover]{
+  --fill:var(--element-button-secondary-fill-hover);--stroke-shadow:inset 0 0 0 1px var(--element-button-secondary-border-hover)}
+.ifs-button--secondary:active,.ifs-button--secondary[data-state=pressed],.ifs-icon-button--secondary:active,.ifs-icon-button--secondary[data-state=pressed]{
+  --fill:var(--element-button-secondary-fill-pressed);--stroke-shadow:inset 0 0 0 1px var(--element-button-secondary-border-pressed)}
+.ifs-icon-button--secondary{color:var(--icon-primary)}
+
+.ifs-button--tertiary,.ifs-icon-button--tertiary{
+  --fill:var(--element-button-tertiary-fill-default);--stroke-shadow:inset 0 0 0 1px var(--element-button-tertiary-border-default)}
+.ifs-button--tertiary:hover,.ifs-button--tertiary[data-state=hover],.ifs-icon-button--tertiary:hover,.ifs-icon-button--tertiary[data-state=hover]{
+  --fill:var(--element-button-tertiary-fill-hover);--stroke-shadow:inset 0 0 0 1px var(--element-button-tertiary-border-hover)}
+.ifs-button--tertiary:active,.ifs-button--tertiary[data-state=pressed],.ifs-icon-button--tertiary:active,.ifs-icon-button--tertiary[data-state=pressed]{
+  --fill:var(--element-button-tertiary-fill-pressed);--stroke-shadow:inset 0 0 0 1px var(--element-button-tertiary-border-pressed)}
+.ifs-icon-button--tertiary{color:var(--icon-primary)}
+
+.ifs-button--ghost,.ifs-icon-button--ghost{backdrop-filter:none;-webkit-backdrop-filter:none;
+  --fill:var(--element-button-ghost-fill-default);--stroke-shadow:0 0 0 1px var(--element-button-ghost-border-default)}
+.ifs-button--ghost:hover,.ifs-button--ghost[data-state=hover],.ifs-icon-button--ghost:hover,.ifs-icon-button--ghost[data-state=hover]{--fill:var(--element-button-ghost-fill-hover)}
+.ifs-button--ghost:active,.ifs-button--ghost[data-state=pressed],.ifs-icon-button--ghost:active,.ifs-icon-button--ghost[data-state=pressed]{--fill:var(--element-button-ghost-fill-pressed)}
+.ifs-icon-button--ghost{color:var(--icon-secondary)}
+
+/* Accent (Cooper): 60% of cooper/button/fill + two radial gradients.
+   Gradient geometry converted from Figma's gradientTransform (approximate to ~1px). */
+.ifs-button--cooper{--glow:var(--element-cooper-button-glow);--glow-size:68% 200%;--stroke-shadow:inset 0 0 0 1px var(--border-base);
+  background:
+    radial-gradient(ellipse 86% 98% at 50% 2%,var(--element-cooper-button-rim-center),var(--element-cooper-button-rim)),
+    radial-gradient(ellipse var(--glow-size) at 99% 88%,var(--glow),var(--element-cooper-button-glow-edge)),
+    rgba(0,0,0,.36) /* element/cooper/button/fill at 60% layer opacity */;
+}
+/* Figma enlarges the glow ~2x on hover/pressed */
+.ifs-button--cooper:hover,.ifs-button--cooper[data-state=hover]{--glow:var(--element-cooper-button-glow-hover);--glow-size:135% 400%}
+.ifs-button--cooper:active,.ifs-button--cooper[data-state=pressed]{--glow:var(--element-cooper-button-glow-pressed);--glow-size:135% 400%}
+
+/* Disabled */
+.ifs-button:disabled,.ifs-button[aria-disabled=true],.ifs-icon-button:disabled,.ifs-icon-button[aria-disabled=true]{cursor:not-allowed;color:var(--text-disabled)}
+.ifs-button--primary:disabled,.ifs-icon-button--primary:disabled{--fill:var(--element-button-primary-fill-disabled);--stroke-shadow:0 0 0 1px var(--element-button-primary-border-disabled)}
+.ifs-button--secondary:disabled,.ifs-icon-button--secondary:disabled{--fill:var(--element-button-secondary-fill-disabled);--stroke-shadow:inset 0 0 0 1px var(--element-button-secondary-border-disabled)}
+.ifs-button--tertiary:disabled,.ifs-icon-button--tertiary:disabled{--fill:var(--element-button-tertiary-fill-disabled);--stroke-shadow:inset 0 0 0 1px var(--element-button-tertiary-border-disabled)}
+.ifs-button--ghost:disabled,.ifs-icon-button--ghost:disabled{--fill:var(--element-button-ghost-fill-disabled)}
+.ifs-button--cooper:disabled{background:rgba(0,0,0,.03)}
+.ifs-icon-button:disabled{color:var(--icon-disabled)}
+
+/* Focus */
+.ifs-button:focus-visible,.ifs-button[data-state=focus],.ifs-icon-button:focus-visible,.ifs-icon-button[data-state=focus]{
+  outline:none;--ring:0 0 0 1.5px var(--focus-focus-inner),0 0 0 3px var(--focus-focus-outer)}
