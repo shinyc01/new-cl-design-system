@@ -9,7 +9,7 @@ cp "$IN" "$TMP/page.html"
 "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --disable-gpu --no-first-run \
   --user-data-dir="$TMP/profile" --hide-scrollbars --virtual-time-budget=6000 \
   --window-size="$W,$H" --screenshot="$TMP/out.png" "file://$TMP/page.html$HASH" >/dev/null 2>&1 &
-PID=$!
+PID=$!; disown $PID 2>/dev/null  # no "Terminated" job notice when it is killed below
 for i in $(seq 1 60); do [ -s "$TMP/out.png" ] && break; sleep 0.5; done
 sleep 0.5; kill $PID 2>/dev/null; pkill -f "$TMP/profile" 2>/dev/null
 [ -s "$TMP/out.png" ] || { echo "No screenshot produced"; exit 1; }

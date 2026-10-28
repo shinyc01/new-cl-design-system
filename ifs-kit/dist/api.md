@@ -6,7 +6,7 @@ read the family's examples file (linked per family). `IFS.Icon({ name, size: 12|
 
 ## core
 
-Examples: src/gallery/button.jsx
+Examples (read before using any component below — shows the data shapes props expect): https://shinyc01.github.io/new-cl-design-system/ifs-kit/src/gallery/button.jsx
 
 ### Icon
 Figma: Icons page (1399:9134). `name` is the Figma icon set name, `size` one of 12 | 16 | 24.
@@ -16,7 +16,7 @@ A few sets (cooper-*-icon, voice-input-animation) vary by state instead of size:
 
 ## activity
 
-Examples: src/gallery/activity.jsx
+Examples (read before using any component below — shows the data shapes props expect): https://shinyc01.github.io/new-cl-design-system/ifs-kit/src/gallery/activity.jsx
 
 ### TimelineMarker
 Figma: marker-atom (3713:12836)
@@ -35,7 +35,7 @@ icon = icon name in the marker, markerSize s|m, connector solid|dash|none (none 
 title (name, Heading/H3), badge = label text or Badge props (badge-atom White M), subtitle (role line),
 time (right column), children = body text (Body/M regular, secondary), content = node that replaces the whole default
 content (the Figma "Content slot"), aside = node replacing the right column.
-`function TimelineItem({ marker, avatar, icon, markerSize = 's', connector = 'solid', title, badge, subtitle, time, children, content, aside,`
+`function TimelineItem({ marker, avatar, icon, markerSize = 's', connector = 'solid', title, badge, subtitle, time, children, content, aside, className, ...rest })`
 
 ### Timeline
 Timeline = a list of activity-organism entries (Figma "in use example"). The last entry drops its connector.
@@ -47,7 +47,7 @@ One approver card (the Content slot). Props: state awaiting|success|rejected|emp
 avatar = Avatar props, date (show-date), comment (show-comment), actions = { secondary, primary } labels or false (show-buttons),
 onPrimary / onSecondary, setting-only: role / roles / onRoleChange (dropdown-item), brief (show-brief; Cooper brief text),
 onExpand. Disabled = outlined card (no fill); Figma keeps its buttons in their default look.
-`function ApprovalCard({ state = 'awaiting', name, position, avatar, date, comment, actions, onPrimary, onSecondary,`
+`function ApprovalCard({ state = 'awaiting', name, position, avatar, date, comment, actions, onPrimary, onSecondary, role, roles, onRoleChange, brief, onExpand, className, ...rest })`
 
 ### ApprovalChain
 Figma: approval-chain-timeline (1440:6174) — legacy; rebuilt as a configuration of the timeline base (activity-organism 3713:13396).
@@ -61,7 +61,7 @@ One version entry. Props: title (e.g. "Version 3"), badge (show-badge; label or 
 time, activity = TimelineItem props[] (shown when expanded), expanded / defaultExpanded / onExpandedChange,
 onRename(newTitle) — the ⋯ button (or double-click on the title) enters Rename; Enter/✓ saves, Esc/✕ cancels.
 onMenu replaces the ⋯ behaviour. state hover|rename (gallery).
-`function VersionEntry({ title, badge, description, author, time, activity, expanded, defaultExpanded = false, onExpandedChange,`
+`function VersionEntry({ title, badge, description, author, time, activity, expanded, defaultExpanded = false, onExpandedChange, onRename, onMenu, state, last, className, ...rest })`
 
 ### VersionHistory
 Figma: version-history-timeline (2277:5299) — legacy; rebuilt as a configuration of the timeline base.
@@ -82,7 +82,7 @@ onChange(text), onSubmit(text) (Enter or send; clears the draft), placeholder (d
 "Say a comment" / "Working on your comment…" while generating), generating (Cooper drafting → send becomes stop),
 onStop, avatar = Avatar props of the current user (molecule), disabled, autoFocus, state (gallery: multi).
 Single line = pill; grows to Multi line (12px radius, buttons below) when the text wraps.
-`function CommentComposer({ mode, defaultMode = 'text', onModeChange, value, defaultValue = '', onChange, onSubmit, placeholder,`
+`function CommentComposer({ mode, defaultMode = 'text', onModeChange, value, defaultValue = '', onChange, onSubmit, placeholder, generating, onStop, avatar, disabled, autoFocus, state, className, style, ...rest })`
 
 ### CommentThread
 Figma: comment-popover-organism (260:88500) — the full thread. Variants Type=Default | Cooper suggestion | Edit.
@@ -92,7 +92,7 @@ resolved / defaultResolved / onResolvedChange (✓ in the header; resolved threa
 onClose (✕), onMenu (⋯), cooperSuggestion = { label, onClick } (Type=Cooper suggestion: Accent (Cooper) L button),
 composerProps (passed to CommentComposer), editingId (gallery: opens Type=Edit on that reply).
 Posting really appends a reply ("Just now", marked (you)); ⋯ on your own reply opens the inline editor.
-`function CommentThread({ number = '#00', comments, defaultComments = [], onCommentsChange, currentUser = { name: 'You' },`
+`function CommentThread({ number = '#00', comments, defaultComments = [], onCommentsChange, currentUser = { name: 'You' }, resolved, defaultResolved = false, onResolvedChange, onClose, onMenu, cooperSuggestion, composerProps, editingId, className, style, ...rest })`
 
 ### UserCard
 Figma: user-card (1440:5059) — legacy (guide: "can be content-card-organism").
@@ -118,7 +118,7 @@ onClick (open), state hover (gallery).
 Figma: version-card (2104:4022) — legacy (guide: "can be content-card-organism").
 Props: label (caption, default "Ready to publish"), items = [{ name, type (indicator colour, default orange), meta }] (the List slot),
 secondaryAction / primaryAction = Button props incl. children (default "Schedule" / "Publish"), loading, state hover (gallery).
-`function VersionCard({ label = 'Ready to publish', items = [], secondaryAction = { children: 'Schedule' }, primaryAction = { children: 'Publish' },`
+`function VersionCard({ label = 'Ready to publish', items = [], secondaryAction = { children: 'Schedule' }, primaryAction = { children: 'Publish' }, loading, state, className, ...rest })`
 
 ### 
 Controlled/uncontrolled value helper.
@@ -126,7 +126,7 @@ Controlled/uncontrolled value helper.
 
 ## button
 
-Examples: src/gallery/button.jsx
+Examples (read before using any component below — shows the data shapes props expect): https://shinyc01.github.io/new-cl-design-system/ifs-kit/src/gallery/button.jsx
 
 ### Button
 Figma: button (65:3211)
@@ -143,7 +143,7 @@ Always pass a `label` — it becomes the accessible name and tooltip.
 
 ## canvas
 
-Examples: src/gallery/canvas.jsx
+Examples (read before using any component below — shows the data shapes props expect): https://shinyc01.github.io/new-cl-design-system/ifs-kit/src/gallery/canvas.jsx
 
 ### ValueMapButton
 ------------------------------------------------------------------------------------------ 
@@ -156,9 +156,27 @@ onSelect(action), onFit, onExpand, onCollapse.
 `function ValueMapButton({ type = 'shape', selected, defaultSelected, onSelect, onFit, onExpand, onCollapse, className, ...rest })`
 
 ### MapToolbar
+------------------------------------------------------------------------------------------ 
+Figma: explore-map-button (7404:34866) = map-tool-bar-organism, a stack of
+explore-map-button-base (7404:34867) clusters. Canvas note: "Floating vertical overlay on the map canvas.
+A stack of clusters (rounded surfaces with border + shadow); hairline dividers separate action families
+inside a cluster, gaps separate clusters."
+MapToolbar: children = MapToolCluster elements; with no children it renders the Figma default
+(zoom in/out · lasso, select area | layers, map settings) and calls onAction(id).
+MapToolCluster: children = MapToolButton / MapToolDivider. MapToolDivider: hairline between action families.
+MapToolButton: icon, label (accessible name + tooltip), active (pressed state, aria-pressed), onClick.
 `function MapToolbar({ children, tool, defaultTool = null, onToolChange, onAction, className, ...rest })`
 
 ### MapToolCluster
+------------------------------------------------------------------------------------------ 
+Figma: explore-map-button (7404:34866) = map-tool-bar-organism, a stack of
+explore-map-button-base (7404:34867) clusters. Canvas note: "Floating vertical overlay on the map canvas.
+A stack of clusters (rounded surfaces with border + shadow); hairline dividers separate action families
+inside a cluster, gaps separate clusters."
+MapToolbar: children = MapToolCluster elements; with no children it renders the Figma default
+(zoom in/out · lasso, select area | layers, map settings) and calls onAction(id).
+MapToolCluster: children = MapToolButton / MapToolDivider. MapToolDivider: hairline between action families.
+MapToolButton: icon, label (accessible name + tooltip), active (pressed state, aria-pressed), onClick.
 `function MapToolCluster({ children, label, className, ...rest })`
 
 ### MapToolButton
@@ -174,9 +192,24 @@ MapToolButton: icon, label (accessible name + tooltip), active (pressed state, a
 `function MapToolButton({ icon, label, active, className, ...rest })`
 
 ### MapToolDivider
+------------------------------------------------------------------------------------------ 
+Figma: explore-map-button (7404:34866) = map-tool-bar-organism, a stack of
+explore-map-button-base (7404:34867) clusters. Canvas note: "Floating vertical overlay on the map canvas.
+A stack of clusters (rounded surfaces with border + shadow); hairline dividers separate action families
+inside a cluster, gaps separate clusters."
+MapToolbar: children = MapToolCluster elements; with no children it renders the Figma default
+(zoom in/out · lasso, select area | layers, map settings) and calls onAction(id).
+MapToolCluster: children = MapToolButton / MapToolDivider. MapToolDivider: hairline between action families.
+MapToolButton: icon, label (accessible name + tooltip), active (pressed state, aria-pressed), onClick.
 `function MapToolDivider() { return <span className="ifs-map-cluster__divider" role="separator" />; }`
 
 ### NodeHoverActions
+------------------------------------------------------------------------------------------ 
+Figma: node-button (1851:191153)
+Contextual menu shown on hover over a framework node; the action depends on the node
+(collapsed → Expand, expanded → Collapse). Acts on that node only — not for global toolbar actions.
+Props: type expand|collapse|isolate-path|submodel (Figma Type; Submodel = Isolate path + Open formula),
+actions = [{ id, icon, label }] to override the preset, onAction(id).
 `function NodeHoverActions({ type = 'expand', actions, onAction, className, ...rest })`
 
 ### AddNodeButton
@@ -186,10 +219,22 @@ Creates a new (grey, provisional) subnode on the framework canvas; confirmed via
 Click → typing state (Figma Pressed/Typing): Enter or ✓ confirms, Esc or ✕ cancels.
 Props: onAdd(name), onCancel, placeholder ("Type..."), disabled, editing / defaultEditing / onEditingChange,
 state hover|pressed|typing (forced, gallery), label (accessible name, default "Add node").
-`function AddNodeButton({ onAdd, onCancel, placeholder = 'Type...', disabled, editing, defaultEditing = false, onEditingChange,`
+`function AddNodeButton({ onAdd, onCancel, placeholder = 'Type...', disabled, editing, defaultEditing = false, onEditingChange, state, label = 'Add node', defaultValue = '', className, ...rest })`
 
 ### NodeCard
-`function NodeCard({ type = 'strategic-objective', state, title = '{card-title}', caption, badge, counter, stackIcons = true, user,`
+------------------------------------------------------------------------------------------ 
+Figma: node-card (1440:4401) — the node on the framework/map canvas.
+Props:
+  type strategic-objective|value-model|enterprise-goal|value-framework|measure (solid colour nodes),
+       subnode|document|user (neutral), skeleton (loading)  — Figma Type.
+  title, caption (show-caption-bottom), badge = label text (show-badge-top), counter (show-counter),
+  stackIcons (show-stack-icons: the hover icons — drag handle, and open/delete on Document/User; default true),
+  user = { name, role, initials } for type=user (badge defaults to "Manager"-style role label).
+  Interactive (real): selected/defaultSelected/onSelectedChange (click), draggable (HTML5 drag, onDragStart),
+  checkbox + checked/defaultChecked/onCheckedChange (Figma Checkbox), editing + onRename(title)/onCancelEdit (Figma Edit),
+  cooper (Cooper ring), outOfFocus (dimmed), disabled, loading (= Skeleton).
+  state hover|drag|select|cooper|focus|cooper-drag|out-of-focus|disabled|checkbox|edit|loading forces a Figma State (gallery).
+`function NodeCard({ type = 'strategic-objective', state, title = '{card-title}', caption, badge, counter, stackIcons = true, user, selected, defaultSelected = false, onSelectedChange, checkbox, checked, defaultChecked = true, onCheckedChange, editing, onRename, onCancelEdit, cooper, outOfFocus, disabled, loading, draggable, onDragStart, onDragEnd, onOpen, onDelete, onClick, className, style, ...rest })`
 
 ### SidebarNodeCard
 ------------------------------------------------------------------------------------------ 
@@ -215,7 +260,7 @@ Figma: canvas-background (1395:196712), Surfaces.
 Props: image (url; Figma State=Image — a map), view {x, y, zoom} / defaultView / onViewChange (drag to pan,
 ctrl/⌘ + wheel or pinch to zoom, plain wheel pans), minZoom, maxZoom, children = world content (absolute-positioned
 in world px), overlay = fixed UI on top (toolbars, mini-map), apiRef receives { setView, fit(bounds) }.
-`function CanvasBackground({ image, view, defaultView = { x: 0, y: 0, zoom: 1 }, onViewChange, minZoom = 0.25, maxZoom = 2,`
+`function CanvasBackground({ image, view, defaultView = { x: 0, y: 0, zoom: 1 }, onViewChange, minZoom = 0.25, maxZoom = 2, children, overlay, apiRef, className, style, ...rest })`
 
 ### CanvasConnector
 Connector between two canvas nodes (world coordinates). Not a Figma component of its own: the framework
@@ -245,6 +290,15 @@ Props: abbr ("MEAS."), fromLabel, toLabel, from, to.
 `function SankeyHeader({ abbr, fromLabel, toLabel, from, to, className, ...rest })`
 
 ### Sankey
+Figma: sankey-organism (4457:53304) = column strip + sankey-chart (1853:12398) built from sankey-atom/-header.
+"Flow: how a total splits through stages (budget allocation, value decomposition, goal → objective → model lineage);
+band width = value."
+Props:
+  columns = [{ id, label, header?: SankeyHeader props }]   (left → right)
+  nodes   = [{ id, column, label, from, to, change, type: default|measure|source, count?, color?: violet|green }]
+            type=source draws the tall coloured source block (first column, e.g. "6 Goals").
+  links   = [{ source, target, value }]  — band colour follows the source block it descends from.
+  height (chart body px, default 575), onNodeClick(node), showFit + onFit (value-map-button Input in the corner).
 `function Sankey({ columns = [], nodes = [], links = [], height = 575, onNodeClick, showFit = true, onFit, className, ...rest })`
 
 ### TimelinePhase
@@ -254,7 +308,7 @@ Props: title (Figma Title), subtitle ("Internal"), badge = red badge text (Figma
 color teal|muted-purple|steel-blue|rose|… (data-viz family, data-4), start / end (fractional slot indexes on the axis),
 tasks = [{ title, label ("Q1 2027"), start, end }], expanded / defaultExpanded / onExpandedChange,
 onAdd, onMore (hover actions), slots (number of axis slots, set by the chart), state hover (gallery).
-`function TimelinePhase({ title, subtitle, badge, color = 'teal', start = 0, end = 1, tasks = [], expanded, defaultExpanded = false,`
+`function TimelinePhase({ title, subtitle, badge, color = 'teal', start = 0, end = 1, tasks = [], expanded, defaultExpanded = false, onExpandedChange, onAdd, onMore, slots = 20, groups = 5, state, className, ...rest })`
 
 ### TimelineChart
 Figma: timeline-chart-organism (3967:38286) — "use this". Gantt: phases on a time axis (e.g. investment phases
@@ -266,7 +320,7 @@ across all groups (Q1 2027 = 0, Q2 2027 = 1, … ).
 
 ## charts
 
-Examples: src/gallery/charts.jsx
+Examples (read before using any component below — shows the data shapes props expect): https://shinyc01.github.io/new-cl-design-system/ifs-kit/src/gallery/charts.jsx
 
 ### DataVizBar
 Figma: bar-atom (4457:32996)
@@ -307,7 +361,7 @@ Props: title, state default|hover (forced; real hover/focus of the header or its
 Right element: segments = SegmentedControl options (size S) with segmentValue/defaultSegmentValue/onSegmentChange,
 or button = { label, onClick, iconRight } (Tertiary S). Hover row: drag handle (draggable), and ghost icon-buttons
 for onEdit / onDelete / onMore. hoverActions = custom hover-only node, slot = always-visible right node (Figma "Slot").
-`function DataVizHeader({ title, state, segments, segmentValue, defaultSegmentValue, onSegmentChange, button, onEdit, onDelete, onMore,`
+`function DataVizHeader({ title, state, segments, segmentValue, defaultSegmentValue, onSegmentChange, button, onEdit, onDelete, onMore, draggable = true, hoverActions, slot, className, ...rest })`
 
 ### DataVizCard
 Figma: data-viz-card-organism (4457:33030)
@@ -427,7 +481,7 @@ color = a group name ('teal'), any CSS colour, or undefined (= palette slot i)
 
 ## data
 
-Examples: src/gallery/data.jsx
+Examples (read before using any component below — shows the data shapes props expect): https://shinyc01.github.io/new-cl-design-system/ifs-kit/src/gallery/data.jsx
 
 ### Badge
 Figma: badge-atom (83:52162)
@@ -442,9 +496,17 @@ Props: state default|error|success|cooper|warning|blue, stroke (Figma Stroke=Tru
 `function StatusIndicator({ state = 'default', stroke, label, className, ...rest })`
 
 ### Avatar
+Figma: avatar-atom (260:17144) + avatar-organism (260:19923)
+Props: initials (Figma Label, e.g. "UN") or name (initials derived), size xs|s|m|l|xl,
+type black|red|dark-orange|orange|yellow|brown|dark-blue|blue|light-blue|green|lime|dark-purple|purple|light-purple|dark-pink|light-pink|image|awaiting|cooper|inactive|loading
+  or "auto" (picks a collaboration colour from the name), src (Type=Image), status = risk-atom type check|online|offline|warning|error (Figma show-status; absent = hidden),
+onClick makes it a button with Figma Hover/Pressed/Focus states.
 `function Avatar({ initials, name, type = 'black', src, size = 'm', status, state, onClick, label, className, ...rest })`
 
 ### RiskStatus
+Figma: status-risk-molecule (69:1729)
+Props: type success|warning|error|evaluated, state hover|focus (forced, gallery) , disabled, loading,
+children = label (defaults to Figma's: auto-resolved / moderate risk / critical risk / evaluated), onClick → button.
 `function RiskStatus({ type = 'success', state, disabled, loading, onClick, children, className, ...rest })`
 
 ### ReadinessStatus
@@ -472,10 +534,22 @@ control = node (show-checkbox / show-radio-button / show-switch → pass IFS.Che
 iconButton = { icon, label, onClick } (show-icon-button), top / bottom = slot nodes,
 tertiaryAction / primaryAction = Button props incl. children (show-buttons, show-tertiary-button, show-primary-button),
 selected, cooper (Figma State=Cooper), loading, state (forced: hover|pressed|focus|drag|selected|cooper), onClick → focusable role=button.
-`function ContentCard({ size = 'm', title, description, avatar, control, iconRight, iconButton, top, bottom, tertiaryAction, primaryAction,`
+`function ContentCard({ size = 'm', title, description, avatar, control, iconRight, iconButton, top, bottom, tertiaryAction, primaryAction, selected, cooper, loading, state, onClick, className, ...rest })`
 
 ### Table
-`function Table({ columns = [], rows = [], groupBy, defaultCollapsed = [], sort, defaultSort = null, onSortChange,`
+Figma: table-card-organism (4835:4031) with table-header-molecule (1440:5904), table-cell-atom (1440:5941),
+table-sort-atom (1440:5921), table-filter-atom (1440:5932), group-row-molecule (4833:19072), content-row-molecule (4835:3501).
+Figma rule: tables show every row (no pagination). Filter with the `tabs` slot: the Figma table card puts a
+SegmentedControl there (prop "show-segmanted-control"); the canvas notes call it "tabs with counts".
+Props:
+  columns = [{ key, title, width ('1fr' | 240 | 'auto'), align left|center|right, sortable, sortValue(row),
+              type text|description|counter|badge|status|check|user|user-description|custom, render(row), filter: { applied, onClick } }]
+    cell values by type: text → row[key]; description → { text, description }; counter → { text, value, direction };
+    badge → Badge props; status → { type, label, description }; check → label; user → { name, initials, type, description }.
+  rows = [{ id, ...data }], groupBy = key or fn(row) → group title (group-row-molecule, expand/collapse), defaultCollapsed = [titles],
+  sort / defaultSort = { key, dir: 'asc'|'desc' }, onSortChange, selectedId / onRowClick (row hover + selected),
+  title (show-table-name), tabs (show-segmanted-control), search (right side of the bar). Without title/tabs/search it renders the bare table.
+`function Table({ columns = [], rows = [], groupBy, defaultCollapsed = [], sort, defaultSort = null, onSortChange, selectedId, onRowClick, rowKey = 'id', title, tabs, search, className, ...rest })`
 
 ### NotificationCard
 Figma: notification-card (9943:5373)
@@ -486,7 +560,7 @@ Resolved / Acknowledged / Unavailable or for a successful outcome. Hidden for ty
 Props: title, details (show-details), meta ("{item} · {area}"), time, status = Badge props (show-status),
 actions = [{ label, onClick }] up to two (show-actions: Secondary + Tertiary S buttons), avatar = Avatar props, count (grouped),
 actionLabel (tag text, default "Action required"), onClick → focusable card.
-`function NotificationCard({ type = 'all', read = false, title, details, meta, time, critical, status, actions, actionRequired = true,`
+`function NotificationCard({ type = 'all', read = false, title, details, meta, time, critical, status, actions, actionRequired = true, actionLabel = 'Action required', avatar, count, onClick, className, ...rest })`
 
 ### ProgressBar
 Figma: progress-bar-molecule (1674:1902)
@@ -495,7 +569,7 @@ Props: value 0–100 (Figma % variants 0/10/20/40/50/60/80/100 — any value wor
 
 ## extras
 
-Examples: src/gallery/extras.jsx
+Examples (read before using any component below — shows the data shapes props expect): https://shinyc01.github.io/new-cl-design-system/ifs-kit/src/gallery/extras.jsx
 
 ### Hotkey
 Figma: hotkey-atom (67:6150)
@@ -558,14 +632,14 @@ Props: size l|m, label (Title), hint (clue-icon tooltip), description (Hint text
 placeholder (default from the country mask, Figma "(000)000-0000"), value / defaultValue / onChange(value, { country, digits, e164 }),
 country / defaultCountry ("US") / onCountryChange(code), countries ([{ code, name, dial, mask, flag }]),
 cooper / generating (Cooper states), state hover|focus|typing (gallery), id, name, plus <input> attributes.
-`function PhoneField({ size = 'l', label, hint, description, error, disabled, placeholder, value, defaultValue = '', onChange,`
+`function PhoneField({ size = 'l', label, hint, description, error, disabled, placeholder, value, defaultValue = '', onChange, country, defaultCountry = 'US', onCountryChange, countries = EXTRAS_COUNTRIES, cooper, generating, state, className, style, id, ...rest })`
 
 ### SliderTrack
 Figma: slider-molecule (3029:20933) with sliter-atom (3029:21077) thumbs.
 Props: type default (zero is the floor) | centered (zero in the middle; fill from 0 toward the value) | range (two thumbs),
 min, max, step, value / defaultValue / onChange(value) — a number, or [from, to] for range, disabled,
 thumbState hover|drag|focus (gallery), label / labels (aria-label of the thumb(s)), formatValue (aria-valuetext).
-`function SliderTrack({ type = 'default', min, max, step = 1, value, defaultValue, onChange, disabled, thumbState, label = 'Value', labels,`
+`function SliderTrack({ type = 'default', min, max, step = 1, value, defaultValue, onChange, disabled, thumbState, label = 'Value', labels, formatValue, className, style })`
 
 ### Slider
 Figma: slider-organism (3029:20689) — title (+ clue icon) and Number on top, optional left icon-button + slider-molecule, hint text.
@@ -573,7 +647,7 @@ Props: label (Title; absent = show-title off), hint (clue-icon tooltip), descrip
 formatValue(v) for the Number, icon (show-left-icon: a Ghost S circle icon-button, e.g. "system-star-favourite"), iconLabel, onIconClick,
 and every SliderTrack prop (type, min, max, step, value/defaultValue/onChange, disabled, thumbState).
 Use <Slider> without label for the bare molecule.
-`function Slider({ label, hint, description, showValue = true, formatValue, icon, iconLabel, onIconClick, value, defaultValue, onChange,`
+`function Slider({ label, hint, description, showValue = true, formatValue, icon, iconLabel, onIconClick, value, defaultValue, onChange, className, style, ...track })`
 
 ### FormCard
 Figma: form-card-organism (5826:24755)
@@ -589,14 +663,14 @@ primaryAction = { label } (submit), secondaryAction = { label, onClick }, footer
 onSubmit(values, event) — only called when everything is valid, validate(values) → { name: message } (extra form checks),
 error (form-level message, e.g. rejected credentials), loading (field skeletons, actions disabled),
 submitting (primary spinner, form locked), size of fields (l|m, default l), className, style.
-`function FormCard({ title, description, action, divider, fields = [], children, values, defaultValues, onValuesChange,`
+`function FormCard({ title, description, action, divider, fields = [], children, values, defaultValues, onValuesChange, primaryAction = { label: 'Submit' }, secondaryAction, footer, onSubmit, validate, error, loading, submitting, fieldSize = 'l', className, style, ...rest })`
 
 ### IconPicker
 Figma: icon-picker-organism (5434:16926) = grid of icon-picker-atom (210:77686), single-select. Place it inside IFS.Popover.
 Props: icons (icon names; default the Figma curated set), value / defaultValue / onChange(name), columns (default 4),
 label (aria-label of the group, default "Choose icon"), bare (no 12px padding), itemState { [name]: hover|focus } (gallery).
 Keyboard: one tab stop; arrows move, Home/End, Enter/Space select.
-`function IconPicker({ icons = EXTRAS_PICKER_ICONS, value, defaultValue = null, onChange, columns = 4, label = 'Choose icon', bare, itemState,`
+`function IconPicker({ icons = EXTRAS_PICKER_ICONS, value, defaultValue = null, onChange, columns = 4, label = 'Choose icon', bare, itemState, className, style, ...rest })`
 
 ### Weekday
 Figma: weekday-atom (2704:74414) — the weekday header cell of the calendar (Caption/semibold-UPPER, text/tertiary, 32×16).
@@ -614,7 +688,7 @@ color (CSS colour; default var(--icon-primary)).
 
 ## forms
 
-Examples: src/gallery/forms.jsx
+Examples (read before using any component below — shows the data shapes props expect): https://shinyc01.github.io/new-cl-design-system/ifs-kit/src/gallery/forms.jsx
 
 ### TextField
 Figma: text-field-organism (210:77559)
@@ -622,13 +696,13 @@ Props: size l|m, label (Figma Title), hint (tooltip text → question-hint icon)
 error (true, or a string that replaces the description), disabled, iconLeft / iconRight (icon names),
 suffix (Figma textRight), cooper (Figma State=Cooper ring), generating (Cooper Generating: loader),
 value / defaultValue / onChange(value, event), state hover|focus|typing (gallery only), plus any <input> attribute.
-`function TextField({ size = 'l', label, hint, description, error, disabled, iconLeft, iconRight, suffix, cooper, generating,`
+`function TextField({ size = 'l', label, hint, description, error, disabled, iconLeft, iconRight, suffix, cooper, generating, value, defaultValue = '', onChange, state, className, style, id, type = 'text', ...rest })`
 
 ### TextArea
 Figma: text-area-organism (3024:9383)
 Props: size l (140px tall) | m (100px), label, hint, placeholder, description, error, disabled, iconLeft,
 cooper, generating, value / defaultValue / onChange(value, event), state hover|focus|typing (gallery only).
-`function TextArea({ size = 'l', label, hint, description, error, disabled, iconLeft, cooper, generating,`
+`function TextArea({ size = 'l', label, hint, description, error, disabled, iconLeft, cooper, generating, value, defaultValue = '', onChange, state, className, style, id, ...rest })`
 
 ### Search
 Figma: search-regular-organism (153:63462)
@@ -664,7 +738,7 @@ state hover|pressed|focus (gallery only). Renders a <button role="switch">.
 
 ## navigation
 
-Examples: src/gallery/navigation.jsx
+Examples (read before using any component below — shows the data shapes props expect): https://shinyc01.github.io/new-cl-design-system/ifs-kit/src/gallery/navigation.jsx
 
 ### NavItem
 Figma: navigation-panel-atom (1544:2681) — one sidebar row.
@@ -706,6 +780,8 @@ back (default true: the first previous crumb carries the ‹ chevron, Figma show
 `function Breadcrumb({ items = [], current, onSelect, back = true, className, ...rest })`
 
 ### Step
+Figma: stepper-molecule (1219:169725). Non-interactive.
+Props: status completed|in-progress|not-started (Figma State), active (Figma Active=Yes), tooltip (shown on hover, Figma Hover=True), state.
 `function Step({ status = 'not-started', active, tooltip, state, children, className })`
 
 ### Stepper
@@ -734,7 +810,12 @@ Figma: nav-bar-page-atom (69:4012) — one stage in the Level-1 bar. Props: acti
 `function NavBarItem({ active, disabled, state, children, className, ...rest })`
 
 ### NavBar
-`function NavBar({ stages = DEFAULT_STAGES, value, defaultValue, onChange, logo, onSearch, onSettings, onNotifications, hasNotifications,`
+Stage values: home | value | explore | build | plan | results.
+Figma: global-header (69:3736) — the Level-1 bar the pattern screens instance (nav-bar-organism 3412:29453 is the
+canvas-documented twin with the same 48px layout). Props: stages [{ value, label, disabled }], value / defaultValue / onChange,
+logo (node; defaults to IFS.Logo), onSearch, onSettings, onNotifications, hasNotifications,
+user = { initials, name } or avatar (node), actions (node: replaces the default search/settings/bell buttons).
+`function NavBar({ stages = DEFAULT_STAGES, value, defaultValue, onChange, logo, onSearch, onSettings, onNotifications, hasNotifications, user, avatar, actions, className, ...rest })`
 
 ### PageHeader
 Figma: page-header (1588:1971) — Level-3 header at the top of the content area (the instance the Map overview screen uses;
@@ -752,7 +833,7 @@ Props: navBar, sideNav, header (nodes), bottom (node, e.g. a bottom sheet), chil
 
 ## selection
 
-Examples: src/gallery/selection.jsx
+Examples (read before using any component below — shows the data shapes props expect): https://shinyc01.github.io/new-cl-design-system/ifs-kit/src/gallery/selection.jsx
 
 ### Select
 Figma: single-select-organism (3273:26820) = single-select-atom (789:18085) + single-select-list-molecule (153:62054)
@@ -772,7 +853,7 @@ Props: options, value/defaultValue/onChange(value, option), defaultOpen, default
 disabled, listPosition, listTitle ("Suggested", shown before typing), resultsTitle ("Results", while typing),
 emptyTitle / emptyText / suggestions (Figma "No results" state: heading, hint and suggestion chips that fill the query),
 filter(option, query), state. While loading and open, the list shows Figma's "Searching..." panel.
-`function Combobox({ options = [], value, defaultValue = null, onChange, defaultOpen = false, defaultQuery = null, size = 'm', label, placeholder = 'Search item', iconLeft, clearable = true,`
+`function Combobox({ options = [], value, defaultValue = null, onChange, defaultOpen = false, defaultQuery = null, size = 'm', label, placeholder = 'Search item', iconLeft, clearable = true, loading, error, disabled, listPosition = 'down', listTitle = 'Suggested', resultsTitle = 'Results', listSize = 's', emptyTitle = 'No results found', emptyText = 'You might be looking for', suggestions = [], state, className, style, id, filter = (o, q) => o.label.toLowerCase().includes(q.toLowerCase()), 'aria-label': ariaLabel, ...rest })`
 
 ### SegmentedControl
 Figma: segmented-control-organism (1387:244501) built from segmented-control-atom (1387:244511)
@@ -792,20 +873,28 @@ Figma: date-picker-molecule (3406:9510) with date-atom (1440:5201) cells
 Props: value/defaultValue/onChange (Date; with range=true {start, end}), month/defaultMonth/onMonthChange (any Date in that month),
 today (Date), events ({ 'YYYY-MM-DD': ['danger','warning','info'] }), weekStartsOn (default 1 = Monday), min/max (Dates).
 Keyboard: arrows move a day/week, PageUp/PageDown change month, Home/End week start/end, Enter/Space select.
-`function Calendar({ value, defaultValue = null, onChange, range = false, month, defaultMonth, onMonthChange, today = new Date(),`
+`function Calendar({ value, defaultValue = null, onChange, range = false, month, defaultMonth, onMonthChange, today = new Date(), events = {}, weekStartsOn = 1, min, max, autoFocus, className, ...rest })`
 
 ### DatePicker
 DatePicker = select trigger (single-select-atom look) + Calendar popup (date-picker-molecule 3406:9510).
 Props: value/defaultValue/onChange (Date or {start,end} with range), open/defaultOpen/onOpenChange, size s|m|l|xl, label, placeholder,
 format(date) → string, range, clearable, error, disabled, listPosition down|up, state, plus Calendar props (today, events, min, max).
-`function DatePicker({ value, defaultValue = null, onChange, open, defaultOpen = false, onOpenChange, size = 'm', label, placeholder = 'Select date',`
+`function DatePicker({ value, defaultValue = null, onChange, open, defaultOpen = false, onOpenChange, size = 'm', label, placeholder = 'Select date', format = d => d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }), range = false, clearable = true, error, disabled, listPosition = 'down', state, today, events, min, max, className, style, id, 'aria-label': ariaLabel, ...rest })`
 
 ## states
 
-Examples: src/gallery/states.jsx
+Examples (read before using any component below — shows the data shapes props expect): https://shinyc01.github.io/new-cl-design-system/ifs-kit/src/gallery/states.jsx
 
 ### EmptyState
-`function EmptyState({ cause = 'first-run', size = 'section', heading, body, icon, tone, suggestions, onSuggestion,`
+Figma: empty-state-organism (3782:18464)
+Figma has no cause/size variants (one placeholder axis "Size=Frame 2147228119" + six booleans); the canvas notes define
+the causes and two sizes, so they are props here. Each cause sets the defaults Figma draws for it; any part can be overridden.
+Props: cause first-run|empty-container|all-done|error|no-access|no-results-similar|no-results (notes' "When" column),
+size section|full (Section = inside a card/panel, hugs; Full = page/main region, fills and centres),
+heading (required), body, icon (media icon name; null hides media = show-media-icon), tone neutral|success|warning,
+suggestions (array of labels → chips = show-suggestion-chips), onSuggestion(label),
+primaryAction / secondaryAction = { label, icon, onClick, type } (show-primary-button / show-tertiary-button; secondary is Tertiary).
+`function EmptyState({ cause = 'first-run', size = 'section', heading, body, icon, tone, suggestions, onSuggestion, primaryAction, secondaryAction, className, ...rest })`
 
 ### Spinner
 Figma: empty-state-spinner-molecule (3782:24081)
@@ -867,11 +956,11 @@ type="value": inProgress (Figma In progress: shows the coverage bar), coverage 0
   documents = { label, icon, onClick } (show-documents-button, tertiary M), onUpload (show-upload-button; omit on an Active framework = read-only).
 type="explore": fields [{ key, label, options, value, zoom }], values/onFieldChange(key, value), zoom/onZoomChange, lastSync,
   tools [{ icon, label, onClick }] (ghost S icon buttons). `left` replaces the whole left side for any type.
-`function BottomSheet({ type = 'base', prompts = [], onPrompt, showPrompts = true, showCooper = true, onCooper, cooperIndicator = false,`
+`function BottomSheet({ type = 'base', prompts = [], onPrompt, showPrompts = true, showCooper = true, onCooper, cooperIndicator = false, inProgress = false, coverage = 0, cooperContext = true, documents, onUpload, fields = DEFAULT_MAP_FIELDS, values, onFieldChange, zoom, defaultZoom = 20, onZoomChange, lastSync = '{label}', tools = DEFAULT_MAP_TOOLS, left, className, ...rest })`
 
 ## surfaces
 
-Examples: src/gallery/surfaces.jsx
+Examples (read before using any component below — shows the data shapes props expect): https://shinyc01.github.io/new-cl-design-system/ifs-kit/src/gallery/surfaces.jsx
 
 ### Tooltip
 Figma: tooltip-organism (67:6151)
@@ -924,7 +1013,7 @@ Props: open / defaultOpen / onOpenChange, title (Header slot), expanded / defaul
 showClose (show-button-close), tabs (node, show-tabs), subtitle + segmented (node, show-subtitle /
 show-segmented-control), children (Content slot), side right|left, overlay none|strong|base,
 height, inline (renders in place — gallery). Esc closes.
-`function Drawer({ open, defaultOpen, onOpenChange, title, expanded, defaultExpanded = true, onExpandedChange, collapsible = true, showClose = true,`
+`function Drawer({ open, defaultOpen, onOpenChange, title, expanded, defaultExpanded = true, onExpandedChange, collapsible = true, showClose = true, tabs, subtitle, segmented, children, side = 'right', overlay = 'none', height, inline, className, style })`
 
 ### Panel
 Figma: panel-organism (4305:365421)

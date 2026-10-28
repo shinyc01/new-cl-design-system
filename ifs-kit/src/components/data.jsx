@@ -210,17 +210,6 @@ function ContentCard({ size = 'm', title, description, avatar, control, iconRigh
   );
 }
 
-// Figma: table-card-organism (4835:4031) with table-header-molecule (1440:5904), table-cell-atom (1440:5941),
-// table-sort-atom (1440:5921), table-filter-atom (1440:5932), group-row-molecule (4833:19072), content-row-molecule (4835:3501).
-// Figma rule: tables show every row (no pagination) — filter with tabs (pass a SegmentedControl as `tabs`).
-// Props:
-//   columns = [{ key, title, width ('1fr' | 240 | 'auto'), align left|center|right, sortable, sortValue(row),
-//               type text|description|counter|badge|status|check|user|user-description|custom, render(row), filter: { applied, onClick } }]
-//     cell values by type: text → row[key]; description → { text, description }; counter → { text, value, direction };
-//     badge → Badge props; status → { type, label, description }; check → label; user → { name, initials, type, description }.
-//   rows = [{ id, ...data }], groupBy = key or fn(row) → group title (group-row-molecule, expand/collapse), defaultCollapsed = [titles],
-//   sort / defaultSort = { key, dir: 'asc'|'desc' }, onSortChange, selectedId / onRowClick (row hover + selected),
-//   title (show-table-name), tabs (show-segmanted-control), search (right side of the bar). Without title/tabs/search it renders the bare table.
 function TableSort({ dir, state }) {
   return (
     <span className={IFS.cx('ifs-table-sort', dir && `ifs-table-sort--${dir}`)} data-state={state} aria-hidden="true">
@@ -244,6 +233,18 @@ function renderCell(col, row) {
   }
 }
 
+// Figma: table-card-organism (4835:4031) with table-header-molecule (1440:5904), table-cell-atom (1440:5941),
+// table-sort-atom (1440:5921), table-filter-atom (1440:5932), group-row-molecule (4833:19072), content-row-molecule (4835:3501).
+// Figma rule: tables show every row (no pagination). Filter with the `tabs` slot: the Figma table card puts a
+// SegmentedControl there (prop "show-segmanted-control"); the canvas notes call it "tabs with counts".
+// Props:
+//   columns = [{ key, title, width ('1fr' | 240 | 'auto'), align left|center|right, sortable, sortValue(row),
+//               type text|description|counter|badge|status|check|user|user-description|custom, render(row), filter: { applied, onClick } }]
+//     cell values by type: text → row[key]; description → { text, description }; counter → { text, value, direction };
+//     badge → Badge props; status → { type, label, description }; check → label; user → { name, initials, type, description }.
+//   rows = [{ id, ...data }], groupBy = key or fn(row) → group title (group-row-molecule, expand/collapse), defaultCollapsed = [titles],
+//   sort / defaultSort = { key, dir: 'asc'|'desc' }, onSortChange, selectedId / onRowClick (row hover + selected),
+//   title (show-table-name), tabs (show-segmanted-control), search (right side of the bar). Without title/tabs/search it renders the bare table.
 function Table({ columns = [], rows = [], groupBy, defaultCollapsed = [], sort, defaultSort = null, onSortChange,
   selectedId, onRowClick, rowKey = 'id', title, tabs, search, className, ...rest }) {
   const [inner, setInner] = React.useState(defaultSort);

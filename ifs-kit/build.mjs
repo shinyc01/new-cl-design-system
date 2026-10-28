@@ -39,7 +39,8 @@ async function build() {
 function inline(html) {
   if (!html.includes('<!-- IFS-KIT -->')) throw new Error('Missing <!-- IFS-KIT --> marker');
   const block = `<style>\n${read(join(dist, 'ifs-ds.css'))}\n</style>\n<script>\n${read(join(dist, 'ifs-ds.js'))}\n</script>`;
-  return html.replace('<!-- IFS-KIT -->', () => block);
+  // Replaces the whole <!-- IFS-KIT --> … <!-- /IFS-KIT --> block (the template's live-kit links), or a bare marker.
+  return html.replace(/<!-- IFS-KIT -->[\s\S]*?<!-- \/IFS-KIT -->|<!-- IFS-KIT -->/, () => block);
 }
 
 const [cmd, a, b] = process.argv.slice(2);

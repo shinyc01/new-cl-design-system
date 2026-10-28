@@ -277,6 +277,7 @@ function NavBarItem({ active, disabled, state, children, className, ...rest }) {
   );
 }
 
+// Stage values: home | value | explore | build | plan | results.
 // Figma: global-header (69:3736) — the Level-1 bar the pattern screens instance (nav-bar-organism 3412:29453 is the
 // canvas-documented twin with the same 48px layout). Props: stages [{ value, label, disabled }], value / defaultValue / onChange,
 // logo (node; defaults to IFS.Logo), onSearch, onSettings, onNotifications, hasNotifications,
