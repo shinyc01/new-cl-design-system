@@ -12,18 +12,19 @@ You turn the user's idea into a clickable prototype built **only** from the IFS 
 |---|---|
 | Usage rules: screen anatomy, global rules, "pick the right component", what product screens use, patterns index | `$BASE/guide/rules.md` (read it whole) |
 | Per-component Figma details (keys, nodes, canvas notes) | `$BASE/guide/components.md` section 4 (only to settle a question the rules and the API leave open) |
-| Component API: every `IFS.<Name>` with its props, and its **In handovers** line (how often designers use it, usual prop values) | `$BASE/dist/api.md` |
+| Component API: every `IFS.<Name>` with its props and its **In handovers** line (how often designers use it, usual prop values), plus a working example per component | `$BASE/dist/api.md`, `$BASE/dist/examples.md`. Don't read them whole: list the names with `grep -n '^## \|^### ' .ifs/api.md`, then print the full entry + example for just the components you'll use with `bash .ifs/entry.sh Name1 Name2 …` |
 | How the real product screens use each component: usual values and what it sits inside | `$BASE/guide/usage.md` |
 | Pattern rules, one file per pattern: cooper, widget-builder, documents, table, nav-bar, collaboration, evidence, activity, approval, comments, trace | `$BASE/guide/patterns/<slug>.md` |
-| Real usage of every variant, per family | `$BASE/src/gallery/<family>.jsx` (family names are the `##` headings in api.md) |
+| Gallery source, per family (examples.md already holds each component's section) | `$BASE/src/gallery/<family>.jsx`: grep it only if an example leaves a data shape unclear |
 | Icon names | `$BASE/dist/icons.txt` |
 | CSS token names and values, text-style (`.t-*`) and effect (`.fx-*`) classes | `$BASE/dist/tokens.txt` |
 | Prototype starter | `$BASE/template.html` |
 | Storybook, for the user to browse | `$BASE/dist/storybook/` |
 
-At the start, make a work folder `<output folder>/.ifs/` and download into it with `curl -fsSL`: rules.md, the guide (components.md), API, icon list, token list and template, plus the two helper scripts `$BASE/skill/scripts/inline.sh` and `$BASE/skill/scripts/shot.sh`. Then read the files from disk. **Before using a component, read its family's gallery file:** api.md lists prop names, while the gallery shows the data shapes they take (table columns and cells, nav items, chart data). Never guess a prop or a token name; check api.md and tokens.txt.
+At the start, make a work folder `<output folder>/.ifs/` and download into it with `curl -fsSL`: rules.md, the guide (components.md), API, examples.md, icon list, token list and template, plus the helper scripts `$BASE/skill/scripts/entry.sh`, `inline.sh` and `shot.sh`. Then read the files from disk. **Before using a component, read its entry with entry.sh:** the entry lists the props, and the example after it shows the data shapes they take (table columns and cells, nav items, chart data) and the content a rich use carries (avatars, badges, trends, actions). Never guess a prop or a token name; check api.md and tokens.txt.
 
 Helper scripts (downloaded into `.ifs/`; run them with `bash`):
+- `entry.sh Name1 Name2 …`: prints each component's full api.md entry followed by its working example. Read all the components you need in one call.
 - `inline.sh <in.src.html> <out.html>`: snapshots the published kit into one standalone file.
 - `shot.sh <file.html> <out.png> [w] [h] ['#hash']`: headless-Chrome screenshot, used for self-checks. It needs Google Chrome. Without Chrome, use the browser pane, or skip it and say so.
 
