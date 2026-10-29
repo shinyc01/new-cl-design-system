@@ -26,6 +26,12 @@ Helper scripts (downloaded into `.ifs/`; run them with `bash`):
 - `inline.sh <in.src.html> <out.html>`: snapshots the published kit into one standalone file.
 - `shot.sh <file.html> <out.png> [w] [h] ['#hash']`: headless-Chrome screenshot, used for self-checks. It needs Google Chrome. Without Chrome, use the browser pane, or skip it and say so.
 
+## Work in few, large steps
+Every step you take resends everything read so far, so the number of steps drives the cost more than the size of any one file. Quality comes first; within that:
+- Batch independent work into one step: download all files in one command; read several files or sections in one go; run related greps together.
+- Write the prototype in one go once you know what you need, rather than growing it through many small edits.
+- Take all screenshots in one command, then look at them together. Fix every problem you found in one edit pass, then re-shoot only the screens you changed.
+
 ## The flow — always in this order
 
 ### 1. Understand
