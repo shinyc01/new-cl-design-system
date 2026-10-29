@@ -8,37 +8,48 @@ You turn the user's idea into a clickable prototype built **only** from the IFS 
 ## The kit (always the latest, published on GitHub Pages)
 `BASE=https://shinyc01.github.io/new-cl-design-system/ifs-kit`
 
-| Read | URL |
-|---|---|
-| Usage guide: screen anatomy, global rules, "pick the right component" | `$BASE/guide/components.md` |
-| Component API: every `IFS.<Name>` with its props, and its **In handovers** line (how often designers use it, usual prop values) | `$BASE/dist/api.md` |
-| How the real product screens use each component: usual values and what it sits inside | `$BASE/guide/usage.md` |
-| Pattern rules, one file per pattern: cooper, widget-builder, documents, table, nav-bar, collaboration, evidence, activity, approval, comments, trace | `$BASE/guide/patterns/<slug>.md` |
-| Real usage of every variant, per family | `$BASE/src/gallery/<family>.jsx` (family names are the `##` headings in api.md) |
-| Icon names | `$BASE/dist/icons.txt` |
-| CSS token names and values, text-style (`.t-*`) and effect (`.fx-*`) classes | `$BASE/dist/tokens.txt` |
-| Prototype starter | `$BASE/template.html` |
-| Storybook, for the user to browse | `$BASE/dist/storybook/` |
+Read **up front** (small, about 15k tokens in all):
 
-At the start, make a work folder `<output folder>/.ifs/` and download into it with `curl -fsSL`: the guide, API, icon list, token list and template, plus the two helper scripts `$BASE/skill/scripts/inline.sh` and `$BASE/skill/scripts/shot.sh`. Then read the files from disk. **Before using a component, read its family's gallery file:** api.md lists prop names, while the gallery shows the data shapes they take (table columns and cells, nav items, chart data). Never guess a prop or a token name; check api.md and tokens.txt.
+| File | URL |
+|---|---|
+| Rules: screen anatomy, global rules, "pick the right component", what the product screens actually use (3b), patterns index | `$BASE/guide/rules.md` |
+| Component index: one line per `IFS.<Name>` with what it's for, how often designers place it, and its usual props | `$BASE/dist/index.md` |
+
+Read **only what your plan uses**, never the whole file:
+
+| File | URL | How |
+|---|---|---|
+| Full API: props and data shapes for every component | `$BASE/dist/api.md` | `bash .ifs/entry.sh Name1 Name2 …` prints just those entries |
+| Pattern rules, one file per pattern: cooper, widget-builder, documents, table, nav-bar, collaboration, evidence, activity, approval, comments, trace | `$BASE/guide/patterns/<slug>.md` | only the patterns your idea touches, and only their **In short** section (`awk '/^## In short/{f=1;print;next} /^## /{f=0} f' <file>`); grep the rest for a detail you need |
+| Recipes: working code for the shell + router + Cooper bar, a library page and an object page | `$BASE/guide/recipes.md` | read it whole before building (step 4) and start from it |
+| Working examples of every variant, per family | `$BASE/src/gallery/<family>.jsx` (family = the `##` heading in index.md) | only to check a data shape the entry doesn't make clear; grep for the component name rather than reading the whole file |
+| CSS token names and values, `.t-*` text styles, `.fx-*` effects | `$BASE/dist/tokens.txt` | grep for what you need (e.g. `grep -- '--gaps-' .ifs/tokens.txt`) |
+| Icon names | `$BASE/dist/icons.txt` | grep to check a name exists |
+| How real screens use a component (containers) | `$BASE/guide/usage.md` | only when choosing between two close components |
+| Per-component Figma details (keys, nodes, canvas notes) | `$BASE/guide/components.md` section 4 | rarely; only to settle a question the rules and the API entry don't answer |
+
+Also: the prototype starter `$BASE/template.html`, and Storybook at `$BASE/dist/storybook/` for the user to browse.
+
+At the start, make a work folder `<output folder>/.ifs/` and download into it with `curl -fsSL`: rules.md, index.md, recipes.md, api.md, tokens.txt, icons.txt and template.html, plus the helper scripts `$BASE/skill/scripts/entry.sh`, `inline.sh` and `shot.sh`. Downloading is free; only reading costs tokens, so read the up-front files and look up the rest. Never guess a prop or a token name: check the entry and tokens.txt.
 
 Helper scripts (downloaded into `.ifs/`; run them with `bash`):
+- `entry.sh Name1 Name2 …`: prints the full api.md entries for those components (props, data shapes, usage line).
 - `inline.sh <in.src.html> <out.html>`: snapshots the published kit into one standalone file.
 - `shot.sh <file.html> <out.png> [w] [h] ['#hash']`: headless-Chrome screenshot, used for self-checks. It needs Google Chrome. Without Chrome, use the browser pane, or skip it and say so.
 
 ## The flow — always in this order
 
 ### 1. Understand
-Read the guide (sections 1–3b and the patterns index in section 5 especially) and the API, then the user's description. Work out what you already know.
+Read rules.md and index.md, then the user's description. Work out what you already know, and read the **In short** section of each pattern the idea touches.
 
 The kit has three tiers. Keep them apart:
-- **Components** (`Tier: Component` in api.md): real, published IFS DS Figma components. Build screens from these.
+- **Components** (no tag in index.md): real, published IFS DS Figma components. Build screens from these.
 - **Patterns** (`guide/patterns/<slug>.md`): the rules for how something works, such as Cooper chat, documents, tables, widget drag & drop, comments and approvals. When the idea touches one of these, read that file and follow its rules. They apply even if you build from plain components.
 - **Examples** (the "Examples" section in Storybook, and the `Pattern …` sections in gallery files): screens that demonstrate a pattern with sample data. Use them as reference for layout and behaviour only. Never copy their data or treat a whole example as a part.
 
-**Choosing between components.** The guide's rules come first. Where they leave a choice, pick what the product screens use: section 3b of the guide, and the **In handovers** line in api.md. A component that's used thousands of times is the safe pick; one that's "only inside other components" is a part, so don't place it on its own. For each component in your plan, check its entry in usage.md to see what real screens put it inside.
+**Choosing between components.** The guide's rules come first. Where they leave a choice, pick what the product screens use: section 3b of the rules, and the usage count in index.md. A component that's used thousands of times is the safe pick; one marked *part* is only used inside other components, so don't place it on its own.
 
-**Pattern helpers** (`Tier: Pattern helper` in api.md, e.g. DataTable, CooperChat, WidgetBoard) are working compositions that implement a pattern's rules. They are not Figma components. You may use them when they fit, but say so in the plan.
+**Pattern helpers** (*helper* in index.md, e.g. DataTable, CooperChat, WidgetBoard) are working compositions that implement a pattern's rules. They are not Figma components. You may use them when they fit, but say so in the plan.
 
 ### 2. Ask what you need, once, in one batch
 Ask only questions whose answers change what you build. Cover the gaps from this list, and skip anything already answered or obvious:
@@ -52,6 +63,8 @@ Ask only questions whose answers change what you build. Cover the gaps from this
 Use `AskUserQuestion` (at most 4 questions per call), with a sensible default as the first option. Where you can make a reasonable assumption, don't ask. State it in step 3 so the user can correct it.
 
 ### 3. Lay out the plan in plain language, then stop
+Before writing it, pick the components from index.md and read their full entries in one call: `bash .ifs/entry.sh PageTop Table SegmentedControl …`. **You must read a component's entry before you plan with it or use it.** The entry tells you what props and slots exist, so the plan only promises what the components can do. Look up more entries later if the plan changes.
+
 Write it for a designer to scan in a minute: no code, no jargon. For each screen:
 
 ```
@@ -71,7 +84,7 @@ End with: "Anything to change before I build it?" **Do not build until the user 
 
 ### 4. Build
 1. Save the starter as `<output folder>/<kebab-name>.src.html`. Default output folder: `./prototypes/` in the current working directory, unless the user named one.
-2. Write the prototype in the template's `<script type="text/babel">` block. While you work, the `.src.html` loads the live kit from the web, so it opens in a browser as-is:
+2. Write the prototype in the template's `<script type="text/babel">` block. Start from recipes.md: copy the shell, router and Cooper wiring, and the library / object page recipes that match your screens, then adapt them. While you work, the `.src.html` loads the live kit from the web, so it opens in a browser as-is:
    - Destructure what you use from `IFS` (`const { Button, Table, Modal } = IFS;`). Use only names that exist in api.md.
    - Set props to the usual values from the **In handovers** line, not the code defaults, unless the plan says otherwise. For example, IconButton `size="s"`, SegmentedControl `size="s"`, Badge `size="s"`, and SideNav `defaultCollapsed`.
    - **Use only kit components for UI.** Your own markup is limited to layout wrappers (div + flex/grid) and plain text using the `.t-*` text-style classes (e.g. `t-heading-h1-medium`, `t-body-m-regular`).

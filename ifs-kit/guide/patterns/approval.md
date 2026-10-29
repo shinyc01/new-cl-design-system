@@ -2,6 +2,21 @@
 
 Source: IFS Design System Patterns › page **Approval chain** (12:157840), sections "Stakeholder (Reviewer) Review and Approve" (12:216578) and "Owner - Approve" (12:220976). Kit family: `patterns-approval` (`src/components/patterns-approval.jsx`).
 
+## In short
+- Use on the Approve stage of any object going Input → Shape → Review → Approve. `PageHeader` status `Indicator` + `Stepper` + main `SplitButton`.
+- Statuses: Draft/Shaping (gray), Pending approval (orange), Revisions required (red), Ready to publish (blue), Active (green).
+- Reviewer: `Panel` "Readiness Evaluation" (`ReadinessEvaluation`) lists only the gates/checks/metrics that exist for that case.
+- Chain: `ApprovalChainTable` in `ApprovalChainPanel` (sidebar/popover/full). Never the kit `ApprovalChain` card timeline. Full screen collapses Readiness.
+- Approve and Request more info always go through a confirm `Modal`. Approve → toast with Undo, button **Approved** (disabled), row success.
+- Request more info (caret menu): modal with Note → status Revisions required, button **Info requested** (disabled), "Approval chain" button hidden.
+- Notes: approvers note their own row, owner any row; only the author edits/deletes. Click outside saves. COMMENT shows approver text as written, else empty.
+- Push only on clock (awaiting) rows, max once per reviewer per 24h: toast, Last notified stamped, disabled "Notified" with live countdown tooltip.
+- Owner: Publish disabled until every reviewer approved; then Ready to publish → "Publish this framework?" → Active, button **Published**.
+- Revisions: rejected row shows comment + **Shape** action → Shaping; "Send for review?" resets reviewers and status to Pending approval.
+- Replaced reviewer: old avatar › new avatar with ⓘ tooltip. USER filter only with >3 approvers: live, multi-select chips + search, Clear all.
+- Toasts: approve/request-info 5s, pause on hover; note, push and publish 4s, pause on hover/focus, dismissible.
+- Details below: What it is / when to use it, Anatomy, Flows and states, Rules, Don'ts, Consolidated / unsure
+
 ## What it is / when to use it
 The Approve stage of a framework or investment. Reviewers see the change's impact and a readiness evaluation. Each reviewer then approves it or requests more information. The owner follows every reviewer's state in the approval chain, nudges reviewers who are late, and publishes once everyone has approved, or sends the item back for review after revisions. Use it on any object that passes Input → Shape → Review → Approve.
 

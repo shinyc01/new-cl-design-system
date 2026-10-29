@@ -209,3 +209,6 @@ These are pattern helpers: compositions built from kit components to implement a
 
 ### SplitButton
 - A primary button with an attached dropdown (Approval). Not in the DS: should it be?
+
+### CommentsPanel
+- No rule for comments on a page without a canvas (e.g. an investment detail page). Prototype runs either list threads inline (CommentDrawerCard + CommentThread, like Build › Activity and Comments) or open the CommentsPanel drawer from the header CommentButton. Which should it be?

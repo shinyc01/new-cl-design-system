@@ -2,6 +2,20 @@
 
 Figma: IFS Design System Patterns › page "Evidence Chain" (12:339982), section 31:74911. Sub-sections: from a card (31:74912), from system confidence (31:76687), tabs (31:77235), confidence % states (31:78104), peer benchmark empty state (297:75583).
 
+## In short
+- Put an `EvidenceButton` (circle Tertiary S, `cooper-evidence-icon`) on every field, block or card Cooper wrote. Never on human-written content.
+- Card trigger: `DataVizCard header.slot` or `ContentCard iconButton={…}`; side panel: `Panel showEvidence onEvidence`.
+- Never hide the trigger when confidence is high; the chain stays available above 90%.
+- It opens `EvidenceChainDrawer`: a floating drawer (✕ only, no collapse, no scrim/modal) top-right over the content, 12px clear of header, edge and bottom sheet.
+- From the System confidence panel the drawer opens in the panel's place. One chain at a time; another trigger switches it; same trigger, ✕ or Esc closes.
+- Drawer: `EvidenceStrength` bar (no title), then `SegmentedControl` S full width Rationale (default) | Peer benchmark; tab persists while open.
+- Rationale `EvidenceSection`s in order: Why it's flagged → Decisions → Considered but not included, each a list of `SourceCard`s. Never empty.
+- `SourceCard`: `type="file"` (button opens source) or `"user"` (avatar + name); `content="quote"` or `"text"`; optional info `Badge`.
+- Confidence zones (`evidenceZone(value)`): <70% Reject (not applied), 70–90% Review (filled, awaits check), ≥90% Approve (auto-applied).
+- Layout is identical at every confidence level; only the marker and behaviour change.
+- Peer benchmark (`PeerBenchmark`) is the only tab that can be empty: "Peer benchmark isn't available", no action, tab stays rendered and selectable.
+- Details below: What it is / when to use it, Anatomy (kit components), Flows and states, Rules, Don'ts, Consolidated / unsure
+
 ## What it is / when to use it
 The Evidence chain is Cooper's glass box. It shows the sources and reasoning steps behind one value that Cooper filled in, and how confident Cooper is in that value. Use it on every field, block or card that Cooper wrote. Don't use it for content a person wrote, or as a general document viewer (→ Documents pattern).
 

@@ -2,6 +2,20 @@
 
 Patterns file `KmmVU2D0kqWr0dC1xXNzWw`, page "Documents" 12:101272, section 12:111195.
 
+## In short
+- Documents live only in the bottom sheet: `BottomSheet type="value"` with `left={<DocumentsContext controller={c} />}`. Not a page or general file manager.
+- Drive everything from `useDocuments({ defaultDocuments, editable, required })`, passed as `controller` to all document components.
+- The documents button reads "1 Document" / "N Documents" and toggles `DocumentsPopover` (max 360px); hide the button at 0 documents.
+- 1–7 docs: no search, no scroll; 8–9: scroll; search only at ≥10. No match: "No results found", no counter. Sort newest upload first.
+- Row click opens a preview in a separate window. Long names truncate in the middle, never wrap; tooltip shows the full name; never truncate the date.
+- Upload via the Upload `IconButton` (multiple) or drop on the content (`DocumentsDropArea`, purple overlay). Success: count up, list opens, new file on top.
+- Rejected files (format, size >25MB) → error `Alert`, not a snackbar, no auto-dismiss; never add them to list or count. Partial: "{n} of {total} files added…".
+- Network failure: row stays with "Upload failed" + Retry. Uploading and failed rows are not counted.
+- Remove (editable only) via ⋮ → snackbar "The document has been removed" with Undo (4000ms, pauses on hover/focus).
+- Empty: context required → progress bar + Upload; optional → Upload only.
+- Read-only (Active, Scheduled, Archived): no Upload, drop or ⋮; rows keep Download. Omit unavailable actions, never grey them; the list never disappears.
+- Details below: What it is / when to use it, Anatomy, Flows and states, Rules, Don'ts, Consolidated / unsure
+
 ## What it is / when to use it
 The files attached to a record (investment, value framework) that build Cooper's context. They live in the bottom sheet, never on a page of their own: a documents button with the count opens a popover list. Upload is by the Upload icon-button or by dropping files on the content area. Use it on any record whose documents feed Cooper. Don't use it as a general file manager.
 

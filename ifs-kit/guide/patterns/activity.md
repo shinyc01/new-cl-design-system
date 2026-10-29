@@ -2,6 +2,21 @@
 
 Source: IFS Design System Patterns › page **Activity, Versions** (12:339984), section Activity log (52:83648). Kit family: `patterns-activity` (`src/components/patterns-activity.jsx`).
 
+## In short
+- Use `ActivityPanel` wherever a record offers "Activity" (row ⋮ › Activity, or title ⌄ › Activity); use `CompareView` for a framework's Compare view.
+- `ActivityPanel`: `Overlay` + 380px full-height `Panel` titled ACTIVITY with ✕; ✕, overlay or Esc closes.
+- `SegmentedControl` S Version History | Approval Chain only if the record has an approval process; otherwise no control (`approvals={undefined}`).
+- Approval process but no chain yet: keep the control, show `EmptyState` "No approval chain yet". Approval rows are display-only, never clickable.
+- `SmartSearch` filters the list (by person, type, status…); never answer in a chat bubble. No match → "No results found" + chips.
+- Versions newest first, current has `Badge` "Current"; card shows last-activity author; caret expands a nested activity `Timeline`; ⋮ on hover.
+- Click a version → opens it read-only. ⋮ Compare → `CompareView` against current (current compares with previous).
+- ⋮ Duplicate → new framework in Draft. ⋮ Restore (not on current) → confirm `Modal`, then a new draft. Never roll back in place.
+- ⋮ Rename: inline input with ✕/✓, Enter/Esc; name must be unique (red error, ✓ disabled); success toast with Undo. Renames only the version label.
+- Entries: `Avatar` (Cooper: `type="cooper"`), name, type `Badge` (Comment / Action / Auto-action), role, time, text.
+- Compare: `CompareHeader` dropdown baseline; four `StatCard`s (`ifs-compare-stat`) with `CompareStatValue`; two-source `Sankey`; ✕ clears to current only.
+- Don't build version cards from legacy `version-history` / `timeline activity component`; use the kit timeline base (`TimelineItem`).
+- Details below: What it is / when to use it, Anatomy, Flows and states, Rules, Don'ts, Consolidated / unsure
+
 ## What it is / when to use it
 The record's history: who did what (activity log), the saved versions of the record (version history), the approval chain, and a side-by-side comparison of two versions or benchmarks. Use `IFS.ActivityPanel` whenever a record (strategy framework, value framework, investment, study) offers "Activity". Use `IFS.CompareView` for the Compare view of a framework.
 

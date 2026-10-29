@@ -2,6 +2,21 @@
 
 Figma: IFS Design System Patterns › page "Cooper" (12:263487). Sections: Recommendation (67:107340), Chat (67:121910), Chat interactions (67:216492), prompt chips (67:307397).
 
+## In short
+- Cooper floats over or docks into the AppShell content area. Never open it as a modal or a full page.
+- Open via the avatar (`FtaButton`) in `BottomSheet`, `/`, or "Hey Cooper". Voice is the default mode; the keyboard icon switches to text.
+- Sizes: `ChatCollapsedBar` → `ChatCompactPanel` → `ChatFullPanel`. − or a click outside collapses to the avatar; it never fully closes.
+- While the chat is open, hide the bottom-sheet prompt chips and avatar. Sending from the bar opens the compact panel.
+- Answer: `UserMessage`, then `CooperMessage` Analysing ("Step n/total") → Streaming → Answered. Send becomes Stop while Cooper works.
+- Stop in Analysing: freeze + "Stopped" + Try again. Stop in Streaming: keep partial + Regenerate. Never delete the user's message.
+- Errors: "Something went wrong on our side" / "Connection lost" with retry; keep any partial answer above the line.
+- Message blocks: summary (collapsed when done), content, follow-ups, options. Hide empty blocks; never show follow-ups and options together.
+- Title stays "New chat" until the first answer. The chat must not overlap a widget it generates (widget goes on the opposite side).
+- `HistoryPanel` only beside the full panel. Smart folders (Reminders, Recommendations, Trash) can't be created/renamed/deleted; deleting a folder keeps its chats.
+- Recommendations: `CooperChip` in `PageHeader` → `AgentWindow`. Decline updates the count, chip gone at 0, "Decline all" only if >1. Never open with the chat.
+- Text selection shows "Ask Cooper to explain". After a canvas change Cooper shows a working message, result and Undo (undoes only its recalculation).
+- Details below: What it is / when to use it, Anatomy (kit components), Flows and states, Rules, Don'ts, Consolidated / unsure
+
 ## What it is / when to use it
 Cooper is the AI assistant available on every stage screen. Use this pattern when the user can ask a question about the current screen, when Cooper proactively has recommendations for it, or when the user needs to come back to earlier conversations. It always sits over the content area of an AppShell screen. It is not a full page.
 

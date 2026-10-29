@@ -2,6 +2,20 @@
 
 Source: IFS Design System Patterns › Widget Builder (page 331:492638): sections "Widget Builder" (331:551716) and "Widget resize, drag&drop — rules & states" (413:44071).
 
+## In short
+- Use `WidgetBoard` with each widget in a `WidgetFrame` (kit charts inside with `bare`); `StatCardsRow` is the metrics block; "Widgets" opens `WidgetsDrawer`.
+- Dashboard: widgets on one page grid. Report: blocks inside sections, each with its own grid. Editing (handles, ⋮⋮, menus) only in Draft.
+- 3-column grid, 12px gap. Widths only 1/3, 1/2, 2/3, 3/3. A row holds 1–3 widgets, the last fills the rest; never an empty column.
+- Auto widths: 1 → 3/3, 2 → 1/2+1/2, 3 → 1/3 each; chart+text → 2/3+1/3; chart+chart locked 1/2+1/2. Row height = tallest; never resize height.
+- Limits: metrics 3/3, whole row, no handle; text 1/3–3/3; chart min 1/2, never 1/3 or in a row of 3; wide chart/table 3/3. Rows never span sections.
+- Resize: edge handle on hover (not in the ~40px header zone, only possible directions), snaps on release; limit tooltips; or ⋮ → Resize S/M/L.
+- Drag only from ⋮⋮: ghost follows pointer, source at 30%, indicator line, then after ~300ms "+ Drop here to place" zone. Don't reflow while the line shows.
+- Blocked drop (full row, min doesn't fit, next to metrics): no line, tooltip "Row is full — max 3 widgets" / "…max 2 widgets with a chart" / "Metrics take the whole row".
+- On drop, source and target rows go Auto and an empty row disappears. Report: blocks can move to another section.
+- Add: drawer "+ Add" or drag a card (card leaves the list); drawer search filters by description, with an empty state. Remove: ⋮ → Remove.
+- Add/move/remove → toast with Undo (4s, pauses on hover). Esc or release outside → ghost flies back, no change, no toast.
+- Details below: What it is / when to use it, Anatomy, Flows and states, Rules, Don'ts, Consolidated / unsure, Review
+
 ## What it is / when to use it
 A page of widgets that people arrange themselves: add widgets from a catalog, reorder them by drag and drop, resize them on a 3-column grid, remove them. Use it for a dashboard page (widgets lie directly on the page, one grid) or a report page (widgets, called blocks, live inside sections, and each section has its own grid). Both use the same widgets and the same rules (Figma). Editing (handles, ⋮⋮, menus) is only available while the page is in Draft (Figma).
 
