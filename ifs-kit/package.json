@@ -10,7 +10,7 @@
     "build": "node build.mjs",
     "build-storybook": "node tools/gen-stories.mjs && storybook build -o dist/storybook --quiet",
     "release": "node tools/gen-stories.mjs && node build.mjs && node tools/gen-api.mjs && node tools/gen-rules.mjs && node tools/gen-examples.mjs && npm run skill && storybook build -o dist/storybook --quiet",
-    "skill": "cp tools/inline.sh tools/shot.sh tools/entry.sh skill/scripts/ && rm -f dist/ifs-prototype-skill.zip && cd skill/loader && zip -qr ../../dist/ifs-prototype-skill.zip ifs-prototype"
+    "skill": "cp tools/inline.sh tools/shot.sh tools/entry.sh skill/scripts/ && rm -f dist/catalyst-prototype-skill.zip && cd skill/loader && zip -qr ../../dist/catalyst-prototype-skill.zip catalyst-prototype"
   },
   "dependencies": {
     "react": "18.3.1",

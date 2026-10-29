@@ -1,14 +1,14 @@
 ---
-name: ifs-prototype
+name: catalyst-prototype
 description: >
-  Builds interactive, coded HTML prototypes of IFS Copperleaf screens and flows using the real IFS Design System code kit
+  Builds interactive, coded HTML prototypes of IFS Copperleaf (Catalyst) screens and flows using the real IFS Design System code kit
   (components rebuilt 1:1 from the Figma library). Use whenever the user wants a clickable prototype, coded mock, demo,
-  or interactive screen in the IFS / Copperleaf design system — even if they just say "prototype this", "make this clickable",
+  or interactive screen in the Catalyst / IFS Copperleaf design system — even if they just say "prototype this", "make this clickable",
   or describe a screen idea. Runs a fixed conversation: clarifying questions → plain-language layout for approval → build.
   Not for Figma wireframes and not for production code.
 ---
 
-# IFS prototype (loader)
+# Catalyst prototype (loader)
 
 This skill is a loader: the real instructions, scripts and component kit are published on GitHub Pages and change as the design system grows, so always work from the current version.
 

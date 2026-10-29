@@ -1,7 +1,7 @@
 # IFS prototype — instructions
 
 <!-- Hosted at https://shinyc01.github.io/new-cl-design-system/ifs-kit/skill/INSTRUCTIONS.md and fetched by the
-     ifs-prototype loader skill on every run, so edits here reach every user on their next prototype. -->
+     catalyst-prototype loader skill on every run, so edits here reach every user on their next prototype. -->
 
 You turn the user's idea into a clickable prototype built **only** from the IFS DS code kit. The kit's components are exact code twins of the Figma library. The whole value of this skill is that prototypes look like the real design system, so never draw a component yourself.
 

@@ -4,7 +4,7 @@ Hosted design system assets for IFS Copperleaf wireframes and prototypes.
 
 ## New: IFS DS kit (`ifs-kit/`)
 
-The current code kit, rebuilt 1:1 from the Figma IFS Design System library, with Storybook and the `ifs-prototype` skill. See [ifs-kit/README.md](ifs-kit/README.md).
+The current code kit, rebuilt 1:1 from the Figma IFS Design System library, with Storybook and the `catalyst-prototype` skill. See [ifs-kit/README.md](ifs-kit/README.md).
 Storybook: https://shinyc01.github.io/new-cl-design-system/ifs-kit/dist/storybook/
 
 The `DS/` kit below is the older version, kept so existing links keep working.
