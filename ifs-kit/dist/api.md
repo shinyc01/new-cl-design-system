@@ -1,8 +1,8 @@
 # IFS DS kit — component API
 
-Kit version 0.1.0, generated 2026-10-28. Everything is available as `IFS.<Name>` in a prototype. Each entry has a **Tier**: *Component* = a published IFS DS Figma component (build screens from these); *Pattern helper* = a working composition that implements a pattern's rules, not a Figma component (allowed, but name it as a pattern helper in the plan). Example screens are not in this list — see the Examples in Storybook.
+Kit version 0.1.0, generated 2026-10-29. Everything is available as `IFS.<Name>` in a prototype. Each entry has a **Tier**: *Component* = a published IFS DS Figma component (build screens from these); *Pattern helper* = a working composition that implements a pattern's rules, not a Figma component (allowed, but name it as a pattern helper in the plan). Example screens are not in this list — see the Examples in Storybook.
 Each entry is the comment above the component in source (Figma name/node and props). For real usage of every variant,
-read the family's examples file (linked per family). `IFS.Icon({ name, size: 12|16|24, variant })` takes Figma icon names — see icons.txt.
+read the family's examples file (linked per family). **In handovers** = how often designers place it in the real product files and its usual variant (details: guide/usage.md). `IFS.Icon({ name, size: 12|16|24, variant })` takes Figma icon names — see icons.txt.
 
 ## core
 
@@ -10,6 +10,7 @@ Examples (read before using any component below — shows the data shapes props 
 
 ### Icon
 **Tier:** Component
+**In handovers:** no handover screen uses it yet (may be newer than the handovers)
 Figma: Icons page (1399:9134). `name` is the Figma icon set name, `size` one of 12 | 16 | 24.
 Figma draws every size from its own artwork, so pick the nearest exported size rather than scaling.
 A few sets (cooper-*-icon, voice-input-animation) vary by state instead of size: pass `variant`.
@@ -21,18 +22,21 @@ Examples (read before using any component below — shows the data shapes props 
 
 ### TimelineMarker
 **Tier:** Component
+**In handovers:** no handover screen uses it yet (may be newer than the handovers)
 Figma: marker-atom (3713:12836)
 Props: size s (24) | m (32), children = slot content (an icon, an Avatar, a status icon). Default slot = the caret (Figma: arrow-caret-down-filled, drawn rotated to point right).
 `function TimelineMarker({ size = 's', children, className, ...rest })`
 
 ### TimelineConnector
 **Tier:** Component
+**In handovers:** placed 42× (Plan) · usual: Type solid 100%
 Figma: connector-atom (3713:12835)
 Props: type solid|dash. Fills the height of its parent column.
 `function TimelineConnector({ type = 'solid', className, ...rest })`
 
 ### TimelineItem
 **Tier:** Component
+**In handovers:** no handover screen uses it yet (may be newer than the handovers)
 Figma: activity-organism (3713:13396) — "The timeline base". One entry = marker + connector + Content slot.
 Props: marker = node for the marker slot (overrides avatar/icon), avatar = Avatar props (S 24 in the marker),
 icon = icon name in the marker, markerSize s|m, connector solid|dash|none (none = last entry),
@@ -57,6 +61,7 @@ onExpand. Disabled = outlined card (no fill); Figma keeps its buttons in their d
 
 ### ApprovalChain
 **Tier:** Component
+**In handovers:** placed 77× (Value) · usual: state=Success (81%)
 Figma: approval-chain-timeline (1440:6174) — legacy; rebuilt as a configuration of the timeline base (activity-organism 3713:13396).
 Props: steps = [{ key, state, name, position, avatar, date, comment, actions, role, roles, brief }], defaultSteps,
 onChange(steps) — clicking Approve / Reject on an awaiting step really moves it to success / rejected.
@@ -77,12 +82,14 @@ onRenameCancel (Esc / ✕), onRename(value) (fires after a successful submit). s
 
 ### VersionHistory
 **Tier:** Component
+**In handovers:** placed 97× (Value, Build, Plan) · usual: open no 94% · Expand false 88%
 Figma: version-history-timeline (2277:5299) — legacy; rebuilt as a configuration of the timeline base.
 Props: versions = VersionEntry props[] (each may carry `key`); onRename(index, title). Uncontrolled titles update on rename.
 `function VersionHistory({ versions = [], onRename, className, ...rest })`
 
 ### Comment
 **Tier:** Component
+**In handovers:** placed 33× (Value, Build) · usual: taggedUser no 100%
 Figma: comment-content-card (260:86722) — one reply. Variants State=Default|Hover, Tagged user=False|True.
 Props: name, time (time ago), avatar = Avatar props, you (adds "(you)"), children = text (string: @mentions render as
 tagged-user badges), mentions = names to match exactly, menuItems (⋯ menu shown on hover/focus — e.g. Edit / Delete on your
@@ -91,6 +98,7 @@ own reply; ActionMenu items), onMenu (plain ⋯ button instead of a menu), state
 
 ### CommentComposer
 **Tier:** Component
+**In handovers:** placed 17× (Value, Build) · usual: state=Default (100%)
 Figma: comment-input-atom (2290:15642) + comment-input-molecule (1660:10933, when `avatar` is passed).
 Props: mode text|voice|cooper (value/defaultMode/onModeChange — switching never clears the draft), value / defaultValue /
 onChange(text), onSubmit(text) (Enter or send; clears the draft), placeholder (defaults per mode: "Add a comment" /
@@ -105,6 +113,7 @@ text fits the single-line width with an 8px margin (measured off-layout), so a d
 
 ### CommentThread
 **Tier:** Component
+**In handovers:** placed 93× (Build, Value, Command) · usual: Type default 87%
 Figma: comment-popover-organism (260:88500) — the full thread. Variants Type=Default | Cooper suggestion | Edit.
 Props: number (thread ID shown after "Comment", e.g. "#55"), comments / defaultComments / onCommentsChange
 ([{ id, name, time, text, avatar, you, mentions }]), currentUser = { name, avatar } (composer avatar + author of new replies),
@@ -120,6 +129,7 @@ Your own reply's ⋯ = Edit / Delete (12:46616). Edit → inline editor with Can
 
 ### UserCard
 **Tier:** Component
+**In handovers:** no handover screen uses it yet (may be newer than the handovers)
 Figma: user-card (1440:5059) — legacy (guide: "can be content-card-organism").
 Props: type assigned|owner, name, position, avatar = Avatar props (default Black M), badge (label, default "Owner"),
 date (owner: under the badge), checked (show-checkmark-icon), onEdit (assigned: edit icon-button), draggable (assigned drag handle),
@@ -128,6 +138,7 @@ loading, state hover|drag|focus (gallery), onClick.
 
 ### Collaborator
 **Tier:** Component
+**In handovers:** placed 9× (Value) · usual: type recommended 100%
 Figma: collaborator (1440:6097) — legacy (guide: "can be content-card-organism").
 Props: type joined|awaiting|recommended, name, position, avatar = Avatar props (default: Green joined, Awaiting, Black recommended),
 role / defaultRole / roles / onRoleChange (dropdown-item; joined + awaiting), iconButton = { icon, label, onClick } (show-icon-button),
@@ -136,6 +147,7 @@ onAdd (recommended: "+" shown on hover/focus), loading, state hover|focus (galle
 
 ### FileCard
 **Tier:** Component
+**In handovers:** placed 4× (Explore) · usual: state=Default (100%)
 Figma: file-card (1440:5465) — legacy ("Documents"; guide: "can be content-card-organism").
 Props: name (long names truncate in the middle, full name as tooltip), date, error (State=error: red tile + delete / retry),
 loading, onDownload (shown on hover/focus), onDelete, onRetry, onClick (open), actions (node replacing the right-hand buttons,
@@ -145,6 +157,7 @@ the actions visible, e.g. while its menu is open), state hover (gallery).
 
 ### VersionCard
 **Tier:** Component
+**In handovers:** placed 5× (Value) · usual: Property 1=Default (100%)
 Figma: version-card (2104:4022) — legacy (guide: "can be content-card-organism").
 Props: label (caption, default "Ready to publish"), items = [{ name, type (indicator colour, default orange), meta }] (the List slot),
 secondaryAction / primaryAction = Button props incl. children (default "Schedule" / "Publish"), loading, state hover (gallery).
@@ -161,6 +174,7 @@ Examples (read before using any component below — shows the data shapes props 
 
 ### Button
 **Tier:** Component
+**In handovers:** placed 1,903× (Build, Value, Plan, Command, Explore) · usual: Type secondary 56% / tertiary 27% · Size m (32) 49% / s (24) 44%
 Figma: button (65:3211)
 Props: type primary|secondary|tertiary|ghost|cooper (Figma "Accent (Cooper)"), size l|m|s,
 iconLeft / iconRight = icon names (Figma show-icon-* + Icon swap), children = Button label.
@@ -169,6 +183,7 @@ Leave out children for Figma show-label=false.
 
 ### IconButton
 **Tier:** Component
+**In handovers:** placed 1,999× (Value, Explore, Build, Plan, Command) · usual: Shape square 88% · Type ghost 66% · Size s (24) 90%
 Figma: icon-button (71:4250)
 Props: icon (required), type ghost|primary|secondary|tertiary, size l|m|s, shape square|circle.
 Always pass a `label` — it becomes the accessible name and tooltip.
@@ -180,6 +195,7 @@ Examples (read before using any component below — shows the data shapes props 
 
 ### ValueMapButton
 **Tier:** Component
+**In handovers:** placed 208× (Value) · usual: Type input 79% · Selected default 79%
 ------------------------------------------------------------------------------------------ 
 Figma: value-map-button (2590:20612)
 Floating vertical overlay on the Value Framework canvas. Fit = view action (zoom to show all);
@@ -191,6 +207,7 @@ onSelect(action), onFit, onExpand, onCollapse.
 
 ### MapToolbar
 **Tier:** Component
+**In handovers:** placed 271× (Explore, Command) · usual: map-tool-bar-organism (100%)
 ------------------------------------------------------------------------------------------ 
 Figma: explore-map-button (7404:34866) = map-tool-bar-organism, a stack of
 explore-map-button-base (7404:34867) clusters. Canvas note: "Floating vertical overlay on the map canvas.
@@ -204,6 +221,7 @@ MapToolButton: icon, label (accessible name + tooltip), active (pressed state, a
 
 ### MapToolCluster
 **Tier:** Component
+**In handovers:** placed 271× (Explore, Command) · usual: map-tool-bar-organism (100%)
 ------------------------------------------------------------------------------------------ 
 Figma: explore-map-button (7404:34866) = map-tool-bar-organism, a stack of
 explore-map-button-base (7404:34867) clusters. Canvas note: "Floating vertical overlay on the map canvas.
@@ -217,6 +235,7 @@ MapToolButton: icon, label (accessible name + tooltip), active (pressed state, a
 
 ### MapToolButton
 **Tier:** Component
+**In handovers:** placed 271× (Explore, Command) · usual: map-tool-bar-organism (100%)
 ------------------------------------------------------------------------------------------ 
 Figma: explore-map-button (7404:34866) = map-tool-bar-organism, a stack of
 explore-map-button-base (7404:34867) clusters. Canvas note: "Floating vertical overlay on the map canvas.
@@ -230,6 +249,7 @@ MapToolButton: icon, label (accessible name + tooltip), active (pressed state, a
 
 ### MapToolDivider
 **Tier:** Component
+**In handovers:** placed 271× (Explore, Command) · usual: map-tool-bar-organism (100%)
 ------------------------------------------------------------------------------------------ 
 Figma: explore-map-button (7404:34866) = map-tool-bar-organism, a stack of
 explore-map-button-base (7404:34867) clusters. Canvas note: "Floating vertical overlay on the map canvas.
@@ -243,6 +263,7 @@ MapToolButton: icon, label (accessible name + tooltip), active (pressed state, a
 
 ### NodeHoverActions
 **Tier:** Component
+**In handovers:** placed 28× (Value) · usual: Type expand 39% / submodel 25%
 ------------------------------------------------------------------------------------------ 
 Figma: node-button (1851:191153)
 Contextual menu shown on hover over a framework node; the action depends on the node
@@ -253,6 +274,7 @@ actions = [{ id, icon, label }] to override the preset, onAction(id).
 
 ### AddNodeButton
 **Tier:** Component
+**In handovers:** placed 220× (Value) · usual: Property 1=disabled (53%)
 ------------------------------------------------------------------------------------------ 
 Figma: add-node-button (2879:7311)
 Creates a new (grey, provisional) subnode on the framework canvas; confirmed via its check icon.
@@ -263,6 +285,7 @@ state hover|pressed|typing (forced, gallery), label (accessible name, default "A
 
 ### NodeCard
 **Tier:** Component
+**In handovers:** placed 10,865× (Value, Build) · usual: type default 45% / measure 14%
 ------------------------------------------------------------------------------------------ 
 Figma: node-card (1440:4401) — the node on the framework/map canvas.
 Props:
@@ -279,6 +302,7 @@ Props:
 
 ### SidebarNodeCard
 **Tier:** Component
+**In handovers:** placed 180× (Value, Build) · usual: open no 100% · type value model 100%
 ------------------------------------------------------------------------------------------ 
 Figma: sidebar-node-card (2667:6608) — a node in a side list, dragged onto the canvas.
 Figma marks it legacy ("can be content-card-organism"); kept because the canvas drag flow uses it.
@@ -288,6 +312,7 @@ onDragStart/onDragEnd, state hover|drag|focus|cooper-hover|cooper-drag (forced, 
 
 ### MapPin
 **Tier:** Component
+**In handovers:** placed 17× (Explore) · usual: Type solar 69% · Status neutral 100% · Asset icon no 100%
 ------------------------------------------------------------------------------------------ 
 Figma: map-pin-teardrop (43:2020), Patterns › Map. Default location marker for one asset on an exact spot.
 (Other pin sets on the page — map-pin-dot/-square/-pole/-defect/-flow — are not built here.)
@@ -298,6 +323,7 @@ label (accessible name), state selected|opened|out-of-hover (forced, gallery).
 
 ### CanvasBackground
 **Tier:** Component
+**In handovers:** placed 701× (Value) · usual: Property 1=image (100%)
 ------------------------------------------------------------------------------------------ 
 Figma: canvas-background (1395:196712), Surfaces.
 "The infinite, pannable, zoomable ground plane for map-first and node-graph views" — not for document-flow pages.
@@ -315,6 +341,7 @@ Props: from {x,y}, to {x,y}, highlighted (border/strong).
 
 ### DropZone
 **Tier:** Component
+**In handovers:** placed 8× (Build, Value) · usual: Type change-position-overlay 100%
 ------------------------------------------------------------------------------------------ 
 Figma: move-and-drop-background (4509:30446), Surfaces.
 Dashboard edit mode: the dashed drop zone marking where a dragged widget will land.
@@ -324,6 +351,7 @@ active (forced highlight). It accepts HTML5 drops and exposes data-over while so
 
 ### SankeyNode
 **Tier:** Component
+**In handovers:** placed 691× (Value) · usual: type default 52% / measure 48%
 ------------------------------------------------------------------------------------------ 
 Figma: sankey-atom (1853:12325) — one Sankey node: connector stub + card.
 Props: type default|measure, label, from, to (values, e.g. "$1.24B" → "$1.27B"; leave `to` out for a single value),
@@ -333,12 +361,14 @@ accent = colour of the left accent bar used by the organism (css colour / var).
 
 ### SankeyHeader
 **Tier:** Component
+**In handovers:** placed 57× (Value) · usual: column-header (100%)
 Figma: sankey-header (2698:64494) — column summary box ("MEAS. Q1 2025 29 → Q4 2026 24").
 Props: abbr ("MEAS."), fromLabel, toLabel, from, to.
 `function SankeyHeader({ abbr, fromLabel, toLabel, from, to, className, ...rest })`
 
 ### Sankey
 **Tier:** Component
+**In handovers:** only inside other components (8×); don't place on its own
 Figma: sankey-organism (4457:53304) = column strip + sankey-chart (1853:12398) built from sankey-atom/-header.
 "Flow: how a total splits through stages (budget allocation, value decomposition, goal → objective → model lineage);
 band width = value."
@@ -352,6 +382,7 @@ Props:
 
 ### TimelinePhase
 **Tier:** Component
+**In handovers:** no handover screen uses it yet (may be newer than the handovers)
 ------------------------------------------------------------------------------------------ 
 Figma: timiline-phase-molecule (3967:1765) — one phase row of the Gantt (+ its task list when expanded).
 Props: title (Figma Title), subtitle ("Internal"), badge = red badge text (Figma Badge=True, e.g. "6 weeks behind"),
@@ -362,6 +393,7 @@ onAdd, onMore (hover actions), slots (number of axis slots, set by the chart), s
 
 ### TimelineChart
 **Tier:** Component
+**In handovers:** no handover screen uses it yet (may be newer than the handovers)
 Figma: timeline-chart-organism (3967:38286) — "use this". Gantt: phases on a time axis (e.g. investment phases
 across a 5-year plan); shows sequential vs parallel work.
 Props: groups = [{ label: '2027', slots: ['Q1','Q2','Q3','Q4'] }] (the axis), phases = TimelinePhase props[] (+ id),
@@ -375,6 +407,7 @@ Examples (read before using any component below — shows the data shapes props 
 
 ### DataVizBar
 **Tier:** Component
+**In handovers:** placed 4× (Plan) · usual: State=Default (100%)
 Figma: bar-atom (4457:32996)
 Props: state default|hover|out-of-focus|background|loading, color = data-viz group (default rose), step (default 4;
 hover = step-1, out-of-focus = 9), children = the value label (show-value; absent = hidden). Fills its parent.
@@ -382,6 +415,7 @@ hover = step-1, out-of-focus = 9), children = the value label (show-value; absen
 
 ### DataVizGroupedBar
 **Tier:** Component
+**In handovers:** placed 4× (Plan) · usual: Type vertical 100% · Progress false 100%
 Figma: grouped-bar-molecule (4457:37362)
 Props: type horizontal (segments stacked top→bottom) | vertical (segments side by side), progress (meter: value against max on a
 neutral track), values = numbers (segment sizes; one group, steps 4,5,6,… of `color`), value + max (progress), showValues.
@@ -389,24 +423,28 @@ neutral track), values = numbers (segment sizes; one group, steps 4,5,6,… of `
 
 ### DataVizLine
 **Tier:** Component
+**In handovers:** placed 18× (Plan) · usual: Dashed true 89%
 Figma: line-atom (4440:32650)
 Props: dashed (3/5 dash — planned, median, reference), orientation horizontal|vertical. Fills its parent's width (or height).
 `function DataVizLine({ dashed = false, orientation = 'horizontal', className, ...rest })`
 
 ### DataVizIndicator
 **Tier:** Component
+**In handovers:** placed 165× (Plan, Explore) · usual: Type point 99%
 Figma: indicator-atom (4440:32643)
 Props: type default (8px data point) | selected (point + white ring) | intended-target (2×16 target tick), color = data-viz group or CSS colour.
 `function DataVizIndicator({ type = 'default', color = 'rose', className, style, ...rest })`
 
 ### ValueLabel
 **Tier:** Component
+**In handovers:** placed 58× (Plan) · usual: State=Secondary (52%)
 Figma: value-label-atom (4440:32611)
 Props: state primary|secondary|tertiary|empty|loading, children = the value text (Label/M/medium).
 `function ValueLabel({ state = 'primary', children, className, ...rest })`
 
 ### LegendSwatch
 **Tier:** Component
+**In handovers:** placed 12× (Plan) · usual: State=Default (100%)
 Figma: legend-swatch-atom (4440:32628)
 Props: state default|hover|out-of-hover|intended-target, color = data-viz group or CSS colour, label, value (show-value),
 step (group step, default 4; charts use 3), swatchOpacity (for opacity-coded ramps). Hover only — legend entries are not clickable (Figma).
@@ -414,6 +452,7 @@ step (group step, default 4; charts use 3), swatchOpacity (for opacity-coded ram
 
 ### DataVizHeader
 **Tier:** Component
+**In handovers:** placed 123× (Plan, Value) · usual: Right element false 72%
 Figma: data-viz-header-molecule (2154:2068)
 Props: title, state default|hover (forced; real hover/focus of the header or its card also shows the hover row),
 Right element: segments = SegmentedControl options (size S) with segmentValue/defaultSegmentValue/onSegmentChange,
@@ -423,6 +462,7 @@ for onEdit / onDelete / onMore. hoverActions = custom hover-only node, slot = al
 
 ### DataVizCard
 **Tier:** Component
+**In handovers:** placed 23× (Plan) · usual: State=Default (100%)
 Figma: data-viz-card-organism (4457:33030)
 Props: state default|hover|drag|cooper, title, header = extra DataVizHeader props, children = Content slot, legend (node, below content).
 variant="chart" is the frame every core chart (chart-column … chart-funnel) is drawn in: 6px padding, header with the Cooper
@@ -434,6 +474,7 @@ a chart placed inside another frame that already draws the header (e.g. a dashbo
 
 ### DataVizTooltip
 **Tier:** Component
+**In handovers:** placed 5× (Value, Build) · usual: chart-info-modal (80%)
 Figma: data-viz-modal-organism (4440:32681) and the chart-info-modal tooltip used by every core chart.
 Props: title, subtitle (Category line above the title → organism layout, value right of the title),
 value (chart layout: second line), delta = { text, direction up|down, tone positive|negative }, items = [{ label, value, color }],
@@ -442,6 +483,7 @@ showValue (Figma show-value), variant chart (320 wide) | modal (256). children a
 
 ### ColumnChart
 **Tier:** Component
+**In handovers:** no handover screen uses it yet (may be newer than the handovers)
 Figma: chart-column (9862:12468) — one measure across few or time-ordered categories; zero-based, one hue.
 Props: data = [{ label, value, reference?, delta?, details? }], valueLabel (legend + table), referenceLabel (white peer-median tick),
 color (data-viz group, default muted-purple), format(v) for values/axis, tooltip(datum, i) → DataVizTooltip props.
@@ -451,6 +493,7 @@ onCooper, onEditWithCooper, emptyTitle, emptyText, height (default 328), classNa
 
 ### HistogramChart
 **Tier:** Component
+**In handovers:** no handover screen uses it yet (may be newer than the handovers)
 Figma: chart-histogram (9864:14012) — distribution of one measure across bins (contiguous zero-based columns).
 Props: values = raw numbers + bins (count, default 10) or binWidth — or data = pre-binned [{ label, value }];
 binFormat(lo, hi) for bin labels, valueLabel (default 'Count'), + ColumnChart props.
@@ -458,12 +501,14 @@ binFormat(lo, hi) for bin labels, valueLabel (default 'Count'), + ColumnChart pr
 
 ### BarChart
 **Tier:** Component
+**In handovers:** no handover screen uses it yet (may be newer than the handovers)
 Figma: chart-bar (9862:12961) — horizontal bars for many categories, long labels or rankings (sort biggest → smallest).
 Props: as ColumnChart + sort (true = biggest first), labelWidth (category column, default 96). Values are labelled at the bar end.
 `function BarChart(props)`
 
 ### GroupedColumnChart
 **Tier:** Component
+**In handovers:** no handover screen uses it yet (may be newer than the handovers)
 Figma: chart-grouped-column (9862:13445) — 2–3 series side by side per category; consistent series order + legend.
 Props: data = [{ label, [series.key]: number, reference?, delta?, details? }], series = [{ key, label, color? }],
 referenceKey (default 'reference') + referenceLabel, format, tooltip. + shell props.
@@ -471,12 +516,14 @@ referenceKey (default 'reference') + referenceLabel, format, tooltip. + shell pr
 
 ### StackedColumnChart
 **Tier:** Component
+**In handovers:** no handover screen uses it yet (may be newer than the handovers)
 Figma: chart-stacked-column (9863:11139) — composition of a total per category (series stack bottom → top in series order).
 Props: data = [{ label, [series.key]: number, delta?, details? }], series = [{ key, label, color? }], format, tooltip. + shell props.
 `function StackedColumnChart(props)`
 
 ### LineChart
 **Tier:** Component
+**In handovers:** no handover screen uses it yet (may be newer than the handovers)
 Figma: chart-line (9863:11650) — change over time; actual solid vs planned dashed; optional peer band + dashed median.
 Props: data = [{ label, [series.key]: number, … }], series = [{ key, label, color?, dashed?, points? }] (first series shows its
 points), band = { low, high, mid?, label } (keys into data; drawn as a white 16% band + dashed mid line), referenceKey/referenceLabel
@@ -485,24 +532,28 @@ points), band = { low, high, mid?, label } (keys into data; drawn as a white 16%
 
 ### AreaChart
 **Tier:** Component
+**In handovers:** no handover screen uses it yet (may be newer than the handovers)
 Figma: chart-area (9863:12167) — cumulative volume over time; zero-based; series fill fades from 45% to 0 of its colour.
 Props: as LineChart (zeroBased defaults to true; points hidden unless series.points).
 `function AreaChart(props)`
 
 ### PieChart
 **Tier:** Component
+**In handovers:** no handover screen uses it yet (may be newer than the handovers)
 Figma: chart-pie (9866:12309) — parts of one whole with few slices (prefer DonutChart). Slices largest → smallest clockwise from 12.
 Props: data = [{ label, value, color?, opacity?, delta?, details? }], sort (default true), valueLabel, format, tooltip. + shell props.
 `function PieChart(props) { return <RoundChart {...props} donut={false} />; }`
 
 ### DonutChart
 **Tier:** Component
+**In handovers:** no handover screen uses it yet (may be newer than the handovers)
 Figma: chart-donut (9866:12774) — share of a whole; one legend; the hole carries the total.
 Props: as PieChart + centerValue (big number) + centerLabel (caption under it).
 `function DonutChart(props) { return <RoundChart {...props} donut />; }`
 
 ### ScatterChart
 **Tier:** Component
+**In handovers:** no handover screen uses it yet (may be newer than the handovers)
 Figma: chart-scatter (9866:13245) — relationship between two measures; clusters and outliers.
 Props: data = [{ label, x, y, series?, size?, delta?, details? }], series = [{ key, label, color? }] (absent = one series),
 xFormat, yFormat (default format), xUnit (suffix on the last x tick, e.g. "days"), xLabel/yLabel (table + tooltip names),
@@ -511,11 +562,13 @@ xReference / yReference (dashed white peer-median lines) + referenceLabel, bubbl
 
 ### BubbleChart
 **Tier:** Component
+**In handovers:** no handover screen uses it yet (may be newer than the handovers)
 Figma: chart-bubble (9866:13788) — scatter with a third measure as bubble area. Props: as ScatterChart; data items carry `size`.
 `function BubbleChart(props) { return <ScatterChart {...props} bubble />; }`
 
 ### GaugeChart
 **Tier:** Component
+**In handovers:** no handover screen uses it yet (may be newer than the handovers)
 Figma: chart-gauge (9867:618) — one KPI against one reference value on a 180° arc.
 Props: value, max (default 100), min (0), target (solid white tick reaching outside the arc), reference (dashed white tick across the arc), format (default v → v%),
 label (caption under the number), valueLabel / targetLabel / referenceLabel (legend), color, delta, details, tooltip. + shell props.
@@ -523,6 +576,7 @@ label (caption under the number), valueLabel / targetLabel / referenceLabel (leg
 
 ### WaterfallChart
 **Tier:** Component
+**In handovers:** no handover screen uses it yet (may be newer than the handovers)
 Figma: chart-waterfall (9866:16075) — bridge from a start value to an end value through increments.
 Props: data = [{ label, value, total? }]: total:true bars stand on 0 (value given = reset the running total; omitted = show it),
 other bars float as +/- steps. colors = { total, increase, decrease } (groups; default muted-purple / rose / teal),
@@ -531,6 +585,7 @@ labels = { total, increase, decrease } (legend), format, tooltip. + shell props.
 
 ### FunnelChart
 **Tier:** Component
+**In handovers:** no handover screen uses it yet (may be newer than the handovers)
 Figma: chart-funnel (9867:1065) — drop-off across ordered stages.
 Props: data = [{ label, value, reference? (peer value for that stage → white ticks), delta?, details? }], color (stages; default
 muted-purple, fading per stage), outcomeColor (last stage; default teal — set null to keep one colour), stageLabel/outcomeLabel/
@@ -539,6 +594,7 @@ referenceLabel (legend), format (default full number), tooltip. + shell props.
 
 ### HeatmapChart
 **Tier:** Component
+**In handovers:** no handover screen uses it yet (may be newer than the handovers)
 Figma: chart-heatmap (9866:14280) — ordered magnitude across a matrix, one hue group (Figma: teal-3 with opacity by value).
 Props: rows = [labels], columns = [labels], values = [[row][col] numbers], color (default teal), columnLabelEvery (auto),
 lowLabel / highLabel (legend), valueLabel, format, tooltip(cell = { row, column, value, r, c }). + shell props.
@@ -546,12 +602,14 @@ lowLabel / highLabel (legend), valueLabel, format, tooltip(cell = { row, column,
 
 ### ProgressRing
 **Tier:** Component
+**In handovers:** placed 37× (Plan) · usual: % 60 86%
 Figma: progress-ring-molecule (4619:18187)
 Props: value 0–100 (Figma % variants 0/10/20/40/50/60/80/100 — any value works), size (default 24), label = accessible name.
 `function ProgressRing({ value = 0, size = 24, label = 'Progress', className, ...rest })`
 
 ### EvidenceStrength
 **Tier:** Component
+**In handovers:** no handover screen uses it yet (may be newer than the handovers)
 Figma: evidence-strength-bar-molecule (67:6634)
 Props: value (%), thresholds = [review, approve] (default [70, 90]), min (left end of the Reject band, default 50), title,
 labels = [reject, review, approve] captions. Type (Reject|Review|Approve) follows the value: the active band is drawn solid.
@@ -568,6 +626,7 @@ Examples (read before using any component below — shows the data shapes props 
 
 ### Badge
 **Tier:** Component
+**In handovers:** placed 363× (Explore, Build, Command, Plan, Value) · usual: Color white 84% · Size s (20) 64%
 Figma: badge-atom (83:52162)
 Props: color white|black|red|green|orange|info|false|loading (Figma "False" = no fill, uppercase caption; info = black fill
 with text/info + icon/info, as the Patterns source-card draws it), borderless (drops the black badge's border/medium edge —
@@ -577,12 +636,14 @@ indicator = status-indicator state (show-indicator), avatar = Avatar props (show
 
 ### StatusIndicator
 **Tier:** Component
+**In handovers:** placed 864× (Plan, Value, Build, Explore) · usual: Stroke false 92%
 Figma: status-indicator-atom (789:39211)
 Props: state default|error|success|cooper|warning|blue, stroke (Figma Stroke=True: 1.5px surface/primary ring).
 `function StatusIndicator({ state = 'default', stroke, label, className, ...rest })`
 
 ### Avatar
 **Tier:** Component
+**In handovers:** placed 196× (Plan, Command, Value, Build) · usual: Size m (32) 42% / 24px 17%
 Figma: avatar-atom (260:17144) + avatar-organism (260:19923)
 Props: initials (Figma Label, e.g. "UN") or name (initials derived), size xs|s|m|l|xl,
 type black|red|dark-orange|orange|yellow|brown|dark-blue|blue|light-blue|green|lime|dark-purple|purple|light-purple|dark-pink|light-pink|image|awaiting|cooper|inactive|loading
@@ -592,6 +653,7 @@ onClick makes it a button with Figma Hover/Pressed/Focus states.
 
 ### RiskStatus
 **Tier:** Component
+**In handovers:** only inside other components (378×); don't place on its own
 Figma: status-risk-molecule (69:1729)
 Props: type success|warning|error|evaluated, state hover|focus (forced, gallery) , disabled, loading,
 children = label (defaults to Figma's: auto-resolved / moderate risk / critical risk / evaluated), onClick → button.
@@ -599,6 +661,7 @@ children = label (defaults to Figma's: auto-resolved / moderate risk / critical 
 
 ### ReadinessStatus
 **Tier:** Component
+**In handovers:** placed 66× (Plan, Value) · usual: Type done 48% / in progress 45% · Right-section text 56% / status 38%
 Figma: status-readiness-molecule (1440:5273)
 Props: type done|warning|error|in-progress|active|loading (error = red, e.g. "Exceeded" in the Patterns file), children = label (Figma Label),
 right = text (Right-section=Text) OR indicators = [{ type, label }] (Right-section=Status, XS indicators).
@@ -606,6 +669,7 @@ right = text (Right-section=Text) OR indicators = [{ type, label }] (Right-secti
 
 ### Indicator
 **Tier:** Component
+**In handovers:** placed 138× (Value, Plan, Build) · usual: Size s 63% · Type blue 67%
 Figma: indicator-molecule (1074:180251)
 Props: type orange|green|red|blue|purple|gray|cooper|archive|loading, size s|xs, children = text,
 buttonRight = icon name (Figma "button right": tertiary S icon-button), onButtonClick, buttonLabel.
@@ -613,6 +677,7 @@ buttonRight = icon name (Figma "button right": tertiary S icon-button), onButton
 
 ### StatCard
 **Tier:** Component
+**In handovers:** placed 104× (Plan) · usual: Size m 100% · Loading false 100%
 Figma: stat-card-organism (3643:35055)
 Props: size m|s, title (show-title), value, description, descriptionPosition below|inline (below = value over an UPPERCASE
 caption, as the Patterns file draws it; inline = the library's default slot: description beside the value), trend (e.g. "3 %"; show-trend), trendDirection up|down,
@@ -621,6 +686,7 @@ badge = Badge props (show-badge; Figma default Color=Red S), children = addition
 
 ### ContentCard
 **Tier:** Component
+**In handovers:** placed 3,076× (Build, Explore, Plan, Command) · usual: Size m 70%
 Figma: content-card-organism (3643:32067)
 Props: size m|s, title, description (show-description), avatar = Avatar props (show-avatar, L 40),
 control = node (show-checkbox / show-radio-button / show-switch → pass IFS.Checkbox etc.), iconRight = icon name (Figma arrow-right),
@@ -633,6 +699,7 @@ selected, cooper (Figma State=Cooper), loading, state (forced: hover|pressed|foc
 
 ### Table
 **Tier:** Component
+**In handovers:** placed 18,250× (Value, Build, Plan, Command) · usual: Type text 63% · Loading false 100%
 Figma: table-card-organism (4835:4031) with table-header-molecule (1440:5904), table-cell-atom (1440:5941),
 table-sort-atom (1440:5921), table-filter-atom (1440:5932), group-row-molecule (4833:19072), content-row-molecule (4835:3501).
 Figma rule: tables show every row (no pagination). Filter with the `tabs` slot: the Figma table card puts a
@@ -651,6 +718,7 @@ Props:
 
 ### NotificationCard
 **Tier:** Component
+**In handovers:** no handover screen uses it yet (may be newer than the handovers)
 Figma: notification-card (9943:5373)
 Type = what happened: all (avatar + action tag), specific (avatar, no tag), grouped (Cooper avatar + count).
 Read: read hides the unread dot. critical (show-critical) adds status-error-filled on the leading icon's top-right (aria-label "Critical").
@@ -663,6 +731,7 @@ actionLabel (tag text, default "Action required"), onClick → focusable card.
 
 ### ProgressBar
 **Tier:** Component
+**In handovers:** placed 10× (Plan) · usual: % 0 100%
 Figma: progress-bar-molecule (1674:1902)
 Props: value 0–100 (Figma % variants 0/10/20/40/50/60/80/100 — any value works), label = accessible name.
 `function ProgressBar({ value = 0, label = 'Progress', className, ...rest })`
@@ -673,18 +742,21 @@ Examples (read before using any component below — shows the data shapes props 
 
 ### Hotkey
 **Tier:** Component
+**In handovers:** placed 3× (Value) · usual: Property 1=Default (100%)
 Figma: hotkey-atom (67:6150)
 Props: children = hotkey text (Figma "hotkey", default "⌘/").
 `function Hotkey({ children = '⌘/', className, ...rest })`
 
 ### Counter
 **Tier:** Component
+**In handovers:** placed 1,548× (Build, Value, Command, Explore, Plan) · usual: Size s (18) 65%
 Figma: counter-atom (88:24147)
 Props: size s (18) | m (24), indicator (show-indicator: true = Blue, or a StatusIndicator state), children = number.
 `function Counter({ size = 's', indicator, children, className, ...rest })`
 
 ### ScrollArea
 **Tier:** Component
+**In handovers:** placed 1,265× (Build, Value, Explore, Plan, Command) · usual: top default 100% · Location top 100%
 Figma: scroll-bar-atom (83:57650)
 A scroll container with the Figma bar (8px track, 4px bar) in place of the native scrollbar.
 Props: height / maxHeight (the scroll box), children, label (aria-label; makes the viewport keyboard-focusable),
@@ -693,12 +765,14 @@ plus any <div> attribute on the outer element.
 
 ### ScrollBar
 **Tier:** Component
+**In handovers:** placed 1,265× (Build, Value, Explore, Plan, Command) · usual: top default 100% · Location top 100%
 Figma: scroll-bar-atom (83:57650) drawn alone (gallery / static mocks).
 Props: location top|center|bottom, height (track length, Figma 1000).
 `function ScrollBar({ location = 'top', height = 300, className })`
 
 ### CircularButton
 **Tier:** Component
+**In handovers:** only inside other components (8×); don't place on its own
 Figma: circular-button-molecule (72:9983)
 Props: direction left|right|top|bottom (Figma Type = which side of the hub it sits on), children = button label,
 hotkey (hotkey-atom text; absent = show-hotkey off), icon (arrow swap; defaults point at the hub), disabled,
@@ -707,6 +781,7 @@ state hover|pressed|focus (gallery), plus any <button> attribute.
 
 ### CircularMenu
 **Tier:** Component
+**In handovers:** placed 3× (Value, Explore) · usual: Buttons number 4 100% · type 2 buttons 100%
 Figma: circular-button-organism (72:10235)
 A radial menu of 2–4 directional actions around a point on a canvas node (more than 4 → use a menu).
 Props: actions = [{ direction top|right|bottom|left, label, hotkey (display text, e.g. "⌘1"),
@@ -717,29 +792,34 @@ autoFocus (focus the first action). Arrow keys move between actions by direction
 
 ### NotificationButton
 **Tier:** Component
+**In handovers:** only inside other components (2,356×); don't place on its own
 Figma: icon-button-notification (357:53417). Ghost S bell; hasNew (Figma "Has new notiication?") shows the Error dot.
 Props: hasNew, label (default "Notifications"), state (gallery), plus any <button> attribute.
 `function NotificationButton({ label = 'Notifications', ...p }) { return <ExtrasDotButton kind="notification" icon="system-notification" type="ghost" label={label} {...p} />; }`
 
 ### CommentButton
 **Tier:** Component
+**In handovers:** placed 122× (Plan, Build, Explore) · usual: Has a new comment? false 99%
 Figma: icon-button-comment (2563:8153). Tertiary S; hasNew ("Has a new comment?") shows the danger dot.
 `function CommentButton({ label = 'Comments', ...p }) { return <ExtrasDotButton kind="comment" icon="system-comment" type="tertiary" label={label} {...p} />; }`
 
 ### FilterButton
 **Tier:** Component
+**In handovers:** only inside other components (274×); don't place on its own
 Figma: icon-button-filter (6955:768). Tertiary S; hasNew = filters applied.
 shape round: 28px circle with the element/search/border/default outside stroke (next to a SmartSearch, explore-header).
 `function FilterButton({ label = 'Filters', ...p }) { return <ExtrasDotButton kind="filter" icon="system-filter" type="tertiary" label={label} {...p} />; }`
 
 ### ArrowButton
 **Tier:** Component
+**In handovers:** only inside other components (164×); don't place on its own
 Figma: icon-button-arrow (6349:61950). Tertiary S |→ (direction right, the library default) or ←| (direction left: the
 expand button of a collapsed panel rail, which the pattern screens draw as type ghost). hasNew = danger dot; dot warning = orange.
 `function ArrowButton({ label = 'Open', direction = 'right', ...p })`
 
 ### PhoneField
 **Tier:** Component
+**In handovers:** no handover screen uses it yet (may be newer than the handovers)
 Figma: mobile-number-field-organism (8947:11306) — text-field shell + country select (single-select-atom S) + divider.
 Props: size l|m, label (Title), hint (clue-icon tooltip), description (Hint text), error (true or message), disabled,
 placeholder (default from the country mask, Figma "(000)000-0000"), value / defaultValue / onChange(value, { country, digits, e164 }),
@@ -749,6 +829,7 @@ cooper / generating (Cooper states), state hover|focus|typing (gallery), id, nam
 
 ### SliderTrack
 **Tier:** Component
+**In handovers:** placed 73× (Explore) · usual: Type default 100%
 Figma: slider-molecule (3029:20933) with sliter-atom (3029:21077) thumbs.
 Props: type default (zero is the floor) | centered (zero in the middle; fill from 0 toward the value) | range (two thumbs),
 min, max, step, value / defaultValue / onChange(value) — a number, or [from, to] for range, disabled,
@@ -757,6 +838,7 @@ thumbState hover|drag|focus (gallery), label / labels (aria-label of the thumb(s
 
 ### Slider
 **Tier:** Component
+**In handovers:** only inside other components (43×); don't place on its own
 Figma: slider-organism (3029:20689) — title (+ clue icon) and Number on top, optional left icon-button + slider-molecule, hint text.
 Props: label (Title; absent = show-title off), hint (clue-icon tooltip), description (Hint text), showValue (Number, default true),
 formatValue(v) for the Number, icon (show-left-icon: a Ghost S circle icon-button, e.g. "system-star-favourite"), iconLabel, onIconClick,
@@ -766,6 +848,7 @@ Use <Slider> without label for the bare molecule.
 
 ### FormCard
 **Tier:** Component
+**In handovers:** no handover screen uses it yet (may be newer than the handovers)
 Figma: form-card-organism (5826:24755)
 A surface that wraps a form: header (title, description, one action) → optional divider → body (fields) → optional footer.
 Form rules (Figma canvas notes): every visible field is required (no markers); the primary never disables to signal
@@ -783,6 +866,7 @@ submitting (primary spinner, form locked), size of fields (l|m, default l), clas
 
 ### IconPicker
 **Tier:** Component
+**In handovers:** no handover screen uses it yet (may be newer than the handovers)
 Figma: icon-picker-organism (5434:16926) = grid of icon-picker-atom (210:77686), single-select. Place it inside IFS.Popover.
 Props: icons (icon names; default the Figma curated set), value / defaultValue / onChange(name), columns (default 4),
 label (aria-label of the group, default "Choose icon"), bare (no 12px padding), itemState { [name]: hover|focus } (gallery).
@@ -791,6 +875,7 @@ Keyboard: one tab stop; arrows move, Home/End, Enter/Space select.
 
 ### Weekday
 **Tier:** Component
+**In handovers:** only inside other components (322×); don't place on its own
 Figma: weekday-atom (2704:74414) — the weekday header cell of the calendar (Caption/semibold-UPPER, text/tertiary, 32×16).
 Props: children = day text (Figma "day", e.g. "Wed"). Figma's show-badge / timeline props are not wired to any layer.
 `function Weekday({ children, className, ...rest })`
@@ -812,6 +897,7 @@ Examples (read before using any component below — shows the data shapes props 
 
 ### TextField
 **Tier:** Component
+**In handovers:** placed 30× (Value, Build, Explore) · usual: size m (32) 93%
 Figma: text-field-organism (210:77559)
 Props: size l|m, label (Figma Title), hint (tooltip text → question-hint icon), placeholder, description (Hint text),
 error (true, or a string that replaces the description), disabled, iconLeft / iconRight (icon names),
@@ -821,6 +907,7 @@ value / defaultValue / onChange(value, event), state hover|focus|typing (gallery
 
 ### TextArea
 **Tier:** Component
+**In handovers:** placed 5× (Build) · usual: Size l (140) 100%
 Figma: text-area-organism (3024:9383)
 Props: size l (140px tall) | m (100px), label, hint, placeholder, description, error, disabled, iconLeft,
 cooper, generating, value / defaultValue / onChange(value, event), state hover|focus|typing (gallery only).
@@ -828,6 +915,7 @@ cooper, generating, value / defaultValue / onChange(value, event), state hover|f
 
 ### Search
 **Tier:** Component
+**In handovers:** placed 37× (Value, Build) · usual: type general 100%
 Figma: search-regular-organism (153:63462)
 Props: placeholder (default "Search for..."), value / defaultValue / onChange(value, event), onSearch(value) on Enter,
 filter (Figma Filter boolean → filter icon button; onFilter called on click), disabled, state hover|focus (gallery only).
@@ -836,6 +924,7 @@ A clear (×) button appears once there is text; Escape also clears.
 
 ### Checkbox
 **Tier:** Component
+**In handovers:** placed 12× (Value) · usual: type selected 100%
 Figma: checkbox-molecule (153:61241), using checkbox-atom (153:60798)
 Props: children = label (omit for the bare 16px atom), checked / defaultChecked / onChange(checked, event),
 indeterminate (Figma Type=Indeterminate), disabled, state hover|pressed|focus (gallery only), plus <input> attributes (name, value…).
@@ -843,6 +932,7 @@ indeterminate (Figma Type=Indeterminate), disabled, state hover|pressed|focus (g
 
 ### Radio
 **Tier:** Component
+**In handovers:** only inside other components (20×); don't place on its own
 Figma: radio-button-molecule (1387:222956), using radio-button-atom (210:113374)
 Props: children = label (omit for the bare atom), value, checked, name, disabled, onChange(value, event),
 state hover|pressed|focus (gallery only). Usually rendered by RadioGroup.
@@ -857,6 +947,7 @@ name, disabled, direction vertical|horizontal, label (accessible group name).
 
 ### Switch
 **Tier:** Component
+**In handovers:** placed 2× (Value) · usual: active yes 50% / no 50% · size xs 100%
 Figma: switch-molecule (88:22668), using switch-atom (88:23960)
 Props: children = label (omit for the bare atom), description (Figma "Show text"), size m (24px) | s (12px)
 ("l" accepted: the atom calls 24px "L"), checked / defaultChecked / onChange(checked, event), disabled,
@@ -869,6 +960,7 @@ Examples (read before using any component below — shows the data shapes props 
 
 ### NavItem
 **Tier:** Component
+**In handovers:** only inside other components (3,234×); don't place on its own
 Figma: navigation-panel-atom (1544:2681) — one sidebar row.
 Props: type parent|child|submenu, active (Figma State=Active / Selected), disabled, cooper (Figma "Cooper recommended"),
 action = { icon, label, onClick } (Figma show-button; Child shows it on hover), expanded (submenu only), state (forced gallery state).
@@ -881,6 +973,7 @@ Figma: navigation-panel-atom Type=Subtitle — section heading with optional "+"
 
 ### SideNav
 **Tier:** Component
+**In handovers:** placed 2,718× (Value, Build, Explore, Plan, Command) · usual: View collapsed 75% · Page build 95%
 Figma: navigation-panel-organism (1545:2808) — the Level-2 sidebar (sidebar-pattern 4482:99996 is this filled in).
 Props: title (Figma "Bar name"), items: array of
   { id, label, disabled, cooper, action }                         → Parent row
@@ -892,11 +985,13 @@ children = Figma Content slot: custom content (e.g. a tree) shown under the titl
 
 ### Tab
 **Tier:** Component
+**In handovers:** placed 950× (Build, Plan, Value, Explore) · usual: Size m (36) 41% / l (40) 32%
 Figma: tab (1440:5039). Props: size m|l, selected, disabled, count (Figma show-counter + counter value), state.
 `function Tab({ size = 'm', selected, disabled, count, state, children, className, ...rest })`
 
 ### Tabs
 **Tier:** Component
+**In handovers:** designers place the single Tab items (950×) in a row; use this for the row
 Figma: tab-organism (3412:32038) — peer views of one page; also the table filter (tabs with counts).
 Props: items [{ value, label, count, disabled }], value / defaultValue / onChange(value), size m|l, aria-label.
 Arrow keys / Home / End move between tabs (automatic activation).
@@ -904,11 +999,13 @@ Arrow keys / Home / End move between tabs (automatic activation).
 
 ### Crumb
 **Tier:** Component
+**In handovers:** no handover screen uses it yet (may be newer than the handovers)
 Figma: breadcrumb-atom (3492:9413). Props: type previous|current|next, icon (Figma show-icon-left, previous only), disabled, state.
 `function Crumb({ type = 'previous', icon, disabled, state, children, className, ...rest })`
 
 ### Breadcrumb
 **Tier:** Component
+**In handovers:** placed 618× (Build, Plan, Command) · usual: State=Default (100%)
 Figma: breadcrumb-organism (67:4698).
 Props: items [{ label, onClick, disabled }], current (index of the current crumb, default last), onSelect(index, item),
 back (default true: the first previous crumb carries the ‹ chevron, Figma show-icon-left). Crumbs after `current` render as Type=Next.
@@ -916,12 +1013,14 @@ back (default true: the first previous crumb carries the ‹ chevron, Figma show
 
 ### Step
 **Tier:** Component
+**In handovers:** placed 20× (Value, Explore) · usual: state=not started (30%)
 Figma: stepper-molecule (1219:169725). Non-interactive.
 Props: status completed|in-progress|not-started (Figma State), active (Figma Active=Yes), tooltip (shown on hover, Figma Hover=True), state.
 `function Step({ status = 'not-started', active, tooltip, state, children, className })`
 
 ### Stepper
 **Tier:** Component
+**In handovers:** placed 15× (Plan) · usual: State=Default (100%)
 Figma: stepper-organism (3029:22750). Shows progress only — steps are not clickable (Figma rule); advance it from a button.
 Props: steps [{ label, tooltip }], current (index of the in-progress step; earlier = completed, later = not started),
 or give each step its own `status`. active = index of a highlighted step (Figma Active=Yes), optional.
@@ -929,6 +1028,7 @@ or give each step its own `status`. active = index of a highlighted step (Figma 
 
 ### Pager
 **Tier:** Component
+**In handovers:** no handover screen uses it yet (may be newer than the handovers)
 Figma: pagination-organism (3497:9660) — record pager for item-by-item content. Never for tables (Figma rule).
 Props: page (1-based) / defaultPage / onChange(page), total, percent (Figma show-%; omit to hide),
 progress (word after the percent, e.g. "resolved" → "(0% resolved)"; Figma's text override),
@@ -937,22 +1037,26 @@ complete (Figma "show left icon": success icon before the count), onShowAll (Fig
 
 ### CanvasColumn
 **Tier:** Component
+**In handovers:** only inside other components (2,730×); don't place on its own
 Figma: canvas-container-atom (1440:5305) — one column heading of the canvas header. Optional action = { icon, label, onClick }.
 `function CanvasColumn({ children, action, className, ...rest })`
 
 ### CanvasHeader
 **Tier:** Component
+**In handovers:** placed 184× (Value, Plan) · usual: State=Default (100%)
 Figma: canvas-header (1440:5321) — column strip under the page header on map views, plus the zoom ruler.
 Props: columns (array of labels) or children (CanvasColumn elements; Figma "columns" slot), ruler (default true).
 `function CanvasHeader({ columns, children, ruler = true, className, ...rest })`
 
 ### NavBarItem
 **Tier:** Component
+**In handovers:** only inside other components (14,135×); don't place on its own
 Figma: nav-bar-page-atom (69:4012) — one stage in the Level-1 bar. Props: active, disabled, state.
 `function NavBarItem({ active, disabled, state, children, className, ...rest })`
 
 ### NavBar
 **Tier:** Component
+**In handovers:** placed 2,355× (Value, Build, Explore, Plan, Command) · usual: page value 100% · Type default 100% · bottom panel no 100%
 Stage values: command | value | explore | build | plan | results ('home' is accepted as an alias of 'command').
 Figma: global-header (69:3736) — the Level-1 bar the pattern screens instance (nav-bar-organism 3412:29453 is the
 canvas-documented twin with the same 48px layout). Props: stages [{ value, label, disabled }], value / defaultValue / onChange,
@@ -962,6 +1066,7 @@ user = { initials, name } or avatar (node), actions (node: replaces the default 
 
 ### PageHeader
 **Tier:** Component
+**In handovers:** placed 1,023× (Build, Value, Plan, Command) · usual: status progress bar 67%
 Figma: page-header (1588:1971) — Level-3 header at the top of the content area (the instance the Map overview screen uses;
 page-header-pattern / header-pattern are near-duplicates). Props: title, id (Figma ID), onBack (Figma "Show button back"),
 onTitleMenu (chevron after the title), status (node, e.g. an indicator), views (node, e.g. segmented icon control; a divider precedes it),
@@ -971,6 +1076,7 @@ The blur sits on a ::before layer, so fixed popovers/modals opened from header a
 
 ### PageTop
 **Tier:** Component
+**In handovers:** placed 405× (Value, Command, Plan) · usual: Type default 100%
 Figma: page-top (244:117279, key c5e4c474…) — component set in IFS Design System Patterns (KmmVU2D0kqWr0dC1xXNzWw); variant
 Type=Default 244:117280 and the older standalone copy 95:18889 both carry key 771d8425…. Not found in the published IFS Design System library.
 The page intro on a library / list page (a single object's page uses PageHeader instead). Column, gap 20:
@@ -997,6 +1103,7 @@ Examples (read before using any component below — shows the data shapes props 
 
 ### CompareDropdownList
 **Tier:** Component
+**In handovers:** placed 47× (Value, Plan) · usual: drop-down list (98%)
 ───────────────────────────── drop-down list ───────────────────────────── 
 Figma: drop-down list (c5186fedd85d1a8db92485b5b848c56e500c3c33 cached in Patterns 52:82683; IFS DS publishes "drop-down list" ddd60a12…)
 The open list of compare-dropdown: titled groups ("Top benchmarks", "All frameworks") split by a divider.
@@ -1007,6 +1114,7 @@ id (listbox id), inline (static position — gallery).
 
 ### CompareDropdown
 **Tier:** Component
+**In handovers:** placed 1× (Plan) · usual: Property 1=Default (100%)
 ───────────────────────────── compare-dropdown ───────────────────────────── 
 Figma: compare-dropdown (59571d4df483e2b416ca034bafc72eabc902f8f3; Patterns copy 52:82756)
 Variants: Property 1=Variant2 (filled: name + ✕ + caret), Variant3 (empty: "Select framework" in text/disabled), Default (open: caret up + list).
@@ -1017,6 +1125,7 @@ state open (gallery), aria-label. Keyboard: Enter / Space / ↓ open; ↑ ↓ mo
 
 ### CompareHeader
 **Tier:** Component
+**In handovers:** placed 29× (Value) · usual: compare-header (100%)
 ───────────────────────────── compare-header ───────────────────────────── 
 Figma: compare-header (0c79e831e79cbfa3259c5619e66bd0f64cc45b2a; Patterns copy 52:82780) — the "COMPARE TO" bar above a compare view.
 A 440px blurred box (label + compare-dropdown) on a 42px full-width row; boolean "Show cooper-banner" adds a 398px
@@ -1057,6 +1166,7 @@ Examples (read before using any component below — shows the data shapes props 
 
 ### ApprovalStatus
 **Tier:** Component
+**In handovers:** placed 398× (Value, Build, Plan) · usual: type empty 32% / success 27% · Size s 63%
 ===================================================== status ===================================================== 
 Figma: status (12:210060 in the Patterns file; IFS DS set "status", key 84df17a7, library b0bad471) — the 32px state mark
 in the approval chain's first column. Props: type success|rejected|awaiting|empty, label (accessible name; defaults per type).
@@ -1065,6 +1175,7 @@ awaiting = the reviewer is overdue ("it's time to notify the user", Figma note);
 
 ### QuickStatCard
 **Tier:** Component
+**In handovers:** placed 36× (Value) · usual: stat (97%)
 ===================================================== stat ===================================================== 
 Figma: stat (12:121119) — one card of the row: quick-stat-card, or compare-quick-stat-card when `compare` is given.
 Props: title, value, description (10px caption line under the value), trend (e.g. "4.8%") + trendDirection up|down,
@@ -1073,12 +1184,14 @@ compare = { from, to, fromLabel = 'Current', toLabel = 'Proposed' } (replaces va
 
 ### Stat
 **Tier:** Component
+**In handovers:** placed 36× (Value) · usual: stat (97%)
 Figma: stat (12:121119, key c74437d8) — the executive-summary row of equal-width quick-stat cards (Figma draws 4: one compare + three plain).
 Props: items = QuickStatCard props[].
 `function Stat({ items = [], className, ...rest })`
 
 ### InfoHintItem
 **Tier:** Component
+**In handovers:** placed 808× (Plan, Build) · usual: info-hint-item (100%)
 ===================================================== info-hint-item ===================================================== 
 Figma: info-hint-item (12:121968, key d3dc02ed) — 16px rounded swatch + name (+ optional icon + value). Used as chart legend entries.
 Props: label, color (any CSS colour, e.g. 'var(--data-viz-alert-data-5)'), neutral (the grey "Unchanged" swatch with a border),
@@ -1087,6 +1200,7 @@ icon (icon name, Figma masterIcon), value.
 
 ### InvestmentValueImpact
 **Tier:** Component
+**In handovers:** placed 36× (Value) · usual: Investment-value-impact (92%)
 Figma: Investment-value-impact (12:121973, key fabd8e0b; IFS DS now publishes it as "review-data-visualisation") — the
 review card: chart header, metric strip (dividers between), a caption, a distribution column chart and an info-hint legend.
 Props: title, metrics = [{ title, value, direction up|down, tone danger|success }], description,
@@ -1097,6 +1211,7 @@ format(bin) → tooltip text, onBinClick(bin, i).
 
 ### TableReview
 **Tier:** Component
+**In handovers:** placed 34× (Value) · usual: Property 1=Default (97%)
 Figma: table-review (12:122378, key 8bd2618e; IFS DS now publishes it as "review-investment-table") — the grouped investment
 table on review screens: Investment, Type (white badge), Total value (from → to), Value change (▲/▼), Value / cost ratio (from → to).
 Built on the kit Table (grouping, sorting, filter icons). Property 1=Default shows the "Unchanged" group collapsed; Variant2 expanded.
@@ -1168,6 +1283,7 @@ Examples (read before using any component below — shows the data shapes props 
 
 ### CollaboratorCursor
 **Tier:** Component
+**In handovers:** placed 59× (Value, Build, Explore, Plan) · usual: user cooper 100%
 ───────────────────────────── cursor-atom ─────────────────────────────
 Figma: cursor-atom (55:1645; set key 80c816a4…) — live multiplayer cursor: cursor-pointer + name pill.
 Props: user 1…16 | "cooper" (Figma User; pill = collaboration/user-N, Cooper = user-9 + Cooper visual), name (Figma "user name"),
@@ -1272,6 +1388,7 @@ Examples (read before using any component below — shows the data shapes props 
 
 ### CommentPin
 **Tier:** Component
+**In handovers:** placed 143× (Value, Build) · usual: Type unread 69%
 Figma: comment-pin-organism (260:47160) — key 6c7355bd…; Patterns copy 12:30494.
 The canvas anchor of a thread. Teardrop pill (sharp bottom-left corner = the anchor point) holding up to three Avatar M.
 Props: type unread|read|cooper (Figma Type: blue / elevation-1 + blur / Cooper accent), avatars = [Avatar props] (1–3:
@@ -1283,6 +1400,7 @@ Place it with its bottom-left corner on the anchor: style={{ position:'absolute'
 
 ### CommentDrawerCard
 **Tier:** Component
+**In handovers:** placed 551× (Build, Value, Command, Plan) · usual: type new 64%
 Figma: comment-drawer-card (1231:170874) — key 548d968e…; Patterns copy 12:30656. One thread row in the Comments drawer.
 Props: type new|read|resolved|cooper (Figma Type: New = unread, blue dot; Read/Resolved = Inactive avatar; Cooper = author +
 Cooper avatar and the "Need review" indicator), number ("#56"), place (where it is anchored, e.g. "Value models"),
@@ -1378,6 +1496,7 @@ openFolder / defaultOpenFolder / onOpenFolderChange.
 
 ### ChatHeader
 **Tier:** Component
+**In handovers:** placed 129× (Value, Build, Plan) · usual: type float-window 65% · new chat yes 65%
 Figma: chat-header-molecule (e559f9be1d186aeb756bdca63f2f9d0628d0b3e0) — "chat header" in the Patterns file (12:263805).
 Props: title (chat name; "New chat" until Cooper finishes a first answer), size full|compact (Figma Type=Full panel / float-window:
 the window button shows minimize vs maximize), newChat (Figma New chat=True hides the ⋯ more button),
@@ -1387,6 +1506,7 @@ onDragStart (pointerdown on the title area — compact window is draggable).
 
 ### UserMessage
 **Tier:** Component
+**In handovers:** placed 206× (Value, Build) · usual: size >1 93%
 Figma: user-message-molecule (24d3417689866a2cd7c3af335c0d617a276587e1) — "user-message-bubble" (12:263541).
 Props: children = message text, size inline|multi (default: inline for short one-line text — Figma Size=Inline is a pill,
 >1 line is radius 12), onEdit(text) (shows edit on hover; Figma State=editing has Cancel / Save), onCopy (copy on hover),
@@ -1395,12 +1515,14 @@ editing / defaultEditing / onEditingChange, state hover (gallery).
 
 ### Attachment
 **Tier:** Component
+**In handovers:** placed 274× (Value, Build, Plan) · usual: attachments (100%)
 Figma: attachments (02356d2dc7c5…) with "Attachments Mini" chips — one uploaded file in the message input.
 Props: name, meta (e.g. "PDF · 2 MB"), icon (default system-file), onRemove (✕ on the chip).
 `function Attachment({ name, meta, icon = 'system-file', onRemove, className, ...rest })`
 
 ### TextMessageInput
 **Tier:** Component
+**In handovers:** placed 76× (Value, Build, Plan) · usual: Property 1=default (72%)
 Figma: text-message-input-molecule (2f407b5b2a20…) — the chat composer in compact/full panels (Patterns 67:120307).
 States follow the content: Default (placeholder, mic only) → Typing (send arrow appears) → Typing multi-line (radius 12, buttons
 below) → Analyzing (send becomes Stop while Cooper works). Enter sends, Shift+Enter adds a line.
@@ -1411,6 +1533,7 @@ state typing|multi|analyzing|pressed (gallery), autoFocus.
 
 ### VoiceMessageInput
 **Tier:** Component
+**In handovers:** placed 51× (Value, Build) · usual: Property 1=Default (71%)
 Figma: voice-message-input-molecule (b66c51b2fbcf…) (Patterns 67:107207). Voice mode composer: + · dot-wave · keyboard.
 Props: state default|speaking|analyzing (Speaking animates the wave — Icon voice-input-animation variant True; Analyzing adds Stop),
 onAttach, onKeyboard (switch to text), onStop.
@@ -1424,6 +1547,7 @@ Props: speaking / defaultSpeaking / onSpeakingChange.
 
 ### ChatCard
 **Tier:** Component
+**In handovers:** placed 123× (Build, Value) · usual: type metric 59% / scenario 41%
 Figma: chat-card-molecule (4153e3d4b49c…) (Patterns 67:120468). Cards inside a Cooper answer.
 Props: type scenario|metric. Scenario: title, receipt (show-receipt), badges (labels → Badge White M with the star icon),
 meta (strings joined by dots, e.g. ["$3.2M","2yr","saved 3:44 AM"]). Metric: category, value. onClick makes the card a button.
@@ -1431,6 +1555,7 @@ meta (strings joined by dots, e.g. ["$3.2M","2yr","saved 3:44 AM"]). Metric: cat
 
 ### ChatLink
 **Tier:** Component
+**In handovers:** placed 194× (Value, Build, Plan) · usual: type follow up question 100%
 Figma: chat-link-molecule (d581a966d6ef…) "chat-link-item" (Patterns 12:265109) + chat-link-item/Default/source (16:18275).
 Props: children = label, type follow-up|source (follow-up: ↳ arrow; clicking sends it as a new message. source: "[n]" number),
 number (source), onClick, state hover (gallery).
@@ -1458,6 +1583,7 @@ onRetry (error/offline/stopped-before-answer: "Try again"), onRegenerate (stoppe
 
 ### ChatCollapsedBar
 **Tier:** Component
+**In handovers:** placed 119× (Build, Value, Explore) · usual: Type voice-input 86%
 Figma: chat-collapsed-bar-organism (cf1fb8a41862…) — "chat-inline-quick-mode" (Patterns 12:263488). 320px pill above the bottom sheet.
 Props: type voice|text|fab (Figma Type: Voice opens by default; FAB button = Cooper avatar only),
 value / defaultValue / onChange (text), onSend(text), onTypeChange(type) (mic ↔ keyboard), onAttach, onExpand (hover control:
@@ -1467,6 +1593,7 @@ state hover (gallery). Text over one line switches to the multi-line layout (rad
 
 ### ChatCompactPanel
 **Tier:** Component
+**In handovers:** placed 113× (Value, Build, Explore) · usual: Type voice 72%
 Figma: chat-compact-panel-organism (e56a350db527…) — "floating-window" (Patterns 12:263560). 320×360 floating window.
 Props: type voice|text, title, newChat, children (conversation: UserMessage / CooperMessage; omit for the empty state),
 speech (voice transcript shown large while the user talks), input: inputValue/onInputChange/onSend/analyzing/onStop/attachments/
@@ -1476,6 +1603,7 @@ header: onNewChat/onHistory/onResize (→ full panel)/onMore/onClose, onDragStar
 
 ### ChatFullPanel
 **Tier:** Component
+**In handovers:** placed 136× (Value, Build, Plan, Explore) · usual: Type text 98% · size default 100% · input type voice 92% · type chat ge 52% / gen 30%
 Figma: chat-full-panel-organism (1b6802cb1c70…) — "right-side-panel-chat" (Patterns 67:119975 / 67:120161). 450px docked side panel.
 Same props as ChatCompactPanel plus prompts (Figma show-chips: PromptButton L in the empty state) + onPrompt,
 historyOpen, onResizeStart (pointerdown on the left edge: drag to make the panel wider/narrower).
@@ -1483,6 +1611,7 @@ historyOpen, onResizeStart (pointerdown on the left edge: drag to make the panel
 
 ### FolderItem
 **Tier:** Component
+**In handovers:** placed 14× (Value) · usual: state=Default (93%)
 Figma: folder-item (3f47ea5f2935…) (Patterns 12:264108). One row in history: smart folder, user folder, Search, Start new chat.
 Props: icon (default chat-folder), children = name, count (Show counter), active, onClick, onMore (⋯ on hover),
 selectable + selected + onSelectedChange (multi-select mode: checkbox replaces the icon), renaming + onRename(name) + onCancelRename,
@@ -1491,12 +1620,14 @@ state hover (gallery).
 
 ### SectionHeader
 **Tier:** Component
+**In handovers:** placed 11× (Value) · usual: Property 1=default (100%)
 Figma: section-header (a638f470f66c…) (Patterns 12:264342). "Folders 5" / "Chats 35" heading in history.
 Props: heading, count (Show counter), icon (Figma shows chat-history; omit to hide), actions [{ icon, label, onClick }] (Show actions, on hover).
 `function SectionHeader({ heading, count, icon, actions = [], state, className, ...rest })`
 
 ### ChatHistoryCard
 **Tier:** Component
+**In handovers:** placed 47× (Value) · usual: type general 72%
 Figma: chat-history-card (a81629cbaf9e…) (Patterns 12:264367). One chat in history.
 Props: title, time ("3h ago", "Mar 26"), pinned (Type=pinned: pin icon), active (open chat), onClick, onMore (⋯ on hover — replaces the time),
 selectable/selected/onSelectedChange (Select mode), renaming/onRename/onCancelRename, state hover (gallery).
@@ -1504,18 +1635,21 @@ selectable/selected/onSelectedChange (Select mode), renaming/onRename/onCancelRe
 
 ### SearchChatHistoryCard
 **Tier:** Component
+**In handovers:** placed 23× (Value) · usual: Property 1=default (96%)
 Figma: search-chat-history-card (94783d9b1419…) (Patterns 67:120339). A search hit: title with the query highlighted, time,
 currentChat (badge "Current" — Figma current chat?), onClick.
 `function SearchChatHistoryCard({ title, query = '', time, currentChat, onClick, state, className, ...rest })`
 
 ### ChatReminderCard
 **Tier:** Component
+**In handovers:** only inside other components (3×); don't place on its own
 Figma: chat-reminder-card (0dd1e3f87389…) (Patterns 12:265339). A chat with a reminder in the Reminders smart folder.
 Props: title, badge ("In 4 days" — Badge Black M), due ("May 2"), active, onClick, onMore (hover).
 `function ChatReminderCard({ title, badge, due, active, onClick, onMore, state, className, ...rest })`
 
 ### HistoryPanel
 **Tier:** Component
+**In handovers:** placed 52× (Value) · usual: Property 1=Default (79%)
 Figma: history-panel-molecule (a0999afa6b27…) — "chat history" (Patterns 12:264137). 240px column docked left of the full panel.
 Props: chats [{ id, title, time, group today|week|earlier, pinned }], folders [{ id, name, count, icon }], smart { reminders, recommendations, trash } counts,
 activeChatId, onOpenChat(id), onNewChat, onSearch, onOpenFolder(id) ('reminders'|'recommendations'|'trash'|folder id), onCollapse,
@@ -1526,6 +1660,7 @@ footer (node — e.g. the Move / Delete bar in Select mode). Empty chats → Fig
 
 ### FolderContent
 **Tier:** Component
+**In handovers:** placed 24× (Value) · usual: type general 83%
 Figma: folder content (3194c4515e7f…) (Patterns 12:264418). Second 240px column listing one folder's chats.
 Props: type general|reminders|insight|trash (Smart folders reminders/insight(Recommendations)/trash are system-managed),
 title, children (rows: ChatHistoryCard / ChatReminderCard), count, onBack (general folders), onMore, onCollapse, empty (text).
@@ -1551,6 +1686,7 @@ Props: anchor (DOMRect), items [{ icon, label, onClick, hidden, danger }], onClo
 
 ### AgentWindow
 **Tier:** Component
+**In handovers:** placed 128× (Value, Build, Explore, Plan, Command) · usual: view expanded 93% · speaking? yes 97% · Speaking true 100%
 Figma: agent-window-organism (31ba15a9885c…) (Patterns 12:264637 / "agent-window" 12:32092). Cooper's proactive window for recommendations.
 Props: view expanded|collapsed (Figma View), speaking / defaultSpeaking / onSpeakingChange (speaking-control), text (insight text),
 children (Content slot), secondaryAction / tertiaryAction = { label, onClick } (footer buttons; Figma Show all buttons), onAsk ("Ask" →
@@ -1610,6 +1746,7 @@ Examples (read before using any component below — shows the data shapes props 
 
 ### MapPinDot
 **Tier:** Component
+**In handovers:** placed 2,394× (Explore, Build, Command) · usual: higlight no 100% · size xs 74% · status success 78% · type te 83% · Icon false 100%
 ------------------------------------------------------------------------------------------ 
 Figma: map-pin-dot (key d2686af3…; Patterns copy 12:107153, Figma set name "dot-pin").
 A round status marker: counts on clusters (text) or a status glyph (icon) at map points.
@@ -1621,6 +1758,7 @@ dimmed (Figma state=out of hover), label (accessible name), state default|select
 
 ### MapPinDefect
 **Tier:** Component
+**In handovers:** placed 57× (Command) · usual: Type cyclone 100%
 Figma: map-pin-defect (key 91cf9e42…; Patterns copy 12:106855, set name "Defect").
 A weather/hazard defect at a point. Props: type cyclone|flood|heat|storm (icon map-risk-<type>),
 state confirmed (red) | unconfirmed (amber) | monitoring (green), label, onClick (renders a button).
@@ -1628,6 +1766,7 @@ state confirmed (red) | unconfirmed (amber) | monitoring (green), label, onClick
 
 ### MapPinFlow
 **Tier:** Component
+**In handovers:** placed 1,513× (Explore, Build) · usual: Type default 96%
 Figma: Electric Flow Direction Indicator (key a6c2010c…; Patterns copy 12:107306) — "map-pin-flow".
 The small arrowhead drawn along a circuit to show the direction power flows. Props: type default|error,
 rotate (degrees; the arrow points right at 0), label.
@@ -1635,6 +1774,7 @@ rotate (degrees; the arrow points right at 0), label.
 
 ### MapPinPole
 **Tier:** Component
+**In handovers:** placed 1,948× (Explore, Build, Command) · usual: Symbol pin 89%
 Figma: map-pin-pole (key b548a660…; Patterns copy 12:107120, set name "Pole").
 A labelled asset on a circuit: a symbol above a number / name label.
 Props: symbol pin|defect|dot|hierarchy-pin, number (Figma Number, the label), showNumber (default true),
@@ -1646,6 +1786,7 @@ defect = MapPinDefect props (symbol=defect), state default|selected (forced, gal
 
 ### BarChartItem
 **Tier:** Component
+**In handovers:** placed 3,190× (Plan, Build) · usual: color 5 87%
 ------------------------------------------------------------------------------------------ 
 Figma: bar-chart-item (key 44fcce06…; Patterns copy 12:107849). One filled segment of a bar chart.
 Props: color 1–9 (Figma colour index → data-viz/data-N), fill (any CSS colour/var — overrides color; the pattern
@@ -1654,6 +1795,7 @@ screens bind data-viz/muted purple/data-4), number (Figma bool, show the label, 
 
 ### VerticalBarChartItem
 **Tier:** Component
+**In handovers:** placed 15× (Value) · usual: state=default-1 (40%)
 Figma: vertical-bar-chart-item (key c06b1d19…; Patterns copy 12:107877). A stacked column of bar-chart-items
 (2px gap and padding). Figma default-1 / default-2 are sample stacks; active adds the focus-outer ring.
 Props: segments = [{ value, color, fill, label }] top → bottom (heights ∝ value; label shown when given),
@@ -1720,6 +1862,7 @@ Examples (read before using any component below — shows the data shapes props 
 
 ### SourceCard
 **Tier:** Component
+**In handovers:** placed 53× (Value, Explore) · usual: Property 1=Default (57%)
 ------------------------------------------------------------------------------------------ 
 Figma: source-card (fafdbabda4e12538ef46da239997daad283c2291; IFS DS 1440:5362). The Patterns file instances older copies
 of the set: "Property 1=Default" (file + quote + badge, 12:192928), "Variant2" (file + plain text + badge, 12:192934),
@@ -1785,6 +1928,7 @@ Examples (read before using any component below — shows the data shapes props 
 
 ### NavBarCollapsed
 **Tier:** Component
+**In handovers:** no handover screen uses it yet (may be newer than the handovers)
 Figma: nav-bar-organism Type=Collapsed (12:2340) / Type=Collapsed opened (12:2352) — key 9083880d…
 The Level-1 bar when the stage tabs don't fit: logo, a hamburger (icon-button Secondary S, system-hamburger-menu) in the
 Pages slot, and the same Actions slot. Opened = single-select-list-molecule (240 wide, L rows, check on the current stage)
@@ -1804,6 +1948,7 @@ Props: everything NavBar / NavBarCollapsed take, plus collapseBelow (px, default
 
 ### ExploreHeader
 **Tier:** Component
+**In handovers:** placed 274× (Explore, Command) · usual: Cooper badge no 63%
 Figma: explore-header (key ae9026ad…; Patterns copy 12:175111) — the 40px bar under the nav bar on the Explore map.
 Left (Figma "Content right slot"): smart-search-organism (248 wide, 28 tall, "Search for…") + icon-button-filter (round, 28).
 Right ("container-left"): collaborators button (Button Tertiary S, users-group, "3/5") + icon-button-comment.
@@ -1814,6 +1959,7 @@ actions (node: replaces the right side).
 
 ### HomeRowCard
 **Tier:** Component
+**In handovers:** placed 164× (Command) · usual: Type secondary 84%
 Figma: home-row-card-organism (key c497ce96…; Patterns copy 244:117301). One ranked item on the Command (home) list.
 Type=Primary (124 tall: the top item; copper→white gradient stroke, metrics under the text, media on the right) |
 Secondary (72 tall: metrics in their own columns). State Default | Hover | Loading | Focus.
@@ -1852,6 +1998,7 @@ Examples (read before using any component below — shows the data shapes props 
 
 ### SmartSearch
 **Tier:** Component
+**In handovers:** placed 418× (Value, Build, Explore, Plan, Command) · usual: Type text 100% · input text 100%
 ───────────────────────────── smart-search-organism ─────────────────────────────
 Figma: smart-search-organism (2145:3758) — the Cooper "Ask anything…" bar (shown in older screens as "ai smart search").
 Props: type text|voice / defaultType / onTypeChange (Text shows the mic button, Voice shows the keyboard button and listens),
@@ -1864,6 +2011,7 @@ Ask a natural-language question here; for keyword search over a list use IFS.Sea
 
 ### SearchModal
 **Tier:** Component
+**In handovers:** placed 13× (Value, Build) · usual: search-modal (100%)
 ───────────────────────────── search-modal ─────────────────────────────
 Figma: search-modal (d983e4df9bce16881c039833e232fa5916931330) — the suggestion list under the smart search.
 Props: title (default "Suggested questions"), items = strings or { label, type, query }, activeIndex, onSelect(label, index),
@@ -1872,6 +2020,7 @@ maxHeight (Figma scroll bar 248), inline (static position — gallery), id (list
 
 ### SearchCard
 **Tier:** Component
+**In handovers:** only inside other components (61×); don't place on its own
 ───────────────────────────── search-card ─────────────────────────────
 Figma: search-card (205664d0d5dfd2acdd85ee23fe6e02618941b691) — one row of the smart-search suggestion list.
 Props: type suggest|user-query (user-query = the typed text in primary + the suggested completion in tertiary),
@@ -1880,6 +2029,7 @@ children = suggestion text, query (user-query: the typed part), active (keyboard
 
 ### FollowButton
 **Tier:** Component
+**In handovers:** only inside other components (65×); don't place on its own
 ───────────────────────────── icon-button-following ─────────────────────────────
 Figma: icon-button-following (c0ebbac2a918ba61c650647fc685736391388744) — follow / unfollow a record (ghost S icon button).
 Props: following / defaultFollowing / onChange(following), disabled.
@@ -2073,6 +2223,7 @@ Examples (read before using any component below — shows the data shapes props 
 
 ### StatCardsRow
 **Tier:** Component
+**In handovers:** placed 93× (Build, Command) · usual: Type 1 row 100%
 ------------------------------------------------------------------------------------------ 
 Figma: stat-cards-row (key 88ffaeba129d4876c6ded6e6f3bbe9e983a8b46c; Patterns copy 12:104002)
 A row of stat-card-organism (StatCard). Props: rows 1 | 2 (Figma Type "1 row" = all cards in one line, equal width;
@@ -2081,6 +2232,7 @@ A row of stat-card-organism (StatCard). Props: rows 1 | 2 (Figma Type "1 row" = 
 
 ### PreviewWidgetCard
 **Tier:** Component
+**In handovers:** only inside other components (38×); don't place on its own
 ------------------------------------------------------------------------------------------ 
 Figma: preview-widget-card-organism (key c30262b5a98acb4175dc9c5a891d9198ce782de6; Patterns copy 331:492728)
 The thumbnail inside a widget card: a 7px uppercase heading over a skeleton of the chart the widget adds.
@@ -2090,6 +2242,7 @@ Props: type strategic-objectives | framework-coverage | portfolio | investment-v
 
 ### WidgetCard
 **Tier:** Component
+**In handovers:** placed 38× (Build, Value) · usual: Number 1 100%
 ------------------------------------------------------------------------------------------ 
 Figma: widget-card-organism (key 7e67813d92e4e29cec4c7b5b790211a2cdcf1531; Patterns copy 331:492745)
 One entry in the Widgets drawer: title, description, "+ Add" (Secondary S) and a preview.
@@ -2101,6 +2254,7 @@ state default | drag, badge (Badge props; Figma badge-atom, hidden by default), 
 
 ### ResizeHandle
 **Tier:** Component
+**In handovers:** no handover screen uses it yet (may be newer than the handovers)
 ------------------------------------------------------------------------------------------ 
 Figma: resize-handle (key 190c6106f062702dcf8eefb3cab150c14bc6d4ed; Patterns copy 413:44028)
 "Arrows show only the directions that are still possible" (Figma description).
@@ -2110,6 +2264,7 @@ Props: arrows both | right | left (Figma Both / Right only / Left only), none (n
 
 ### DropIndicator
 **Tier:** Component
+**In handovers:** placed 4× (Build) · usual: Property 1=Default (100%)
 ------------------------------------------------------------------------------------------ 
 Figma: drop-indicator-atom (key f78ffb9697f561fefbb73cd30090fb5e9adc8501; Patterns copy 413:43575)
 The thin purple line that marks where a dragged widget would land: a 4px ring + 1px line (border/accent-purple).
@@ -2119,6 +2274,7 @@ pattern notes ask for it — drawn as the same atom turned 90°).
 
 ### WidgetViewChangePosition
 **Tier:** Component
+**In handovers:** no handover screen uses it yet (may be newer than the handovers)
 ------------------------------------------------------------------------------------------ 
 Figma: widget-view-change-position (Patterns local component 331:509936)
 The compact chip a widget collapses into while its position is being changed (follows the cursor).
@@ -2173,6 +2329,7 @@ Examples (read before using any component below — shows the data shapes props 
 
 ### Menu
 **Tier:** Component
+**In handovers:** placed 82× (Build, Value, Command, Explore, Plan) · usual: State=Default (54%)
 Figma: single-select-list-molecule (445715ff…, 153:62054) of single-select-list-atom (1e822b07…, 153:61939), Size S (28):
 4px padding, radius 4, elevation-2 fill, border/base, blur/strong; rows Body/M/medium text/secondary, hover = button secondary hover.
 A dropdown of commands anchored to a trigger. Rendered at the end of <body> (Floating), so no scrolling or blurred parent clips it.
@@ -2187,6 +2344,7 @@ label (accessible name). Keyboard: ↑/↓ move, Home/End, Enter/Space run, → 
 
 ### Select
 **Tier:** Component
+**In handovers:** placed 13× (Explore) · usual: Size m (32) 100%
 Figma: single-select-organism (3273:26820) = single-select-atom (789:18085) + single-select-list-molecule (153:62054)
 Props: options (strings or {value,label,icon,disabled}; {divider:true} draws a separator; {action:true,label,icon,danger,onClick} is a
 command row such as "Remove" (danger = red) that runs onClick and closes without selecting), value/defaultValue/onChange(value, option), open/defaultOpen/onOpenChange,
@@ -2196,12 +2354,14 @@ disabled, listPosition down|up (Figma "List position"), listTitle (e.g. "Suggest
 
 ### MultiSelect
 **Tier:** Component
+**In handovers:** placed 48× (Plan, Build) · usual: Size m (40) 86%
 Figma: multiple-select-organism (3273:33904) = multiple-select-atom (3200:7897) + multiple-select-list-molecule (3273:33695)
 Same props as Select; value is an array. maxTags (default 5) tags then "+N". Size s shows "N selected". List stays open while picking.
 `function MultiSelect(props) { return <SelectBase {...props} multi={true} />; }`
 
 ### Combobox
 **Tier:** Component
+**In handovers:** only inside other components (4×); don't place on its own
 Figma: signle-combobox-organism (3375:5415). Type to filter.
 Props: options, value/defaultValue/onChange(value, option), defaultOpen, defaultQuery, size m|l|xl, label, placeholder, iconLeft, clearable, loading, error,
 disabled, listPosition, listTitle ("Suggested", shown before typing), resultsTitle ("Results", while typing),
@@ -2211,6 +2371,7 @@ filter(option, query), state. While loading and open, the list shows Figma's "Se
 
 ### SegmentedControl
 **Tier:** Component
+**In handovers:** placed 511× (Build, Explore, Command, Plan, Value) · usual: Number 2 48% / 4 27% · Size s 100% · type 4 72%
 Figma: segmented-control-organism (1387:244501) built from segmented-control-atom (1387:244511)
 Props: options = [{ value, label, iconLeft, iconRight, counter, disabled, state }] (strings allowed), value/defaultValue/onChange,
 size m (34) | s (24), fullWidth (stretches to its container; segments share the width equally). Arrow keys move the selection (radio group).
@@ -2218,6 +2379,7 @@ size m (34) | s (24), fullWidth (stretches to its container; segments share the 
 
 ### Chip
 **Tier:** Component
+**In handovers:** placed 634× (Value, Explore, Build) · usual: active no 80% · Select false 76%
 Figma: chips (832:235895)
 Props: children = label, selected/defaultSelected/onChange(selected) (Figma Select=True|False), iconLeft, iconRight (icon names),
 indicator warning|danger|success|info (Figma "Show indicator"), counter (Figma show-counter), onRemove (makes the right icon a
@@ -2226,6 +2388,7 @@ remove control, default system-close; Delete/Backspace also removes), disabled, 
 
 ### Calendar
 **Tier:** Component
+**In handovers:** placed 3× (Build, Command) · usual: type calendar 100%
 Figma: date-picker-molecule (3406:9510) with date-atom (1440:5201) cells
 Props: value/defaultValue/onChange (Date; with range=true {start, end}), month/defaultMonth/onMonthChange (any Date in that month),
 today (Date), events ({ 'YYYY-MM-DD': ['danger','warning','info'] }), weekStartsOn (default 1 = Monday), min/max (Dates).
@@ -2247,6 +2410,7 @@ Examples (read before using any component below — shows the data shapes props 
 
 ### EmptyState
 **Tier:** Component
+**In handovers:** placed 2× (Build) · usual: Size frame 2147228119 100%
 Figma: empty-state-organism (3782:18464)
 Figma has no cause/size variants (one placeholder axis "Size=Frame 2147228119" + six booleans); the canvas notes define
 the causes and two sizes, so they are props here. Each cause sets the defaults Figma draws for it; any part can be overridden.
@@ -2259,17 +2423,20 @@ primaryAction / secondaryAction = { label, icon, onClick, type } (show-primary-b
 
 ### Spinner
 **Tier:** Component
+**In handovers:** no handover screen uses it yet (may be newer than the handovers)
 Figma: empty-state-spinner-molecule (3782:24081)
 Indeterminate or shapeless wait where no layout can be previewed. Props: text (Figma "Loading..."), showText (show-text).
 `function Spinner({ text = 'Loading...', showText = true, className, ...rest })`
 
 ### LoadingMore
 **Tier:** Component
+**In handovers:** no handover screen uses it yet (may be newer than the handovers)
 Figma: empty-state-loading-more-molecule (3782:24082) — appending items to a list that is already visible.
 `function LoadingMore({ children = 'Loading more…', className, ...rest })`
 
 ### ProgressLoading
 **Tier:** Component
+**In handovers:** placed 2× (Plan) · usual: progress-bar-loading (100%)
 Figma: progress-bar-loading (5530:11867) = progress-bar-molecule + percentage. Measurable work (uploads, steps).
 Props: value 0–100, label (accessible name).
 `function ProgressLoading({ value = 0, label = 'Loading', className, ...rest })`
@@ -2292,6 +2459,7 @@ label (announced "Loading <label>" / "Loaded"), children = loaded content (or th
 
 ### FtaButton
 **Tier:** Component
+**In handovers:** placed 239× (Explore, Value, Command) · usual: Stroke true 100% · style no 100%
 Figma: FTA button (67:4758) — the Cooper FAB.
 Props: stroke (Figma Stroke: true = 48px glass ring for non-black surfaces; false = bare 32px sphere for black footers/bottom sheets),
 indicator (Show indicator), label (tooltip + accessible name, Figma tooltip "{label}" with hotkey "/"), hotkey, state hover|pressed|focus (gallery),
@@ -2300,12 +2468,14 @@ disabled, onClick. The FAB hides while Cooper chat is open (one entry point).
 
 ### PromptButton
 **Tier:** Component
+**In handovers:** placed 53× (Value) · usual: size m 75%
 Figma: prompt-button (67:2937) — quick Cooper prompt next to the FAB.
 Props: size l|m, children = Prompt label, state hover|pressed|focus (gallery), disabled, onClick.
 `function PromptButton({ size = 'm', state, children, className, ...rest })`
 
 ### CooperChip
 **Tier:** Component
+**In handovers:** placed 41× (Build) · usual: State=Hover (98%)
 Figma: cooper-chip-atom (3501:23480) — in-context marker where Cooper has a recommendation; click opens it.
 Props: children (default "1 Recommendation"), selected/defaultSelected/onChange (Figma State=Selected while its recommendation is open),
 disabled, state hover|focus (gallery), onClick.
@@ -2318,6 +2488,7 @@ zoom-slider-atom (3275:483), used in the Explore bottom sheet. value 0–100 (Fi
 
 ### BottomSheet
 **Tier:** Component
+**In handovers:** placed 2,128× (Value, Build, Plan, Command, Explore) · usual: In progress true 97%
 Figma: base-bottom-sheet-organism (4406:25590), value-bottom-sheet-organism (789:37502), explore-bottom-sheet (72:4676)
 The Cooper entry point at the bottom of the content area, 40px tall, full width. Place it in AppShell's `bottom` slot.
 Props (all types): type base|value|explore (base = any tab; value = Value tab; explore = Explore tab),
@@ -2337,6 +2508,7 @@ Examples (read before using any component below — shows the data shapes props 
 
 ### Tooltip
 **Tier:** Component
+**In handovers:** placed 122× (Value, Explore, Build, Plan, Command) · usual: Color black 67% · Type bottom 69% · Arrow center 60%
 Figma: tooltip-organism (67:6151)
 Props: content (Figma Label / Content slot), hotkey (hotkey-atom text, e.g. "⌘/"; absent = show-hotkey off),
 color black|grey ("grey (for black bg)"), type bottom|top|left|right = side the ARROW is on
@@ -2347,6 +2519,7 @@ open/onOpenChange to control. `inline` renders the bubble alone (gallery).
 
 ### Alert
 **Tier:** Component
+**In handovers:** placed 6× (Explore, Value) · usual: Type success 83%
 Figma: alert-organism (1440:5440)
 Props: type error|warning|success, title, children = Body text, showIcon (Figma show-icon, default off),
 action = button label (Primary S; absent = show-button off), onAction, onClose (shows the close
@@ -2355,6 +2528,7 @@ icon-button; Figma show-close-icon), closable=false to hide it.
 
 ### Snackbar
 **Tier:** Component
+**In handovers:** placed 59× (Build, Value, Command, Explore) · usual: Property 1=primary (69%)
 Figma: snackbar-organism (3795:29459)
 Props: title, children = description (Content slot), secondaryAction / primaryAction = { label, onClick }
 (Secondary S + Primary S; add iconLeft, e.g. Undo → 'arrow-back-up'), onClose (close icon-button; showClose=false hides it).
@@ -2373,12 +2547,14 @@ Hook form: const show = useSnackbar(); show({ title: 'Saved' })
 
 ### Overlay
 **Tier:** Component
+**In handovers:** placed 197× (Value, Build, Plan, Explore, Command) · usual: Type base 98%
 Figma: overlay-background (338:21403)
 Props: type strong (overlay/screen-strong + blur/medium) | base (no blur), onClick, inline (absolute, not fixed).
 `function Overlay({ type = 'strong', inline, className, ...rest })`
 
 ### Modal
 **Tier:** Component
+**In handovers:** placed 93× (Build, Explore, Plan) · usual: Color modal 100%
 Figma: modal-organism (4169:208596)
 Props: open / defaultOpen / onOpenChange, title (Header Slot), children (Content slot),
 secondaryAction / primaryAction = { label, onClick, disabled, iconLeft } (Tertiary L + Primary L, split footer),
@@ -2388,6 +2564,7 @@ overlay strong|base|none, width, inline (renders the card in place without overl
 
 ### Drawer
 **Tier:** Component
+**In handovers:** placed 1× (Build) · usual: Expanded true 100%
 Figma: drawer-organism (4394:21241)
 Props: open / defaultOpen / onOpenChange, title (Header slot), expanded / defaultExpanded=true / onExpandedChange
 (Figma Expanded; False = header only), collapsible (show the diagonal collapse/expand button),
@@ -2398,6 +2575,7 @@ height, inline (renders in place — gallery). Esc closes.
 
 ### Panel
 **Tier:** Component
+**In handovers:** no handover screen uses it yet (may be newer than the handovers)
 Figma: panel-organism (4305:365421); collapsed rail = sidebar-organism View=Collapsed as the pattern screens draw it.
 Props: title, actions (node, header right, before the buttons), expanded / defaultExpanded=true / onExpandedChange
 (Figma Expanded: 380px ↔ 48px rail holding only the ←| expand button), dot error|warning (status dot on the rail's button:
@@ -2408,6 +2586,7 @@ children (Content slot). Lives in the page layout: no scrim, no focus trap.
 
 ### Popover
 **Tier:** Component
+**In handovers:** placed 16× (Build, Command) · usual: State=Default (100%)
 Figma: popover-organism (4394:56471)
 Props: trigger (element; click toggles), open / defaultOpen / onOpenChange, align start|end,
 title (Title slot; absent = show-title off), count (counter-atom), showClose,
@@ -2418,6 +2597,7 @@ children (Content slot), width, inline (renders the card alone — gallery). Esc
 
 ### FloatingBar
 **Tier:** Component
+**In handovers:** placed 121× (Explore) · usual: floating bar (100%)
 Figma: floating-bar-organism (7405:22521)
 Props: category (type label, e.g. "Folder"), categoryIcon (default "chat-folder"), item (name or "3 items selected"),
 badge (node next to the item, e.g. an indicator), secondaryAction / primaryAction = { label, onClick }

@@ -1,0 +1,3085 @@
+{
+ "source": "DS audit of the 5 handover files, Oct 2026",
+ "components": {
+  "TimelineConnector": {
+   "usual": [
+    "Type solid 100%"
+   ],
+   "figma": [
+    "connector-atom"
+   ],
+   "placed": 42,
+   "nested": 0,
+   "files": [
+    "Plan"
+   ],
+   "variants": [
+    "Type=Solid (100%)"
+   ],
+   "inside": [
+    "icon+line"
+   ]
+  },
+  "ApprovalChain": {
+   "usual": [],
+   "figma": [
+    "approval-chain-item"
+   ],
+   "placed": 77,
+   "nested": 0,
+   "files": [
+    "Value"
+   ],
+   "variants": [
+    "state=Success (81%)",
+    "state=empty (12%)",
+    "state=Rejected (8%)"
+   ],
+   "inside": [
+    "chain"
+   ]
+  },
+  "VersionHistory": {
+   "usual": [
+    "open no 94%",
+    "Expand false 88%"
+   ],
+   "figma": [
+    "version-history"
+   ],
+   "placed": 97,
+   "nested": 0,
+   "files": [
+    "Value",
+    "Build",
+    "Plan"
+   ],
+   "variants": [
+    "state=Default, open=no (82%)",
+    "State=Default, Expand=False (7%)",
+    "state=Default, open=yes (5%)"
+   ],
+   "inside": [
+    "timeline"
+   ]
+  },
+  "Comment": {
+   "usual": [
+    "taggedUser no 100%"
+   ],
+   "figma": [
+    "userComment"
+   ],
+   "placed": 33,
+   "nested": 100,
+   "files": [
+    "Value",
+    "Build"
+   ],
+   "variants": [
+    "state=Default, taggedUser=No (94%)",
+    "state=Hover, taggedUser=No (6%)"
+   ],
+   "inside": [
+    "commentsContainer3",
+    "commentsContainer"
+   ]
+  },
+  "CommentComposer": {
+   "usual": [],
+   "figma": [
+    "commentInputContainer",
+    "text input"
+   ],
+   "placed": 17,
+   "nested": 196,
+   "files": [
+    "Value",
+    "Build"
+   ],
+   "variants": [
+    "state=Default (100%)"
+   ],
+   "inside": [
+    "body",
+    "commentsContainer3"
+   ]
+  },
+  "CommentThread": {
+   "usual": [
+    "Type default 87%"
+   ],
+   "figma": [
+    "commentModal"
+   ],
+   "placed": 93,
+   "nested": 3,
+   "files": [
+    "Build",
+    "Value",
+    "Command"
+   ],
+   "variants": [
+    "Type=Default (87%)",
+    "Type=Cooper suggestion (9%)",
+    "Type=New comment (3%)"
+   ],
+   "inside": [
+    "map",
+    "title"
+   ]
+  },
+  "Collaborator": {
+   "usual": [
+    "type recommended 100%"
+   ],
+   "figma": [
+    "collaboratorRow"
+   ],
+   "placed": 9,
+   "nested": 0,
+   "files": [
+    "Value"
+   ],
+   "variants": [
+    "type=recommended, state=default (78%)",
+    "type=recommended, state=hover (22%)"
+   ],
+   "inside": [
+    "suggested",
+    "in-project",
+    "recently"
+   ]
+  },
+  "FileCard": {
+   "usual": [],
+   "figma": [
+    "file-card"
+   ],
+   "placed": 4,
+   "nested": 63,
+   "files": [
+    "Explore"
+   ],
+   "variants": [
+    "state=Default (100%)"
+   ],
+   "inside": [
+    "table"
+   ]
+  },
+  "VersionCard": {
+   "usual": [],
+   "figma": [
+    "modal-version-card"
+   ],
+   "placed": 5,
+   "nested": 0,
+   "files": [
+    "Value"
+   ],
+   "variants": [
+    "Property 1=Default (100%)"
+   ],
+   "inside": [
+    "list"
+   ]
+  },
+  "Button": {
+   "usual": [
+    "Type secondary 56% / tertiary 27%",
+    "Size m (32) 49% / s (24) 44%"
+   ],
+   "figma": [
+    "button"
+   ],
+   "placed": 1903,
+   "nested": 11619,
+   "files": [
+    "Build",
+    "Value",
+    "Plan",
+    "Command",
+    "Explore"
+   ],
+   "variants": [
+    "Type=Secondary, State=Default, Size=M (32), Focus=No (33%)",
+    "Type=Tertiary, State=Default, Size=S (24), Focus=No (16%)",
+    "type=Secondary, state=Default, size=S (24), Focus=No (8%)"
+   ],
+   "inside": [
+    "title",
+    "buttons",
+    "header",
+    "text"
+   ]
+  },
+  "IconButton": {
+   "usual": [
+    "Shape square 88%",
+    "Type ghost 66%",
+    "Size s (24) 90%"
+   ],
+   "figma": [
+    "icon-button",
+    "IconButton"
+   ],
+   "placed": 1999,
+   "nested": 28083,
+   "files": [
+    "Value",
+    "Explore",
+    "Build",
+    "Plan",
+    "Command"
+   ],
+   "variants": [
+    "Shape=Square, Type=Ghost, State=Default, Size=S (24), Focus= (35%)",
+    "shape=Square, type=Ghost, state=Default, size=S (24), Focus= (25%)",
+    "Shape=Circle, Type=Tertiary, State=Default, Size=S (24), Foc (11%)"
+   ],
+   "inside": [
+    "title",
+    "icons",
+    "header",
+    "stack"
+   ]
+  },
+  "ValueMapButton": {
+   "usual": [
+    "Type input 79%",
+    "Selected default 79%"
+   ],
+   "figma": [
+    "map-button",
+    "map button"
+   ],
+   "placed": 208,
+   "nested": 8,
+   "files": [
+    "Value"
+   ],
+   "variants": [
+    "Type=Input, Selected=Default (79%)",
+    "Type=Shape, Selected=Fit (18%)",
+    "Type=Shape, Selected=Expand (3%)"
+   ],
+   "inside": [
+    "map",
+    "Cooper",
+    "Added"
+   ]
+  },
+  "MapToolbar": {
+   "usual": [],
+   "figma": [
+    "map-tool-bar-organism"
+   ],
+   "placed": 271,
+   "nested": 0,
+   "files": [
+    "Explore",
+    "Command"
+   ],
+   "variants": [
+    "map-tool-bar-organism (100%)"
+   ],
+   "inside": [
+    "Default"
+   ]
+  },
+  "MapToolCluster": {
+   "usual": [],
+   "figma": [
+    "map-tool-bar-organism"
+   ],
+   "placed": 271,
+   "nested": 0,
+   "files": [
+    "Explore",
+    "Command"
+   ],
+   "variants": [
+    "map-tool-bar-organism (100%)"
+   ],
+   "inside": [
+    "Default"
+   ]
+  },
+  "MapToolButton": {
+   "usual": [],
+   "figma": [
+    "map-tool-bar-organism"
+   ],
+   "placed": 271,
+   "nested": 0,
+   "files": [
+    "Explore",
+    "Command"
+   ],
+   "variants": [
+    "map-tool-bar-organism (100%)"
+   ],
+   "inside": [
+    "Default"
+   ]
+  },
+  "MapToolDivider": {
+   "usual": [],
+   "figma": [
+    "map-tool-bar-organism"
+   ],
+   "placed": 271,
+   "nested": 0,
+   "files": [
+    "Explore",
+    "Command"
+   ],
+   "variants": [
+    "map-tool-bar-organism (100%)"
+   ],
+   "inside": [
+    "Default"
+   ]
+  },
+  "NodeHoverActions": {
+   "usual": [
+    "Type expand 39% / submodel 25%"
+   ],
+   "figma": [
+    "node-action"
+   ],
+   "placed": 28,
+   "nested": 0,
+   "files": [
+    "Value"
+   ],
+   "variants": [
+    "Type=Expand (39%)",
+    "Type=Submodel (25%)",
+    "Type=Collapse (18%)"
+   ],
+   "inside": [
+    "map"
+   ]
+  },
+  "AddNodeButton": {
+   "usual": [],
+   "figma": [
+    "add-node-card"
+   ],
+   "placed": 220,
+   "nested": 0,
+   "files": [
+    "Value"
+   ],
+   "variants": [
+    "Property 1=disabled (53%)",
+    "Property 1=Default (47%)"
+   ],
+   "inside": [
+    "map"
+   ]
+  },
+  "NodeCard": {
+   "usual": [
+    "type default 45% / measure 14%"
+   ],
+   "figma": [
+    "node-card"
+   ],
+   "placed": 10865,
+   "nested": 3,
+   "files": [
+    "Value",
+    "Build"
+   ],
+   "variants": [
+    "state=default, type=default (40%)",
+    "state=default, type=measure (12%)",
+    "state=default, type=model (11%)"
+   ],
+   "inside": [
+    "map",
+    "node cards",
+    "card list",
+    "tree"
+   ]
+  },
+  "SidebarNodeCard": {
+   "usual": [
+    "open no 100%",
+    "type value model 100%"
+   ],
+   "figma": [
+    "sidebar-node-card"
+   ],
+   "placed": 180,
+   "nested": 0,
+   "files": [
+    "Value",
+    "Build"
+   ],
+   "variants": [
+    "state=Default, open=no, type=value model (94%)",
+    "state=drag, open=no, type=value model (3%)",
+    "state=hover, open=no, type=value model (2%)"
+   ],
+   "inside": [
+    "card list",
+    "Added"
+   ]
+  },
+  "MapPin": {
+   "usual": [
+    "Type solar 69%",
+    "Status neutral 100%",
+    "Asset icon no 100%"
+   ],
+   "figma": [
+    "Pin",
+    "map-pin-teardrop"
+   ],
+   "placed": 17,
+   "nested": 601,
+   "files": [
+    "Explore"
+   ],
+   "variants": [
+    "Type=Solar, State=Default, Status=Neutral (59%)",
+    "Type=Station, State=Default, Status=Neutral (29%)",
+    "Type=Solar, State=out of hover, Status=Neutral (6%)"
+   ],
+   "inside": []
+  },
+  "CanvasBackground": {
+   "usual": [],
+   "figma": [
+    "Canvas background"
+   ],
+   "placed": 701,
+   "nested": 0,
+   "files": [
+    "Value"
+   ],
+   "variants": [
+    "Property 1=image (100%)",
+    "Property 1=Default (0%)"
+   ],
+   "inside": [
+    "Answered",
+    "Added",
+    "Cooper",
+    "Default"
+   ]
+  },
+  "DropZone": {
+   "usual": [
+    "Type change-position-overlay 100%"
+   ],
+   "figma": [
+    "change-position-overlay",
+    "move-and-drop-background"
+   ],
+   "placed": 8,
+   "nested": 1,
+   "files": [
+    "Build",
+    "Value"
+   ],
+   "variants": [
+    "change-position-overlay (75%)",
+    "Type=change-position-overlay (25%)"
+   ],
+   "inside": [
+    "map"
+   ]
+  },
+  "SankeyNode": {
+   "usual": [
+    "type default 52% / measure 48%"
+   ],
+   "figma": [
+    "sankey-atom",
+    "sunkey-item"
+   ],
+   "placed": 691,
+   "nested": 243,
+   "files": [
+    "Value"
+   ],
+   "variants": [
+    "type=Default, state=Default (42%)",
+    "type=Measure, state=Default (38%)",
+    "type=Measure, state=Disabled (10%)"
+   ],
+   "inside": [
+    "card-wrapper"
+   ]
+  },
+  "SankeyHeader": {
+   "usual": [],
+   "figma": [
+    "column-header"
+   ],
+   "placed": 57,
+   "nested": 3,
+   "files": [
+    "Value"
+   ],
+   "variants": [
+    "column-header (100%)"
+   ],
+   "inside": [
+    "strategic-obj-wrapper",
+    "value-modules-wrapper",
+    "measures-wrapper"
+   ]
+  },
+  "Sankey": {
+   "usual": [],
+   "figma": [
+    "sankey-organism"
+   ],
+   "placed": 0,
+   "nested": 8,
+   "files": [],
+   "variants": [],
+   "inside": []
+  },
+  "DataVizBar": {
+   "usual": [],
+   "figma": [
+    "bar-atom"
+   ],
+   "placed": 4,
+   "nested": 152,
+   "files": [
+    "Plan"
+   ],
+   "variants": [
+    "State=Default (100%)"
+   ],
+   "inside": [
+    "grouped-bar-molecule"
+   ]
+  },
+  "DataVizGroupedBar": {
+   "usual": [
+    "Type vertical 100%",
+    "Progress false 100%"
+   ],
+   "figma": [
+    "grouped-bar-molecule"
+   ],
+   "placed": 4,
+   "nested": 0,
+   "files": [
+    "Plan"
+   ],
+   "variants": [
+    "Type=Vertical, Progress=False (100%)"
+   ],
+   "inside": [
+    "item"
+   ]
+  },
+  "DataVizLine": {
+   "usual": [
+    "Dashed true 89%"
+   ],
+   "figma": [
+    "line-atom"
+   ],
+   "placed": 18,
+   "nested": 1231,
+   "files": [
+    "Plan"
+   ],
+   "variants": [
+    "Dashed=True (89%)",
+    "Dashed=False (11%)"
+   ],
+   "inside": [
+    "lines"
+   ]
+  },
+  "DataVizIndicator": {
+   "usual": [
+    "Type point 99%"
+   ],
+   "figma": [
+    "indicator-atom"
+   ],
+   "placed": 165,
+   "nested": 1280,
+   "files": [
+    "Plan",
+    "Explore"
+   ],
+   "variants": [
+    "Type=Point (99%)",
+    "Type=Intended target (1%)"
+   ],
+   "inside": [
+    "bar",
+    "bars"
+   ]
+  },
+  "ValueLabel": {
+   "usual": [],
+   "figma": [
+    "value-label-atom"
+   ],
+   "placed": 58,
+   "nested": 1154,
+   "files": [
+    "Plan"
+   ],
+   "variants": [
+    "State=Secondary (52%)",
+    "State=Tertiary (31%)",
+    "State=Primary (17%)"
+   ],
+   "inside": [
+    "horizontal-column",
+    "item",
+    "y-axis"
+   ]
+  },
+  "LegendSwatch": {
+   "usual": [],
+   "figma": [
+    "legend-swatch-atom"
+   ],
+   "placed": 12,
+   "nested": 104,
+   "files": [
+    "Plan"
+   ],
+   "variants": [
+    "State=Default (100%)"
+   ],
+   "inside": [
+    "items"
+   ]
+  },
+  "DataVizHeader": {
+   "usual": [
+    "Right element false 72%"
+   ],
+   "figma": [
+    "data-viz-header-molecule",
+    "chart-header"
+   ],
+   "placed": 123,
+   "nested": 810,
+   "files": [
+    "Plan",
+    "Value"
+   ],
+   "variants": [
+    "State=Default, Right element=False (72%)",
+    "State=Default, Right element=Segmented control (20%)",
+    "State=Default, Right element=Button (5%)"
+   ],
+   "inside": [
+    "strategic",
+    "section",
+    "Top-content-slot",
+    "chart-projects"
+   ]
+  },
+  "DataVizCard": {
+   "usual": [],
+   "figma": [
+    "data-viz-card-organism"
+   ],
+   "placed": 23,
+   "nested": 31,
+   "files": [
+    "Plan"
+   ],
+   "variants": [
+    "State=Default (100%)"
+   ],
+   "inside": [
+    "title"
+   ]
+  },
+  "DataVizTooltip": {
+   "usual": [],
+   "figma": [
+    "chart-info-modal",
+    "data-viz-modal-organism"
+   ],
+   "placed": 5,
+   "nested": 0,
+   "files": [
+    "Value",
+    "Build"
+   ],
+   "variants": [
+    "chart-info-modal (80%)",
+    "State=chart-info-modal (20%)"
+   ],
+   "inside": []
+  },
+  "ProgressRing": {
+   "usual": [
+    "% 60 86%"
+   ],
+   "figma": [
+    "progress-ring-molecule"
+   ],
+   "placed": 37,
+   "nested": 242,
+   "files": [
+    "Plan"
+   ],
+   "variants": [
+    "%=60 (86%)",
+    "%=20 (14%)"
+   ],
+   "inside": [
+    "progress"
+   ]
+  },
+  "Badge": {
+   "usual": [
+    "Color white 84%",
+    "Size s (20) 64%"
+   ],
+   "figma": [
+    "badge-atom",
+    "badge"
+   ],
+   "placed": 363,
+   "nested": 4992,
+   "files": [
+    "Explore",
+    "Build",
+    "Command",
+    "Plan",
+    "Value"
+   ],
+   "variants": [
+    "Color=White, Size=S (20) (52%)",
+    "Color=White, Size=L (32) (19%)",
+    "Color=White, Size=M (24) (9%)"
+   ],
+   "inside": [
+    "risk segment",
+    "Text",
+    "tableCell",
+    "title"
+   ]
+  },
+  "StatusIndicator": {
+   "usual": [
+    "Stroke false 92%"
+   ],
+   "figma": [
+    "status-indicator-atom",
+    "indicator"
+   ],
+   "placed": 864,
+   "nested": 11291,
+   "files": [
+    "Plan",
+    "Value",
+    "Build",
+    "Explore"
+   ],
+   "variants": [
+    "State=Default, Stroke=False (90%)",
+    "state=error, stroke=no (6%)",
+    "state=warning, stroke=no (2%)"
+   ],
+   "inside": [
+    "bars",
+    "tabItem",
+    "segmented-control-atom",
+    "badge-atom"
+   ]
+  },
+  "Avatar": {
+   "usual": [
+    "Size m (32) 42% / 24px 17%"
+   ],
+   "figma": [
+    "avatar-organism",
+    "avatar",
+    "avatar-atom"
+   ],
+   "placed": 196,
+   "nested": 10891,
+   "files": [
+    "Plan",
+    "Command",
+    "Value",
+    "Build"
+   ],
+   "variants": [
+    "Size=M (32) (42%)",
+    "size=24px (17%)",
+    "Size=S (24) (15%)"
+   ],
+   "inside": [
+    "tableCell",
+    "collaboratorRow",
+    "userComment"
+   ]
+  },
+  "RiskStatus": {
+   "usual": [],
+   "figma": [
+    "status-risk-molecule",
+    "status"
+   ],
+   "placed": 0,
+   "nested": 378,
+   "files": [],
+   "variants": [],
+   "inside": []
+  },
+  "ReadinessStatus": {
+   "usual": [
+    "Type done 48% / in progress 45%",
+    "Right-section text 56% / status 38%"
+   ],
+   "figma": [
+    "status-readiness-molecule",
+    "rediness-checklist-item"
+   ],
+   "placed": 66,
+   "nested": 825,
+   "files": [
+    "Plan",
+    "Value"
+   ],
+   "variants": [
+    "Type=Done, Right-section=Text (48%)",
+    "Type=In progress, Right-section=Status (38%)",
+    "type=ready, right-section=text (6%)"
+   ],
+   "inside": [
+    "list"
+   ]
+  },
+  "Indicator": {
+   "usual": [
+    "Size s 63%",
+    "Type blue 67%"
+   ],
+   "figma": [
+    "indicator-molecule",
+    "status",
+    "status-framework"
+   ],
+   "placed": 138,
+   "nested": 8255,
+   "files": [
+    "Value",
+    "Plan",
+    "Build"
+   ],
+   "variants": [
+    "type=blue, size=S (39%)",
+    "type=blue (28%)",
+    "Size=XS, Type=Purple (12%)"
+   ],
+   "inside": [
+    "tableCell",
+    "Text"
+   ]
+  },
+  "StatCard": {
+   "usual": [
+    "Size m 100%",
+    "Loading false 100%"
+   ],
+   "figma": [
+    "stat-card-organism"
+   ],
+   "placed": 104,
+   "nested": 2152,
+   "files": [
+    "Plan"
+   ],
+   "variants": [
+    "Size=M, Loading=False (100%)"
+   ],
+   "inside": [
+    "stat",
+    "stat-cards-row"
+   ]
+  },
+  "ContentCard": {
+   "usual": [
+    "Size m 70%"
+   ],
+   "figma": [
+    "content-card-organism"
+   ],
+   "placed": 3076,
+   "nested": 2293,
+   "files": [
+    "Build",
+    "Explore",
+    "Plan",
+    "Command"
+   ],
+   "variants": [
+    "Size=M, State=Default (68%)",
+    "Size=S, State=Default (28%)",
+    "Size=S, State=Selected (3%)"
+   ],
+   "inside": [
+    "list",
+    "title",
+    "page body",
+    "column"
+   ]
+  },
+  "Table": {
+   "usual": [
+    "Type text 63%",
+    "Loading false 100%"
+   ],
+   "figma": [
+    "table-cell-atom",
+    "tableCell",
+    "table-card-organism"
+   ],
+   "placed": 18250,
+   "nested": 16176,
+   "files": [
+    "Value",
+    "Build",
+    "Plan",
+    "Command"
+   ],
+   "variants": [
+    "type=text (49%)",
+    "Type=Text + description, State=Default (14%)",
+    "type=status (14%)"
+   ],
+   "inside": [
+    "row",
+    "tableCell",
+    "title"
+   ]
+  },
+  "ProgressBar": {
+   "usual": [
+    "% 0 100%"
+   ],
+   "figma": [
+    "progress indicator",
+    "progress-bar-molecule"
+   ],
+   "placed": 10,
+   "nested": 118,
+   "files": [
+    "Plan"
+   ],
+   "variants": [
+    "%=0 (100%)"
+   ],
+   "inside": [
+    "grouped-bar-molecule"
+   ]
+  },
+  "Hotkey": {
+   "usual": [],
+   "figma": [
+    "hotkey",
+    "hotkey-atom"
+   ],
+   "placed": 3,
+   "nested": 12,
+   "files": [
+    "Value"
+   ],
+   "variants": [
+    "Property 1=Default (100%)"
+   ],
+   "inside": [
+    "hint/bottom"
+   ]
+  },
+  "Counter": {
+   "usual": [
+    "Size s (18) 65%"
+   ],
+   "figma": [
+    "counter-atom",
+    "counter"
+   ],
+   "placed": 1548,
+   "nested": 7403,
+   "files": [
+    "Build",
+    "Value",
+    "Command",
+    "Explore",
+    "Plan"
+   ],
+   "variants": [
+    "Size=S (18) (65%)",
+    "Size=M (35%)"
+   ],
+   "inside": [
+    "formula item",
+    "heading",
+    "title",
+    "tableCell"
+   ]
+  },
+  "ScrollArea": {
+   "usual": [
+    "top default 100%",
+    "Location top 100%"
+   ],
+   "figma": [
+    "Scroll bar",
+    "scroll-bar-atom"
+   ],
+   "placed": 1265,
+   "nested": 294,
+   "files": [
+    "Build",
+    "Value",
+    "Explore",
+    "Plan",
+    "Command"
+   ],
+   "variants": [
+    "top=Default (72%)",
+    "Location=Top (28%)"
+   ],
+   "inside": [
+    "layers",
+    "scroll-bar2",
+    "floating-window",
+    "Slot"
+   ]
+  },
+  "ScrollBar": {
+   "usual": [
+    "top default 100%",
+    "Location top 100%"
+   ],
+   "figma": [
+    "Scroll bar",
+    "scroll-bar-atom"
+   ],
+   "placed": 1265,
+   "nested": 294,
+   "files": [
+    "Build",
+    "Value",
+    "Explore",
+    "Plan",
+    "Command"
+   ],
+   "variants": [
+    "top=Default (72%)",
+    "Location=Top (28%)"
+   ],
+   "inside": [
+    "layers",
+    "scroll-bar2",
+    "floating-window",
+    "Slot"
+   ]
+  },
+  "CircularButton": {
+   "usual": [],
+   "figma": [
+    "circular-button-molecule",
+    "CircularButton-item"
+   ],
+   "placed": 0,
+   "nested": 8,
+   "files": [],
+   "variants": [],
+   "inside": []
+  },
+  "CircularMenu": {
+   "usual": [
+    "Buttons number 4 100%",
+    "type 2 buttons 100%"
+   ],
+   "figma": [
+    "circular-button-organism",
+    "CircularButton"
+   ],
+   "placed": 3,
+   "nested": 0,
+   "files": [
+    "Value",
+    "Explore"
+   ],
+   "variants": [
+    "Buttons number=4, Hover=Bottom, State=Hover (33%)",
+    "Hover=Left, state=Hover, type=2 buttons (33%)",
+    "Hover=Right, state=Hover, type=2 buttons (33%)"
+   ],
+   "inside": [
+    "map"
+   ]
+  },
+  "NotificationButton": {
+   "usual": [],
+   "figma": [
+    "icon-button-notification"
+   ],
+   "placed": 0,
+   "nested": 2356,
+   "files": [],
+   "variants": [],
+   "inside": []
+  },
+  "CommentButton": {
+   "usual": [
+    "Has a new comment? false 99%"
+   ],
+   "figma": [
+    "icon-button-comment",
+    "comments"
+   ],
+   "placed": 122,
+   "nested": 1525,
+   "files": [
+    "Plan",
+    "Build",
+    "Explore"
+   ],
+   "variants": [
+    "Has a new comment?=False, State=Default (98%)",
+    "Property 1=Default (1%)",
+    "Has a new comment?=True, State=Default (1%)"
+   ],
+   "inside": [
+    "button",
+    "section-header-timeline",
+    "collaboration"
+   ]
+  },
+  "FilterButton": {
+   "usual": [],
+   "figma": [
+    "icon-button-filter"
+   ],
+   "placed": 0,
+   "nested": 274,
+   "files": [],
+   "variants": [],
+   "inside": []
+  },
+  "ArrowButton": {
+   "usual": [],
+   "figma": [
+    "icon-button-arrow"
+   ],
+   "placed": 0,
+   "nested": 164,
+   "files": [],
+   "variants": [],
+   "inside": []
+  },
+  "SliderTrack": {
+   "usual": [
+    "Type default 100%"
+   ],
+   "figma": [
+    "slider-molecule"
+   ],
+   "placed": 73,
+   "nested": 43,
+   "files": [
+    "Explore"
+   ],
+   "variants": [
+    "Type=Default, State=0 → max (100%)"
+   ],
+   "inside": [
+    "lasso",
+    "legend list"
+   ]
+  },
+  "Slider": {
+   "usual": [],
+   "figma": [
+    "slider-organism"
+   ],
+   "placed": 0,
+   "nested": 43,
+   "files": [],
+   "variants": [],
+   "inside": []
+  },
+  "Weekday": {
+   "usual": [],
+   "figma": [
+    "weekday-atom"
+   ],
+   "placed": 0,
+   "nested": 322,
+   "files": [],
+   "variants": [],
+   "inside": []
+  },
+  "TextField": {
+   "usual": [
+    "size m (32) 93%"
+   ],
+   "figma": [
+    "input",
+    "text-field-organism"
+   ],
+   "placed": 30,
+   "nested": 1509,
+   "files": [
+    "Value",
+    "Build",
+    "Explore"
+   ],
+   "variants": [
+    "state=Default, size=M (32) (37%)",
+    "state=Filled, size=M (32) (27%)",
+    "state=Active, size=M (32) (20%)"
+   ],
+   "inside": [
+    "Slot",
+    "body",
+    "inputs"
+   ]
+  },
+  "TextArea": {
+   "usual": [
+    "Size l (140) 100%"
+   ],
+   "figma": [
+    "text-area-organism"
+   ],
+   "placed": 5,
+   "nested": 0,
+   "files": [
+    "Build"
+   ],
+   "variants": [
+    "State=Default, Size=L (140) (100%)"
+   ],
+   "inside": []
+  },
+  "Search": {
+   "usual": [
+    "type general 100%"
+   ],
+   "figma": [
+    "search-regular-organism",
+    "search"
+   ],
+   "placed": 37,
+   "nested": 18,
+   "files": [
+    "Value",
+    "Build"
+   ],
+   "variants": [
+    "Property 1=Default, type=general (76%)",
+    "Property 1=filled, type=general (14%)",
+    "State=Default (5%)"
+   ],
+   "inside": [
+    "search&expand",
+    "filters"
+   ]
+  },
+  "Checkbox": {
+   "usual": [
+    "type selected 100%"
+   ],
+   "figma": [
+    "checkbox-molecule",
+    "checkbox"
+   ],
+   "placed": 12,
+   "nested": 20,
+   "files": [
+    "Value"
+   ],
+   "variants": [
+    "state=pressed, type=selected (83%)",
+    "state=hover, type=selected (17%)"
+   ],
+   "inside": [
+    "drop-down list"
+   ]
+  },
+  "Radio": {
+   "usual": [],
+   "figma": [
+    "radio-button-molecule"
+   ],
+   "placed": 0,
+   "nested": 20,
+   "files": [],
+   "variants": [],
+   "inside": []
+  },
+  "Switch": {
+   "usual": [
+    "active yes 50% / no 50%",
+    "size xs 100%"
+   ],
+   "figma": [
+    "switch-molecule",
+    "toggle"
+   ],
+   "placed": 2,
+   "nested": 347,
+   "files": [
+    "Value"
+   ],
+   "variants": [
+    "active=yes, state=Default, size=xS (50%)",
+    "active=no, state=Default, size=xS (50%)"
+   ],
+   "inside": [
+    "Slot"
+   ]
+  },
+  "NavItem": {
+   "usual": [],
+   "figma": [
+    "sidebar-page-atom",
+    "item-sidebar"
+   ],
+   "placed": 0,
+   "nested": 3234,
+   "files": [],
+   "variants": [],
+   "inside": []
+  },
+  "SideNav": {
+   "usual": [
+    "View collapsed 75%",
+    "Page build 95%"
+   ],
+   "figma": [
+    "sidebar-organism",
+    "sidebar",
+    "sidebar-value"
+   ],
+   "placed": 2718,
+   "nested": 1229,
+   "files": [
+    "Value",
+    "Build",
+    "Explore",
+    "Plan",
+    "Command"
+   ],
+   "variants": [
+    "sidebar-value (45%)",
+    "View=Collapsed (39%)",
+    "View=Expanded (13%)"
+   ],
+   "inside": [
+    "body",
+    "Answered",
+    "Added",
+    "Default"
+   ]
+  },
+  "Tab": {
+   "usual": [
+    "Size m (36) 41% / l (40) 32%"
+   ],
+   "figma": [
+    "tab"
+   ],
+   "placed": 950,
+   "nested": 1850,
+   "files": [
+    "Build",
+    "Plan",
+    "Value",
+    "Explore"
+   ],
+   "variants": [
+    "Size=M (36), State=Default (28%)",
+    "Size=L (40), State=Default (16%)",
+    "state=default (13%)"
+   ],
+   "inside": [
+    "tabs"
+   ]
+  },
+  "Breadcrumb": {
+   "usual": [],
+   "figma": [
+    "breadcrumb-organism"
+   ],
+   "placed": 618,
+   "nested": 0,
+   "files": [
+    "Build",
+    "Plan",
+    "Command"
+   ],
+   "variants": [
+    "State=Default (100%)"
+   ],
+   "inside": [
+    "text"
+   ]
+  },
+  "Step": {
+   "usual": [],
+   "figma": [
+    "stepper-molecule",
+    "progress-bar-item"
+   ],
+   "placed": 20,
+   "nested": 4491,
+   "files": [
+    "Value",
+    "Explore"
+   ],
+   "variants": [
+    "state=not started (30%)",
+    "state=done (20%)",
+    "state=in progress (20%)"
+   ],
+   "inside": [
+    "progress"
+   ]
+  },
+  "Stepper": {
+   "usual": [],
+   "figma": [
+    "stepper-organism"
+   ],
+   "placed": 15,
+   "nested": 696,
+   "files": [
+    "Plan"
+   ],
+   "variants": [
+    "State=Default (100%)"
+   ],
+   "inside": [
+    "page-header"
+   ]
+  },
+  "CanvasColumn": {
+   "usual": [],
+   "figma": [
+    "Container"
+   ],
+   "placed": 0,
+   "nested": 2730,
+   "files": [],
+   "variants": [],
+   "inside": []
+  },
+  "CanvasHeader": {
+   "usual": [],
+   "figma": [
+    "canvas-header"
+   ],
+   "placed": 184,
+   "nested": 498,
+   "files": [
+    "Value",
+    "Plan"
+   ],
+   "variants": [
+    "State=Default (100%)"
+   ],
+   "inside": [
+    "header-ecosystem",
+    "page-header"
+   ]
+  },
+  "NavBarItem": {
+   "usual": [],
+   "figma": [
+    "nav-bar-page-atom"
+   ],
+   "placed": 0,
+   "nested": 14135,
+   "files": [],
+   "variants": [],
+   "inside": []
+  },
+  "NavBar": {
+   "usual": [
+    "page value 100%",
+    "Type default 100%",
+    "bottom panel no 100%"
+   ],
+   "figma": [
+    "nav-bar-organism",
+    "global-header",
+    "explore-header-pattern"
+   ],
+   "placed": 2355,
+   "nested": 1,
+   "files": [
+    "Value",
+    "Build",
+    "Explore",
+    "Plan",
+    "Command"
+   ],
+   "variants": [
+    "Type=Default (96%)",
+    "state=Default, page=value (4%)",
+    "bottom panel=no, state=Default (0%)"
+   ],
+   "inside": [
+    "page",
+    "Answered",
+    "Added",
+    "Default"
+   ]
+  },
+  "PageHeader": {
+   "usual": [
+    "status progress bar 67%"
+   ],
+   "figma": [
+    "page-header"
+   ],
+   "placed": 1023,
+   "nested": 1228,
+   "files": [
+    "Build",
+    "Value",
+    "Plan",
+    "Command"
+   ],
+   "variants": [
+    "state=header-ecosystem, status=Progress bar, hover on=no (67%)",
+    "state=Default, status=active, hover on=no (15%)",
+    "state=Default-Overview, status=active, hover on=no (7%)"
+   ],
+   "inside": [
+    "header-ecosystem"
+   ]
+  },
+  "PageTop": {
+   "usual": [
+    "Type default 100%"
+   ],
+   "figma": [
+    "page-top",
+    "page-header-pattern"
+   ],
+   "placed": 405,
+   "nested": 0,
+   "files": [
+    "Value",
+    "Command",
+    "Plan"
+   ],
+   "variants": [
+    "page-top (83%)",
+    "Type=Default (16%)",
+    "State=Default (1%)"
+   ],
+   "inside": [
+    "title"
+   ]
+  },
+  "CompareDropdownList": {
+   "usual": [],
+   "figma": [
+    "drop-down list"
+   ],
+   "placed": 47,
+   "nested": 3,
+   "files": [
+    "Value",
+    "Plan"
+   ],
+   "variants": [
+    "drop-down list (98%)",
+    "Property 1=Default (2%)"
+   ],
+   "inside": [
+    "compare-dropdown"
+   ]
+  },
+  "CompareDropdown": {
+   "usual": [],
+   "figma": [
+    "compare-dropdown"
+   ],
+   "placed": 1,
+   "nested": 29,
+   "files": [
+    "Plan"
+   ],
+   "variants": [
+    "Property 1=Default (100%)"
+   ],
+   "inside": []
+  },
+  "CompareHeader": {
+   "usual": [],
+   "figma": [
+    "compare-header"
+   ],
+   "placed": 29,
+   "nested": 0,
+   "files": [
+    "Value"
+   ],
+   "variants": [
+    "compare-header (100%)"
+   ],
+   "inside": []
+  },
+  "ApprovalStatus": {
+   "usual": [
+    "type empty 32% / success 27%",
+    "Size s 63%"
+   ],
+   "figma": [
+    "status",
+    "indicator-molecule",
+    "status-framework"
+   ],
+   "placed": 398,
+   "nested": 8835,
+   "files": [
+    "Value",
+    "Build",
+    "Plan"
+   ],
+   "variants": [
+    "type=empty (32%)",
+    "type=success (27%)",
+    "type=blue, size=S (14%)"
+   ],
+   "inside": [
+    "row",
+    "tableCell",
+    "header",
+    "icon+line"
+   ]
+  },
+  "QuickStatCard": {
+   "usual": [],
+   "figma": [
+    "stat"
+   ],
+   "placed": 36,
+   "nested": 0,
+   "files": [
+    "Value"
+   ],
+   "variants": [
+    "stat (97%)",
+    "Property 1=2 row (3%)"
+   ],
+   "inside": []
+  },
+  "Stat": {
+   "usual": [],
+   "figma": [
+    "stat"
+   ],
+   "placed": 36,
+   "nested": 0,
+   "files": [
+    "Value"
+   ],
+   "variants": [
+    "stat (97%)",
+    "Property 1=2 row (3%)"
+   ],
+   "inside": []
+  },
+  "InfoHintItem": {
+   "usual": [],
+   "figma": [
+    "info-hint-item"
+   ],
+   "placed": 808,
+   "nested": 1933,
+   "files": [
+    "Plan",
+    "Build"
+   ],
+   "variants": [
+    "info-hint-item (100%)"
+   ],
+   "inside": [
+    "items",
+    "bar"
+   ]
+  },
+  "InvestmentValueImpact": {
+   "usual": [],
+   "figma": [
+    "Investment-value-impact",
+    "Value-distribution-shift",
+    "Objective-weighting"
+   ],
+   "placed": 36,
+   "nested": 0,
+   "files": [
+    "Value"
+   ],
+   "variants": [
+    "Investment-value-impact (92%)",
+    "Value-distribution-shift (6%)",
+    "Objective-weighting (3%)"
+   ],
+   "inside": [
+    "coverage-measure"
+   ]
+  },
+  "TableReview": {
+   "usual": [],
+   "figma": [
+    "table-review"
+   ],
+   "placed": 34,
+   "nested": 0,
+   "files": [
+    "Value"
+   ],
+   "variants": [
+    "Property 1=Default (97%)",
+    "Property 1=Variant2 (3%)"
+   ],
+   "inside": []
+  },
+  "CollaboratorCursor": {
+   "usual": [
+    "user cooper 100%"
+   ],
+   "figma": [
+    "Cursor-сollaboration"
+   ],
+   "placed": 59,
+   "nested": 4,
+   "files": [
+    "Value",
+    "Build",
+    "Explore",
+    "Plan"
+   ],
+   "variants": [
+    "user=Cooper (90%)",
+    "User=Cooper (10%)"
+   ],
+   "inside": [
+    "map",
+    "title",
+    "Cooper",
+    "page body"
+   ]
+  },
+  "CommentPin": {
+   "usual": [
+    "Type unread 69%"
+   ],
+   "figma": [
+    "commentPin"
+   ],
+   "placed": 143,
+   "nested": 0,
+   "files": [
+    "Value",
+    "Build"
+   ],
+   "variants": [
+    "State=Default, Type=Unread (67%)",
+    "State=Default, Type=Readed (31%)",
+    "State=Hover, Type=Unread (1%)"
+   ],
+   "inside": [
+    "map"
+   ]
+  },
+  "CommentDrawerCard": {
+   "usual": [
+    "type new 64%"
+   ],
+   "figma": [
+    "comment-drawer-item",
+    "comment-drawer-card"
+   ],
+   "placed": 551,
+   "nested": 0,
+   "files": [
+    "Build",
+    "Value",
+    "Command",
+    "Plan"
+   ],
+   "variants": [
+    "type=New, state=default (46%)",
+    "type=Readed, state=default (25%)",
+    "type=New, state=selected (14%)"
+   ],
+   "inside": [
+    "layers"
+   ]
+  },
+  "ChatHeader": {
+   "usual": [
+    "type float-window 65%",
+    "new chat yes 65%"
+   ],
+   "figma": [
+    "chat header",
+    "chat-header-molecule"
+   ],
+   "placed": 129,
+   "nested": 259,
+   "files": [
+    "Value",
+    "Build",
+    "Plan"
+   ],
+   "variants": [
+    "type=float-window, new chat=yes, state=Default (65%)",
+    "type=ho, new chat=no, state=Default (34%)",
+    "Type=Full panel, New chat=True, State=Default (1%)"
+   ],
+   "inside": [
+    "floating-window",
+    "right-side-panel-chat",
+    "chat-full-panel-organism"
+   ]
+  },
+  "UserMessage": {
+   "usual": [
+    "size >1 93%"
+   ],
+   "figma": [
+    "user-message-bubble",
+    "user-message-molecule"
+   ],
+   "placed": 206,
+   "nested": 195,
+   "files": [
+    "Value",
+    "Build"
+   ],
+   "variants": [
+    "state=Default, size=>1 (90%)",
+    "state=Default, size=inline (7%)",
+    "state=editing, size=>1 (2%)"
+   ],
+   "inside": [
+    "user-message"
+   ]
+  },
+  "Attachment": {
+   "usual": [],
+   "figma": [
+    "attachments"
+   ],
+   "placed": 274,
+   "nested": 3,
+   "files": [
+    "Value",
+    "Build",
+    "Plan"
+   ],
+   "variants": [
+    "attachments (100%)"
+   ],
+   "inside": [
+    "user-message",
+    "chat-full-panel-organism"
+   ]
+  },
+  "TextMessageInput": {
+   "usual": [],
+   "figma": [
+    "text input",
+    "text-message-input-molecule"
+   ],
+   "placed": 76,
+   "nested": 87,
+   "files": [
+    "Value",
+    "Build",
+    "Plan"
+   ],
+   "variants": [
+    "Property 1=default (72%)",
+    "Property 1=Streaming (18%)",
+    "Property 1=active-multi-line (8%)"
+   ],
+   "inside": [
+    "bottom"
+   ]
+  },
+  "VoiceMessageInput": {
+   "usual": [],
+   "figma": [
+    "voice-input",
+    "voice-message-input-molecule"
+   ],
+   "placed": 51,
+   "nested": 172,
+   "files": [
+    "Value",
+    "Build"
+   ],
+   "variants": [
+    "Property 1=Default (71%)",
+    "Property 1=Streaming (29%)"
+   ],
+   "inside": [
+    "bottom"
+   ]
+  },
+  "ChatCard": {
+   "usual": [
+    "type metric 59% / scenario 41%"
+   ],
+   "figma": [
+    "chat-card",
+    "chat-card-molecule"
+   ],
+   "placed": 123,
+   "nested": 507,
+   "files": [
+    "Build",
+    "Value"
+   ],
+   "variants": [
+    "type=metric (59%)",
+    "type=scenario (41%)"
+   ],
+   "inside": [
+    "card-list"
+   ]
+  },
+  "ChatLink": {
+   "usual": [
+    "type follow up question 100%"
+   ],
+   "figma": [
+    "chat-link-item",
+    "chat-link-molecule",
+    "chat-link-item/Default/source"
+   ],
+   "placed": 194,
+   "nested": 417,
+   "files": [
+    "Value",
+    "Build",
+    "Plan"
+   ],
+   "variants": [
+    "state=Default, type=follow up question (91%)",
+    "chat-link-item/Default/source (9%)"
+   ],
+   "inside": [
+    "list"
+   ]
+  },
+  "ChatCollapsedBar": {
+   "usual": [
+    "Type voice-input 86%"
+   ],
+   "figma": [
+    "chat-collapsed-bar-organism",
+    "chat-inline-quick-mode"
+   ],
+   "placed": 119,
+   "nested": 0,
+   "files": [
+    "Build",
+    "Value",
+    "Explore"
+   ],
+   "variants": [
+    "type=voice-input, state=focus (61%)",
+    "type=voice-input, state=active-signle-line (13%)",
+    "type=voice-input, state=active-multi-line (12%)"
+   ],
+   "inside": [
+    "map",
+    "Recalculating"
+   ]
+  },
+  "ChatCompactPanel": {
+   "usual": [
+    "Type voice 72%"
+   ],
+   "figma": [
+    "chat-compact-panel-organism",
+    "floating-window"
+   ],
+   "placed": 113,
+   "nested": 0,
+   "files": [
+    "Value",
+    "Build",
+    "Explore"
+   ],
+   "variants": [
+    "state=user-message, type=voice (18%)",
+    "state=answered, type=text (16%)",
+    "state=answered, type=voice (12%)"
+   ],
+   "inside": [
+    "map",
+    "Cooper"
+   ]
+  },
+  "ChatFullPanel": {
+   "usual": [
+    "Type text 98%",
+    "size default 100%",
+    "input type voice 92%",
+    "type chat ge 52% / gen 30%"
+   ],
+   "figma": [
+    "chat-full-panel-organism",
+    "right-side-panel-chat"
+   ],
+   "placed": 136,
+   "nested": 0,
+   "files": [
+    "Value",
+    "Build",
+    "Plan",
+    "Explore"
+   ],
+   "variants": [
+    "Type=Text, State=Answered (36%)",
+    "size=Default, input type=voice, state=answered, type chat=ge (28%)",
+    "size=Default, input type=voice, state=Default, type chat=gen (15%)"
+   ],
+   "inside": [
+    "chat-content",
+    "upload-form",
+    "map",
+    "Re-Optimize"
+   ]
+  },
+  "FolderItem": {
+   "usual": [],
+   "figma": [
+    "folder-item"
+   ],
+   "placed": 14,
+   "nested": 386,
+   "files": [
+    "Value"
+   ],
+   "variants": [
+    "state=Default (93%)",
+    "state=active (7%)"
+   ],
+   "inside": [
+    "list",
+    "smart folders section"
+   ]
+  },
+  "SectionHeader": {
+   "usual": [],
+   "figma": [
+    "section-header"
+   ],
+   "placed": 11,
+   "nested": 115,
+   "files": [
+    "Value"
+   ],
+   "variants": [
+    "Property 1=default (100%)"
+   ],
+   "inside": [
+    "smart folders section"
+   ]
+  },
+  "ChatHistoryCard": {
+   "usual": [
+    "type general 72%"
+   ],
+   "figma": [
+    "chat-history-card"
+   ],
+   "placed": 47,
+   "nested": 625,
+   "files": [
+    "Value"
+   ],
+   "variants": [
+    "state=default, type=general (47%)",
+    "state=active, type=new chat (21%)",
+    "state=rename, type=general (19%)"
+   ],
+   "inside": [
+    "list",
+    "tableCell",
+    "Text"
+   ]
+  },
+  "SearchChatHistoryCard": {
+   "usual": [],
+   "figma": [
+    "search-chat-history-card"
+   ],
+   "placed": 23,
+   "nested": 0,
+   "files": [
+    "Value"
+   ],
+   "variants": [
+    "Property 1=default (96%)",
+    "Property 1=hover on card (4%)"
+   ],
+   "inside": [
+    "list"
+   ]
+  },
+  "ChatReminderCard": {
+   "usual": [],
+   "figma": [
+    "chat-reminder-card"
+   ],
+   "placed": 0,
+   "nested": 3,
+   "files": [],
+   "variants": [],
+   "inside": []
+  },
+  "HistoryPanel": {
+   "usual": [],
+   "figma": [
+    "chat history"
+   ],
+   "placed": 52,
+   "nested": 0,
+   "files": [
+    "Value"
+   ],
+   "variants": [
+    "Property 1=Default (79%)",
+    "Property 1=empty (12%)",
+    "Property 1=active chat select (6%)"
+   ],
+   "inside": [
+    "chat-content"
+   ]
+  },
+  "FolderContent": {
+   "usual": [
+    "type general 83%"
+   ],
+   "figma": [
+    "folder content"
+   ],
+   "placed": 24,
+   "nested": 0,
+   "files": [
+    "Value"
+   ],
+   "variants": [
+    "type=general, state=Default (79%)",
+    "type=insight, state=Default (8%)",
+    "type=reminders, state=Default (4%)"
+   ],
+   "inside": [
+    "chat-content"
+   ]
+  },
+  "AgentWindow": {
+   "usual": [
+    "view expanded 93%",
+    "speaking? yes 97%",
+    "Speaking true 100%"
+   ],
+   "figma": [
+    "agent-window",
+    "agent-window-organism"
+   ],
+   "placed": 128,
+   "nested": 0,
+   "files": [
+    "Value",
+    "Build",
+    "Explore",
+    "Plan",
+    "Command"
+   ],
+   "variants": [
+    "view=Expanded, speaking?=yes (84%)",
+    "View=Expanded, Speaking=True (8%)",
+    "view=Colapsed, speaking?=yes (5%)"
+   ],
+   "inside": [
+    "map",
+    "Cooper",
+    "body",
+    "modal"
+   ]
+  },
+  "MapPinDot": {
+   "usual": [
+    "higlight no 100%",
+    "size xs 74%",
+    "status success 78%",
+    "type te 83%",
+    "Icon false 100%"
+   ],
+   "figma": [
+    "dot-pin",
+    "map-pin-dot"
+   ],
+   "placed": 2394,
+   "nested": 2736,
+   "files": [
+    "Explore",
+    "Build",
+    "Command"
+   ],
+   "variants": [
+    "Size=XS, Status=Success, State=Default, Icon=False (44%)",
+    "Size=S, Status=Success, State=Default, Icon=False (11%)",
+    "Size=XS, Status=Error, State=Default, Icon=False (9%)"
+   ],
+   "inside": [
+    "risk segment",
+    "affected zone",
+    "transmission line",
+    "dots"
+   ]
+  },
+  "MapPinDefect": {
+   "usual": [
+    "Type cyclone 100%"
+   ],
+   "figma": [
+    "Defect"
+   ],
+   "placed": 57,
+   "nested": 163,
+   "files": [
+    "Command"
+   ],
+   "variants": [
+    "Type=Cyclone, State=Confirmed (100%)"
+   ],
+   "inside": []
+  },
+  "MapPinFlow": {
+   "usual": [
+    "Type default 96%"
+   ],
+   "figma": [
+    "Electric Flow Direction Indicator"
+   ],
+   "placed": 1513,
+   "nested": 1136,
+   "files": [
+    "Explore",
+    "Build"
+   ],
+   "variants": [
+    "Type=Default (96%)",
+    "Type=Error (4%)"
+   ],
+   "inside": [
+    "transmission line",
+    "risk segment"
+   ]
+  },
+  "MapPinPole": {
+   "usual": [
+    "Symbol pin 89%"
+   ],
+   "figma": [
+    "Pole",
+    "map-pin-pole"
+   ],
+   "placed": 1948,
+   "nested": 2064,
+   "files": [
+    "Explore",
+    "Build",
+    "Command"
+   ],
+   "variants": [
+    "State=Default, Symbol=Pin (88%)",
+    "State=Default, Symbol=Defect (6%)",
+    "State=Default, Symbol=Dot (5%)"
+   ],
+   "inside": [
+    "risk segment",
+    "affected zone",
+    "dots",
+    "Map"
+   ]
+  },
+  "BarChartItem": {
+   "usual": [
+    "color 5 87%"
+   ],
+   "figma": [
+    "bar-chart-item"
+   ],
+   "placed": 3190,
+   "nested": 7089,
+   "files": [
+    "Plan",
+    "Build"
+   ],
+   "variants": [
+    "color=5 (87%)",
+    "color=3 (4%)",
+    "color=2 (4%)"
+   ],
+   "inside": [
+    "vertical-bar-chart-item",
+    "bar"
+   ]
+  },
+  "VerticalBarChartItem": {
+   "usual": [],
+   "figma": [
+    "vertical-bar-chart-item"
+   ],
+   "placed": 15,
+   "nested": 845,
+   "files": [
+    "Value"
+   ],
+   "variants": [
+    "state=default-1 (40%)",
+    "state=default-2 (40%)",
+    "state=active (20%)"
+   ],
+   "inside": [
+    "bars"
+   ]
+  },
+  "SourceCard": {
+   "usual": [],
+   "figma": [
+    "source card",
+    "source-card"
+   ],
+   "placed": 53,
+   "nested": 65,
+   "files": [
+    "Value",
+    "Explore"
+   ],
+   "variants": [
+    "Property 1=Default (57%)",
+    "Property 1=Variant3 (40%)",
+    "State=Variant5 (4%)"
+   ],
+   "inside": [
+    "card list"
+   ]
+  },
+  "ExploreHeader": {
+   "usual": [
+    "Cooper badge no 63%"
+   ],
+   "figma": [
+    "explore-header"
+   ],
+   "placed": 274,
+   "nested": 0,
+   "files": [
+    "Explore",
+    "Command"
+   ],
+   "variants": [
+    "explore-header (94%)",
+    "Cooper badge=no (4%)",
+    "Cooper badge=yes (2%)"
+   ],
+   "inside": [
+    "Default"
+   ]
+  },
+  "HomeRowCard": {
+   "usual": [
+    "Type secondary 84%"
+   ],
+   "figma": [
+    "home-row-card-organism"
+   ],
+   "placed": 164,
+   "nested": 0,
+   "files": [
+    "Command"
+   ],
+   "variants": [
+    "Type=Secondary, State=Default (77%)",
+    "Type=Primary, State=Default (16%)",
+    "Type=Secondary, State=Hover (7%)"
+   ],
+   "inside": [
+    "list"
+   ]
+  },
+  "SmartSearch": {
+   "usual": [
+    "Type text 100%",
+    "input text 100%"
+   ],
+   "figma": [
+    "smart-search-organism",
+    "ai smart search"
+   ],
+   "placed": 418,
+   "nested": 699,
+   "files": [
+    "Value",
+    "Build",
+    "Explore",
+    "Plan",
+    "Command"
+   ],
+   "variants": [
+    "Property 1=Default, input=text (64%)",
+    "Type=Text, State=Default (25%)",
+    "Property 1=filled, input=text (7%)"
+   ],
+   "inside": [
+    "Slot",
+    "stack",
+    "users",
+    "Slot2"
+   ]
+  },
+  "SearchModal": {
+   "usual": [],
+   "figma": [
+    "search-modal"
+   ],
+   "placed": 13,
+   "nested": 0,
+   "files": [
+    "Value",
+    "Build"
+   ],
+   "variants": [
+    "search-modal (100%)"
+   ],
+   "inside": [
+    "collaboration-modal",
+    "section",
+    "users"
+   ]
+  },
+  "SearchCard": {
+   "usual": [],
+   "figma": [
+    "search-card"
+   ],
+   "placed": 0,
+   "nested": 61,
+   "files": [],
+   "variants": [],
+   "inside": []
+  },
+  "FollowButton": {
+   "usual": [],
+   "figma": [
+    "icon-button-following"
+   ],
+   "placed": 0,
+   "nested": 65,
+   "files": [],
+   "variants": [],
+   "inside": []
+  },
+  "StatCardsRow": {
+   "usual": [
+    "Type 1 row 100%"
+   ],
+   "figma": [
+    "stat-cards-row"
+   ],
+   "placed": 93,
+   "nested": 0,
+   "files": [
+    "Build",
+    "Command"
+   ],
+   "variants": [
+    "Type=1 row (100%)"
+   ],
+   "inside": [
+    "title"
+   ]
+  },
+  "PreviewWidgetCard": {
+   "usual": [],
+   "figma": [
+    "preview-widget-card-organism",
+    "preview-chart-widget-card"
+   ],
+   "placed": 0,
+   "nested": 38,
+   "files": [],
+   "variants": [],
+   "inside": []
+  },
+  "WidgetCard": {
+   "usual": [
+    "Number 1 100%"
+   ],
+   "figma": [
+    "widget-card-organism",
+    "widget-card-item-customize-modal"
+   ],
+   "placed": 38,
+   "nested": 0,
+   "files": [
+    "Build",
+    "Value"
+   ],
+   "variants": [
+    "Number=1, State=Default (45%)",
+    "Property 1=2, state=Default (16%)",
+    "Property 1=3, state=Default (16%)"
+   ],
+   "inside": [
+    "chain"
+   ]
+  },
+  "DropIndicator": {
+   "usual": [],
+   "figma": [
+    "drop-indicator-atom"
+   ],
+   "placed": 4,
+   "nested": 0,
+   "files": [
+    "Build"
+   ],
+   "variants": [
+    "Property 1=Default (100%)"
+   ],
+   "inside": [
+    "list",
+    "body",
+    "title"
+   ]
+  },
+  "Menu": {
+   "usual": [],
+   "figma": [
+    "single-select-list-molecule",
+    "form-drop-down list"
+   ],
+   "placed": 82,
+   "nested": 16,
+   "files": [
+    "Build",
+    "Value",
+    "Command",
+    "Explore",
+    "Plan"
+   ],
+   "variants": [
+    "State=Default (54%)",
+    "Property 1=Default (46%)"
+   ],
+   "inside": [
+    "layers",
+    "map",
+    "chat-content",
+    "section"
+   ]
+  },
+  "Select": {
+   "usual": [
+    "Size m (32) 100%"
+   ],
+   "figma": [
+    "single-select-dropdown-atom",
+    "single-select-atom"
+   ],
+   "placed": 13,
+   "nested": 172,
+   "files": [
+    "Explore"
+   ],
+   "variants": [
+    "Size=M (32), State=Open (100%)"
+   ],
+   "inside": []
+  },
+  "MultiSelect": {
+   "usual": [
+    "Size m (40) 86%"
+   ],
+   "figma": [
+    "multiple-select-atom",
+    "multiple-select-list-molecule"
+   ],
+   "placed": 48,
+   "nested": 459,
+   "files": [
+    "Plan",
+    "Build"
+   ],
+   "variants": [
+    "Size=M (40), State=Filled (52%)",
+    "State=Default (23%)",
+    "Size=M (40), State=Overflow hover (15%)"
+   ],
+   "inside": [
+    "button-stack",
+    "title"
+   ]
+  },
+  "Combobox": {
+   "usual": [],
+   "figma": [
+    "signle-combobox-organism"
+   ],
+   "placed": 0,
+   "nested": 4,
+   "files": [],
+   "variants": [],
+   "inside": []
+  },
+  "SegmentedControl": {
+   "usual": [
+    "Number 2 48% / 4 27%",
+    "Size s 100%",
+    "type 4 72%"
+   ],
+   "figma": [
+    "segmented-control-organism",
+    "segmented-control"
+   ],
+   "placed": 511,
+   "nested": 283,
+   "files": [
+    "Build",
+    "Explore",
+    "Command",
+    "Plan",
+    "Value"
+   ],
+   "variants": [
+    "Number=2, Size=S (31%)",
+    "type=4, Size=S (25%)",
+    "Number=4, Size=S (17%)"
+   ],
+   "inside": [
+    "header",
+    "data-viz-header-molecule",
+    "Slot"
+   ]
+  },
+  "Chip": {
+   "usual": [
+    "active no 80%",
+    "Select false 76%"
+   ],
+   "figma": [
+    "chips"
+   ],
+   "placed": 634,
+   "nested": 173,
+   "files": [
+    "Value",
+    "Explore",
+    "Build"
+   ],
+   "variants": [
+    "active=no, state=Default (47%)",
+    "Select=False, State=Default (31%)",
+    "active=yes, state=Default (12%)"
+   ],
+   "inside": [
+    "chips"
+   ]
+  },
+  "Calendar": {
+   "usual": [
+    "type calendar 100%"
+   ],
+   "figma": [
+    "date-picker-molecule"
+   ],
+   "placed": 3,
+   "nested": 43,
+   "files": [
+    "Build",
+    "Command"
+   ],
+   "variants": [
+    "type=calendar (100%)"
+   ],
+   "inside": []
+  },
+  "EmptyState": {
+   "usual": [
+    "Size frame 2147228119 100%"
+   ],
+   "figma": [
+    "empty-state-organism"
+   ],
+   "placed": 2,
+   "nested": 0,
+   "files": [
+    "Build"
+   ],
+   "variants": [
+    "Size=Frame 2147228119 (100%)"
+   ],
+   "inside": [
+    "section",
+    "chain"
+   ]
+  },
+  "ProgressLoading": {
+   "usual": [],
+   "figma": [
+    "progress-bar-loading"
+   ],
+   "placed": 2,
+   "nested": 0,
+   "files": [
+    "Plan"
+   ],
+   "variants": [
+    "progress-bar-loading (100%)"
+   ],
+   "inside": [
+    "snackbar-organism"
+   ]
+  },
+  "FtaButton": {
+   "usual": [
+    "Stroke true 100%",
+    "style no 100%"
+   ],
+   "figma": [
+    "FTA button"
+   ],
+   "placed": 239,
+   "nested": 1518,
+   "files": [
+    "Explore",
+    "Value",
+    "Command"
+   ],
+   "variants": [
+    "State=Default, Stroke=True (99%)",
+    "Property 1=hover, style=no (1%)"
+   ],
+   "inside": [
+    "Default",
+    "agent"
+   ]
+  },
+  "PromptButton": {
+   "usual": [
+    "size m 75%"
+   ],
+   "figma": [
+    "prompt-button",
+    "prompt-chip"
+   ],
+   "placed": 53,
+   "nested": 3086,
+   "files": [
+    "Value"
+   ],
+   "variants": [
+    "state=Default, size=M (75%)",
+    "state=Default, size=L (25%)"
+   ],
+   "inside": [
+    "chips",
+    "div"
+   ]
+  },
+  "CooperChip": {
+   "usual": [],
+   "figma": [
+    "cooper-chip-atom"
+   ],
+   "placed": 41,
+   "nested": 8,
+   "files": [
+    "Build"
+   ],
+   "variants": [
+    "State=Hover (98%)",
+    "State=Default (2%)"
+   ],
+   "inside": [
+    "stack"
+   ]
+  },
+  "BottomSheet": {
+   "usual": [
+    "In progress true 97%"
+   ],
+   "figma": [
+    "value-bottom-sheet-organism",
+    "Evidence-strip-bar",
+    "Evidence-strip-bar/all actions"
+   ],
+   "placed": 2128,
+   "nested": 0,
+   "files": [
+    "Value",
+    "Build",
+    "Plan",
+    "Command",
+    "Explore"
+   ],
+   "variants": [
+    "Property 1=all actions (37%)",
+    "Evidence-strip-bar/all actions (34%)",
+    "Property 1=Input (12%)"
+   ],
+   "inside": [
+    "Answered",
+    "Added",
+    "Cooper",
+    "Default"
+   ]
+  },
+  "Tooltip": {
+   "usual": [
+    "Color black 67%",
+    "Type bottom 69%",
+    "Arrow center 60%"
+   ],
+   "figma": [
+    "tooltip-organism",
+    "Tooltip"
+   ],
+   "placed": 122,
+   "nested": 45,
+   "files": [
+    "Value",
+    "Explore",
+    "Build",
+    "Plan",
+    "Command"
+   ],
+   "variants": [
+    "Color=black, Type=Bottom, Arrow=Center (24%)",
+    "type=bottom, arrow=right (16%)",
+    "Color=grey (for black bg), Type=Bottom, Arrow=Center (8%)"
+   ],
+   "inside": [
+    "list",
+    "node container",
+    "map",
+    "strategic"
+   ]
+  },
+  "Alert": {
+   "usual": [
+    "Type success 83%"
+   ],
+   "figma": [
+    "alert-organism",
+    "alert"
+   ],
+   "placed": 6,
+   "nested": 0,
+   "files": [
+    "Explore",
+    "Value"
+   ],
+   "variants": [
+    "Type=Success (83%)",
+    "type=warning (17%)"
+   ],
+   "inside": []
+  },
+  "Snackbar": {
+   "usual": [],
+   "figma": [
+    "snackbar-organism",
+    "snackbar"
+   ],
+   "placed": 59,
+   "nested": 0,
+   "files": [
+    "Build",
+    "Value",
+    "Command",
+    "Explore"
+   ],
+   "variants": [
+    "Property 1=primary (69%)",
+    "Property 1=Default (19%)",
+    "Property 1=primary (close button) (12%)"
+   ],
+   "inside": [
+    "Expand",
+    "Dashboard"
+   ]
+  },
+  "Overlay": {
+   "usual": [
+    "Type base 98%"
+   ],
+   "figma": [
+    "overlay"
+   ],
+   "placed": 197,
+   "nested": 0,
+   "files": [
+    "Value",
+    "Build",
+    "Plan",
+    "Explore",
+    "Command"
+   ],
+   "variants": [
+    "Type=Base (98%)",
+    "Type=Strong (2%)"
+   ],
+   "inside": [
+    "Answered",
+    "Study",
+    "Added",
+    "Executive"
+   ]
+  },
+  "Modal": {
+   "usual": [
+    "Color modal 100%"
+   ],
+   "figma": [
+    "modal-organism"
+   ],
+   "placed": 93,
+   "nested": 46,
+   "files": [
+    "Build",
+    "Explore",
+    "Plan"
+   ],
+   "variants": [
+    "Color=modal (100%)"
+   ],
+   "inside": [
+    "modal",
+    "Tabs",
+    "Executive"
+   ]
+  },
+  "Drawer": {
+   "usual": [
+    "Expanded true 100%"
+   ],
+   "figma": [
+    "drawer-organism"
+   ],
+   "placed": 1,
+   "nested": 0,
+   "files": [
+    "Build"
+   ],
+   "variants": [
+    "Expanded=True (100%)"
+   ],
+   "inside": []
+  },
+  "Popover": {
+   "usual": [],
+   "figma": [
+    "popover-organism"
+   ],
+   "placed": 16,
+   "nested": 0,
+   "files": [
+    "Build",
+    "Command"
+   ],
+   "variants": [
+    "State=Default (100%)"
+   ],
+   "inside": [
+    "Expand"
+   ]
+  },
+  "FloatingBar": {
+   "usual": [],
+   "figma": [
+    "floating bar"
+   ],
+   "placed": 121,
+   "nested": 0,
+   "files": [
+    "Explore"
+   ],
+   "variants": [
+    "floating bar (100%)"
+   ],
+   "inside": [
+    "Default",
+    "Start"
+   ]
+  }
+ },
+ "unused": [
+  "Icon",
+  "TimelineMarker",
+  "TimelineItem",
+  "UserCard",
+  "TimelinePhase",
+  "TimelineChart",
+  "ColumnChart",
+  "HistogramChart",
+  "BarChart",
+  "GroupedColumnChart",
+  "StackedColumnChart",
+  "LineChart",
+  "AreaChart",
+  "PieChart",
+  "DonutChart",
+  "ScatterChart",
+  "BubbleChart",
+  "GaugeChart",
+  "WaterfallChart",
+  "FunnelChart",
+  "HeatmapChart",
+  "EvidenceStrength",
+  "NotificationCard",
+  "PhoneField",
+  "FormCard",
+  "IconPicker",
+  "Tabs",
+  "Crumb",
+  "Pager",
+  "NavBarCollapsed",
+  "ResizeHandle",
+  "WidgetViewChangePosition",
+  "Spinner",
+  "LoadingMore",
+  "Panel"
+ ]
+}

@@ -23,6 +23,13 @@ Replace the matching blocks in `src/tokens.css` and update the date in its heade
 ## Icons changed
 Re-export the Icons page (1399:9134) to `src/icons.js` in batches of about 20 sets per call. Store the inner SVG markup per size, with single colours replaced by `currentColor`.
 
+## Handover usage changed (new audit)
+1. Re-scan the handover files with `tools/usage-scan.js`. Each file must be the active Figma tab, and the scan is read-only.
+2. Merge the scans into `_resolved.json`. Remap variant keys to their component sets.
+3. Run `node tools/gen-usage.mjs <_resolved.json>`, then `npm run release`.
+
+This refreshes `guide/usage.md` / `usage.json` and the **In handovers** lines in api.md. Section 3b of `guide/components.md` is hand-written, so update its numbers when they shift.
+
 ## Changing how the skill behaves
 Edit `ifs-kit/skill/INSTRUCTIONS.md`, not the loader. Everyone gets the change on their next run once it's pushed. Only change `skill/loader/ifs-prototype/SKILL.md` if the loader itself must change; that means sending people a new zip.
 

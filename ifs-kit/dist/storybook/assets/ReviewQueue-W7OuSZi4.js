@@ -1,16 +1,21 @@
-import{j as e,M as a}from"./index-D5tt40Ak.js";import{useMDXComponents as r}from"./index-DL7Mpk60.js";import"./iframe-BBJZSCGa.js";import"./index-B0WjJBI_.js";import"./_commonjsHelpers-CqkleIqs.js";import"./index-DMiPp6uX.js";import"./index-x-G-dxfr.js";import"./index-CwPCC0ZT.js";import"./index-cS34vJOP.js";import"./index-Bhqu_tAV.js";function s(t){const n={code:"code",h1:"h1",h2:"h2",li:"li",p:"p",strong:"strong",ul:"ul",...r(),...t.components};return e.jsxs(e.Fragment,{children:[`
+import{j as e,M as r}from"./index-Vw_uIaZo.js";import{useMDXComponents as a}from"./index-DL7Mpk60.js";import"./iframe-7uv_5wAd.js";import"./index-B0WjJBI_.js";import"./_commonjsHelpers-CqkleIqs.js";import"./index-DMiPp6uX.js";import"./index-x-G-dxfr.js";import"./index-CwPCC0ZT.js";import"./index-cS34vJOP.js";import"./index-Bhqu_tAV.js";function s(t){const n={code:"code",h1:"h1",h2:"h2",li:"li",p:"p",strong:"strong",ul:"ul",...a(),...t.components};return e.jsxs(e.Fragment,{children:[`
 `,`
-`,e.jsx(a,{title:"Review queue"}),`
+`,e.jsx(r,{title:"Review queue"}),`
 `,e.jsx(n.h1,{id:"review-queue",children:"Review queue"}),`
-`,e.jsxs(n.p,{children:["69 items to check, on 45 stories. Each one is a place where Figma disagrees with itself, something was invented or approximated, or a legacy part was kept. When frames and notes disagreed, the notes won. Open the story, compare it with the Design tab, then remove the item from ",e.jsx(n.code,{children:"guide/review.md"}),"."]}),`
+`,e.jsxs(n.p,{children:["73 items to check, on 48 stories. Each one is a place where Figma disagrees with itself, something was invented or approximated, or a legacy part was kept. When frames and notes disagreed, the notes won. Open the story, compare it with the Design tab, then remove the item from ",e.jsx(n.code,{children:"guide/review.md"}),"."]}),`
 `,e.jsx(n.h2,{id:"activity--collaborationcommentthread",children:e.jsx("a",{href:"./index.html?path=/docs/activity-collaboration-commentthread--docs",target:"_top",children:"Activity & Collaboration/CommentThread"})}),`
 `,e.jsxs(n.ul,{children:[`
+`,e.jsx(n.li,{children:"The Cooper-mode composer ring uses the same 225° diagonal gradient. Verify its direction against the Comments Cooper input in Figma."}),`
 `,e.jsx(n.li,{children:"The resolved look is now rebuilt to match 12:44840: ⋯ (Unresolve, Copy link) and ✕, Inactive avatars, the composer kept, nothing dimmed. The invented look is gone."}),`
 `,e.jsx(n.li,{children:"Figma has two resolved looks: 12:44840 (above) and 12:36500 (green filled ✓, coloured avatars). Which is current?"}),`
 `]}),`
 `,e.jsx(n.h2,{id:"map--canvascanvas-demo",children:e.jsx("a",{href:"./index.html?path=/docs/map-canvas-canvas-demo--docs",target:"_top",children:"Map & Canvas/Canvas demo"})}),`
 `,e.jsxs(n.ul,{children:[`
 `,e.jsxs(n.li,{children:[e.jsx(n.strong,{children:"Invented."})," The mini-map is a stand-in. Figma describes a navigator but has no component for it."]}),`
+`]}),`
+`,e.jsx(n.h2,{id:"data-visualisationdatavizcard",children:e.jsx("a",{href:"./index.html?path=/docs/data-visualisation-datavizcard--docs",target:"_top",children:"Data Visualisation/DataVizCard"})}),`
+`,e.jsxs(n.ul,{children:[`
+`,e.jsx(n.li,{children:"The Cooper ring gradient runs diagonally (225°, orange at top-right). That may have been copied from the old ContentCard rather than taken from Figma; ContentCard's real direction is ≈282°. Verify against data-viz-card-organism State=Cooper in the IFS DS file."}),`
 `]}),`
 `,e.jsx(n.h2,{id:"data-visualisationcolumnchart",children:e.jsx("a",{href:"./index.html?path=/docs/data-visualisation-columnchart--docs",target:"_top",children:"Data Visualisation/ColumnChart"})}),`
 `,e.jsxs(n.ul,{children:[`
@@ -19,6 +24,14 @@ import{j as e,M as a}from"./index-D5tt40Ak.js";import{useMDXComponents as r}from
 `,e.jsx(n.h2,{id:"data-visualisationlinechart",children:e.jsx("a",{href:"./index.html?path=/docs/data-visualisation-linechart--docs",target:"_top",children:"Data Visualisation/LineChart"})}),`
 `,e.jsxs(n.ul,{children:[`
 `,e.jsx(n.li,{children:"The y-axis starts at 80; Figma's starts at 60."}),`
+`]}),`
+`,e.jsx(n.h2,{id:"data-displaycontentcard",children:e.jsx("a",{href:"./index.html?path=/docs/data-display-contentcard--docs",target:"_top",children:"Data Display/ContentCard"})}),`
+`,e.jsxs(n.ul,{children:[`
+`,e.jsx(n.li,{children:"Cooper state fixed (Oct 2026) to match content-card-organism 12:6669 / 12:6715: a 2px black gap, then a 2px ring, orange at bottom-right fading to white at the left (≈282°). It used to be a 4px diagonal gradient frame. Check it against the Figma component."}),`
+`]}),`
+`,e.jsx(n.h2,{id:"navigationsidenav",children:e.jsx("a",{href:"./index.html?path=/docs/navigation-sidenav--docs",target:"_top",children:"Navigation/SideNav"})}),`
+`,e.jsxs(n.ul,{children:[`
+`,e.jsxs(n.li,{children:["Handovers vs the Nav bar pattern: ",e.jsx(n.code,{children:"guide/patterns/nav-bar.md"})," says Build has no sections and therefore no sidebar, yet the Build handover places ",e.jsx(n.code,{children:"sidebar-organism"})," on most screens (~1,000 instances). The kit follows the pattern note. Which is right?"]}),`
 `]}),`
 `,e.jsx(n.h2,{id:"navigationpagetop",children:e.jsx("a",{href:"./index.html?path=/docs/navigation-pagetop--docs",target:"_top",children:"Navigation/PageTop"})}),`
 `,e.jsxs(n.ul,{children:[`
@@ -206,4 +219,4 @@ import{j as e,M as a}from"./index-D5tt40Ak.js";import{useMDXComponents as r}from
 `,e.jsx(n.h2,{id:"exampleswidget-builderreport-widgets--resize-drag--drop-rules",children:e.jsx("a",{href:"./index.html?path=/docs/examples-widget-builder-report-widgets-resize-drag-drop-rules--docs",target:"_top",children:"Examples/Widget builder/Report widgets — resize, drag & drop rules"})}),`
 `,e.jsxs(n.ul,{children:[`
 `,e.jsx(n.li,{children:"Two charts in one row: the old frame 331:507955 shows a resize handle between them; the rules (413:56466) lock them at ½ + ½. The kit locks them (notes win)."}),`
-`]})]})}function j(t={}){const{wrapper:n}={...r(),...t.components};return n?e.jsx(n,{...t,children:e.jsx(s,{...t})}):s(t)}export{j as default};
+`]})]})}function j(t={}){const{wrapper:n}={...a(),...t.components};return n?e.jsx(n,{...t,children:e.jsx(s,{...t})}):s(t)}export{j as default};

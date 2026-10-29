@@ -11,13 +11,26 @@ const families = readdirSync(comp).filter(f => f.endsWith('.jsx') && !f.startsWi
 const pkg = JSON.parse(readFileSync(join(root, 'package.json'), 'utf8'));
 const PAGES = 'https://shinyc01.github.io/new-cl-design-system/ifs-kit';
 const tiers = JSON.parse(readFileSync(join(root, 'guide/tiers.json'), 'utf8'));
+// Real usage in the product handover files (guide/usage.json, from tools/gen-usage.mjs), one line per entry.
+let usage = { components: {}, unused: [] };
+try { usage = JSON.parse(readFileSync(join(root, 'guide/usage.json'), 'utf8')); } catch {}
+const usageLine = name => {
+  const u = usage.components[name];
+  if (u) return u.placed
+    ? `**In handovers:** placed ${u.placed.toLocaleString('en-US')}× (${u.files.join(', ')}) · usual: ${u.usual.join(' · ') || u.variants[0] || '—'}\n`
+    : `**In handovers:** only inside other components (${u.nested.toLocaleString('en-US')}×); don't place on its own\n`;
+  // Wrappers whose parts designers place one by one on the canvas.
+  const parts = { Tabs: 'Tab' }[name];
+  if (parts && usage.components[parts]) return `**In handovers:** designers place the single ${parts} items (${usage.components[parts].placed.toLocaleString('en-US')}×) in a row; use this for the row\n`;
+  return usage.unused.includes(name) ? '**In handovers:** no handover screen uses it yet (may be newer than the handovers)\n' : '';
+};
 const tierOf = (fam, name) => !fam.startsWith('patterns-') || tiers.components.includes(name) ? 'Component' : 'Pattern helper';
 
 let out = `# IFS DS kit — component API
 
 Kit version ${pkg.version}, generated ${new Date().toISOString().slice(0, 10)}. Everything is available as \`IFS.<Name>\` in a prototype. Each entry has a **Tier**: *Component* = a published IFS DS Figma component (build screens from these); *Pattern helper* = a working composition that implements a pattern's rules, not a Figma component (allowed, but name it as a pattern helper in the plan). Example screens are not in this list — see the Examples in Storybook.
 Each entry is the comment above the component in source (Figma name/node and props). For real usage of every variant,
-read the family's examples file (linked per family). \`IFS.Icon({ name, size: 12|16|24, variant })\` takes Figma icon names — see icons.txt.
+read the family's examples file (linked per family). **In handovers** = how often designers place it in the real product files and its usual variant (details: guide/usage.md). \`IFS.Icon({ name, size: 12|16|24, variant })\` takes Figma icon names — see icons.txt.
 
 `;
 
@@ -60,7 +73,7 @@ for (const f of ['_core.jsx', ...families]) {
   out += `## ${fam}\n\nExamples (read before using any component below — shows the data shapes props expect): ${PAGES}/src/gallery/${fam === 'core' ? 'button' : fam}.jsx\n\n`;
   for (const e of entries(f)) {
     if (e.name === 'cx') continue;
-    out += `### ${e.name}\n**Tier:** ${tierOf(fam, e.name)}\n${e.doc ? e.doc + '\n' : ''}\`${e.sig.slice(0, 900)}\`\n\n`;
+    out += `### ${e.name}\n**Tier:** ${tierOf(fam, e.name)}\n${usageLine(e.name)}${e.doc ? e.doc + '\n' : ''}\`${e.sig.slice(0, 900)}\`\n\n`;
   }
 }
 

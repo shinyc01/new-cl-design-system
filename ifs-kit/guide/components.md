@@ -17,7 +17,7 @@ The standard product screen (Navigation pattern page, screen "Map - Overview - D
 
 | Region | Component | Position / size | Source |
 |---|---|---|---|
-| Level 1 nav bar | `global-header` (logo + stage tabs Home · Value · Explore · Build · Plan · Results + search/settings/notifications + avatar) | top, full width, 48px | pattern screen (inferred that this is the L1 bar; the canvas documents the L1 bar as `nav-bar-organism`, see Gaps) |
+| Level 1 nav bar | `nav-bar-organism` (kit `NavBar`; logo + stage tabs Home · Value · Explore · Build · Plan · Results + search/settings/notifications + avatar) | top, full width, 48px | handovers: `nav-bar-organism` placed 2,340× in all 5 files, `global-header` 15× |
 | Level 2 sidebar | `sidebar-pattern` (built on `navigation-panel-organism`) | left, 240px, below nav bar | (Figma) "The 2nd tier of navigation … Level 1 picks the stage; Level 2 picks where you are within it." |
 | Level 3 page header | single object's page: `page-header` / `page-header-pattern` / `header-pattern` (kit `PageHeader`); on map views add `canvas-header` underneath. Library/list page: `page-top` (kit `PageTop`) | top of content area | (Figma) "the page header frames the specific page … holding the controls and actions that act on the page's content." |
 | Content | 12-column grid (dashboards, content pages) **or** `canvas-background` (map / node-graph views) | fills remaining space | (Figma, Layout) |
@@ -104,6 +104,40 @@ Each rule is quoted from a canvas note (Figma) and cited by page.
 | Loading with a known shape | skeleton in the owning component | spinner (`empty-state-spinner-molecule`) for unknown shape |
 | Chart in a dashboard tile | `data-viz-card-organism` + a core chart (`chart-bar`, `chart-line` …) | legacy named charts |
 | Comment on a canvas object | `comment-pin-organism` → `comment-popover-organism` | `tooltip-organism` |
+
+---
+
+## 3b. What the product screens actually use
+
+From the audit of the five product handover files (Build, Explore, Command, Plan, Value; Oct 2026, about 100k placed components). The rules above win. Use this to choose between the options they allow and to set props. Every kit entry in api.md has an **In handovers** line with its usual values; `guide/usage.md` has screens, containers and sample text per component.
+
+- **Shell on every screen:** `NavBar` (2,355 placed, in all 5 files) + `BottomSheet` (Cooper strip, all 5 files). `SideNav` appears only on stages that have sections; `guide/patterns/nav-bar.md` decides which. Where there is one, it's collapsed on 75% of screens, so pass `defaultCollapsed` unless the sidebar's content is the point of the screen.
+- **Page header:**
+  - Single object (an investment, alternative, framework): `PageHeader`. 67% of uses carry the stage progress bar. Take its steps from the user or the pattern; don't invent them.
+  - Library/list pages: `PageTop` (title, one-line description, New button).
+  - Explore map: `ExploreHeader`. Value/Plan canvases add `CanvasHeader` under the page header.
+- **Collections are tables:** `Table` is by far the most used (18k cells). Cells are text 63%, then status and text + description. Lists of investments, alternatives and versions are tables, not card grids. The exception is comparing 2–4 alternatives side by side: use `ContentCard` M columns with `BarChartItem` rows (Build › Compare Alternatives).
+- **Cards:**
+  - `ContentCard` M (70%) in lists and option pickers; S (28%) when nested or in side lists; `selected` for pick-one options.
+  - The Command home list uses `HomeRowCard`; value-model canvases and trees use `NodeCard`.
+- **Buttons:**
+  - `Button` is Secondary (56%) or Tertiary (27%) at size M or S. Primary is rare: one per page.
+  - `IconButton` is Ghost, square, size S in 90% of uses, so pass `size="s"`.
+- **Filters and view switches:**
+  - `SegmentedControl` is always size S (`size="s"`), usually 2 options (sometimes 4), with counts ("Drafts · 6"). It sits in card headers, table headers and data-viz headers.
+  - `Tabs` size M or L for page-level views.
+  - `Chip` for applied filters and tags (Value, Explore).
+- **Small markers:** `Counter` S next to labels. `Badge` white, size S (`size="s"`). `StatusIndicator` dot without stroke inside tabs, segments and badges. Meaningful status still uses RiskStatus / ReadinessStatus (rule 8).
+- **Charts:**
+  - Compare and Plan screens build breakdowns from `BarChartItem` rows (3,190) with `InfoHintItem` legends (808).
+  - The core chart components (`BarChart`, `LineChart` …) are newer than the handovers. Use them for standard charts in a `DataVizCard` + `DataVizHeader`.
+- **Comments:** `CommentDrawerCard` in the comments drawer, `CommentPin` on canvases, `CommentButton` in headers.
+- **Cooper:** `FtaButton` bottom-right + `BottomSheet` prompts; `ChatCard` / `ChatLink` inside answers.
+- **Common in handovers but not in the kit.** Say "Not in DS" and offer the closest component:
+  - Gantt-style schedule timeline (cells, rows, today line; Build › Alternatives Cost and Schedule)
+  - Formula builder rows (`formula item`, `function row`; Value)
+  - Calendar day/date items
+  - Map layer list (Explore)
 
 ---
 
@@ -1178,8 +1212,8 @@ No canvas guidance at all (usage is inferred only):
 
 Ambiguities and fixes for the designer:
 1. **Five sets named `chart-strategic-objectives`** (2219:1754, 4457:41517, 4699:26724, 4457:42683, 5967:55151) with identical variants. Which one is canonical?
-2. **Two L1 nav bars:** pattern screens use `global-header` (69:3736, which has no page parent — orphaned or on a hidden page), while the canvas documents `nav-bar-organism` as "use this". Which should screens use?
-3. **Three page headers:** `page-header` (1588:1971, used in screens), `page-header-pattern`, `header-pattern`. Which is canonical for L3?
+2. **Two L1 nav bars:** (handovers settle it: `nav-bar-organism` 2,340×, `global-header` 15×) pattern screens use `global-header` (69:3736, which has no page parent — orphaned or on a hidden page), while the canvas documents `nav-bar-organism` as "use this". Which should screens use?
+3. **Three page headers:** (handovers: `page-header` 1,023×, `page-top` 405×, `header-pattern` never) `page-header` (1588:1971, used in screens), `page-header-pattern`, `header-pattern`. Which is canonical for L3?
 4. **Select size labels conflict:** one note says M=32 (modals), L=40 (full page), XL=44 (view selector); another says "M (40) modals", "L (44) page-level". Segmented-control notes say S (28) / M (38) but the variants are S (24) / M (34).
 5. **Breadcrumbs vs "no links":** Breadcrumb notes say crumbs "are links, they behave like links", which conflicts with the buttons-not-links rule.
 6. **Typo names:** `signle-combobox-organism`, `sliter-atom`, `timiline-phase-molecule`, `sunkey-canvas-header`; option and property typos `Righ`, `Hove`, `Udpate`, `Respondong`, `Coper drag`, `Segement`, `sceleton/Sceleton`, `Has new notiication?`, `show-hont-text`, `show-acion`, `show-segmanted-control`, `show-2nd-avavtar`, `Conetnt slot`, `Assent container slot`, `iconl-right`.

@@ -11,7 +11,8 @@ You turn the user's idea into a clickable prototype built **only** from the IFS 
 | Read | URL |
 |---|---|
 | Usage guide: screen anatomy, global rules, "pick the right component" | `$BASE/guide/components.md` |
-| Component API: every `IFS.<Name>` with its props | `$BASE/dist/api.md` |
+| Component API: every `IFS.<Name>` with its props, and its **In handovers** line (how often designers use it, usual prop values) | `$BASE/dist/api.md` |
+| How the real product screens use each component: usual values and what it sits inside | `$BASE/guide/usage.md` |
 | Pattern rules, one file per pattern: cooper, widget-builder, documents, table, nav-bar, collaboration, evidence, activity, approval, comments, trace | `$BASE/guide/patterns/<slug>.md` |
 | Real usage of every variant, per family | `$BASE/src/gallery/<family>.jsx` (family names are the `##` headings in api.md) |
 | Icon names | `$BASE/dist/icons.txt` |
@@ -28,12 +29,14 @@ Helper scripts (downloaded into `.ifs/`; run them with `bash`):
 ## The flow — always in this order
 
 ### 1. Understand
-Read the guide (sections 1–3 and the patterns index in section 5 especially) and the API, then the user's description. Work out what you already know.
+Read the guide (sections 1–3b and the patterns index in section 5 especially) and the API, then the user's description. Work out what you already know.
 
 The kit has three tiers. Keep them apart:
 - **Components** (`Tier: Component` in api.md): real, published IFS DS Figma components. Build screens from these.
 - **Patterns** (`guide/patterns/<slug>.md`): the rules for how something works, such as Cooper chat, documents, tables, widget drag & drop, comments and approvals. When the idea touches one of these, read that file and follow its rules. They apply even if you build from plain components.
 - **Examples** (the "Examples" section in Storybook, and the `Pattern …` sections in gallery files): screens that demonstrate a pattern with sample data. Use them as reference for layout and behaviour only. Never copy their data or treat a whole example as a part.
+
+**Choosing between components.** The guide's rules come first. Where they leave a choice, pick what the product screens use: section 3b of the guide, and the **In handovers** line in api.md. A component that's used thousands of times is the safe pick; one that's "only inside other components" is a part, so don't place it on its own. For each component in your plan, check its entry in usage.md to see what real screens put it inside.
 
 **Pattern helpers** (`Tier: Pattern helper` in api.md, e.g. DataTable, CooperChat, WidgetBoard) are working compositions that implement a pattern's rules. They are not Figma components. You may use them when they fit, but say so in the plan.
 
@@ -70,6 +73,7 @@ End with: "Anything to change before I build it?" **Do not build until the user 
 1. Save the starter as `<output folder>/<kebab-name>.src.html`. Default output folder: `./prototypes/` in the current working directory, unless the user named one.
 2. Write the prototype in the template's `<script type="text/babel">` block. While you work, the `.src.html` loads the live kit from the web, so it opens in a browser as-is:
    - Destructure what you use from `IFS` (`const { Button, Table, Modal } = IFS;`). Use only names that exist in api.md.
+   - Set props to the usual values from the **In handovers** line, not the code defaults, unless the plan says otherwise. For example, IconButton `size="s"`, SegmentedControl `size="s"`, Badge `size="s"`, and SideNav `defaultCollapsed`.
    - **Use only kit components for UI.** Your own markup is limited to layout wrappers (div + flex/grid) and plain text using the `.t-*` text-style classes (e.g. `t-heading-h1-medium`, `t-body-m-regular`).
    - Use `var(--…)` tokens for all colours, spacing and radius. No hex, no new fonts, no box that imitates a component.
    - Build one `App` with a tiny screen router: `const [screen, setScreen] = React.useState(location.hash.slice(1) || 'list')`. Keep `location.hash` in sync, so every screen has a URL (`#list`, `#detail`) for screenshots and sharing.

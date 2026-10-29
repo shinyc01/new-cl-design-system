@@ -6,6 +6,9 @@ Format (read by tools/gen-stories.mjs): `### <story section name>`, then one bul
 
 ## Navigation
 
+### SideNav
+- Handovers vs the Nav bar pattern: `guide/patterns/nav-bar.md` says Build has no sections and therefore no sidebar, yet the Build handover places `sidebar-organism` on most screens (~1,000 instances). The kit follows the pattern note. Which is right?
+
 ### PageTop
 - Two masters in Patterns: standalone `page-top` 95:18889 and component set 244:117279 (set key c5e4c474…). The set's variant and the standalone share key 771d8425…; the set only adds the `cooper` eyebrow and the `show search` / `Show button` booleans. Neither turned up in a search of the published IFS Design System library. The kit follows the set.
 - The Command instance (244:119970) overrides the row gap to 12 (master 20) and its title row has no button. The kit passes `style={{ gap: 12 }}`.
