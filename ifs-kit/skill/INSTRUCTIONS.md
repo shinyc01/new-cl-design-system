@@ -10,7 +10,8 @@ You turn the user's idea into a clickable prototype built **only** from the IFS 
 
 | Read | URL |
 |---|---|
-| Usage guide: screen anatomy, global rules, "pick the right component" | `$BASE/guide/components.md` |
+| Usage rules: screen anatomy, global rules, "pick the right component", what product screens use, patterns index | `$BASE/guide/rules.md` (read it whole) |
+| Per-component Figma details (keys, nodes, canvas notes) | `$BASE/guide/components.md` section 4 (only to settle a question the rules and the API leave open) |
 | Component API: every `IFS.<Name>` with its props, and its **In handovers** line (how often designers use it, usual prop values) | `$BASE/dist/api.md` |
 | How the real product screens use each component: usual values and what it sits inside | `$BASE/guide/usage.md` |
 | Pattern rules, one file per pattern: cooper, widget-builder, documents, table, nav-bar, collaboration, evidence, activity, approval, comments, trace | `$BASE/guide/patterns/<slug>.md` |
@@ -20,7 +21,7 @@ You turn the user's idea into a clickable prototype built **only** from the IFS 
 | Prototype starter | `$BASE/template.html` |
 | Storybook, for the user to browse | `$BASE/dist/storybook/` |
 
-At the start, make a work folder `<output folder>/.ifs/` and download into it with `curl -fsSL`: the guide, API, icon list, token list and template, plus the two helper scripts `$BASE/skill/scripts/inline.sh` and `$BASE/skill/scripts/shot.sh`. Then read the files from disk. **Before using a component, read its family's gallery file:** api.md lists prop names, while the gallery shows the data shapes they take (table columns and cells, nav items, chart data). Never guess a prop or a token name; check api.md and tokens.txt.
+At the start, make a work folder `<output folder>/.ifs/` and download into it with `curl -fsSL`: rules.md, the guide (components.md), API, icon list, token list and template, plus the two helper scripts `$BASE/skill/scripts/inline.sh` and `$BASE/skill/scripts/shot.sh`. Then read the files from disk. **Before using a component, read its family's gallery file:** api.md lists prop names, while the gallery shows the data shapes they take (table columns and cells, nav items, chart data). Never guess a prop or a token name; check api.md and tokens.txt.
 
 Helper scripts (downloaded into `.ifs/`; run them with `bash`):
 - `inline.sh <in.src.html> <out.html>`: snapshots the published kit into one standalone file.
@@ -35,7 +36,7 @@ Every step you take resends everything read so far, so the number of steps drive
 ## The flow — always in this order
 
 ### 1. Understand
-Read the guide (sections 1–3b and the patterns index in section 5 especially) and the API, then the user's description. Work out what you already know.
+Read rules.md and the API, then the user's description. Work out what you already know.
 
 The kit has three tiers. Keep them apart:
 - **Components** (`Tier: Component` in api.md): real, published IFS DS Figma components. Build screens from these.

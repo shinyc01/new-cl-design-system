@@ -9,7 +9,7 @@
     "stories": "node tools/gen-stories.mjs",
     "build": "node build.mjs",
     "build-storybook": "node tools/gen-stories.mjs && storybook build -o dist/storybook --quiet",
-    "release": "node tools/gen-stories.mjs && node build.mjs && node tools/gen-api.mjs && npm run skill && storybook build -o dist/storybook --quiet",
+    "release": "node tools/gen-stories.mjs && node build.mjs && node tools/gen-api.mjs && node tools/gen-rules.mjs && npm run skill && storybook build -o dist/storybook --quiet",
     "skill": "cp tools/inline.sh tools/shot.sh skill/scripts/ && rm -f dist/ifs-prototype-skill.zip && cd skill/loader && zip -qr ../../dist/ifs-prototype-skill.zip ifs-prototype"
   },
   "dependencies": {
