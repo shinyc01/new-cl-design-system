@@ -2,19 +2,6 @@
 
 Patterns file `KmmVU2D0kqWr0dC1xXNzWw`, page "Nav bar" 243:66369, section "nav bar" 244:119940.
 
-## In short
-- Every screen has one L1 `NavBar`: 48px, sticky, full width, logo left, actions right, exactly one stage active. Never use `global-header`.
-- Stage order is fixed: Command, Value, Explore, Build, Plan, Results. Pass them as `stages` (the kit default still says "Home").
-- When tabs don't fit, use `NavBarCollapsed` (hamburger list); don't wrap or scroll tabs. `ResponsiveNavBar` picks by width (<800 collapsed).
-- Use `StagedAppShell` with a `screens` map from stage to `{ sideNav, header, content, bottom }`; switching a stage swaps all four.
-- L2 belongs to the stage: Command and Build have no sidebar (full-width content); Value `SideNav`; Plan `SideNavTree`; Explore `ExploreHeader`, no sidebar.
-- Don't add a sidebar to a stage without sections. Plan and Explore also have a 48px collapsed right panel rail. Sidebars collapse to a 48px rail.
-- Command: `PageTop` (Cooper eyebrow, greeting, `Tabs` with counts, `SmartSearch`), then a ranked `HomeRowCard` list; only the first card is Primary.
-- Value/Build: `PageTop` with H1, description and "New" `Button` (no `PageHeader`), then `DataTable`. Explore: map, no bottom sheet. Plan: `BottomSheet type="value"`.
-- HomeRowCard metrics are CPV and V/C; long text truncates on one line. Bottom-sheet prompts are specific to the screen.
-- Don't put stage navigation in `Tabs`; Tabs are for peer views inside a page.
-- Details below: What it is / when to use it, Anatomy, Flows and states, Rules, Don'ts, Consolidated / unsure
-
 ## What it is / when to use it
 The Level-1 bar that switches between the product's stages, and what each stage brings with it. The page lays out one frame per stage under a sticky label: Command, Value, Explore, Build, Plan. Results, Search, Notification and User settings have labels but no frames. Use it as the top of every product screen. Each stage then supplies its own L2 sidebar (or none), header, content and bottom sheet.
 

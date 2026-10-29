@@ -2,20 +2,6 @@
 
 Patterns file `KmmVU2D0kqWr0dC1xXNzWw`, page "Comments" 12:30065, section 12:33979.
 
-## In short
-- Use on canvas records reviewed together: `CommentPin`s, `CommentCallout` in place, `CommentsPanel` drawer (`useCommentThreads`). Not for Cooper chat or activity.
-- Enter Comments mode via the header `CommentButton` or C: drawer opens, comment cursor on canvas, default cursor over the drawer; ✕ closes.
-- Click canvas → composer anchored to the nearest node; Enter sends (new pin + new top row with blue dot), Esc cancels. Mode stays on after sending.
-- Collapsed nodes show one roll-up pin with the count; expanding zooms in and shows one author pin per thread.
-- Pin hover = preview card only. Click pin or row → callout at anchor, row Selected, unread dot cleared. Only one callout open at a time.
-- Drawer rows never expand: first comment only, truncated, never replies.
-- Reply in the callout; `@` opens `CommentMentionMenu`. Resolve via ✓ (header or row hover); the next unresolved thread opens.
-- Resolved: callout has ⋯ (Unresolve, Copy link) and ✕, no ✓; avatars Inactive; text not dimmed; composer stays; pins in Read style; no chips.
-- Types Action required / Question / Info; only Action required shows a chip.
-- Search ("Ask anything about comments") filters the current tab; it never answers in chat. Copy link → "✓ Copied" for 2s.
-- Empty: all resolved → "All comments have been resolved"; no match → "No results found" + chip. Comment button dot while any unresolved thread is unread.
-- Details below: What it is / when to use it, Anatomy, Flows and states, Rules, Don'ts, Consolidated / unsure, Review
-
 ## What it is / when to use it
 Threaded comments anchored to elements of a canvas (framework map): pins on the canvas, a thread callout opened in place, and a Comments drawer listing every thread. Use it on any canvas record people review together. Not for chat with Cooper (Cooper pattern) or activity history (Activity).
 

@@ -2,21 +2,6 @@
 
 Patterns file `KmmVU2D0kqWr0dC1xXNzWw`, page 12:121114. Sections: System confidence 30:72980, Trace report 12:175763, Readiness Evaluation 12:192947.
 
-## In short
-- Pick the panel by role: `SystemConfidence` for the author on Review; `TraceReport` reacting to an incorrect user change; Readiness Evaluation for a reviewer.
-- Drive System Confidence and Trace Report with `useIssueReport({ issues, kinds, gates, onResolvedAll })`, kinds `CONFIDENCE_KINDS` or `TRACE_KINDS`.
-- `IssueKindSwitch` (`SegmentedControl` S with counters) is hidden when only one kind has items. Red = open questions/errors; orange = warnings.
-- `IssueNavigator`: ‹ › one item at a time (ends disabled), All lists numbered `IssueListItem`s. Position resets on kind change; "(n% resolved)" doesn't.
-- Show only the actions an issue needs (Solutions, Upload file, My answer, Okay); omit the rest, never grey them. Cooper's recommended solution gets cooper styling.
-- Resolving shows "Applied"/"Answered" with undo on hover; Okay marks warnings/notes "viewed". Gates turn Passed when all items resolve; % updates.
-- At 100% every gate is Passed and Send for approval enables.
-- Trace Report: no close button, items can't be dismissed without action; it only collapses, and closes itself when all are resolved. Footer Undo reverts the change.
-- Trace Report is `type="drawer"` (floating, collapses to header) or `type="sidebar"` (`Panel`) per screen, with identical content.
-- Collapsed System Confidence / sidebar Trace Report = `PanelRail` (48px) with red dot (questions), orange (warnings), none when all OK.
-- Readiness Evaluation (`ReadinessEvaluation` in `Panel`) lists only the case's gates/metrics; header `SplitButton` Approve ▾ → Request more info.
-- Don't paginate tables with the `Pager`. Don't use System Confidence for a reviewer or Trace Report for a standing audit.
-- Details below: What it is / when to use it, Anatomy, Flows and states, Rules, Don'ts, Consolidated / unsure, Review
-
 ## What it is / when to use it
 These are three right-hand panels that all show the system's verdict on a framework. (Figma, 30:75462)
 - **System Confidence** is for the framework's **author** on Review. It shows approval readiness by gate, plus the open questions and warnings to work through.

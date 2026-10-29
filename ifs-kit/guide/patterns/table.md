@@ -2,22 +2,6 @@
 
 Source: IFS Design System Patterns › page **Table** (92:16787), section Table (95:106476). Kit family: `patterns-table` (`src/components/patterns-table.jsx`).
 
-## In short
-- Use `DataTable` for any list of records; bare `Table` only for static tables. Don't rebuild rows from legacy `tableCell` / `tableHeader`.
-- Never paginate or hide rows: a sole/last table loads on scroll (`progressive`); with other blocks, each table is a 600px card with Show more/less (`fixedHeight`).
-- Row filter with counts: `SegmentedControl` S inside the card when the page already has tabs; on library pages `Tabs` in `PageTop` (`pageTop`).
-- Toolbar right: `SmartSearch` (never `Search` for questions), divider, `system-filter-settings` IconButton → Columns drawer (hide/reorder apply at once).
-- Sort only date/number columns; empties sort last. Standard: Last modified newest first, ↓↔↑, no off, no pin/rank. Ranked: manual order, ↓→↑→off.
-- Ranked tables only: hover shows pin + drag handle; pinned rows on top, no limit; drag across zones pins/unpins; drop line; no drag while sorted/searched/filtered.
-- Column filter: chips (only values in the table, ~6–8) or From/To range (numbers, dates) — never both. Show `FILTER n`, Clear all, funnel dot; filters AND.
-- Clear filters resets column filters only, not search or tab. No-match filters keep the header and show `EmptyState` + Clear filters.
-- Search: suggested questions on focus, "Searching..." row; no match hides header, shows suggestion chips, zero tabs disabled. Prompts must match the query.
-- Row: hover highlight, click opens record, double-click name to rename (must be unique, else error); confirm with toast + Undo (5s, pauses on hover).
-- ⋮ `ActionMenu`: omit actions that never apply, disable unavailable ones with a tooltip, destructive last after a divider.
-- Eye button → `RecordPreview` sidebar (ID, Details, ✕); table stays interactive, a new preview replaces the old one.
-- Collaboration badge opens the record at the request; its tooltip is read-only. Names: full name tooltip; INV code never truncated. Loading: `Skeleton` rows.
-- Details below: What it is / when to use it, Anatomy, Flows and states, Rules, Don'ts, Consolidated / unsure
-
 ## What it is / when to use it
 How data tables behave in the product: filtering, search, sorting, pinning and manual ranking, row actions, inline rename, column configuration, display on single- and multi-table pages, and the empty, searching and loading states. Use `IFS.DataTable` for any list of records (libraries such as the Idea Pad, Strategy Framework, Value Framework and Value Models libraries, and relationship tables on detail pages). Use bare `IFS.Table` only for a static table with no behaviour.
 

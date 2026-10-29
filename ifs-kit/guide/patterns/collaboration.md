@@ -2,20 +2,6 @@
 
 Figma: IFS Design System Patterns › page "Collaboration" (0:1), section Collaboration (12:8435). Sub-sections: States (12:9422), Invite by name or role (12:10433), Invite suggested (12:12285), Push awaiting user (12:12868), Collaborator / Edit brief (12:8849), Change role (12:8436), Remove (12:11812).
 
-## In short
-- Drop `CollaboratorsMenu` (wired by `useCollaboration`) into `PageHeader` actions next to `CommentButton`. Entry is always this indicator; not a page or drawer.
-- `CollaboratorsButton` shows "joined / invited", both including the owner (1/1 with nobody invited). Never count approvers or reviewers.
-- `CollaboratorsPanel` is a `Popover` (360 wide) with sections IN PROJECT (owner "(you)" first), AWAITING, SUGGESTED BY COOPER; hide empty sections.
-- The panel is never empty (the owner is always there). Close with ✕, Esc or outside click.
-- One owner per record, no ownership transfer; roles are only Editor and Viewer (`RoleSelect`, which also holds Remove).
-- Search lists only people not on the record; no match → `EmptyState` with suggestion `Chip`s. `RoleFilter` narrows by job role; clearing all → All.
-- Invite: hover → "+" → `InviteCollaboratorModal` (Editor default, editable Cooper brief) → person under AWAITING, second count goes up.
-- Edit brief: click a collaborator → same dialog; Save disabled until access or brief changes.
-- Remove always asks for confirmation (`RemoveCollaboratorModal`), then the count drops.
-- Reminder bell on awaiting rows only ≥24h after the last notification (invite counts); click → toast + disabled "Notified". No new invite or count change.
-- Toast: neutral, ~4s, pauses on hover/focus, ✕. Online people get a green dot; `LiveCursors` show only others, in their collaboration colour (never data-viz).
-- Details below: What it is / when to use it, Anatomy (kit components), Flows and states, Rules, Don'ts, Consolidated / unsure
-
 ## What it is / when to use it
 The owner of a framework (or any record with an owner) invites people to work on it, sets each person's access (Editor or Viewer), edits the Cooper brief they receive, reminds people who haven't accepted, and removes people. Use it wherever a record has a single owner and invited collaborators. The entry point is always the collaborators indicator in the page header. It is not a page or a drawer.
 

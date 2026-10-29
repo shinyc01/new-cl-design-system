@@ -2105,7 +2105,7 @@ Props:
     filter: 'chips' | 'presets' (date presets + custom period) | 'chips+period' | 'range' | 'search-chips' | false (default: chips for text, range for number, presets for date)
     filterValue(row) → value or array of values for chips; value(row) → number/Date for range/date/sort (default row[key]).
     filterOptions [{ value, label }] (default: values present in the rows — only values that exist are shown), maxChips (default 8).
-    name: true marks the name column (pin, drag, folder icon, truncation, rename, preview). truncate end|middle|start|wrap|segment; code(row) adds a secondary line under the name (e.g. the INV code).
+    name: true marks the name column (pin, drag, folder icon, truncation, rename, preview). truncate end|middle|start|wrap|segment.
   rows / defaultRows / onRowsChange (pins, rank and renames write back), rowKey ('id').
   variant standard|ranked — standard: default order = defaultSort, sort cycles ↓/↑ with no "off"; ranked: manual order + pins,
     sort is a temporary override ↓ → ↑ → off, rows drag to re-rank, pinned rows stay on top.
